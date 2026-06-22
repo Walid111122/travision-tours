@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Marcellus", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Custom Colors: Egypt Heritage Palette */
+  --color-egypt-gold: #CFAE7D;
+  --color-egypt-lapis: #1B2B41;
+  --color-egypt-red: #7C352A;
+  --color-egypt-sand: #D9C5B2;
+  --color-egypt-night: #0A0A0B;
+  --color-egypt-basalt: #1A1A1C;
+  --color-egypt-papyrus: #F5F2ED;
+
+  --color-primary: var(--color-egypt-gold);
+  --color-secondary: var(--color-egypt-lapis);
+  --color-accent: var(--color-egypt-red);
+}
+
+@layer base {
+  body {
+    @apply bg-egypt-night text-egypt-papyrus font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-egypt-night;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-egypt-gold/30 rounded-full hover:bg-egypt-gold/50 transition-colors;
+}
+
+/* Glass Effect */
+.glass {
+  @apply bg-egypt-basalt/60 backdrop-blur-md border border-white/10;
+}
+
+/* Hover effects */
+.hover-gold {
+  @apply hover:text-egypt-gold transition-colors duration-300;
+}
+
+/* Typography styles */
+.text-label {
+  @apply text-[10px] uppercase tracking-[0.2em] font-medium text-egypt-gold/70;
+}
+

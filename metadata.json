@@ -1,0 +1,8 @@
+{
+  "name": "travision tours",
+  "description": "A premium, history-focused tourism platform for immersive Egyptian tours, featuring interactive itineraries, virtual experiences, and a cultural legacy focus.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
