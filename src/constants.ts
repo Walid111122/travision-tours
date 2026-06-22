@@ -1,12021 +1,1351 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Tour, BlogPost } from './types';
 
 export const SAMPLE_TOURS: Tour[] = [
   {
-    id: '6-days-cairo-luxor-aswan',
-    title: '6 Days Cairo, Luxor, Aswan & Abu Simbel',
-    description: 'A comprehensive 6-day package exploring Upper and Lower Egypt. From the Great Pyramids to the colossal temples of Ramses II at Abu Simbel, witness the pinnacle of Pharaonic civilization.',
-    price: 850,
-    duration: '6 Days',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 185,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt Land of Pharaohs",
-            "description": "As soon as you arrive at Cairo Airport, our \"Travision Tours\" representative will be waiting for you at your gate where he will help you complete all of your passport control formalities and luggage identification and carry. You will then be transferred by a private air-conditioned car to your 5* hotel reservation for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour by a Dinner cruise on the blessed Nile as you will get to chill and observe a colorful belly dancing show with a folklore band featuring the amazing Tannoura spin in keeping with Egypt's whirling dervishes' tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "End the first day of your Cairo, Luxor, Aswan & Abu Simbel tour by returning to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Giza Pyramids & The Egyptian Museum",
-            "description": "You will begin your second day by enjoying your breakfast, and check-out from the hotel then join your private tour guide to discover the wonders of Ancient Egypt starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Giza Pyramids Complex will be in your presence, the complex has existed for 4000 years which makes it one of the oldest structures on the face of the planet. The Giza complex consists of three main pyramids, six little pyramids, the great sphinx, and the place of immortal preservation of the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu lies among the skies of paradise, it is known for being the last intact structure of the Seven Wonders of the Ancient World. It is older than 4500 years old which makes it the world's oldest mystery because of the fringe theories attached to its origin, and its complex interior compared to its magnitude. It was constructed in 2580 BC for 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons and a workforce of 100,000 free skilled workers resulting in making the height of the pyramid 147 m (481 ft) which made it the tallest building in the world for 3800 years until the construction of the Lincoln Cathedral in England in 1311.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is one of the most mysterious objects in existence, it has the shape of a mythical creature called the sphinx that has the body of a lion and the head of a man who is believed to be king Khafre to represent power and wisdom. It is known as Abu Al-Hawl which is Arabic for The Father of terror. The sphinx is at the height of 73 m (240 ft) and 19 m (66 ft) and was carved out of single limestone rock.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley temple is home to the Mummification process, it was constructed within Egypt's Old Kingdom (2686 2134 BC) within the complex. It's one of the best-preserved archeological sites of the ancient Egyptian civilization and the source of great information about the mummification of Ancient Egypt. The valley is made of limestone, and granite and holds unique diorite statues of King Khafre.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then we will move to continue your Cairo, Luxor, Aswan & Abu Simbel holiday by visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum contains the largest collection of ancient Egyptian artifacts and monuments in the world dating back to more than 4000 years across. Inside the two-level building are a collection of rare & priceless archeological wonders that stood the test of time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, you will drive to Cairo Airport then catch your flight to Luxor then check-in 5* hotel for spending the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Luxor East & West Attractions",
-            "description": "On day three, you will enjoy your breakfast at the hotel, then accompany your Egyptologist tour guide to explore all the famous Luxor tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Tutankhamun-Tomb-in-Valley-of-the-Kings-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The valley of the kings is like a time capsule located in the heart of the holy mountain which has acted as the final resting place of the greatest kings and queens of Egypt's new kingdom (1570-1070 BC). It holds 63 tombs filled with various enchanting treasures, artifacts, statues, hypnotically beautiful decorations, and the remains of pharaohs like Rameses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Hatshepsut, and the famous King Tutankhamun which all resulted in the valley becoming a World Heritage Site by the UNESCO in 1979.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Queen Hatshepsut Temple",
-                        "description": "The Hatshepsut Temple is renowned for being the beauty of Luxor, it gained the name Djoser-Djeseru (Holy of Holies) and showcases the might & will of one of the most successful rulers in the history of ancient Egypt Queen Hatshepsut. The temple was designed in 1479 BC and took 15 years to construct. The design of the temple is based on the concept of Classical Architecture of the new kingdom and within the temple lies some of the most impressive statues, decorations, and artifacts in all of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon is different than most of the monuments in Upper Egypt, it has been known as the colossal guardians of Luxor. They are basically two massive blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each and have the shape of Pharaoh Amenhotep III(1386-1350). The colossi were damaged due to a large earthquake in 27 BC but were rebuilt again in 199 AD. The statues gained quite a fame during the Greco-Roman period due to The Vocal Memnon which resulted from the statues singing from time to time which were nothing more than the sound of the wind passing through the statue at dawn.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then move to have your lunch on an island, so your tour includes a boat trip in the Nile River followed by a tour to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Karnak temple is one of the holiest places on the face of the planet, it was known as Ipet-isu The Most Selected Of Places, and Pr-Imn House Of Amon, it dates to more than 4000 years and is the largest religious man-made construction in the world & also the biggest open-air museums on earth. It was the heart of the religious worship of the entire ancient Egyptian kingdom for more than 1500 years to various deities but was dedicated primarily to the Theban triad that consisted of God Amun with his wife the Goddess of Justice Mut and his son the moon god Khnsou, plus other gods like the great Osiris, Montu, Ptah and Isis.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will spend your overnight at your hotel in Luxor.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Transfer to Aswan by Train - Tour to Aswan Landmarks",
-            "description": "In the morning time, you will have your breakfast and check out from the hotel in Luxor to continue Cairo, Luxor, Aswan & Abu Simbel tour by boarding a 1*class train to Aswan, the moment you arrive you will join your private Egyptologist tour guide to enjoy a tour around all Aswan tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "The High Dam represents the modern might of the city of Aswan, the dam was constructed between 1960 & 1970 during the reign of president Gamal Adel-Nasser. The dam was designed as a cooperation project with the Moscow-based Hydro project Institute to have better control over Nile flooding, generate Hydroelectricity, and provide increased water storage for irrigation in its reservoir lake Nasser.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The Unfinished Obelisk is a tale that was sadly left unfinished, it was ordered by Queen Hatshepsut (1508-1458 BC) to stand at the entrance of the Karnak temple. It was known as \"Tekhenu\" which means to pierce the sky\" and shows how obelisks were created from scratch and the method of construction of Ancient Egypt, it reached the height of 42 m and weighed 1200 tons. Unfortunately, the obelisk was cracked during construction and remained at the same location even today.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will enjoy your lunch in a local restaurant in Aswan to get ready to complete your day by visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "Philea Temple is truly the essence of myth, allure, and charm in the city of Aswan, it is famous for spreading the\" Myth of Osiris\" which entails the husband of Isis \"Osiris\" Is killed by His brother Set out of pure hatred & envy then Osiris is resurrected to be the ruler of the underworld afterward Set is defeated by Isis and Osiris Son Hours the sky God ending an age of tyranny & injustice. The temple was relocated in the 60s to the island of Agilkia as a part of a rescue mission led by UNESCO after the construction of the Aswan High Dam.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will then check in at Aswan 5* hotel to spend your overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Tour to the Two Temples of Abu Simbel + Fly Back to Cairo",
-            "description": "Morning time, check out from the hotel before you will be transferred with your breakfast boxes to Abu Simbel by a private air-conditioned car joined by your private tour guide.",
-            "image": "https://www.egypttoursportal.com/images/2018/06/Abu-Simbel-Two-Days-Luxor-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The two great Abu Simbel Temples have been the final frontier & the guardian of the southern border since its creation by King Ramses II (1279-1213 BCE) during the new kingdom to immortalize his legacy till the end of times. Everything about this temple reflects the ultimate concept of greatness & glory. The temple was called the \"Temple of Ramesses, beloved by Amun\". Abu Simbel consists of two temples, the bigger one is for Ramses where the sun festival takes place on the 22 of February & October of each year when the sun shines on the faces of the four seated statues of Ramses II, Ptah (God of creation), Amun (The Creator God), and Ra (Sun God), the smaller temple is dedicated to his wife Queen Nefertari. The temple was part of a rescue mission led by UNESCO in the mid-60s in what is referred to as the most challenging archeological rescue operation in history.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Finally, return to Aswan city by A/C vehicle to have your lunch at a local restaurant.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Catch your flight back to Cairo and transfer to your hotel for spending overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six : End of Cairo, Luxor, Aswan & Abu Simbel Package",
-            "description": "On your final day, you have your breakfast then our representative of \"Travision Tours\" will transfer you to the airport so you can return home safely with the finest memories.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '7-days-cairo-alexandria-luxor',
-    title: '7 Days Cairo, Alexandria, & Luxor',
-    description: 'Blend the Greco-Roman heritage of Alexandria with the Pharaonic monuments of Cairo and Luxor in a 7-day deep dive into layered Egyptian history.',
-    price: 990,
-    duration: '7 Days',
-    location: 'Cairo, Alex, Luxor',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 140,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival in Cairo',
-      description: 'Meet and assist at airport.',
-      activities: [
-        {
-          title: 'Arrival in Cairo Highlights',
-          description: 'Meet and assist at airport.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Giza Plateau',
-      description: 'Visit Pyramids and the Sphinx.',
-      activities: [
-        {
-          title: 'Giza Plateau Highlights',
-          description: 'Visit Pyramids and the Sphinx.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Alexandria Day Excursion',
-      description: 'Qaitbay Citadel, Catacombs, & Alexandria Library.',
-      activities: [
-        {
-          title: 'Alexandria Day Excursion Highlights',
-          description: 'Qaitbay Citadel, Catacombs, & Alexandria Library.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Cairo City Tour',
-      description: 'Egyptian Museum and Islamic Cairo.',
-      activities: [
-        {
-          title: 'Cairo City Tour Highlights',
-          description: 'Egyptian Museum and Islamic Cairo.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Fly to Luxor - East Bank',
-      description: 'Karnak Temple and Luxor Temple.',
-      activities: [
-        {
-          title: 'Fly to Luxor - East Bank Highlights',
-          description: 'Karnak Temple and Luxor Temple.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: Luxor West Bank',
-      description: 'Valley of the Kings & Hatshepsut Temple.',
-      activities: [
-        {
-          title: 'Luxor West Bank Highlights',
-          description: 'Valley of the Kings & Hatshepsut Temple.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 7,
-      title: 'Day Seven: Departure',
-      description: 'Fly back to Cairo and depart.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'Fly back to Cairo and depart.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '8-days-cairo-nile-cruise',
-    title: '8 Days Cairo and Nile Cruise Tour',
-    description: 'A classic 8-day itinerary combining the bustling history of Cairo with a serene and luxurious cruise down the Nile river, stopping at the most sacred temples.',
-    price: 1100,
-    duration: '8 Days',
-    location: 'Cairo, Nile River, Luxor, Aswan',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 5.0,
-    reviewsCount: 412,
-    featured: true,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt Land of Pharaohs + Dinner Cruise",
-            "description": "Upon your arrival at Cairo International Airport, one of our representatives will meet and assist you all through the formal procedures at Cairo International Airport to have a quick approval on your entry after finishing, you will meet your tour guide who will be waiting for you outside the airport, and he will transfer you in your private A.C vehicle to your hotel in Cairo to have a smooth check-in and relax.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Arrival-to-Egypt-AirPort-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will be transferred from your hotel to have a Special Dinner Cruise on board a totally magnificent Cruise on the Nile River. You will attend some of the best dervish shows while having your dinner in an open buffet.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After finishing, we will transfer you back to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Pyramids & the Egyptian Museum",
-            "description": "In the morning, you will enjoy a delicious breakfast meal and then your private tour guide will escort you to have your lifetime adventure while touring the location which includes what is considered one of the Seven Wonders of the World:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egyptian-Giza-Pyramids-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "Giza Pyramids complex will be your first place to discover during your tour, it has stood there for the last 4000 years which makes it one of the oldest attractions in the world. The complex includes three main pyramids, six little pyramids, the great sphinx, and the house of immortality the Valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "There is no better chance to head to one of the Seven Wonders of the World. The Great Pyramid of Khufu is the largest and most impressive Pyramid among the whole other Pyramids in Giza Complex. It was built by King Khufu who decided to continue the building projects of his father Sneferu which made him built a truly incomparable attraction.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Sphinx of Chephren",
-                        "description": "Giza Sphinx is another impressive construction that was built during the reign of King Khafre The Son of Khufu and that is why its face takes the features of the king himself. Moreover, it has a body of a lion to give the impression of being the strong guard of the Giza Pyramids.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "You must have heard many stories about the Mummification & purification of the mummies that belonged to the ancient Egyptians of the ancient dynasties and the Valley Temple was the site that witnessed those wonderful processes so don t waste the chance of visiting it and enjoy hearing some stories from your tour guide about how the ancient Egyptians managed to create such an unbelievable accurate system with certain beliefs.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a golden portal leading to cosmic ancient Egyptian creations of celestial intelligence that were cultivated across 5000 years of continuous innovation and vivid artistic imagination. It is aligned with the stellar pyramids of Giza, and spans nearly 490,000 square meters. It bridges ancient Egypt and modern innovation through advanced architecture, artistic sense, and immersive storytelling. Within this colossal wonder is the once-in-a-lifetime chance to discover some of the greatest archaeological monuments and artifacts ever made, such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then, we will transfer you to have your tasty lunch in a terrific Pyramid / Nile view restaurant and then you will join your private Egyptologist guide on a tour to discover the secrets & mysteries inside the impressive:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "This is one of the most favorable tourist destinations in Egypt as it contains some of the largest ancient Egyptian collections, including some rare treasures that used to be buried with the dead, and among the most famous treasures that have been found, so enjoy your time at the fullest while being in such a terrific location.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After finishing your tour, we will transfer you back to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Fly to Luxor - Visit Luxor East Bank Attractions - Check-in the Cruise",
-            "description": "Enjoy your breakfast at your 5* Hotel in Cairo, and then we will transfer you to Cairo International Airport to catch your flight to Luxor. Upon your arrival, you will join your tour guide to start another breathtaking tour to visit some of the tiptop attractions in the East Bank of Luxor including:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Luxor-Temple-at-Night-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "This is a cult temple that was once dedicated to three major deities (Amun, his wife Mut, and their son Khunso). Karnak Temple Complex is the largest religious building to be ever built by a man and its three temples inside cover more than 200 acres which makes it a truly impressive construction.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Luxor Temple by Night",
-                        "description": "Among the most terrific sightseeing that shouldn't miss while being in Luxor is Luxor Temple and it is widely accepted that the best time to visit it is at night especially touring around the row of sphinxes in front of it which makes you feel like being in a movie full of adventures.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Luxor West Bank Attractions",
-            "description": "In the morning, you will enjoy having your breakfast on the board of your Nile Cruise and then you will join your tour guide to visit some of the best attractions in the West Bank of Luxor including:",
-            "image": "https://www.egypttoursportal.com/images/2020/02/Hatshepsut-Temple-Makadi-Bay-Excursion-to-Luxor-Abu-Simbel-in-Two-Days-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Fascinating Valley of the Kings",
-                        "description": "Among the tiptop attractions in the West Bank of Luxor is the hypnotic Valley of the Kings which includes the majestic tombs of some well-known Ancient Egyptian Pharaohs like Tutankhamun, Ramses VI, Ramses II, Seti I, and a lot of other tombs that will let you get an overall point about how the ancient Egyptians used to live and your tour guide will explain everything for you in details.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "You will also head to one of the most impressive achievements of Queen Hatshepsut who ruled Egypt during the 18th dynasty, and she tried to construct a mortuary temple for her that can t be forgotten and this is actually what we got, a true masterpiece.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "These are 2 statues that were built by King Amenhotep III who started a very remarkable building project in Egypt, and he built a huge temple for him with these two statues standing in front of the temple for some guarding reasons but the whole mortuary temple was destroyed because of some natural disasters and the only remaining are these to colossi that are called Memnon.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Tour to Edfu & Kom Ombo Temples",
-            "description": "In the early morning, you will join your tour guide in a horse carriage to be transferred to:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Edfu-Temple-in-Aswan-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Edfu temple",
-                        "description": "It's one of the most interesting temples that are located on the West Bank of the Nile. Edfu temple was built between 237 & 57 BC during the Ptolemaic Kingdom and the inscriptions on its walls provide some of the most useful information about language, myth, and religion during the Hellenistic era in Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Kom Ombo Temple",
-                        "description": "Kom Ombo is a unique double temple that was also built during the Ptolemaic dynasty and it also has some additions that were added during the Roman period. The two temples were dedicated to the crocodile god Sobek and Horus the Elder.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Tour to Aswan Tourist Attractions",
-            "description": "Enjoy your breakfast and head to the Nubian City Aswan is an adorable city for the majority of tourists among the highlights which you will visit there with us, there are:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "Aswan High Dam is a modern achievement by the Egyptians that was constructed with the financial support of UNESCO to protect the ancient Egyptian monuments from the danger of the flood of the Nile and it also has a huge effect nowadays as it is the main source of power and it improves the state of life in Egypt a lot.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "It is the largest obelisk to be ever built by a man and it was actually built by Queen Hatshepsut as a complementary to the Lantern Obelisk. She intended to send it to Karnak to be placed in front of the gates of the Karnak Temple but its top gets cracked, and she decided to leave it in its current place in Aswan.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "It is a truly picturesque temple in Aswan that sits on Aglika Island that was moved to its current location after the construction of the High Dam. The most interesting thing about the Philae Temple is that it rose to prominence during the Ptolemaic Dynasty as the center of the cult of the goddess Isis.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 7,
-            "title": "Day Seven: Tour to the Great Abu Simbel Temple",
-            "description": "In the morning, you will check out your Nile Cruise and then you will join your private tour guide in a majestic tour to Abu Simbel. Upon your arrival, you will discover the magical:",
-            "image": "https://www.egypttoursportal.com/images/2018/06/Abu-Simbel-Two-Days-Luxor-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "Now, it is your chance to visit the best, the largest, the most impressive temples of Ancient Egypt. You will find two majestic temples there, one of them was dedicated to King Ramses II and he decided to make it a masterpiece, so he attaches it to his birthday & his coronation days in what we call today's Sun Festival. He also wanted to show his deep affection to his wife Nefertari so he built a smaller temple for her that was dedicated to his wife.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "When visiting Abu Simbel temple, you will have a delicious lunch at a restaurant in Aswan.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "We will transfer you to Aswan International Airport to catch your flight back to Cairo and upon your arrival, we will transfer you to your hotel in Cairo overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 8,
-            "title": "Day Eight: End Your Cairo and Nile Cruise Package",
-            "description": "Breakfast at the hotel then checks out before we will transfer you to Cairo International Airport by air-conditioned car to fly back home and end your Egypt tour.",
-            "image": "https://www.egypttoursportal.com/images/2018/04/Final-Day-8-Days-Hurghada-and-Nile-Cruise-Vacation-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '10-days-spiritual-egypt',
-    title: '10 Days Deep Cultural Immersion',
-    description: 'Connect with the spiritual soul of ancient Egypt. This itinerary goes off the beaten path to explore the esoteric temples of Abydos and Dendera, alongside the classics.',
-    price: 1350,
-    duration: '10 Days',
-    location: 'Cairo, Luxor, Abydos, Dendera, Aswan',
-    category: 'spiritual',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 88,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival to Cairo',
-      description: 'Welcome and transfer.',
-      activities: [
-        {
-          title: 'Arrival to Cairo Highlights',
-          description: 'Welcome and transfer.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Pyramids, Memphis, Saqqara',
-      description: 'The evolution of pyramid building.',
-      activities: [
-        {
-          title: 'Pyramids, Memphis, Saqqara Highlights',
-          description: 'The evolution of pyramid building.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Fly to Luxor',
-      description: 'Settle in and visit Luxor Temple at night.',
-      activities: [
-        {
-          title: 'Fly to Luxor Highlights',
-          description: 'Settle in and visit Luxor Temple at night.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Abydos Temple',
-      description: 'Day trip to Abydos, the cult center of Osiris.',
-      activities: [
-        {
-          title: 'Abydos Temple Highlights',
-          description: 'Day trip to Abydos, the cult center of Osiris.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Dendera Temple',
-      description: 'Visit Dendera with its exquisite astronomical ceiling.',
-      activities: [
-        {
-          title: 'Dendera Temple Highlights',
-          description: 'Visit Dendera with its exquisite astronomical ceiling.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: Valley of the Kings',
-      description: 'West Bank of Luxor.',
-      activities: [
-        {
-          title: 'Valley of the Kings Highlights',
-          description: 'West Bank of Luxor.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 7,
-      title: 'Day Seven: Karnak Temple. Transfer Aswan',
-      description: 'Explore Karnak, then drive to Aswan.',
-      activities: [
-        {
-          title: 'Karnak Temple. Transfer Aswan Highlights',
-          description: 'Explore Karnak, then drive to Aswan.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 8,
-      title: 'Day Eight: Aswan Sightseeing',
-      description: 'Philae Temple & High Dam.',
-      activities: [
-        {
-          title: 'Aswan Sightseeing Highlights',
-          description: 'Philae Temple & High Dam.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 9,
-      title: 'Day Nine: Return to Cairo',
-      description: 'Fly to Cairo. Coptic and Islamic Cairo tour.',
-      activities: [
-        {
-          title: 'Return to Cairo Highlights',
-          description: 'Fly to Cairo. Coptic and Islamic Cairo tour.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 10,
-      title: 'Day Ten: Departure',
-      description: 'End of spiritual journey.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of spiritual journey.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '12-days-hurghada-cairo-nile',
-    title: '12 Days Hurghada, Cairo & Nile Cruise',
-    description: 'The ultimate holiday package merging cultural immersion in Cairo and the Nile Valley with pure relaxation on the pristine beaches of Hurghada.',
-    price: 1550,
-    duration: '12 Days',
-    location: 'Hurghada, Cairo, Luxor, Aswan',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 156,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt + Dinner Cruise",
-            "description": "Upon arrival at Cairo Airport, our representative will assist you through passport control formalities, luggage identification & portage. From the airport, you will be transferred by a private A/C car to your hotel for check-in.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Arrival-to-Egypt-AirPort-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "Evening time, we will pick you up from your hotel to enjoy a Dinner Cruise, sit back and relax while enjoying a colorful belly dancing show with a folklore band, featuring the unforgettable Tannoura spin, in keeping with Egypt's whirling dervishes' tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will be transferred back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to The Pyramids, Saqqara, and Gem",
-            "description": "After breakfast, you will join your private Egyptologist tour guide to start the exploration of your 12 Days Egypt tours at one of the 7 Wonders of the World:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The blessed Giza Pyramids complex is an illuminating open-air museum that stood the test of time it was built in 2600 BC by the members of the 4th dynasty.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The eternal Great Pyramid of King Khufu is a colossal wonder that was built in 2750 BC by King Kufu which was designed by his main architect “Hemiunu” which remains the only standing wonder of the ancient world seven wonders. The great pyramid of Giza holds from within the Queen’s chamber, the King’s chamber, the grand hall, the big void, and various more.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Horus of the Horizon “Sphinx ” is a royal guardian from the heavens that is famous for being a man-made statue on earth made for King Chephren (2558 BC - 2532 BC) which was carved from a single limestone block in the shape of magical creation plus in 1401 BC Thutmose IV’s dream Steele was added.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley TempleThe Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a magnificant building that is loaded with precious archaeological marvels, aligned with the golden pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your Lunch at a Pyramids / Nile view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "The earliest large-scale cut stone monument ever built in the history of Pharaoh Djoser (2649 BC - 2611 BC) and designed by his brilliant architect vizier Imhotep to be 62 m tall and possess six-step with its own complex that launched the golden age of Saqqara step pyramid constructions.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, we drive you back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Fly to Aswan - Visit Aswan Attractions",
-            "description": "Morning time, enjoy your breakfast, then check out from your hotel and we will transfer you to Cairo airport to catch your flight to Aswan- Upon arrival, you will meet your tour guide to continue your 12 days Egypt tour in Aswan by visiting the beautiful Aswan tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Temple-of-Philae-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "The blissful Aswan High Dam is a giant advanced construction that was built between 1960 and 1970 AD and had a positive impact on the economy and innovation of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The open-air museum Unfinished Obelisk was constructed by Queen Hatshepsut (1508-1458 BC) to stand at Karnak temple but unfortunately was cracked during construction and it is able to showcase the incredible construction methods of the ancient Egyptian craftsmen.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "The mythical Philae temple is a golden piece of art and history showcasing the illuminating tale of “Myth of Osiris”. It is highly preserved as it was built in 280 BC by king Ptolemy II but was relocated to Agilkia Island as part of the UNESCO Nubia Campaign project between the 60s and 70s.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Abu Simbel Day Tour",
-            "description": "Early morning, have your breakfast boxes then join your private tour guide to visit one of the most historical places in the world:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Abu-Simbel-Temples-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The celestial Abu Simbel temple is a glorious symbol of divinity and grace that achieved immortality which was constructed by Ozymandias Pharaoh Ramses II in 1200 B.C to honor the gods of ancient Egypt Amun, Ptah, and Re-Harakty and immortalize his victory in Kadesh and achievements. The great temple of King Ramses II is home to the great sun festival that happens on annually the 22nd of February and October and the second temple is dedicated to his beloved wife Queen Nefertari.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Discover Edfu & Kom Ombo Temples",
-            "description": "Breakfast then begin a guided trip to visit:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Edfu-The-Temple-of-Horus-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Kom Ombo Temple",
-                        "description": "The very unique double temples of Kom Ombo Temple were built between 180 BC and 47 BC and are dedicated to Haroeris “Horus the Elder” and Sobek the crocodile god of the Nile. The hill of gold is able to explain facts about the medical, artistic, and astronomical fields of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Edfu temple",
-                        "description": "The gigantic Edfu temple is dedicated to the sky falcon god Horus which showcases a number of amazing tales and art that came to be between 237 BC and 57 BC. The Great Temple was constructed on the same glorious land that witnessed the battle between Horus and Set.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Onboard the Cruise"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Explore Luxor East Bank Attractions / Head to Hurghada",
-            "description": "Disembarkation at 8:00 a.m after breakfast and check-out from the Nile cruise. Then join your private tour guide to continue your journey by visiting Luxor tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Karnak-Temple-in-Luxor-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The eternal Karnak Temple complex is the largest and most ancient religious capital in the world that it’s construction process started from the middle kingdom to the Greco-Roman period between 2000 BC and 30 BC on 247 acres of sacred land dedicated mainly to the Theban triad that consisted of Amun, Mut, and Khonsu. The golden complex is an everlasting work of ancient artistic architecture showcased across the heavenly Avenue of Sphinxes that leads to the beautiful Luxor Temple, the Precinct of Amun-Re, the great hypostyle hall, and various more.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The Valley of the Kings is an underground labyrinth of tombs found in the belly of a divine hill filled with 63 royal tombs to kings and queens of the new kingdom (1570 – 1050 BC) across 500 years of the rule which include Ramses the great, Hatshepsut, Seti I, Tutankhamen, and various more. All of the tombs acted as a history book showcasing a great deal of information about the history and art of the ancient Egyptian royalty.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The divine holy of the holies of Queen Hatshepsut (1507–1458 BC) is the most perfect example of the classical architecture of the new Kingdom which was built in 1479 BC to honor the creator sun god Amun and immortalize her achievements and identity forever.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon is a rare monument that endured a lot across time built in the image of Pharaoh Amenhotep III (1386 - 1349 BC) in 1350 BC to stand as a forgotten ruined massive piece of art. It exhibits a number of artistic decorations on its sides reflecting his family, heritage, and the Nile god Hapi.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day Seven: Hurghada Snorkeling Excursion",
-            "description": "Take advantage of the marvelous warm weather in Hurghada with a snorkeling excursion on the Red Sea, admiring the dazzling colors, odd shapes, and psychedelic patterns as you observe the fish, coral, and plants.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Snorkeling-Tours-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 8,
-            "title": "Day Eight: Safari Trip in Hurghada",
-            "description": "Enjoy an epic adventure during a guided safari tour in Hurghada. Cross the mighty sand dunes by quad bike, explore the mysteries of a traditional Bedouin village and know about their life and traditions, ride a camel and witness the amazing sunset view with barbeque dinner, mineral water, and soft drinks then enjoy watching stars by night while driving back from Bedouin village to your hotel in Hurghada.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Safari-Trip-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 9,
-            "title": "Day Nine: Free Day in Hurghada",
-            "description": "Free day to explore Hurghada on your own. Overnight in Hurghada.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Hurghada-Adventure-Free-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 10,
-            "title": "Day Ten: Free Day in Hurghada",
-            "description": "Embarking on a free day tour in Hurghada promises a delightful blend of relaxation and exploration.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Activities-in-Hurghada-Free-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 11,
-            "title": "Day Eleven: Fly to Cairo Sightseeing Tour",
-            "description": "Enjoy your breakfast and afternoon, check-out from your hotel then you will be transferred to Hurghada airport for flight to Cairo. You will join your private tour guide to visit some tiptop Cairo tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Khan-El-Khalili-Bazaar-in-Old-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The majestic Egyptian Museum is a divine construction built in 1901 and filled with golden monuments and artifacts that date to more than 4500 years.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a local restaurant in Cairo then proceed to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Salah El Din Citadel",
-                        "description": "The dominant Salah El Din Citadel is an angelic symbol of bliss, royal power, and allure that is found on the greatest point in Cairo constructed between 1176 to 1182 AD by the honorable ruler Salah ad-Din which served as Egypt's seat of government till the 1860s. The golden fortress holds a number of great castles, museums, and art displays that showcases the shining legacy of Cairo.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Mohamed Ali Mosque",
-                        "description": "Mohamed Ali Mosque \"The Alabaster Mosque\" came into existence between 1830 and 1848 AD its walls were made out of pure alabaster taken directly from the Giza Pyramids and found inside the citadel as a magical example of Ottoman architecture as it was a replica of the Turkish Blue Mosque in Istanbul.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "The National Museum of Egyptian Civilization (NMEC) is an extremely advanced museum that exhibits the finest most advanced forms of museology. It holds 50,000 pieces of artifacts and within the mythical hall of mummies are 28 royal kings and queens.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz street is an astral attraction reflecting the historical legacy of the golden Islamic age dating to the 10th century AD in the Fatimid dynasty. It is located next to the magical khan El Khalili bazaar which reflects the most incredible examples of history and culture of the golden Islamic age.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "The enriching Khan El-Khalili bazaar is a commercial center filled with the blessed riches from the golden Islamic heritage of Egypt that came between 1382 and 1389 AD. Everyone will get to live the most mesmerizing shopping experience through all the miraculous shops on the streets of Cairo.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you back to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 12,
-            "title": "Day Twelve: End of Your 12 Days Egypt Tours",
-            "description": "Breakfast at the hotel then you will transfer to the airport for the flight home and end your 12 days Egypt tour.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '15-days-marvelous-egypt',
-    title: '15 Days Marvelous Tour Package in Egypt',
-    description: 'An all-encompassing, 15-day expansive journey taking you through the hidden gems, major highlights, and spiritual centers of Egypt across land and river.',
-    price: 2100,
-    duration: '15 Days',
-    location: 'All Egypt',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 89,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Welcome to Egypt',
-      description: 'Arrival in Cairo.',
-      activities: [
-        {
-          title: 'Welcome to Egypt Highlights',
-          description: 'Arrival in Cairo.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: The Pyramids',
-      description: 'Giza and Sphinx.',
-      activities: [
-        {
-          title: 'The Pyramids Highlights',
-          description: 'Giza and Sphinx.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Alexandria Excursion',
-      description: 'Day trip to the Mediterranean city of Alexandria.',
-      activities: [
-        {
-          title: 'Alexandria Excursion Highlights',
-          description: 'Day trip to the Mediterranean city of Alexandria.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Cairo City Sightseeing',
-      description: 'Museum, Citadel, Khan EL Khalili.',
-      activities: [
-        {
-          title: 'Cairo City Sightseeing Highlights',
-          description: 'Museum, Citadel, Khan EL Khalili.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: White Desert Safari',
-      description: 'Drive to Bahariya Oasis and camp in White Desert.',
-      activities: [
-        {
-          title: 'White Desert Safari Highlights',
-          description: 'Drive to Bahariya Oasis and camp in White Desert.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: Desert to Cairo',
-      description: 'Return from desert.',
-      activities: [
-        {
-          title: 'Desert to Cairo Highlights',
-          description: 'Return from desert.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 7,
-      title: 'Day Seven: Fly to Aswan',
-      description: 'Philae Temple & Unfinished Obelisk.',
-      activities: [
-        {
-          title: 'Fly to Aswan Highlights',
-          description: 'Philae Temple & Unfinished Obelisk.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 8,
-      title: 'Day Eight: Embark Nile Cruise',
-      description: 'Sail the Nile.',
-      activities: [
-        {
-          title: 'Embark Nile Cruise Highlights',
-          description: 'Sail the Nile.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 9,
-      title: 'Day Nine: Kom Ombo & Edfu',
-      description: 'Temples of Sobek and Horus.',
-      activities: [
-        {
-          title: 'Kom Ombo & Edfu Highlights',
-          description: 'Temples of Sobek and Horus.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 10,
-      title: 'Day Ten: Luxor East Bank',
-      description: 'Karnak and Luxor Temples.',
-      activities: [
-        {
-          title: 'Luxor East Bank Highlights',
-          description: 'Karnak and Luxor Temples.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 11,
-      title: 'Day Eleven: Luxor West Bank',
-      description: 'Valley of the Kings.',
-      activities: [
-        {
-          title: 'Luxor West Bank Highlights',
-          description: 'Valley of the Kings.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 12,
-      title: 'Day Twelve: Transfer to Hurghada',
-      description: 'Head to the Red Sea.',
-      activities: [
-        {
-          title: 'Transfer to Hurghada Highlights',
-          description: 'Head to the Red Sea.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 13,
-      title: 'Day Thirteen: Hurghada Red Sea',
-      description: 'Snorkeling and relaxation.',
-      activities: [
-        {
-          title: 'Hurghada Red Sea Highlights',
-          description: 'Snorkeling and relaxation.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 14,
-      title: 'Day Fourteen: Return to Cairo',
-      description: 'Fly to Cairo.',
-      activities: [
-        {
-          title: 'Return to Cairo Highlights',
-          description: 'Fly to Cairo.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 15,
-      title: 'Day Fifteen: Final Departure',
-      description: 'Farewell to the land of Pharaohs.',
-      activities: [
-        {
-          title: 'Final Departure Highlights',
-          description: 'Farewell to the land of Pharaohs.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'sharm-el-sheikh-cairo-7-days',
-    title: '7 Days Cairo & Sharm El Sheikh',
-    description: 'Balance exploring the iconic Pyramids of Giza and vivid Cairo life with the world-class diving and serene beaches of Sharm El Sheikh in Sinai.',
-    price: 1050,
-    duration: '7 Days',
-    location: 'Cairo, Sharm El Sheikh',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 112,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival in Cairo + Dinner Cruise",
-            "description": "Upon your arrival in Cairo, you'll be greeted by our very professional employee who will handle all the passport visas, luggage identification, and transportation and then take you on a private A/C vehicle to your 5* hotel so you can settle in and relax.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Arrival-Day-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Cruise",
-                        "description": "Your journey in the evening across a magical Dinner Cruise on the Nile River under the divine light of the moon and the stars where a delicious dinner will be served while cruising along the legendary river, taking in the breathtaking views of Cairo's illuminated gigantic wonders that showcases the glorious history, vibrant art, and rich culture of this everlasting civilization.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of your tour, you will head back to your hotel for spending the night.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids Complex + GEM - Flight to Sharm el-Sheikh",
-            "description": "You will have your breakfast then head with your tour guide to explore the magnificent:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Giza-Pyramids-Complex-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids",
-                        "description": "Giza Pyramids Complex the greatest creations of ancient Egyptian architecture was created in the most brilliant manner dating all the way to 2600 made by the kings of the 4th dynasty to immortalize their legacy till the end of time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Giza or the Pyramid of Khufu (2609 BC - 2584 BC) is a passage of the heavens that offers a clear vision of the brilliance of ancient Egyptian architecture. It was completed around 2570 BC and is known as one of the Seven Wonders of the Ancient World that remains standing. It is an architectural marvel as seen across the king’s chamber, the grand hall, and the queen’s chamber plus the pyramid standing at about 146 meters (481 feet) tall while facing the four cardinal points of the compass which was the tallest man-made structure in the world for over 3,800 years.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Sphinx has acted as a celestial protector for the Golden Giza pyramid which has acted as the source of the most mythical tales and sensations. It has measurements a width of 19 meters (62 ft), a length of 73 meters (240 ft), and a height of 20 meters (66 ft) which in turn makes it one of the most enormous monolithic statues on earth which possess the body of a great lion and face of Pharaoh Khafre (2558 BC - 2532 BC).",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley temple was the key instrument to achieving immortality through the incredible ritual of the opening of the mouth which is known as the mummification and purification act. This blessed mortuary temple is made of massive limestone and granite blocks and features impressive architecture and statues.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a local restaurant then head with your tour guide to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The epic Grand Egyptian Museum is a golden portal leading to an ancient world dating to more than 5000 years. It is made as one of the largest archaeological museums in the world that showcases a vast collection of artifacts up to more than 100,000, including the treasures of Tutankhamun and many other pharaonic artifacts spanning Egypt's ancient history. It offers a comprehensive and detailed insight into Egypt's rich artistic, historical, and cultural heritage through epic treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "In the afternoon, you'll take a flight to Sharm el-Sheikh, a paradise on the Red Sea coast. Upon arrival, enjoy a delightful dinner at your hotel and relax, preparing for the adventures ahead.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Sharm El Sheikh Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Free Day in Sharm el-Sheikh",
-            "description": "You will begin your day by having your breakfast while enjoying the beauty and serenity of Sharm el-Sheikh. You will have the entire day to yourself while exploring the stunning beaches, indulging in water sports, or simply lounging by the pool. You will have the chance to Take in the magnificent underwater world by snorkeling or diving in the crystal-clear waters of the Red Sea. You'll also be provided with soft drinks to keep you refreshed throughout the day. You will end your free day by spending the overnight in your hotel.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Red-Sea-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Sharm El Sheikh Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit to St. Catherine Area",
-            "description": "You will have your breakfast then begin your mythical trip by climbing the golden Mount Sinai leading to the incredible Saint Catherine monastery that lies at its foot which is found at the southern part of the Sinai Peninsula in Egypt. You will head to:",
-            "image": "https://www.egypttoursportal.com/images/2020/10/St-Catherine-Monastery-Sinai-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Saint Catherine Monastery",
-                        "description": "The Golden Monastery of St. Catherine or the Sacred Monastery of the God-Trodden Mount Sinai is a heavenly gate to the bliss, power, and knowledge of all might who echoed his voice across this celestial area. The monastery was established in 565 AD by the Byzantine Emperor Justinian I. It is named after St. Catherine of Alexandria, a Christian martyr. The site itself has a much longer history, with the biblical Mount Sinai being associated with the place where Moses received the Ten Commandments. Within the monastery grounds, there is a revered site known as the Chapel of the Burning Bush. St. Catherine's Monastery features a mix of architectural styles due to its long history. The complex includes a fortified wall enclosing the monastery buildings, a church (the Basilica of the Transfiguration), a chapel dedicated to St. Catherine, a library, and various other structures. The church houses magnificent religious icons, religious relics, and ancient manuscripts. According to tradition, it marks the spot where Moses encountered the burning bush. St. Catherine's Monastery possesses a vast library that houses an extensive collection of ancient manuscripts, including the famous Codex Sinaiticus. The Codex Sinaiticus is one of the oldest surviving copies of the Christian Bible, dating back to the 4th century AD. The library also holds a remarkable collection of icons and religious artifacts that offers a unique blend of spirituality, history, and natural beauty in this sacred place.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Sharm El Sheikh"
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Free Day in Sharm el-Sheikh",
-            "description": "You will have your breakfast and another magical day diving into the charms and wonders of the miraculous Sharm el-Sheikh. Whether you choose to relax on the beach, pamper yourself at a relaxing spa, or explore the colorful vibrant nightlife, Sharm el-Sheikh offers something for everyone at all times. Enjoy breakfast, lunch, and dinner at your leisure, savoring the flavors of Egypt.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egypt-Red-Sea-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Sharm El Sheikh Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Flight back to Cairo - Old Cairo Tour",
-            "description": "You will return to Cairo by being on a flight from Sharm el-Sheikh anywhere you will resume your adventure in the bustling golden capital of Egypt.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Khan-El-Khalili-Bazaar-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a blessed attraction made in 1901 in the core of Cairo filled with amazing treasures dating to thousand home to an incredible collection of ancient artifacts, that shed light on the history and mythology of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Hanging Church",
-                        "description": "The Hanging Church (Saint Virgin Mary's Coptic Orthodox Church) is a glorious and honorable attraction that holds great history as it is one of the oldest churches in Egypt built on the Babylon Fortress during the 3rd century where the holy family once took shelter. The church is known for its unique architectural style and is so named because it is suspended over the gatehouse of a Roman fortress. It is a significant religious site for many Coptic Christians and features some beautiful Coptic art, ancient relics, and a peaceful courtyard.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a local restaurant:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al Muizz Street is a living museum of gold and wonders that comes in the shape of a golden labyrinth made in 970 AD in the Fatimid age as one of the main social and economic parts of the capital. It is a vibrant and bustling attraction lined with magnificent medieval architecture, including mosques, madrasas, palaces, and markets. It is famous for shedding light on the rich history and architectural heritage of Islamic Cairo.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El-Khalili Bazaar is where the showing quest of your dreams will be a reality. It is a bustling marketplace filled with shops, stalls, and vendors selling a wide array of goods, including spices, jewelry, textiles, handicrafts, and souvenirs which were made between 1382 and 1389 AD. The bazaar has a vibrant, shining, lively atmosphere, and traditional Egyptian cafes and restaurants where every moment will feel like magic.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will head back to your hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Departure from Cairo",
-            "description": "On your final day in Cairo, You will enjoy a leisurely breakfast before leaving this mystical land with cherished memories and joyful sensations for the wonders of Egypt.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Final-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'cairo-day-tour-pyramids-museum',
-    title: 'Cairo Day Tour: Pyramids & Egyptian Museum',
-    description: 'A full dense day tour covering the two most impressive highlights of Cairo. Ideal for layovers or short business trips.',
-    price: 90,
-    duration: '1 Day',
-    location: 'Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 520,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Giza & Museum',
-      description: 'Morning Pyramids of Giza, Afternoon Egyptian Museum. Private vehicle and guide.',
-      activities: [
-        {
-          title: 'Giza & Museum Highlights',
-          description: 'Morning Pyramids of Giza, Afternoon Egyptian Museum. Private vehicle and guide.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'luxor-west-bank-hot-air-balloon',
-    title: 'Luxor: Hot Air Balloon & West Bank',
-    description: 'See the Valley of the Kings from the sky at sunrise, followed by an expert-led ground tour of the royal tombs and Hatshepsut Temple.',
-    price: 180,
-    duration: '1 Day',
-    location: 'Luxor',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 5.0,
-    reviewsCount: 304,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Sunrise Balloon & Tombs',
-      description: 'Early morning flight over Luxor, then Valley of the Kings, Hatshepsut, and Colossi of Memnon.',
-      activities: [
-        {
-          title: 'Sunrise Balloon & Tombs Highlights',
-          description: 'Early morning flight over Luxor, then Valley of the Kings, Hatshepsut, and Colossi of Memnon.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'aswan-abu-simbel-day-trip',
-    title: 'Abu Simbel Day Trip from Aswan',
-    description: 'A dedicated overland day trip to the monumental Rock Temples of Ramses II and Nefertari, saved by UNESCO.',
-    price: 120,
-    duration: '1 Day',
-    location: 'Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 275,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Abu Simbel Excursion',
-      description: 'Early morning drive from Aswan, 3 hour tour at Abu Simbel, return to Aswan.',
-      activities: [
-        {
-          title: 'Abu Simbel Excursion Highlights',
-          description: 'Early morning drive from Aswan, 3 hour tour at Abu Simbel, return to Aswan.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '4-days-cairo-alexandria-holiday',
-    title: '4 Days Cairo & Alexandria Vacation',
-    description: 'A 4-day quick getaway to enjoy the Pyramids of Giza in Cairo and the Mediterranean breeze of the Greco-Roman city of Alexandria.',
-    price: 520,
-    duration: '4 Days',
-    location: 'Cairo, Alexandria',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 154,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival to Cairo',
-      description: 'Welcome and transfer.',
-      activities: [
-        {
-          title: 'Arrival to Cairo Highlights',
-          description: 'Welcome and transfer.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Pyramids of Giza & Museum',
-      description: 'Visit Giza Plateau and the Egyptian Museum.',
-      activities: [
-        {
-          title: 'Pyramids of Giza & Museum Highlights',
-          description: 'Visit Giza Plateau and the Egyptian Museum.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Alexandria Day Trip',
-      description: 'Explore Qaitbay Citadel and Catacombs.',
-      activities: [
-        {
-          title: 'Alexandria Day Trip Highlights',
-          description: 'Explore Qaitbay Citadel and Catacombs.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Departure',
-      description: 'Transfer to Cairo airport.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'Transfer to Cairo airport.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '5-days-cairo-aswan-abu-simbel',
-    title: '5 Days Cairo, Aswan & Abu Simbel Tour',
-    description: 'A focused 5-day tour capturing the best of Cairo and the colossal Nubian monuments of Abu Simbel and Aswan.',
-    price: 740,
-    duration: '5 Days',
-    location: 'Cairo, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 215,
-    featured: true,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival to Cairo',
-      description: 'Welcome to Egypt.',
-      activities: [
-        {
-          title: 'Arrival to Cairo Highlights',
-          description: 'Welcome to Egypt.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Pyramids Tour',
-      description: 'Giza Pyramids and Egyptian Museum.',
-      activities: [
-        {
-          title: 'Pyramids Tour Highlights',
-          description: 'Giza Pyramids and Egyptian Museum.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Fly to Aswan',
-      description: 'High Dam, Unfinished Obelisk, and Philae Temple.',
-      activities: [
-        {
-          title: 'Fly to Aswan Highlights',
-          description: 'High Dam, Unfinished Obelisk, and Philae Temple.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Abu Simbel Temples',
-      description: 'Colossal temples of Ramses II, then fly back to Cairo.',
-      activities: [
-        {
-          title: 'Abu Simbel Temples Highlights',
-          description: 'Colossal temples of Ramses II, then fly back to Cairo.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Departure',
-      description: 'End of your quick trip.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of your quick trip.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '7-days-budget-cairo-nile-alexandria',
-    title: '7 Days Budget Tour to Cairo, Nile Cruise & Alexandria',
-    description: 'An affordable way to see the main highlights of Egypt, covering the Pyramids, a Nile Cruise from Aswan to Luxor, and beautiful Alexandria.',
-    price: 850,
-    duration: '7 Days',
-    location: 'Cairo, Nile River, Alexandria',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.5,
-    reviewsCount: 310,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival in Cairo',
-      description: 'Meet and assist.',
-      activities: [
-        {
-          title: 'Arrival in Cairo Highlights',
-          description: 'Meet and assist.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Pyramids of Giza',
-      description: 'Full day tour of the Pyramids.',
-      activities: [
-        {
-          title: 'Pyramids of Giza Highlights',
-          description: 'Full day tour of the Pyramids.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Overnight Train to Aswan',
-      description: 'Board the sleeper train south.',
-      activities: [
-        {
-          title: 'Overnight Train to Aswan Highlights',
-          description: 'Board the sleeper train south.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Aswan & Nile Cruise',
-      description: 'Embark and visit Philae Temple.',
-      activities: [
-        {
-          title: 'Aswan & Nile Cruise Highlights',
-          description: 'Embark and visit Philae Temple.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Kom Ombo & Edfu',
-      description: 'Sail the Nile.',
-      activities: [
-        {
-          title: 'Kom Ombo & Edfu Highlights',
-          description: 'Sail the Nile.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: Luxor West Bank',
-      description: 'Valley of the Kings, return to Cairo.',
-      activities: [
-        {
-          title: 'Luxor West Bank Highlights',
-          description: 'Valley of the Kings, return to Cairo.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 7,
-      title: 'Day Seven: Alexandria & Departure',
-      description: 'Quick trip to Alex and final flight.',
-      activities: [
-        {
-          title: 'Alexandria & Departure Highlights',
-          description: 'Quick trip to Alex and final flight.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '8-days-cairo-abu-simbel-luxor-hurghada',
-    title: '8 Days Cairo, Abu Simbel, Luxor & Hurghada',
-    description: 'Enjoy history and relaxation in 8 days. See the Pyramids, Abu Simbel, Karnak Temple, and end with the sparkling Red Sea in Hurghada.',
-    price: 1150,
-    duration: '8 Days',
-    location: 'Cairo, Luxor, Abu Simbel, Hurghada',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 168,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt",
-            "description": "On the first day of your 8 Days Cairo, Abu Simbel, Luxor & Hurghada vacation will begin when you arrive at Cairo airport when our \"Travision Tours\" representative will help you complete all of your passport control formalities and luggage identification and carry, you will then be driven by a private air-conditioned car to your 5* hotel reservation for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-The-Land-of-Pharaohs-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, your tour will begin with a Dinner cruise on the heavenly Nile as you will get to relax and cast your eyes on an unforgettable colorful belly dancing show with a folklore band featuring the amazing Tannoura spin in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, you will head back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to the Ancient Egyptian Pyramids",
-            "description": "You will begin your second day by enjoying your breakfast and checking-out from the hotel, and then join your private tour guide to explore the immortal wonders of Ancient Egypt starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Pyramids-Complex-in-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "Giza Pyramids Complex has existed for more than 4000 years as an example of the eminence of the ancient Egyptian civilization. The complex is made of three main pyramids, six little pyramids, the great sphinx, and the place of immortal preservation of the Valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of king Khufu is a living blessing famous for being the last untouched establishment of the Seven Wonders of the Ancient World. It was created in 2580 BC with features meaning great design and architecture as soon as the king's chamber the grand hall that connects all the rooms, and the queen's chamber. The design of the temple made Hemon the main architecture of the Pyramid.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Sphinx is a colossal eternal caretaker who has the shape of a mythical prehistorical with the body of a strong lion and the face of a King Khafre (2558–2532 BC)to stand as evidence of his everlasting power and wisdom. The magical dream Steele of Thutmose IV (1401–1391) can be seen between his massive paws.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is the center of the Mummification process that came into existence during the heavenly Egypt old kingdom (2686 - 2134 BC) to serve the divine 4th dynasty by performing the purification ritual of the opening of the mouth. The valley is completely made of limestone, and granite and holds unique diorite statues of King Khafra.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a local restaurant in Cairo before you move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid is an exotic creation that came from the mind of the epic Imhotep, the head vizier of Pharaoh Djoser. It has a unique design made up of six steps plus a first-of-its-kind complex and stands at a height of 62 m. It served as his resting place and was the key inspiration for the creation of the Giza Complex.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will head to Cairo airport to catch your flight to Aswan and upon arrival, you will check into your hotel reservation in Aswan for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to the Two Temples of Abu Simbel - Train to Luxor",
-            "description": "In the early morning of your third day, you will check-out from the hotel and have your breakfast boxes to keep your 8 days Egypt vacation going by heading to:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Abu-Simbel-Temple-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The two great Abu Simbel temples have been the apex of glory and allure of Egypt as the final frontier & the guardian of the southern border since its creation by Ramses II (1279-1213 BCE). The temple was called \"Temple of Ramses, beloved by Amun\". Abu Simbel consists of two temples, the bigger one is for Ramses where the sun festival takes place on the 22 of February & October of each year when the sun shines on the faces of the four seated statues of Ramses II, Ptah (God of creation), Amun (The Creator God), and Ra (Sun God), the smaller temple is dedicated to his wife Nefertari. The temple was part of the most challenging archeological rescue operation in history led by UNESCO in the mid-60s.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Return to Aswan where your lunch is served at a local restaurant in Aswan.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will be transferred to the train station to take a 1st class train to Luxor. Upon arrival, check-in at the 5* hotel for an overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Luxor Tourist Attractions - Transfer to Hurghada",
-            "description": "On your day four, you will first enjoy your delicious breakfast then continue your 8 Days Cairo, Abu Simbel, Luxor to Hurghada by exploring:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Karnak-Temple-in-Luxor-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Karnak temple is where the ancient Egyptians communicated with the heavens, it was known as Ipet-isu The Most Selected Of Places, and Pr-Imn House Of Amon, it dates to more than 4000 years when it was famous for being the largest religious man-made construction in the world, it was the worship headquarters of the entire ancient Egyptian kingdom for more than 1500 years to various deities like the great Osiris, Montu, Ptah and Isis but was dedicated primarily to the Theban triad that consisted of God Amun with his wife the Goddess of Justice Mut and his son the moon god Khnsou.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch is served at an oriental food restaurant and then continue your trip by visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "Hatshepsut Temple is a true vision from ancient Luxor, it gained the name Djoser-Djeseru (Holy of Holies) and showcases the allure and prestige of one of the most successful rulers in the history of Ancient Egypt Queen Hatshepsut. The temple was constructed in 1479 BC and took 15 years to fully build. The design of the temple is based on the concept of Classical Architecture of Egypt's new kingdom and within the temple lies some of the most captivating and enchanting statues, decorations, and artifacts in the entire world.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "Valley of the Kings is like a magical tunnel located in the heart of the mountain which guides the soul of royalty to the heavens, it has acted as the final resting place for the greatest kings and queens of the new kingdom (1570-1070 BC) as It holds 63 tombs filled with various treasures, artifacts, statues, hypnotically beautiful decorations and the remains of pharaohs such as Ramses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Hatshepsut, and the boy king Tutankhamun which all resulted in the valley of the kings becoming a World Heritage Site by the UNESCO in 1979.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon are the colossal guardians of Luxor which are basically two massive blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each and have the shape of Pharaoh Amenhotep III(1386-1350). The colossi were damaged due to a large earthquake in 27 BC and were rebuilt again in 199 AD.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Transfer by a private A.C vehicle to Hurghada. Upon arrival, move to the 5* hotel to check in for the overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Snorkeling Tour in Hurghada",
-            "description": "On the day five, you will enjoy your breakfast then join your private diving instructor to begin your adventurous breathtaking activities such as snorkeling where you will get to observe the magical underwater marine life of Hurghada and witness all the wonders of this ecosystem.",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Private-Snorkeling-in-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Safari Tour in Hurghada",
-            "description": "Day six will be in Hurghada Red Sea where you will have your breakfast and enjoy a magical super Safari trip by Quad or a camel and a delicious B.B.Q Dinner then return to your hotel for the overnight in Hurghada.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Safari-Trips-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day Seven: Fly to Cairo - Visit Old Cairo Attractions",
-            "description": "On day seven, you will head back to Cairo to your hotel reservation to continue your 8 days Cairo, Abu Simbel, Luxor & Hurghada tour by exploring all the marvelous Cairo tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Khan-El-Khalili-Bazaar-in-Old-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a cosmic attraction of beauty and magnificence that showcased the infinite and everlasting astonishment of the ancient Egyptian civilization that endured for more than 5000 years. It has two floors found in downtown Cairo was built in 1902 and is the ultimate model of the immortal charm and grandeur of Egypt that stood the test of time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Head to a local restaurant in Cairo to enjoy your delicious lunch meal and complete your day tour with a special visit to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Hanging Church",
-                        "description": "The holy Church of the Virgin Mary a.k.a. The Hanging Church was built on the southern wall of a Roman fortress called Babylon in the 5th century AD. The church is one of the most renowned Coptic sites in Egypt which served as the residence for the Coptic patriarch. The church is 30 ft and towers over the city of Cairo, and the construction and the interior of the hanging church are mesmerizing with elements from the 7th to 13th-century artistic design.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Amr Ibn Al Aas Mosque",
-                        "description": "Amr Ibn Al-Aas Mosque was the first mosque to be built in Africa in 641 AD. The mosque is still an active house of worship and one of Egypt's most important & prominent Islamic destinations. It was rebuilt many times throughout the 7th century even today renovations are taking place. The mosque was reconstructed various times which made it acts as a living example of the Islamic architecture progress over the centuries.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Ben Ezra Synagogue",
-                        "description": "Ben Ezra Synagogue is a special landmark dating back to the 19th century when it was used to be a church and then transformed into a synagogue in 882 AD. It is believed by many that it held an original copy of the Old Testament. The synagogue remains in a very good intact condition, holding extraordinary designs and decorations. The place used to be the capital of Jewish worship for many years until the 1950s.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian CivilizationAl Muizz Street",
-                        "description": "The National Museum of Egyptian Civilization (NMEC) is a magical bridge of art and memories that connect the predynastic periods with modern and contemporary eras. The museum will showcase all the incredible art, history, and culture of Egypt that dates back to more than 4000 years in the simplest and most amazing manner with the help of the most advanced methods of museology.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz Street is a mythical maze of beautiful golden streets that was assembled between 953–975 AD and enlarged in1171 AD to shed light on all the glorious Islamic art and architecture of this celestial civilization. The astral streets of Al Muizz are known to be a significant cultural center gathering filled with countless house museums, cafes, and art galleries.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili Bazaar is a reminder of the greatness of ancient Islamic Egypt, the golden brick road of the Middle East. The street was created in 970 AD and remains very active till today and holds everything a traveler might wish for. It has vintage cafes and shops that date back to different generations containing extraordinary Islamic architecture and decorations leading to the street itself.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will then return to the hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 8,
-            "title": "Day Eight: Final Departure",
-            "description": "On your final day, you will have your last breakfast in Egypt then head to Cairo airport so you can return home safely with the finest memories thus ending your 8 days Cairo, Abu Simbel, Luxor & Hurghada tour vacation.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '9-days-cairo-luxor-sharm-el-sheikh',
-    title: '9 Days Cairo, Luxor, and Sharm El Sheikh Tour',
-    description: 'A perfect 9-day fusion covering the Pharaonic monuments of Cairo and Luxor with the breathtaking beaches and reefs of Sharm El Sheikh.',
-    price: 1250,
-    duration: '9 Days',
-    location: 'Cairo, Luxor, Sharm El Sheikh',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 201,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival in Cairo + Dinner Cruise",
-            "description": "At the moment you arrive at the land of pharaohs in the golden city of a thousand tales, our employee will take care of all the passport visas, luggage identification, and transportation and then take you on a private A/C vehicle to your 5* hotel to fully relax.",
-            "image": "https://www.egypttoursportal.com/images/2020/09/Egypt-Dinner-Cruise-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Cruise",
-                        "description": "You will be totally enchanted by our soulful Nile River dinner cruise that will sail across the shimmering heavenly waters that whisper ancient tales of godly figures and celestial kings who carved their names across the heavenly skies of Egypt. You will have your dinner in the heart of these blessed surroundings where the culture, art, and history of Egypt will come to life in the most amazing manner.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will head back to your hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids Complex + Grand Egyptian Museum + Flight to Luxor",
-            "description": "You will have your breakfast at your Cairo hotel then head with your tour guide to uncover the mysteries of:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Giza-Pyramids-Complex-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids",
-                        "description": "The Giza Pyramids Complex is the golden dawn and the immortal face of Egypt that was created around 2600 BC by the royal members of the celestial 4th dynasty who immortalized their name in the history books of Egypt. You will begin your journey leading to:",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Giza is a timeless golden marvel that has withstood the test of centuries and was created around 2570 to become the final resting place of Pharaoh Khufu (2609 BC - 2584 BC). It stands approximately 147 meters (481 feet) tall and was originally covered in smooth limestone casing stones which weighed a total of 6 million tons and faces the four cardinal points of the compass. The Great Pyramid is a remarkable architectural achievement and one of the Seven Wonders of the Ancient World which is proven by the miraculous interior of the king’s chamber, the grand hall, the queen’s chamber, and more.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Golden Sphinx is a celestial guardian of secrets that has amazing measurements of a width of 19 meters (62 ft), a length of 73 meters (240 ft), and a height of 20 meters (66 ft) which carries the face of Pharaoh Khafre (2558 BC - 2532 BC) on the colossal body of a prehistoric lion that narrates a number of tales filled with bliss and greatness.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The magnificent Valley temple was the key to achieving everlasting immortality and heavenly bliss by the members of the 4th dynasty through transforming into a magical golden statue made during the opening of the mouth ceremony which is known as the purification and mummification act.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The incredible Grand Egyptian Museum is a golden sanctuary of knowledge and greatness, which was made for a total cost of one billion dollars to uncover the miraculous treasures of Egypt that reaches a total of 100,000 artifacts that are all entirely dedicated to the 5000-year-old civilization of Egypt. It is aligned with the stellar pyramids of Giza, and spans nearly 490,000 square meters. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone will get to marvel at immortal treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a local restaurant then head with your tour guide to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After lunch, you will get your flight to Luxor City. You will head back to your hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Karnak Temple + Luxor Temple by Night",
-            "description": "You will have your breakfast then join your guide to visit Thebes wonders where you will cast your eyes on:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Luxor-Temple-at-Night-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The mythical house of worship Karnak Temples Complex was established between 1970 and 30 BC to glorify the 18th dynasty Theban triad which is made of Amun, Mut, and Khonsu. Across the 100 hectares (274 acres) are some of the most amazing archaeological wonders such as The Great Hypostyle Hall which measures 54,000 square feet (5,000 square meters) and contains 134 massive columns, some of which reach a height of 80 feet (24 meters). Across every part of the complex are intricate reliefs, hieroglyphics, and massive structures that offer insight into the religious beliefs, and mythical, and cultural practices of the time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a local restaurant then go with your tour guide to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Luxor Temple by Night",
-                        "description": "The miraculous spectacle of Luxor Temple will illuminate the night sky which cast a spellbinding glow upon its sacred grounds where the crowning of kings and many festivals took place. Amenhotep III, Tutankhamun, Ramesses II, and Alexander the Great are considered to be the main creators of the temple which was fully completed around 1400 BC. The main purpose of the temples was to host the Opet festival and stand as a marvelous example of the rejuvenation of kingship which was celebrated across the magnificent avenue of the sphinxes.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will spend the overnight in Luxor where you will spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Luxor West Bank Attractions + Flight to Sharm El-Sheikh",
-            "description": "You will have your breakfast then head with your tour guide to:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egypt-Valley-of-the-Kings-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The Golden Valley of the Kings where the echos of the pharaohs of the gold can be found buried in the depth of the Theban necropolis which can be accessed through a magical gateway in the heart of a hidden hill. it is home to 63 royal tombs of great pharaohs and high-ranking nobles of the 18th, 19th, and 20th dynasties of the New Kingdom period (1550 - 1070 BC) which are all adorned with vivid frescoes, carvings, and scenes that showcase a lot of facts and tales.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a local restaurant then head with your tour guide to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The majestic Hatshepsut Temple is an architectural masterpiece rising from the desert across the face of gigantic rocky cliffs that showcases the birth, rise, and coronation of Queen Hatshepsut (1507–1458 BC) the priestess wife of Amun. The temple has three floors that feature a series of terraces, colonnades, and sanctuaries, with beautiful reliefs depicting the life and achievements of Hatshepsut. The temple's design reflects a harmonious blend of natural and man-made elements, making it a unique architectural masterpiece.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The Colossi of Memnon are two golden massive statues that once guarded the entrance to Amenhotep III's mortuary temple that disappeared from existence. They have the face of the pharaoh (1386 - 1349 BC) that were made in 1350 BC plus each statue is approximately 60 feet (18 meters) tall and depicts the pharaoh seated on his throne. The statues are notable for their size and the stories and legends associated with them, including the phenomenon of producing musical sounds at dawn, which was believed to be the voice of Memnon greeting his mother, Eos, the goddess of dawn.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will fly back to Cairo from Luxor, then from Cairo to Sharm El Sheikh where you will spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Sharm El Sheikh Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Free Day in Sharm El-Sheikh",
-            "description": "You will begin your adventure across the blessed pleasures of paradise as you immerse yourself in the serene beauty of Sharm El-Sheikh. For three days at your leisure, let the azure waters of the Red Sea embrace you as you dive into a world of vibrant coral reefs teeming with exotic marine life. Bask in the golden sunshine on pristine beaches, surrendering to the gentle caress of the sea breeze. Savor delectable meals accompanied by refreshing soft drinks, and let time stand still in this coastal oasis.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Red-Sea-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Sharm El Sheikh Tour"
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Free Day in Sharm El-Sheikh",
-            "description": "You will once again awaken to another day of enchantment in Sharm. you'll have the opportunity to explore more of the wonders of this magical destination across all the waters and deserts of Egypt. Everyone will enjoy every this city has to offer from aquatic beauty to cultural treasures where every moment will feel like true magic. Everyone will become an incredibly unforgettable experience filled with magic and tranquility.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Red-Sea-Beaches-Adventure-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Sharm El Sheikh Tour"
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Free Day in Sharm El-Sheikh",
-            "description": "your final day of magical adventures in Free Sharm, will be a blessed chance to uncover all the heavenly treasures of the Red Sea and the magnificent atmosphere of this majestic landscape where the eastern desert and the natural blessings of Egypt will make a magical mixture that come to life in front of your eyes. you will return to your hotel to spend the overnight.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egypt-Red-Sea-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Sharm El Sheikh Tour"
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Flight to Cairo + Old Cairo Attractions",
-            "description": "You will have your breakfast at your hotel then check out from your hotel then catch a flight to Cairo where you will enjoy your time to the fullest across the miraculous marvels of Egypt. You will head with your tour guide leading to:",
-            "image": "https://www.egypttoursportal.com/images/2019/11/The-Hanging-Church-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a marvelous wonder that was built in 1901 in the heart of Cairo where everyone will shed light on the treasures of the pharaohs coming to life to shed light on the exquisite craftsmanship of a bygone era.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Hanging Church",
-                        "description": "The Heavenly Saint Virgin Mary's Coptic Orthodox Church \"The Hanging Church\" is a golden sanctuary filled with many Coptic treasures. It is one of the oldest churches in Egypt, dating back to the 3rd century AD. Its name comes from its location above a gatehouse of the Roman fortress of Babylon where the holy family was taken as a shelter. The church is renowned for its unique Coptic architectural style, beautiful icons, intricate woodwork, and peaceful ambiance.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a restaurant found in the heart of golden Cairo, then head with your tour guide to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al Muizz Street is a vibrant golden street in Cairo's Islamic Cairo district which was created around 970 BC. It stretches for about one kilometer from south to north between Bab al-Futuh and Bab Zuweila and is lined with medieval Islamic architectural treasures. It is filled with stunning mosques, madrasas (Islamic schools), mausoleums, and historical structures like the Sultan Qalawun Complex and the Al-Hakim Mosque.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "The miraculous Khan El-Khalili is one of the most ancient, epic, and famous traditional bazaars in the Middle East that acts as an epic labyrinth of enchantment, where scents of spices and vibrant colors awaken your senses. This bustling market was established between 1382 and 1389 AD that offered a vibrant and authentic Cairo shopping experience. It features narrow alleys lined with shops selling traditional handicrafts, spices, jewelry, antiques, textiles, and souvenirs.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will spend your overnight in Cairo where you relax before heading back home.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Departure & End Your 9 Days Cairo, Luxor & Sharm El Sheikh",
-            "description": "You will have your breakfast before saying goodbye to the majestic land of Egypt that has captured your heart and was the reason behind creating the most amazing memories of ancient wonders and timeless soulful beauty.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '10-days-oasis-egypt-tour',
-    title: '10 Days Oasis Egypt Tour',
-    description: 'Venture into the Western Desert. Discover the unique White and Black Deserts, Bahariya, and the enchanting Siwa Oasis with this 10-day expedition.',
-    price: 1400,
-    duration: '10 Days',
-    location: 'Cairo, Siwa, Bahariya, White Desert',
-    category: 'spiritual',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 89,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival - Embracing the Enchanting City of Cairo",
-            "description": "At the moment you step foot in Cairo, a wave of ancient magic and natural beauty will embrace you as you will be greeted by our employee who will handle all the passport visa, luggage identification, and transport, then a private A/C will transfer to your 5* hotel in Cairo where you will settle in the air that whispers tales of pharaohs and adventure while relaxing and preparing for the extraordinary days ahead.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Pyramids - Unveiling the Secrets of the Ancients",
-            "description": "After you have had your delicious breakfast, your epic tour of the Pyramids complex in Giza will take place as you explore with your tour guide the gigantic iconic treasures of the magnificent Giza Pyramids Complex:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Giza-Pyramids-Complex-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids",
-                        "description": "Giza pyramids were created by the 4th dynasty kings around 2600 BC to lead them all the way to the heavens and immortalize their names till the end of times. It majestically rises from the golden sands containing the Great Pyramid of Giza, the Pyramid of Khafre, the Pyramid of Menkaure, and The enigmatic Sphinx plus many more that convey countless untold stories within its weathered features.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Giza is an immortal wonder that conveys epic tales of civilization and mystery. It was the final resting place of Pharaoh Khufu (2609 BC - 2584 BC) which stood at a height of 146.6 meters (481 feet) as the tallest man-made structure in the world for over 3,800 years after its creation in 2570 BC. It was constructed using an estimated 2.3 million limestone blocks that give a total of 6 million tons of weight that faces the four cardinal points. The main architect Hemon was able to come up with an epic interior made of the grand hall, the king’s chamber, and many more hidden chambers.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Sphinx has captured the imagination and hearts of wonder seekers from all over the world due to its enigmatic expression and the mysteries surrounding its purpose and construction as one of the biggest monolithic statues in existence. It holds a body of a great lion and the face of Pharaoh Khafre (2558 BC - 2532 BC) showcasing his infinite power and wisdom. It is thought to have served both as a guardian of the pyramids and as a symbol of divine kingship.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is a miraculous wonder made into an epic mortuary by Pharaoh Khafre in 2500 BC used for the mummification process and funerary rituals related to the pharaoh's burial which is known as the Opening of the Mouth Ceremony. It was built using large blocks of limestone alabaster, & granite that features impressive architectural details.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your Lunch at a local restaurant then head to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a golden gateway to the glory and wealth of the celestial ancient Egyptian civilization. It is a state-of-the-art magnificent attraction located in the golden proximity of the Giza Pyramids Complex which was for the cost of one billion dollars to exhibit the incredible history and epic tales of the everlasting treasures of Egypt that reaches a total number of over 100,000 that comes in every shape and color displayed in epic and advanced halls. It is aligned with the stellar pyramids of Giza, and spans nearly 490,000 square meters. Everyone will get to marvel at immortal treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will head back to your hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Alexandria - Where Legends Reside",
-            "description": "You will have your breakfast then head to Cairo where you will explore with your tour guide a city filled with mythical legends and adorned with treasures. You will get to explore:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Pompeys-Pillar-in-Alexandria-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Catacombs of Kom El Shoqafa",
-                        "description": "The extraordinary Catacombs of Kom El-Shokafa where whispers of ancient rituals and art will illuminate the past. The mound of shards is an underground burial site dating back to the 2nd century CE which was used as a final resting place for both noble Greeks and Egyptians. It is able to blend Hellenistic and Roman artistic and architectural styles in a perfect fashion. The catacombs feature a series of chambers, corridors, and tombs adorned with intricate carvings, statues, and religious symbols.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Alexandria Library",
-                        "description": "The magnificent Alexandria Library still opens its doors to shed light on the wisdom and knowledge of countless generations. The modern library was inaugurated in 2002 to contain 8 million books that aim to immortalize the spirit of its ancient predecessor and serve as a major research institution and a hub for cultural events.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your Lunch at a local restaurant then head with your tour guide to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Pompey's Pillar",
-                        "description": "The marvelous Pompey's Pillar is an absolute testament to the city's Roman heritage. It stands at around 25 meters (82 feet) tall, the pillar is made of red Aswan granite and dates back to the 3rd century CE. It is believed to have been erected in honor of Emperor Diocletian as seen across the art of this great pillar.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Qaitbay Citadel",
-                        "description": "The mythical Qaitbey citadel has the power to deliver a glimpse of the rich history of Alexandria. It is a medieval defensive structure situated on the Mediterranean coast of Alexandria. It was built between 1477 to 1479 by Mamluk Sultan Qaitbay on the site of the famous Lighthouse of Alexandria which was one of the Seven Wonders of the Ancient World plus was made using its salvaged rocks. The fortress was designed to be a magical work of art that protects the city from naval attacks and features a blend of Mamluk, Ottoman, and Mediterranean architectural styles.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will spend the overnight in your hotel in Alexandria.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Alexandria Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Alamein + Siwa Arrival + Old Shali + Fatnas Island",
-            "description": "You will have your breakfast then head with your tour guide to the Alamein Military Museum:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/El-Alamein-Tour-from-Alexandria-Port-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Alamein Military Museum",
-                        "description": "The El Alamein War Museum is a shrine commemorating the valor and sacrifice of heroes in the Battle of Alamein located near the coastal town of El Alamein in Egypt. It commemorates the famous Battle of El Alamein, which took place during World War II and was a significant turning point in the North African campaign. The museum was established in 1960 and was renovated and expanded in recent years to provide a comprehensive experience. The museum offers a chronological narrative of the battle, highlighting the contributions of different nations and depicting the challenges faced by soldiers on both sides. It showcases a wide range of weapons, uniforms, photographs, and dioramas related to the battle, providing insight into the military strategies, equipment, and personal stories of many of the people who were involved. The museum offers a chronological narrative of the battle, highlighting the contributions of different nations and depicting the challenges faced by soldiers on both sides.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch in Marsa Matrouh, arrive at Siwa, then visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Village of Old Shai",
-                        "description": "Explore the unique architecture of the ancient Old Shai village, crafted from a blend of mud and local salt. This historic site, once inhabited for centuries before natural erosion in the 12th century, is now a cultural attraction. Encircled by a resilient wall, the ruins offer a vivid glimpse into traditional life within Siwa Oasis.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Fatnis Island",
-                        "description": "Immerse yourself in the natural splendor of Fatnas Island, a picturesque paradise adorned with lush greenery and majestic palm trees. Located approximately 6 km from Siwa Oasis, this serene destination invites all to unwind amidst its heavenly surroundings and captivating beauty.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Set the course for the magical Oasis of Siwa, where you will spend the night.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Siwa Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Days 5: Temple of Amun + Temple of Alexander + Desert Safari",
-            "description": "After your breakfast, accompanied by your tour guide, immerse yourself in the captivating wonders of Siwa Oasis, a treasure trove blending natural beauty with cultural and historical marvels:",
-            "image": "https://www.egypttoursportal.com/images/2023/06/Temple-of-Amu-Itinerary-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Temple of Amun",
-                        "description": "Delve into the mythical Temple of Amun, an astounding archaeological marvel from the 26th Dynasty of ancient Egypt, dating back to 331 BC. Dedicated to the god Amun of creation, this temple boasts remarkable columns and intricate carvings, showcasing the unique architecture of its time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Temple of Alexander",
-                        "description": "Explore the legendary Temple of Alexander, also known as the Temple of the Oracle, steeped in the remarkable tales of Alexander the Great (356 - 323 BC). This temple served as an oracle center, where seekers consulted for guidance and prophecies. Constructed around the 6th century BC, it's believed Alexander the Great himself commissioned it during his quest to confirm his divine lineage.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Salt Lakes Siwa",
-                        "description": "Siwa Oasis is adorned with the enchanting beauty of its natural salt lakes, including Wahed and Fatnas Lakes. These serene and picturesque lakes are naturally formed with high salt concentrations, offering a mesmerizing sight owing to their unique mineral composition.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Enjoy a delightful Bedouin lunch amidst the captivating Siwa Desert, followed by visits to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Ain Cleopatra",
-                        "description": "Discover the enchanting Ain Cleopatra, also known as Cleopatra's Bath, a natural spring enveloped in tales of royalty and mystery. Legend has it that Queen Cleopatra herself graced this site, bathing in its soothing waters. Renowned for its therapeutic properties, it's a serene spot for relaxation amidst the oasis's natural allure.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "4x4 Siwa Desert Safari",
-                        "description": "Embark on an exhilarating 4x4 desert safari, venturing deep into the golden dunes as the sunsets, casting a mesmerizing glow over the expansive desert landscape, creating an unforgettable experience.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Conclude the day with a delightful dinner and an overnight stay amidst this captivating oasis.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Siwa Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Siwan House + Bazaars + Taghyir Island + Ali Khaled Camp",
-            "description": "After your breakfast, set out with your tour guide to uncover the marvels of Egypt, including:",
-            "image": "https://www.egypttoursportal.com/images/2023/06/Siwa-Day-Itinerary-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Siwan House",
-                        "description": "The traditional Siwan Hous is a marvel crafted from a mixture of clay, stone, salt, and fine sand. Serving as a cultural center, it offers insights into Siwan architecture, lifestyles, and customs, providing a glimpse into local traditions.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Siwan Oasis Bazaar",
-                        "description": "The vibrant Siwa Oasis bazaars and markets are brimming with local culture and traditional goods. Discover handicrafts, spices, produce, and Siwan clothing. Visit magnificent carpet factories, witnessing the intricate art of carpet making, known for their vibrant colors and nature-inspired patterns.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Taghaghien Island Resort",
-                        "description": "Experience the serene luxury of Taghaghien Island Resort nestled in Siwa. Offering luxurious accommodations amidst breathtaking natural beauty, it's a tranquil escape from the ordinary.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Ali-Khaled-Camp",
-                        "description": "Ali Khaled Camp is an ideal spot to relax and revel in nature's beauty. Enjoy a unique dining experience in a Bedouin-style setting, embracing the authentic desert atmosphere.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Siwa Hot Spring",
-                        "description": "The Siwa's natural hot springs, brimming with mineral-rich waters is offer a rejuvenating experience. Immerse yourself in their soothing warmth amid the tranquil desert landscape.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Conclude the day with a delightful dinner and an overnight stay amidst these captivating destinations.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Siwa Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Return from Siwa to Cairo + Overnight Cairo Hotel",
-            "description": "Start your day in Siwa with a leisurely breakfast, immersing yourself in the tranquil ambiance of the morning. Then, embrace the shift from this serene setting to the vibrant chaos of Cairo, culminating your day at a hotel in Cairo.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Transfer to Bahariya + Visit the Sights There",
-            "description": "You will have your breakfast, then leave the serenity of Cairo and embark on a magical quest toward Bahariya, another oasis town shrouded in mystique.",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Black-Desert-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The Black Desert",
-                        "description": "The Black Desert sheds light on nature's devastating might which is characterized by its black volcanic rock formations from which it derives its name. Its remarkable landscape, featuring dark volcanic shapes and sand dunes, stands in stark contrast to the magnificent golden sand dunes that surround it. This renowned destination captivates off-road adventurers and desert explorers who are drawn to its rugged and otherworldly splendor.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The White Desert",
-                        "description": "The majestic White Desert is an enchanting attraction that has withstood the test of time formed by angelic creatures. The breathtaking chalk rock formations, shaped by wind and sand over countless years, resemble colossal mushrooms, cones, and even human-like figures. The striking white landscape against the backdrop of a clear blue sky creates an atmosphere that is surreal and ethereal, making it an ideal spot for camping and stargazing.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will enjoy your lunch then head to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Crystal Mountain",
-                        "description": "The blessed Crystal Mountain is a natural wonder carved by celestial and natural forces and boasts a shimmering and translucent appearance thanks to its quartz crystal formations. It is believed to have originated millions of years ago through volcanic activity and subsequent erosion.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Valley of the Golden Mummies",
-                        "description": "The Valley of the Golden Mummies is an archaeological site brimming with mythical secrets and captivating tales. Discovered in 1996, this valley is renowned for its remarkably well-preserved mummies and artifacts dating back to the Greco-Roman period of ancient Egypt. Approximately 250 mummies, over 2,000 years old, were unearthed, shedding light on the fascinating mummification process. The mummies discovered in the valley were laid to rest with their golden masks and jewelry, which lends the site its name. This extraordinary find grants invaluable insights into the burial customs and practices of that era, carrying an air of magic and wonder.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will spend the overnight in this magnificent location.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Camping in the Desert"
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Back to Cairo (CAI) - A Tapestry of Adventure",
-            "description": "Departing from Bahariya after breakfast, your journey leads to Cairo. Your overnight stay awaits you at a hotel in Cairo.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Out - Carrying the Magic Within",
-            "description": "As your journey concludes, return home carrying the magic and wonder of Egypt within your heart. forever transformed by the enchantment of this extraordinary land.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/End-Your-Trip-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '15-days-siwa-egypt-tour',
-    title: '15 Days Complete Desert & Nile Odyssey',
-    description: 'An exhaustive 15-day journey. From the remote mystical Siwa Oasis to the colossal temples of the Nile Valley, experience the defining beauty of Egypt.',
-    price: 2450,
-    duration: '15 Days',
-    location: 'All Egypt, Siwa',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&q=80&w=1200',
-    rating: 5.0,
-    reviewsCount: 145,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Cairo Arrival',
-      description: 'Meet and assist.',
-      activities: [
-        {
-          title: 'Cairo Arrival Highlights',
-          description: 'Meet and assist.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Pyramids of Giza',
-      description: 'Sphinx & Pyramids.',
-      activities: [
-        {
-          title: 'Pyramids of Giza Highlights',
-          description: 'Sphinx & Pyramids.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Siwa Oasis Transfer',
-      description: 'Drive to Siwa.',
-      activities: [
-        {
-          title: 'Siwa Oasis Transfer Highlights',
-          description: 'Drive to Siwa.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Siwa Sightseeing',
-      description: 'Cleopatra Spring.',
-      activities: [
-        {
-          title: 'Siwa Sightseeing Highlights',
-          description: 'Cleopatra Spring.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Farafra Transfer',
-      description: 'Drive to Farafra.',
-      activities: [
-        {
-          title: 'Farafra Transfer Highlights',
-          description: 'Drive to Farafra.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: White Desert Camping',
-      description: 'Camp night.',
-      activities: [
-        {
-          title: 'White Desert Camping Highlights',
-          description: 'Camp night.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 7,
-      title: 'Day Seven: Return to Cairo',
-      description: 'Drive back.',
-      activities: [
-        {
-          title: 'Return to Cairo Highlights',
-          description: 'Drive back.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 8,
-      title: 'Day Eight: Fly to Aswan',
-      description: 'High dam.',
-      activities: [
-        {
-          title: 'Fly to Aswan Highlights',
-          description: 'High dam.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 9,
-      title: 'Day Nine: Nile Cruise',
-      description: 'Board cruise.',
-      activities: [
-        {
-          title: 'Nile Cruise Highlights',
-          description: 'Board cruise.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 10,
-      title: 'Day Ten: Kom Ombo & Edfu',
-      description: 'River sailing.',
-      activities: [
-        {
-          title: 'Kom Ombo & Edfu Highlights',
-          description: 'River sailing.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 11,
-      title: 'Day Eleven: Luxor Temples',
-      description: 'Karnak.',
-      activities: [
-        {
-          title: 'Luxor Temples Highlights',
-          description: 'Karnak.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 12,
-      title: 'Day Twelve: Valley of the Kings',
-      description: 'Tombs.',
-      activities: [
-        {
-          title: 'Valley of the Kings Highlights',
-          description: 'Tombs.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 13,
-      title: 'Day Thirteen: Fly to Cairo',
-      description: 'Return.',
-      activities: [
-        {
-          title: 'Fly to Cairo Highlights',
-          description: 'Return.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 14,
-      title: 'Day Fourteen: Alexandria Day Trip',
-      description: 'Mediterranean.',
-      activities: [
-        {
-          title: 'Alexandria Day Trip Highlights',
-          description: 'Mediterranean.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 15,
-      title: 'Day Fifteen: Departure',
-      description: 'End.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '21-days-hiking-egypt-tour',
-    title: '21 Days Hiking Egypt & Grand Tour',
-    description: 'The absolute pinnacle of Egyptian exploration. 21 days covering Sinai hikes, desert safaris, deep Nile cruising, and all the classical historical sites.',
-    price: 3600,
-    duration: '21 Days',
-    location: 'Everywhere',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 72,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival',
-      description: 'Cairo.',
-      activities: [
-        {
-          title: 'Arrival Highlights',
-          description: 'Cairo.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Pyramids',
-      description: 'Giza.',
-      activities: [
-        {
-          title: 'Pyramids Highlights',
-          description: 'Giza.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Alexandria',
-      description: 'North coast.',
-      activities: [
-        {
-          title: 'Alexandria Highlights',
-          description: 'North coast.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Cairo Museum',
-      description: 'Antiquities.',
-      activities: [
-        {
-          title: 'Cairo Museum Highlights',
-          description: 'Antiquities.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Fly to Sharm',
-      description: 'Red sea.',
-      activities: [
-        {
-          title: 'Fly to Sharm Highlights',
-          description: 'Red sea.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: Mt. Sinai Hike',
-      description: 'Overnight hike.',
-      activities: [
-        {
-          title: 'Mt. Sinai Hike Highlights',
-          description: 'Overnight hike.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 7,
-      title: 'Day Seven: St. Catherine',
-      description: 'Monastery.',
-      activities: [
-        {
-          title: 'St. Catherine Highlights',
-          description: 'Monastery.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 8,
-      title: 'Day Eight: Ferry to Hurghada',
-      description: 'Cross sea.',
-      activities: [
-        {
-          title: 'Ferry to Hurghada Highlights',
-          description: 'Cross sea.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 9,
-      title: 'Day Nine: Hurghada',
-      description: 'Relax.',
-      activities: [
-        {
-          title: 'Hurghada Highlights',
-          description: 'Relax.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 10,
-      title: 'Day Ten: Drive to Luxor',
-      description: 'Transfer.',
-      activities: [
-        {
-          title: 'Drive to Luxor Highlights',
-          description: 'Transfer.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 11,
-      title: 'Day Eleven: Luxor East',
-      description: 'Karnak.',
-      activities: [
-        {
-          title: 'Luxor East Highlights',
-          description: 'Karnak.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 12,
-      title: 'Day Twelve: Luxor West',
-      description: 'Tombs.',
-      activities: [
-        {
-          title: 'Luxor West Highlights',
-          description: 'Tombs.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 13,
-      title: 'Day Thirteen: Dendera/Abydos',
-      description: 'Day trip.',
-      activities: [
-        {
-          title: 'Dendera/Abydos Highlights',
-          description: 'Day trip.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 14,
-      title: 'Day Fourteen: Cruise Embark',
-      description: 'Nile.',
-      activities: [
-        {
-          title: 'Cruise Embark Highlights',
-          description: 'Nile.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 15,
-      title: 'Day Fifteen: Edfu/Kom Ombo',
-      description: 'Sail.',
-      activities: [
-        {
-          title: 'Edfu/Kom Ombo Highlights',
-          description: 'Sail.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 16,
-      title: 'Day Sixteen: Aswan',
-      description: 'Philae.',
-      activities: [
-        {
-          title: 'Aswan Highlights',
-          description: 'Philae.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 17,
-      title: 'Day Seventeen: Abu Simbel',
-      description: 'Ramases II.',
-      activities: [
-        {
-          title: 'Abu Simbel Highlights',
-          description: 'Ramases II.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 18,
-      title: 'Day Eighteen: Fly Cairo',
-      description: 'Return.',
-      activities: [
-        {
-          title: 'Fly Cairo Highlights',
-          description: 'Return.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 19,
-      title: 'Day Nineteen: Bahariya',
-      description: 'Desert.',
-      activities: [
-        {
-          title: 'Bahariya Highlights',
-          description: 'Desert.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 20,
-      title: 'Day Twenty: White Desert',
-      description: 'Camp.',
-      activities: [
-        {
-          title: 'White Desert Highlights',
-          description: 'Camp.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 21,
-      title: 'Day Twenty-One: Departure',
-      description: 'Home.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'Home.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'day-trip-luxor-to-cairo-plane',
-    title: 'Day Trip from Luxor to Cairo by Plane',
-    description: 'Fly from Luxor to Cairo and discover the ancient Pyramids of Giza, the cryptic Sphinx, and the treasures of the Egyptian Museum.',
-    price: 350,
-    duration: '1 Day',
-    location: 'Luxor, Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 125,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Tour Itinerary: Enjoy Cairo Day Trip from Luxor",
-            "description": "You will be transferred from your hotel or your Nile Cruise to fly to Cairo to start your private day trip from Luxor to Cairo. Upon arrival, you will meet your private tour guide who will join you to discover:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egyptian-Giza-Pyramids-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The heavenly Giza pyramids complex is a cosmic wonder showcasing the immortal heritage of the ancient Egyptian civilization that spanned more than 4500 years through a series of heavenly constructions such as the great three pyramids of Giza, six little pyramids, the great sphinx, and the Valley Temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu came into reality in 2600 years through the vizier of Pharaoh Khufu Hemiunu who designed the Pyramid to be 147m tall through 2.3 million limestone blocks and be filled with a number of chambers like the Queen’s chamber, the King’s chamber, the grand hall, and more hidden marvels.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is a holy guardian that came from the heavens in 2500 to protect the wonders of the Giza plateau. It holds the facial features of King Khafre who ruled from 2558 BC to 2532 BC with the body of a lion.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The house of transformation the valley temple is a very significant construction that came to be in 2700 BC to be the center of the mummification process and protect the bodies of the royal family of the 4th dynasty by transforming them into mummies.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a monumental gateway to 5,000 years of history, revealing the artistry, spirituality, and epic legacy of ancient Egypt for many ages to come. Oriented toward the stellar pyramids of Giza and spread across nearly 490,000 square meters, GEM houses one of the Middle East’s largest conservation centers alongside research laboratories and educational facilities dedicated to safeguarding Egypt’s heritage. Visitors will encounter timeless masterpieces, from the Hanging Obelisk and the 11-meter colossus of Ramses II to the complete assemblage of more than 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a Pyramids / Nile view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is the first museum ever built of its kind in 1901 in the heart of Cairo to display and celebrate the oldest and most incredible artifacts and monuments ever constructed in the history of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz Street is more than a labyrinth of streets but a gateway to the Islamic golden era. It was built in the 10th century AD in the proximity to the khan El Khalili bazaar to be the center of shopping and exploring the ancient architecture across all the marvelous cafes.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "The wealthy Bazaar of Khan El Khalili was created in 1382-1389 AD in the maximum height of the golden Islamic age to be a commercial hub of shopping and offer the chance for all travelers to get a piece of Egypt.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'day-tour-cairo-to-luxor-plane',
-    title: 'Day Tour from Cairo to Luxor By Plane',
-    description: 'Catch a quick flight from Cairo to Luxor for a day filled with the grandeur of Karnak Temple, Luxor Temple, and the Valley of the Kings.',
-    price: 320,
-    duration: '1 Day',
-    location: 'Cairo, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 210,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Luxor Highlights',
-      description: 'Fly to Luxor to see the East and West Banks. Return flight to Cairo.',
-      activities: [
-        {
-          title: 'Luxor Highlights Highlights',
-          description: 'Fly to Luxor to see the East and West Banks. Return flight to Cairo.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'day-trip-abu-simbel-aswan',
-    title: 'Day Trip to Abu Simbel from Aswan by Private Vehicle',
-    description: 'Travel by private vehicle from Aswan to witness the miraculous temples of Ramses II and Nefertari at Abu Simbel.',
-    price: 150,
-    duration: '1 Day',
-    location: 'Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 160,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Abu Simbel',
-      description: 'Drive to Abu Simbel, guided tour of the temples, and return to Aswan.',
-      activities: [
-        {
-          title: 'Abu Simbel Highlights',
-          description: 'Drive to Abu Simbel, guided tour of the temples, and return to Aswan.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'day-trip-cairo-from-hurghada',
-    title: 'Day Trip to Cairo from Hurghada by Plane',
-    description: 'Swap the Red Sea for the Nile and fly to Cairo to see the Great Pyramids, Sphinx, and Egyptian Museum in one magnificent day.',
-    price: 290,
-    duration: '1 Day',
-    location: 'Hurghada, Cairo',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 95,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Tour Itinerary: Day Trip to Cairo from Hurghada by Plane",
-            "description": "In the morning, we will transfer you from your hotel in Hurghada to Hurghada airport for a flight to Cairo. Upon arrival at Cairo airport, meet your private Egyptologist tour guide who will join you to start a private guided day trip to Cairo from Hurghada to discover all that Cairo and Giza have to offer starting with one of the seven wonders of the world:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Day-Trip-to-Cairo-from-Hurghada-by-Plane-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "Giza Pyramids complex is where the glorious history of the ancient Egyptian civilization is remembered day after day until the end of days. The Great Giza complex consists of the three main great pyramids, six little pyramids, the great sphinx, and the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu is a monument of pure greatness made to challenge time, it is the last intact structure of the seven wonders of the ancient world. The Khufu pyramid was constructed in 2580 BC in 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons with a workforce of about 100,000 free skilled workers. It is 147 m (481 ft) tall which made it the tallest building in history for 3800 years and inside lies an enchantingly designed interior.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The great sphinx a.k.a \"Hor-em-Akhet\" which means \"Horus of the horizon\" is the immortal celestial guardian of Egypt. The sphinx is 73 m (240 ft) tall, 19 m (66 ft) wide, and has the shape of a mythical creature called the sphinx which possesses the body of a lion and the head of a man believed to be king Khafre to showcase his power and wisdom.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "It was created during Egypt old kingdom (2686 2134 BC) to be where the mummification process took place plus the valley is very well-preserved archeological because it offers valuable information about the mummification process and mortuary rituals of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is an ethereal gateway to 5,000 years of history, illuminating the artistry, spirituality, and glorious heritage of ancient Egypt. It is aligned with the golden pyramids of Giza, and spans nearly 490,000 square meters. GEM was built with a billion-dollar budget, in order to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone will get to marvel at immortal treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a Pyramids/ Nile view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a time capsule filled with the greatest ancient Egyptian artifacts dating to more than 4000 years within the two floors of the museum made from extravagant materials like gold, silver & precious gems, and ordinary ones such as wood or stone found in the shape of statues and funerary objects, plus a number of other incredible monuments worthy of exploring.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "The illuminating and blessed Al-Muizz street is known to be dating to the 10th century AD in the heart of Old Cairo at a close distance from Khan El Khalili Bazaar filled with the most captivating collection of ancient decorations and architecture.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan EL Khalili bazaar is a street from the history books which was constructed in 970 AD to be the golden brick road of the Middle East, it remains an active bazaar and contains everything a traveler could imagine in its magical markets and shops plus a number of vintage cafes that reflect the classical beauty and prestige of ancient Islamic culture.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'day-trip-hurghada-pyramids',
-    title: 'Day Trip from Hurghada to Pyramids By Plane',
-    description: 'An exclusive day tour focused on the mysteries of the Giza Plateau, Memphis, and Saqqara with flights from Hurghada.',
-    price: 280,
-    duration: '1 Day',
-    location: 'Hurghada, Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 110,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Tour Itinerary: Day Trip from Hurghada to Pyramids by Plane",
-            "description": "Morning time, we will transfer you from your hotel in Hurghada to the airport to catch your flight to Cairo where you will meet your tour guide who will escort you to start your private day trip from Hurghada to Pyramids by plane by visiting:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Day-Trip-from-Hurghada-to-Pyramids-By-Plane-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "For more than 4000 years, the Giza Pyramids complex reflected the heavenly glory of the ancient Egyptian civilization. The Giza complex consisted of the three main great pyramids, six little pyramids, the great sphinx, and the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid is a cosmic monument from a magical realm as it is the last intact structure of the seven wonders of the ancient world. The Khufu pyramid was created in 2580 BC in only 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons with a workforce of about 100,000 free skilled workers, it has a total height of 147 m (481 ft) which made it the tallest building in history for the past 3800 years.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Spinx Is a guardian angel from a magical dimension named \"Hor-em-Akhet\" which means \"Horus of the horizon\". The sphinx is 73 m (240 ft) tall, 19 m (66 ft) wide and in the shape of a mythical creature called the sphinx which possess the body of a lion and the head of a man believed to be king Khafre to highlights his immense power and wisdom.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "It's where time was chained as it was constructed during the old kingdom (2686 2134 BC) to be where the mummification process took place. The valley is well-preserved archeological because it offers priceless information about the mummification process and mortuary rituals of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a majestic piece of advanced architecture that is loaded with captivating archaeological marvels, aligned with the Great Pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone will cast their eyes on the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will enjoy your lunch meal at a Pyramids view restaurant and then you will continue the rest of your tour to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid was the heavenly spark that launched the golden age of pyramids constructions in ancient Egypt, it was designed by the legendary vizier of Pharaoh Djoser \"Imhotep\" to create unique a one of a kind design made up of six steps reaching the height of 62 m surrounded by a majestic complex containing enchanting ceremonial structures.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'day-tour-luxor-hurghada',
-    title: 'Day Tour to Luxor from Hurghada',
-    description: 'A comfortable overland journey from the Red Sea to Luxor, the world’s greatest open-air museum.',
-    price: 110,
-    duration: '1 Day',
-    location: 'Hurghada, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.5,
-    reviewsCount: 320,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Luxor West & East Banks',
-      description: 'Drive to Luxor. Visit Valley of the Kings and Karnak Temple. Return to Hurghada.',
-      activities: [
-        {
-          title: 'Luxor West & East Banks Highlights',
-          description: 'Drive to Luxor. Visit Valley of the Kings and Karnak Temple. Return to Hurghada.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'day-trip-marsa-alam-cairo',
-    title: 'Day Trip from Marsa Alam to Cairo By Plane',
-    description: 'Take a quick flight from Marsa Alam to Cairo and dive deep into Egypt’s ancient capital.',
-    price: 310,
-    duration: '1 Day',
-    location: 'Marsa Alam, Cairo',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 88,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Tour Itinerary: Day Trip from Marsa Alam to Cairo By Plane",
-            "description": "Early morning, we will transfer you from your hotel in Marsa Alam to Marsa Alam airport to catch your flight to Cairo. Upon arrival, meet your private tour guide who will join you to start your day trip from Marsa Alam to Cairo starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Cosmic Giza pyramids complex is a living miracle that came to be during the old kingdom (2686 – 2134 BC) to eternalize the golden heritage of the royal kings of the 4th dynasty.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The celestial miracle of King Khufu (2609 BC - 2584 BC) the great pyramid of Giza was created to knock on the gates of heaven. It was designed and architected in 2570 BC by his main vizier“Hemiunu” to have a total height of 147 m through 2.3 million limestone blocks weighing a total of 6 million tons. It stands as a testament to the brilliant skill of the ancient Egyptians which is shown through the advanced interior of ancient Egypt which are the Queen’s chamber, the King’s chamber, the grand hall, and many more.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The eternal symbol of strength and insight the great Sphinx a.k.a Horus of the Horizon was able to immortalize the legacy of Pharaoh Khafre (2558 BC - 2532 BC). It stood at 73 m long, 19 m wide, and 20 m tall and between the legs of the sphinx is the legendary dream Steele of Thutmose IV which was added in 1401 BC.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley TempleThe Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a magical structure that is loaded with beautiful archaeological marvels, aligned with the cosmic pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at the Pyramids / Nile view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "The heavenly Al-Muizz street is a glowing labyrinth of immortal wonders that dates back to the 10th century AD in Cairo, the city of wonders and minarets, showcasing the greatest works of art and architecture ever made in the history of the golden Islamic era of Egypt. This magnificent street is filled with several fun and mythical cafes, which are filled with some amazing cultural gatherings.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "The illuminating Khan EL Khalili bazaar is an immortal wonder that stood the test of time and is filled with golden gems that were created between 1382 and 1389 AD to offer a golden path to the most memorable historical wonders ever created and offer the most memorable and entertaining shopping experience.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'day-tour-abu-simbel-cairo-plane',
-    title: 'Day Tour to Abu Simbel from Cairo by Plane',
-    description: 'An extraordinary day trip directly flying from Cairo to the monumental rock temples of Abu Simbel.',
-    price: 450,
-    duration: '1 Day',
-    location: 'Cairo, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 145,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Abu Simbel Tour',
-      description: 'Fly from Cairo, tour the temples of Ramses II and Nefertari, fly back.',
-      activities: [
-        {
-          title: 'Abu Simbel Tour Highlights',
-          description: 'Fly from Cairo, tour the temples of Ramses II and Nefertari, fly back.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'luxor-day-tour-from-aswan',
-    title: 'Luxor Day Tour from Aswan',
-    description: 'Travel from Aswan to Luxor by private vehicle to explore the magnificent temples of the East and West Banks.',
-    price: 130,
-    duration: '1 Day',
-    location: 'Aswan, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 190,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Tour Itinerary: Luxor Day Tour from Aswan",
-            "description": "In the morning time, we will transfer you from your hotel in Aswan to the train station to catch the 1st class train to Luxor. Upon arrival, you will be accompanied by your private Egyptologist tour guide where you'll visit the most famous Luxor tourist attractions including:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Kings-Valley-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The proud golden rulers of the Eighteenth, Nineteenth, and Twentieth Dynasties of the incredible New Kingdom (1550 – 1070 BC) chose to be buried in the underground core of the Theban Necropolis which was divided into the west and east valleys. The Valley of the Kings holds 63 tombs of some of the most famous Pharaohs and nobles in Egypt's history. This location was chosen for its mythological value that witnessed the sunset at the western end then reborn and rejuvenated on the eastern horizon plus the tombs hid in the blessed shadow of a pyramid peak reaching for the sun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The magnificent legacy of the golden Queen (1473–1458 BC) can be explored very clearly across the holy of holies found on the west bank of Luxor found in opposite the Karnak temple which is the main sanctuary of Amun. Hatshepsut temple was constructed by Senenmut the main priest of Amun in 1479 BCE for 15 years to possess three levels containing a number of the most magical decoration showcasing the great history and achievement of this great ruler.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The brilliant quartzite sandstone Colossi of Memnon has witnessed many things during its glorious lifespan it was created by Amenhotep III in 1350 BC to guard the golden heritage of one of Egypt’s most significant builders. Across the statues are 107 inscriptions from the Roman era showcasing the Greek mythological tale of kings Memnon plus there is mention of the wife Tiye and mother Mutemwiya and mention of the god of the Nile Hapi.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then, we will transfer you to a local restaurant in Luxor to enjoy your lunch and after finishing, you will join your tour guide to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The most selected of places the golden Karnak Temple Complex became a mega worship center the divine Theban triad that consists of Aman-Ra, Montu, and Mut. The construction of grand Karnak Temple Complex was created from 2055 BC to 100 AD to become the biggest religious complex ever created in history showcasing the finest examples of ancient Egyptian architecture such as the Hypostyle hall, avenue of sphinxes, and many more.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'day-trip-aswan-from-luxor',
-    title: 'Day Trip to Aswan from Luxor',
-    description: 'Head south from Luxor to the beautiful city of Aswan to see the High Dam, Philae Temple, and the Unfinished Obelisk.',
-    price: 130,
-    duration: '1 Day',
-    location: 'Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 175,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Tour Itinerary: Day Trip to Aswan from Luxor",
-            "description": "Morning time, we will transfer you from your hotel to Luxor train station to catch the 1st class train to Aswan where you will start your guided tour to visit Aswan tourist attractions:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Aswan High Dam",
-                        "description": "In the current era between the 60s and the 70s, Aswan High Dam was able to have a significant effect on the golden culture and economy of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "One of the biggest obelisks on the face of the earth never came into reality as it was broken in the bedrock during the carving process as it was meant to be Queen Hatshepsut's (1508-1458 BC) golden touch across the divine entrance of the golden Karnak temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will then head to a public restaurant in Aswan to enjoy your tasty lunch meal and after that, you will head to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "The mythical temple of Philae of a storybook made of celestial stones that tells the sacred story of Osiris, Horus, and Isis. Philae Temple was built by king Nectanebo I during 380-362 BC as one of the last temples in the Ptolemaic period to ever be built in the history of Egypt.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-luxor-hurghada',
-    title: '2 Day Trip to Luxor from Hurghada',
-    description: 'A more relaxed 2-day excursion from Hurghada allowing a comprehensive exploration of Luxor and an overnight stay.',
-    price: 240,
-    duration: '2-4 Days',
-    location: 'Hurghada, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 134,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Tour to Luxor East Bank",
-            "description": "In the early morning, you will be picked up by our private tour guide by a private A.C car then head to Luxor and cast your eyes firstly on the tiptop Luxor tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Karnak-2-Day-Trips-to-Luxor-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Is where the heavens smile on this holy land, it was constructed 4000 years ago on 247 acres of land containing three main temples & several enclosed and outer temples. For more than 1500 years, it has been one of the biggest religious man-made constructions on earth and the worship center of the Theban triad of Amun, Mut, & Khnsou.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Luxor Temple",
-                        "description": "Luxor temple is a lunar flower from paradise constructed in 1400 BCE during the reign of Pharaoh Amenhotep III and was known as \"Ipetresyet\" which means the southern sanctuary and holds various festivals including the Opet festival, it was dedicated to the God Amun which symbolizes the rejuvenation of kingship.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served on an island which includes a boat trip then you will check in a 5*hotel.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will then head to the hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Luxor West Bank",
-            "description": "You will have your breakfast and check out from the hotel then you will be taken by a private air-conditioned vehicle accompanied by your private tour guide to explore Luxor west bank attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Valley-of-the-Kings-2-Day-Trips-to-Luxor-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "It's known as the heavenly passage of the immortals which contains 63 tombs of rulers from the 18th, 19th, and 20th dynasties of Egypt's new kingdom (1570-1070 BC) filled with enchanting treasures, artifacts, mesmerizing decorations, and the remains of pharaohs such as Rameses II, Amenhotep I, Hatshepsut, and Tutankhamun. The Valley of the Kings earned the title of a World Heritage Site by UNESCO in 1979.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "Hatshepsut temple is like a beautiful lady from an ancient tale, it was dedicated to the creator god Amun and for immortalizing the great legacy of one of the most successful leaders of ancient Egypt Queen Hatshepsut. The design of the temple is brilliant as it is built in the style of Classical Architecture of the new kingdom on three levels with two wide ramps in a central position joining all the levels together.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "They are two colossal warriors from the heavens made of blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each resembling Pharaoh Amenhotep III(1386-1350) who have moved 700 km from Cairo to Luxor, it was destroyed by a large earthquake in 27 BC but was reconstructed in 199 AD.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a Nile view restaurant.",
-                        "icon": "dinner"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-cairo-luxor-hurghada',
-    title: '2 Day Trip to Cairo and Luxor from Hurghada',
-    description: 'The ultimate quick two-day tour covering the biggest highlights of Egypt: the Pyramids in Cairo and the temples in Luxor.',
-    price: 480,
-    duration: '2-4 Days',
-    location: 'Hurghada, Cairo, Luxor',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 220,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Fly from Hurghada to Cairo - Visit Giza Pyramids - The Egyptian Museum",
-            "description": "Early morning, \"Travision Tours\" representative will pick you up from your hotel in Hurghada to Hurghada airport for a flight to Cairo. Upon arrival to Cairo airport, you will meet your private tour guide who will accompany you to start your 2 days trip to Cairo and Luxor from Hurghada by discovering Ancient Egyptian civilization in one of the Seven Wonders of the World:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Giza-Pyramids-2-Day-Trips-to-Cairo-and-Luxor-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The celestial Giza Pyramids complex is a heavenly wonder from an ancient universe containing the ancient immortal heritage of the ancient Egyptian civilization that dates all the way to 2700 BC which comes in the shape of colossal constructions.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The magical Great Pyramid of King Khufu (2609 BC - 2584 BC) is a symbol of strength and beauty which is designed by his brilliant Hemiunu to be 147 m tall using 2.3 million limestone blocks that have a total weight of about six million tons. In the pyramids are the King’s chamber, the big void, the grand hall, the Queen’s chamber, and various more hidden wonders.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Cosmic guardian Sphinx is a legendary piece of art and architecture that sheds light on the power and wisdom of King Chephren (2558 – 2532 BC) plus contains the mythical dream Steele of Thutmose IV that was put in 1401 BC.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The majestic Valley temple is an epic house of divine transformation that came into existence in 2600 BC to make the bodies of ancient Egypt royalty into the mummies of the kings and queens of the old kingdom which lead to the heavens.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a majestic facility of state-of-the-art technology that shds light on all the golden archaeological treasures, aligned with the stellar pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can witness immortal artifacts such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at the Pyramids/Nile view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The mesmerizing Egyptian Museum was constructed to be a center for beauty and majesty that was constructed in 1901 in the heart life of Cairo to shed some light on the mythical history of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Return back to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Luxor Tourist Attractions",
-            "description": "Enjoy breakfast and check out from your hotel; you will be driven to Cairo airport for a flight to Luxor. Upon arrival at Luxor airport, meet \"Travision Tours\" representative. You will be accompanied by your tour guide and a private air-conditioned vehicle to continue your two day trip to Cairo and Luxor from Hurghada by visiting Luxor tourist attractions, including:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Karnak-2-Day-Trips-to-Cairo-and-Luxor-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The immortal Valley of the Kings is a heavenly gate showcasing the everlasting art and history of Egypt’s most incredible ancient rulers from the new kingdom (1570 – 1050 BC). Inside the valley of the kings are 63 tombs filled with the most hypnotic treasures and decorations of the great pharaoh Ramses II, Hatshepsut, Seti I, Tutankhamen, and various more.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The holy of holies Hatshepsut temple (1507–1458 BC) came into existence to honor the everlasting legacy of Hatshepsut one of the most successful pharaohs in the history of ancient Egypt and the sun god Amun. The temple is able to offer the magical classical architecture of ancient Egyptian Civilization.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The enduring and everlasting Colossi of Memnon of Pharaoh Amenhotep III was constructed in 1350 BC in Cairo to be dragged 700 m to Luxor so it could stand at the ruined mortuary temple of Amenhotep II.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served on an island, so your tour includes a boat trip on the Nile followed by:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The most selected of places Karnak Temples Complex is the greatest open-air museum on earth and Pr-Imn house of Amun to pay tributes to the Theban triad which of Amun, Mut, and Khonsu plus a number of other gods. It came to be between 2000 BC and 30 AD on a huge land of 247 acres. The most captivating aspect of the temple is the Avenue of Sphinxes which leads to the beautiful Luxor Temple.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-luxor-abu-simbel-hurghada',
-    title: '2 Days Luxor & Abu Simbel Tours From Hurghada',
-    description: 'Dive deep into history with a two-day trip from Hurghada to see the wonders of Luxor and the massive Abu Simbel temples.',
-    price: 490,
-    duration: '2-4 Days',
-    location: 'Hurghada, Luxor, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 110,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Hurghada to Luxor - Visit Luxor Attractions",
-            "description": "In the morning, we will transfer you from your hotel in Hurghada by a private modern A.C car to Luxor to start a private Luxor & Abu Simbel tours from Hurghada. Upon arrival at Luxor, you will be accompanied by your private Egyptologist tour guide to visit:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Karnak-2-Days-Luxor-Abu-Simbel-Tours-From-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The Valley of the Kings is a heavenly gate leading to the divine heritage of Egypt’s most marvelous ancient rulers from the new kingdom (1570 – 1050 BC). In every corner of the miraculous Valley of the Kings which contains 63 tombs filled with the most hypnotic treasures and decorations of the great pharaoh Ramses II, Hatshepsut, Seti I, Tutankhamen, and various more.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The beautiful temple of Queen Hatshepsut (1507–1458 BC) holy of holies is one of the most influential pharaohs in the history of ancient Egypt and the sun god Amun. The everlasting temple of Hatshepsut is able to shed some light on the most preserved samples of ancient Egyptian civilization.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The highly rare and enchanting Colossi of Memnon of Pharaoh Amenhotep III is an everlasting piece of art that was constructed in 1350 BC in Cairo to be dragged 700 m to Luxor so it could stand at the faded mortuary temple of Amenhotep II.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at the oriental Nile view restaurant, then join your private guide to enjoy:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The Divine Karnak temple complex is the most selected of places that became famous as Pr-Imn house of Amun to honor mainly the Theban triad which of Amun, Mut, and Khonsu. This epic complex was constructed between 2000 BC and 30 AD across 247 acres which earned the place the biggest open-air museum on earth. The most enchanting aspect of this magical monument is the Grand Avenue of Sphinxes which connects it to the beautiful Luxor Temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will then be transferred in a private modern car to Luxor train station to catch your 1st class train to Aswan and right upon your arrival, you will meet our representative who will transfer you to your 5* hotel in Aswan to check-in and overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Abu Simbel - Back to Hurghada",
-            "description": "Early morning, get your breakfast boxes then join your private tour guide to enjoy a private guided tour to Abu Simbel.",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Abu-Simbel-2-Days-Luxor-Abu-Simbel-Tours-From-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The two heavenly Temples of Abu Simbel are a true testament of the legendary power and glory of the ancient Egyptian civilization. The colossal rock-cut structures Temples were constructed during the reign of Pharaoh Ramses II the great 1200 B.C. One temple is dedicated to King Ramses II to hold the epic sun festival, and the second temple is dedicated to his lovely wife Queen Nefertari.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Your lunch will be served at an oriental restaurant as soon as you return to Aswan.",
-                        "icon": "dinner"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-luxor-abu-simbel-marsa',
-    title: '2 Day Luxor & Abu Simbel Trip From Marsa Alam',
-    description: 'From the quiet shores of Marsa Alam, embark on a profound two-day journey into the heart of Ancient Egypt.',
-    price: 520,
-    duration: '2-4 Days',
-    location: 'Marsa Alam, Luxor, Abu Simbel',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 85,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Luxor Sights',
-      description: 'Drive to Luxor, full tour, overnight.',
-      activities: [
-        {
-          title: 'Luxor Sights Highlights',
-          description: 'Drive to Luxor, full tour, overnight.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Abu Simbel',
-      description: 'Visit Ramses II Temples, return to Marsa Alam.',
-      activities: [
-        {
-          title: 'Abu Simbel Highlights',
-          description: 'Visit Ramses II Temples, return to Marsa Alam.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'overnight-cairo-luxor-marsa',
-    title: 'Overnight Trip to Cairo & Luxor from Marsa Alam',
-    description: 'Fly from Marsa Alam to experience the vibrant capital of Cairo and the open-air museum of Luxor all in two days.',
-    price: 540,
-    duration: '2-4 Days',
-    location: 'Marsa Alam, Cairo, Luxor',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 105,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Cairo',
-      description: 'Fly to Cairo. Giza Tour. Fly to Luxor, overnight.',
-      activities: [
-        {
-          title: 'Cairo Highlights',
-          description: 'Fly to Cairo. Giza Tour. Fly to Luxor, overnight.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Luxor',
-      description: 'Tour East/West Banks. Return to Marsa Alam.',
-      activities: [
-        {
-          title: 'Luxor Highlights',
-          description: 'Tour East/West Banks. Return to Marsa Alam.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: '2-days-aswan-abu-simbel-hurghada',
-    title: '2 Days Aswan & Abu Simbel Tours from Hurghada',
-    description: 'A dedicated two-day journey from the Red Sea to strictly explore the Nubian marvels of Aswan and Abu Simbel.',
-    price: 360,
-    duration: '2-4 Days',
-    location: 'Hurghada, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 140,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Transfer to Aswan - Tour to Aswan Attractions",
-            "description": "Morning time, we will pick you up from your hotel by a modern private A.C Car to Luxor to catch the 1st class train to Aswan. Upon arrival at the Nubia country, you will join your private Egyptologist tour guide to visit Aswan tourist attractions starting at:",
-            "image": "https://www.egypttoursportal.com/images/2017/02/Aswan-Abu-Simbel-Tours-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "The marvelous high dam of Aswan came into being during the 60 and 70s to offer a new way of life by offering new innovative methods of producing electricity and saving power.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The enlightening Unfinished Obelisk came into existence by Queen Hatshepsut (1508-1458 BC) to stand as a symbol of power and grace at the golden entrance of the Karnak temples complex. It now stands at the great open-air museum displaying the great skill of ancient Egyptian carvers and craftsmen.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "The legendary Philae temple is a celestial open book made of holy stone narrating the everlasting story of “Myth of Osiris”. It was built as the last example of ancient Egyptian architecture in 280 BC through an order from king Ptolemy II. The temple was part of a rescue operation in the mid-60s and 70s known as the UNESCO Nubia Campaign project which relocated the temple to Agilkia Island where it is found today.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Abu Simbel Temple",
-            "description": "Early morning, breakfast boxes then check-out from the hotel and join your private tour guide to visit the ancient archaeological site Abu Simbel temple:",
-            "image": "https://www.egypttoursportal.com/images/2017/02/Abu-Simbel-Aswan-Abu-Simbel-Tours-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The Astral Abu Simbel temples of the grand and immortal Pharaoh is a heavenly work of fantasy and art that came to be in 1200 B.C in southern Egypt. The key purpose was to pay respects to the gods of ancient Egypt which are Amun, Ptah, and Re-Harakty on the 22nd of February and October of each year in a grans festival known as the sun festival, plus commemorate his victory at the Battle of Kadesh in 1274 BC.",
-                        "icon": "tour"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-aswan-abu-simbel-marsa',
-    title: '2 Days Aswan & Abu Simbel Trips from Marsa Alam',
-    description: 'Experience the deep south of Egypt with a two-day excursion from Marsa Alam to Aswan and Abu Simbel.',
-    price: 380,
-    duration: '2-4 Days',
-    location: 'Marsa Alam, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 75,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Tour to Aswan Attractions",
-            "description": "Morning time, start your Aswan & Abu Simbel tours from Marsa Alam by picking you up from your hotel by a modern private A.C. vehicle to Aswan. Upon arrival, you will join your Egyptologist tour guide to explore Ancient Egyptian Civilization by visiting Aswan tourist attractions:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Temple-of-Isis-in-Philae-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Aswan High Dam",
-                        "description": "The golden high dam of Aswan is an epic project of innovation that stood the test of time in the 60s and 70 to drive Egypt into the age of industrial wealth by producing electricity.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The miraculous Unfinished Obelisk was meant for greatness as the largest obelisk ever created in the history of mankind made by an order for Queen Hatshepsut (1508-1458 BC) to stand next to the lantern obelisk “which is now in Rome” at the golden entrance of the Karnak temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then, you will have your delicious lunch at a restaurant in Aswan, then visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "The legendary Philae temple the worship home of the goddess motherhood Isis, mother of the sky God Horus, and wife of Osiris the ruler of the underworld is the last temple created in the classical Egyptian style in 280 BC during the reign of Ptolemy II in the Greco-Roman period to keep the epic Myth of Osiris alive across its colossal walls.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will check-in at a 5* hotel in Aswan to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Abu Simbel - Back to Marsa Alam",
-            "description": "Early morning, get your breakfast box from your hotel then join your private tour guide to visit Abu Simbel:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Abu-Simbel-Temples-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The Sacred colossal Temples of Abu Simbel have achieved everlasting bliss since their construction during the reign of Pharaoh Ramses II the Great in 1200 B.C to honor the gods of ancient Egypt which are Ptah, Amun, and Ra on the 22 of October and February during the phenomenal annual sun festival. The great first temple displays a wealth of information showcasing the full details of the battle of Kadesh that occurred in 1274 BC while the second smaller temple display devotion to the wife Queen Nefertari.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then return back to Aswan to have your lunch at a restaurant in Aswan.",
-                        "icon": "dinner"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-luxor-cairo',
-    title: 'Two Days Trips to Luxor from Cairo by Plane',
-    description: 'Spend an entire two days thoroughly discovering Luxor with round-trip flights from Cairo.',
-    price: 330,
-    duration: '2-4 Days',
-    location: 'Cairo, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 310,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Fly from Cairo to Luxor - Visit Luxor East Bank Attractions",
-            "description": "Early morning, we will pick you up from your hotel in Cairo by a private A/C vehicle to catch your flight to Luxor. Upon arrival at Luxor airport, meet your private tour guide who will accompany you to start your trips to Luxor from Cairo by plane by discovering Luxor tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Satue-of-King-Ramses-II-Luxor-Temple-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Famously known to be the biggest open-air museum and the oldest and biggest religious compound on the face of the earth the Karnak Temple Complex reflected the faith, and artistic capacity of the ancient Egyptian plus their overall strength. The most selected of places was constructed from 2055 BC all the way to 100 AD as the main religious gathering in Thebes for Amun, Mut, and Khonsu which are known as the Theban triad. The 54000 square feet hypostyle hall is by far the biggest attraction in the temple along with the pylons and the Avenue of Sphinxes that leads to the Karnak temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Luxor Temple",
-                        "description": "The Crown gem Luxor Temple holds royal power that stands between the divine kingdom of the ancient Egyptian gods and our mortal world. It was constructed in 1400 BCE by Tutankhamun (1336-27 BC), Horemheb (1323-1295 BC), and Rameses II (1279-13 BC) for the crowning of many kings and the rejuvenation of Kingship to become the most enchanting temples in history at the core of Luxor on the east side of Luxor.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served on an island, so your tour includes a boat trip, then you will check in 5* hotel to refresh yourself before we pick you up once more to enjoy:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Sound and Light Show at Karnak",
-                        "description": "The show starts with a historical introduction covering the birth of the great city of Thebes and the erection of the Karnak Temple. The show narrates the glorious achievements of some great Pharaohs as you listen to a magnificent and poetic description of the artistic treasures and great legacy which the Karnak temple encloses.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After that get back to your hotel again and spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Luxor West Attraction - Fly Back to Cairo",
-            "description": "Enjoy breakfast and check-out from your hotel in Luxor then you will be accompanied by your private tour guide and a private air-conditioned vehicle to continue your trips to Luxor from Cairo by plane by visiting:",
-            "image": "https://www.egypttoursportal.com/images/2018/06/Hatshepsut-Temple-Two-Days-Luxor-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The legendary Valley of the gates of the Kings is a magical under-earth labyrinth showcasing the divine beauty and glory of the ancient Egyptian kingship that wished to join their place with the gods. From the 16th to the 11th century across 500 in the New Kingdom (1539-1075 B.C) 63 tombs of the kings, queens, high persist, and high elites of the 18th, 19th, and 20th were buried with their treasures to use for their afterlife journey leading to the heavens. It was discovered by Howard Carter in 1922 who opened the tomb of Tutankhamen, then followed Seti I, Ramses II, and many more.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The enchanting fair lady of beauty and class the Hatshepsut Temple is an embodiment of charm, elegance, and bliss. It was built and designed by Senenmut during the 15th century BC to stand as the holy of holies house of the sun god Amun and the most enriching and perfect example of ancient Egyptian classical architecture that truly stood the test of time to showcase the untouched heritage of Queen Hatshepsut (1479 – 1458 BC).",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The guardians of the gate leading to the colossal treasures of Thebes Colossi of Memnon was made from 1386 to 1350 to become a true masterpiece but was destroyed by an earthquake in 27 BC then restored again by roman kings who associated it with the legendry warrior Memnon son Eos the goddess of dawn.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "It's time to have a delicious Egyptian lunch at a Nile view restaurant in Luxor.",
-                        "icon": "dinner"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-luxor-aswan-cairo',
-    title: 'Two Days Luxor and Aswan Trip from Cairo',
-    description: 'Fly from Cairo for a whirlwind two-day overview of the two most historic cities in Upper Egypt.',
-    price: 410,
-    duration: '2-4 Days',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 200,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Tour to Luxor Attractions",
-            "description": "We will pick you up from your hotel in Cairo, then fly over to start and enjoy the two days Luxor & Aswan trip from Cairo. Upon arrival at Luxor airport, you will be accompanied by your private Egyptologist guide to visit Luxor tourist attractions including:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Hatshepsut-Temple-5-Days-Nile-Cruise-from-Hurghada-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The cosmic Valley of the Kings was hidden in the deep cor a golden hill that resembles the mythical ben-ben where the world was created. The 63 tombs are able to showcase the blessed heritage of the great kings, queens, and nobles such as Ramses II, Seti I, Tutankhamen, Hatshepsut, and more; where the valley was their final resting place across the new Kingdom (1570 – 1050 BC). The valley acted as the source of the greatest facts of archaeological and Egyptological nature from that golden period.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The most illuminating architectural masterpiece ever created in the history of Egypt Hatshepsut Temple became known as the holy of holies which features three huge terraces carved into the stone cliffs of Deir el-Bahari which was dedicated for the worship of Amun-Ra. It was built in 1479 BCE during her reign (1479-1458 BCE) to preserve her life story and immortalize all her great achievements.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The grand Colossi of Memnon the golden guardian of Luxor stood the test of time since its construction by the hands of Pharaoh Amenhotep III (1386-1353 BCE). It was rebuilt countless times which is able to showcase a great deal of information about the Amenhotep III's family and dedications to the Nile God Hapy.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at an oriental Nile view restaurant, then join your private guide to enjoy:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The cosmic Karnak Temple Complex is the second most visited archaeological attraction in Egypt which is known as the divine most selected of places that were built for over 2000 years from the middle kingdom to the Ptolemaic era and became a religious capital in the heart of the Thebes which was dedicated for the Theban triad of Mut, Montu, and Amun-Ra. The complex holds the Hypostyle hall, a number of precincts, the divine avenue of Sphinxes, and more.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of your day tour, we will transfer you to the train station to catch your 1st class train to Aswan and upon your arrival, we will transfer you to your 5* hotel in Aswan for spending overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Aswan Attractions",
-            "description": "Morning time, enjoy your breakfast and we will pick you up from your hotel joining your private tour guide to visit Aswan tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Aswan High Dam",
-                        "description": "During the modern era in the mid-60s, the Egyptians constructed a massive tool to enter the golden era of innovation by producing electricity.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The largest monolith ever created in the history of mankind belongs to the influential Queen Hatshepsut who wished to immortal her legacy ever open to building this 137 ft tall obelisk that weighed a thousand tons but was cracked during construction and now it sits in the bedrock.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "The magical Philae Temple was constructed to immortal the divine legacy of Isis the goddess of Motherhood, the wife of the ruler of the Underworld Osiris, and the mother of the air falcon Horus the god of the sky, victory, and protection. It was largely built during 380-362 BC in the Ptolemaic era to preserve her legendary tale.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will have your lunch at a local restaurant in Aswan city.",
-                        "icon": "dinner"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '2-days-aswan-abu-simbel-cairo',
-    title: 'Two Days Aswan & Abu Simbel Trips from Cairo',
-    description: 'Take a flight from Cairo down to Aswan for two days, culminating in the spectacular sunrise at Abu Simbel.',
-    price: 420,
-    duration: '2-4 Days',
-    location: 'Cairo, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 240,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Fly from Cairo to Aswan - Visit Aswan Landmarks",
-            "description": "We will pick you up from your hotel in Cairo in the early morning by a private Air-Conditioned car to Cairo airport for a flight to Aswan, upon arrival in Aswan, meet your tour guide to start your experience by visiting Aswan tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2018/06/Philae-Temple-Two-Days-Aswan-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "The incredible High Dam of Aswan was a great achievement of architectural design that was constructed in the mid-60s which led to the production of electricity and saved the flood waters into the artificial lake of Nasser.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The amazing Unfinished Obelisk of Queen Hatshepsut (1508–1458 BC) is a miraculous architectural wonder which has a total weight of 200 African elephants which has a total height of 41.75 meters (137.0 ft). It is one of the finest open-air museums in the world which shed light on the incredible skill of the stone carvings methods of the ancient Egyptians.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Enjoy a tasteful lunch at a restaurant in Aswan, then continue your trip by exploring:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "One of the finest and preserved archaeological projects in all of Egypt from the Ptolemaic era (332-30 BC) \"Philae Temple\" is known to be the immortal home of Isis the goddess of motherhood, wife of the ruler of the Underworld, and mother of Horus the god of Kingship and victory. King Nectanebo I built the temple during 380-362 BC and was enlarged by Ptolemy II Philadelphus (285–246 BC) and now it is located on Agilkia Island.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to the Impressive Abu Simbel Temple - Back to Cairo",
-            "description": "Early morning, check out from the hotel and get your breakfast boxes, then we will transfer you by a private A/C car joining your private tour guide to Abu Simbel to continue your trip.",
-            "image": "https://www.egypttoursportal.com/images/2018/06/Abu-Simbel-Temple-Two-Days-Aswan-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The golden Abu Simbel Temples stands at the golden Egyptian southern border since its construction in 1264 BC which is able to shed light on the divine heritage of Ozymandias \"Ramsess The Great\" who won the Battle of Kadesh which ended in the signing of the first documented peace treaty in history between Egypt and Hittite in 1274 BC, honor the gods of Amun‑Ra, Ra‑Horakhty, and Ptah plus a divine version of Ramses II.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "At the end of the trip, transfer back to Aswan to have your lunch.",
-                        "icon": "dinner"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-0-4-days-cairo-tour-packages',
-    title: '4 Days Cairo Tour Packages',
-    description: 'Immersive 4-day classic travel package exploring the wonders of Cairo.',
-    price: 800,
-    duration: '2-4 Days',
-    location: 'Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 100,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Cairo Airport",
-            "description": "Upon your arrival at Cairo airport, our \"Travision Tours\" representative will assist you in completing your passport control formalities and luggage identification & carry. From the airport, you will be transferred by a private Air-Conditioned car to your hotel for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "During the evening, you will begin your Cairo tour Packages by a Dinner cruise on the magical Nile River. You will get to sit back, relax and enjoy a colorful belly dancing show with a folklore band featuring the unforgettable Tannoura spin in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will transfer back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to the Egyptian Pyramids",
-            "description": "In the morning time, you will have your breakfast, and then join your private tour guide to continue your 4 days Cairo holiday package by exploring the great monument of the ancient Egyptian Civilization and the last intact wonder of the Seven Wonders of the Ancient World:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egyptian-Pyramids-Complex-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Giza Pyramids plateau dates more than 4000 years and includes the three main Pyramids, six little Pyramids, the sole Guardian the Great Sphinx, and the valley temple which were all created for the purpose of ascending to the heavens with the ancient Egyptian Gods and preserving their heritage and legacy till the end of times.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "It's one of the oldest and largest constructions in the world and the first of its kind which started the golden age of construction in ancient Egypt was built by King Khufu. The Great Pyramid dates to 2580 BC which makes it older than 4500 years old. It was built in 20 years using 2,300,000 pieces of limestone. It stands at the height of 147 m (481 ft) which made it the tallest building in existence for 3800 years until the construction of the Lincoln Cathedral in England in 1311. The pyramid is surrounded by mystery and fringe theories due to its complex interior compared to its magnitude.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is the oldest statue in existence that served as a source of inspiration to countless travelers, poets, and travelers even today as a lot of mystery still surrounds the place. It has a height of 73 m (240 ft) and 19 m (66 ft) and has the shape of a mythical creature called the Sphinx which has the body of a lion and the head of a man probably King Khafre as a symbol of power and wisdom.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "It's the place where the extraordinary Mummification Process took place since the Egypt old Kingdom. It is one of the best-preserved structures of the ancient Egyptian civilization, made entirely from limestone, and granite, and holds amazing diorite statues of Chephren.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a phenomenal structure of state-of-the-art technology that display archaeological wonders, aligned with the stellar pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "You will get to witness the first pyramid in existence that started the golden age of construction. It was built by the legendary Imhotep the vizier of Pharaoh Djoser. It has a unique design as it is made of six steps and stands at a height of 62 m. Saqqara Step Pyramid is surrounded by a complex which was the first of its kind containing beautiful decorations and majestic ceremonial structures.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, we drive you back to your hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Cairo Old Attractions",
-            "description": "After you have your breakfast, you will step into the heart of Cairo to complete your Cairo tour Packages and explore all of its attractions with your tour guide, where you will start with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Khan-El-Khalili-Bazaar-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is an immortal exhibition showcasing the greatest selection of ancient artifacts in the history of Egypt which came to the light when it was built in 1901AD in the heart of Cairo.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a local restaurant in Cairo, then proceed to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Salah El Din Citadel",
-                        "description": "A.K.A. Cairo Citadel, it looks over the entire city of Cairo since its construction completed in 1182 AD by the great conqueror Salah El-Din. It served as the center of ruler and a powerful fortress against the crusaders & Napoleon's French invasion and late on in the 19th century, it became the headquarters of the government. The citadel was the witness to all the biggest events that took place in Ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Mohamed Ali Mosque",
-                        "description": "A.K.A. \"The Alabaster Mosque\", it's a majestic work of art. It was constructed between 1830 and 1848 AD to be a replica of the blue mosque in Istanbul and act as a symbol of independence and freedom against the Ottoman Empire. Mohamed Ali Mosque is truly enchanting with its ottoman style architecture of French rococo influences with enchanting finishes of ornate red, green, gold, and a great dome.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz Street is an illuminating treasure vault that stood the test of time to showcase the ancient Islamic history located in the center of old Cairo since its construction in the 10th century by the Fatimid dynasty. It became the most incredible social gathering next to the amazing Khan El Khalili Bazaar which was added to the UNESCO World Heritage list in 1979.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili has gained the name as the golden brick road of the Middle East as it is the oldest market in the region dating back to 970 AD. The street remains active till today and contains everything a traveler might desire plus all the magical caf s and shops that date back hundreds of years. All the phenomenal Islamic architecture and decorations of the street are highly enchanting and remain in good condition today.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you to the hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: End Your Cairo Tour Packages",
-            "description": "On your fourth and last day, you will enjoy your breakfast in the morning then our representative will transfer you to Cairo airport so you can return home safely and end your Cairo tour packages.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-1-4-days-cairo-and-alexandria-itinerary',
-    title: '4 Days Cairo and Alexandria Itinerary',
-    description: 'Immersive 4-day classic travel package exploring the wonders of Cairo, Alexandria.',
-    price: 800,
-    duration: '2-4 Days',
-    location: 'Cairo, Alexandria',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 115,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt + Dinner Cruise",
-            "description": "At the moment you arrive at Cairo airport, our \"Travision Tours\" representative will help you in completing all of your passport control formalities and luggage identification & carry. From the airport, you will be transferred by a private air-conditioned car to your 5* hotel for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your 4 days Cairo and Alexandria itinerary by a dinner cruise on the soulful Nile as you will get to relax and enjoy a colorful belly dancing show with a folklore band featuring the unforgettable tannoura spin in keeping with Egypt's whirling dervishes tradition",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will transfer back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Visit the Pyramids - The Egyptian Museum",
-            "description": "In the early morning time, you will have your breakfast, and then join your private tour guide to the greatest monuments in Human history to discover ancient Egyptian civilization:",
-            "image": "https://www.egypttoursportal.com/images/2020/02/Giza-Pyramids-Makadi-Bay-Excursion-to-Explore-Egypt-Highlights-in-3-Days-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "Giza Pyramids Complex is one of the oldest monuments in the world as it dates to more than 4000 years and consists of three main pyramids, six little pyramids, and the sole protector of the entire country \"Sphinx\". There is also the valley temple which was used to preserve the heritage and legacy of the kings and queens for countless generations. The Giza complex considers one of the top Egypt tourist attractions.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "It is the last intact structure of the Seven Wonders of the Ancient World which makes it one of the oldest and largest constructions in the entire current world. The Great Pyramid is surrounded by mysteries and fringe theories due to its complex interior compared to its magnitude. It dates to 2580 BC which makes it older than 4500 years old to be the first of its kind that launched the golden age of construction in Ancient Egypt. It was built in 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons and a workforce with 100,000 free skilled workers. It stands at the height of 147 m (481 ft) which made it the tallest building in the world for 3800 years until the construction of the Lincoln Cathedral in England in 1311.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "A.K.A. Abu Al-Hawl which means \"The Father of Terror\" in Arabic. It's the oldest statue in history, it has the shape of a mythical creature called \"The Great Sphinx\" which has the body of a Lion and the head of a man probably King Khafre as a symbol of power and wisdom. It served as a source of inspiration to countless travelers, poets, and travelers even today as a lot of mysteries and unanswered questions still surround the sphinx. It has a height of 73 m (240 ft) and 19 m (66 ft) and was carved out of single limestone rock.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "It is the home of the Mummification process that started in the old kingdom (2686 2134 BC). It is one of the best-preserved structures of the ancient Egyptian civilization, made entirely from limestone, and granite, and holds amazing diorite statues of Chephren.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Move to have your lunch at a local restaurant in Cairo and continue your trip by a visit to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The mythical Egyptian Museum came into existence in the central core of Cairo in 1901 to be the first-ever dedicated construction for showcasing the 5000 years old history of artifacts and monuments that fully showcases the artistic and architectural brilliance of the ancient Egyptian Civilization.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you to the hotel for overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Alexandria Landmarks",
-            "description": "After breakfast, you will head to the city of Alexandria the pearl of the Mediterranean Sea where allure and wonder shine in the most magical fashion to visit Alexandria tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Qaitbay-Citadel-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Catacombs of Kom El Shoqafa",
-                        "description": "The Catacombs of Alexandria is one of the unique monuments in Egypt, the Necropolis dated to the 2nd century AD and it was able to combine the artistic elements of the Hellenistic and Roman to the ancient Egyptian Pharaonic design in the ultimate captivating and charming manner. It holds a number of great artifacts and decorations in its three-level stories which made it gain the title of one of the seven wonders of the Middle Ages.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Pompey's Pillar",
-                        "description": "The largest monoliths' column ever built outside of Rome, it stands at 28 m tall and 2.7 m wide of pure red granite, and on its western upper side is a Greek inscription dedicated to Emperor Diocletian. It was named Pompey's Pillar because in the Middle Ages the Crusaders mistakenly believed that the remains of the great Roman general Pompey are located in a pot at the very top of the pillar.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Qaitbay Citadel",
-                        "description": "The ultimate example of the beauty and might of the Mediterranean Sea. It was constructed in 1477 by Sultan Al-Ashraf Sayf Al-Din Qa'it bay on top of the legendary lighthouse of Alexandria the third longest surviving wonder in the ancient world until its destruction by earthquakes between 956 AD and 1323 AD using the stones salvaged from the lighthouse. Qaitbay Citadel is quite famous as some believe it holds the immortal shining spirit of the Alexandria Lighthouse and contains phenomenal designs for the Islamic era.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a seafood restaurant, then you will finish your journey with a visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Alexandria Library",
-                        "description": "One of the biggest and most advanced libraries in the world, it acts as a commemoration of the ancient Alexandria Library. It is quite famous as the world's sixth-largest Francophone library in the world. It is a trilingual library as it contains books in Arabic, English, and French and holds the largest depository of French books in North Africa and the Middle East plus a collection of some of the rarest books on the planet.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you back to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: End Your 4 Days Cairo and Alexandria Itinerary",
-            "description": "Breakfast at the hotel then our representative will transfer you to the airport and assist you at the Airport's final departure formalities to end your 4 days Cairo and Alexandria itinerary.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-2-4-days-cairo-and-abu-simbel-tour-package',
-    title: '4 Days Cairo and Abu Simbel Tour Package',
-    description: 'Immersive 4-day classic travel package exploring the wonders of Cairo, Abu Simbel.',
-    price: 800,
-    duration: '2-4 Days',
-    location: 'Cairo, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 130,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt - Meet and Check-in at 5* Hotel in Cairo",
-            "description": "Our representative will meet you at Cairo Airport upon arrival, and you are going to check in your 5* Hotel in Cairo by a private air-conditioned vehicle.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Arrival-to-Egypt-AirPort-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening time, you are going to have a special dinner cruise.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Return back to the hotel for spending the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Pyramids & the Egyptian Museum",
-            "description": "Prepare yourself to explore Cairo tourist attractions by an awesome visit to Giza Pyramids joined by your tour guide and start the exploration of the Cairo and Abu Simbel tour package by casting your eyes on one of the seven wonders of the world monuments.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Egyptian-Museum-in-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The eternal Pyramids Complex of Giza has stood its ground for more than 4500 years since 2600 BC where the golden heritage of the Old kingdom can be witnessed clearly in the most epic manner.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The grand pillar of Khufu's Horizon is the greatest archaeological attraction ever created in history dating to 2570 BC by King Khufu of the 4th dynasty which gained the title as the most intact and the only remaining wonder out of the seven wonders of the ancient world that has a total height of 147 m (481 ft) which was used for the sole purpose of becoming his final resting place.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Unbelievable Sphinx of Giza",
-                        "description": "The mesmerizing Sphinx is a golden mythical piece of art that was made from a golden massive piece of limestone carved to have the face of king Khafre (2558–2532 BC) above the golden mythical structure of a lion which has spread a series of mysteries across the landscape of the entire world.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The heavenly house of immortal was created by Khafre to honor the royal bodies of the 4th dynasty by immortalizing their legacy and performing the Mummification process on their bodies within this great construction which is made from blessed granite and features some amazing statues.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Before transferring you to visit the Egyptian Museum, enjoy your delicious lunch at a local restaurant in Cairo accompanied by your tour guide. Then head to complete the exploration of your day.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The marvelous golden Egyptian Museum can be found in the central heart of Cairo dating all the way to 1901 filled with countless treasures from the various course of history across 5000 years.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, at the end of your day, catch the flight to Aswan and check in at a 5* hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Abu Simbel Temples",
-            "description": "Morning time, get your breakfast boxes and join your tour guide heading to Aswan by a modern Air-Conditioned vehicle to continue your Cairo and Abu Simbel tour by visiting the most historical archaeological site in Egypt.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Abu-Simbel-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Impressive Two Temples of Abu Simbel",
-                        "description": "The everlasting great temples of Abu Simbel are heavenly cultural treasures dating to 1264 BC when King Ramses II became a UNESCO World Heritage Site in the 70s. The two great temples were built to honor the grand legacy of winning the battle of Kadesh in 1274 BC and pay homage to the gods of ancient Egypt Ra-Horakhty, Ptah, and Amon plus the other temple was created to show his eternal devotion to his wife Queen Nefertiti.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will return back to Aswan and will enjoy a tasteful lunch in a Nile view restaurant.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: End Your 3 Nights Breaks Egypt",
-            "description": "Have your breakfast and our representative will accompany you to finish your paper transactions and take you to Cairo Airport to fly back home.",
-            "image": "https://www.egypttoursportal.com/images/2018/04/Final-Day-8-Days-Hurghada-and-Nile-Cruise-Vacation-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-3-4-days-cairo-and-luxor-tour-package',
-    title: '4 Days Cairo and Luxor Tour Package',
-    description: 'Immersive 4-day classic travel package exploring the wonders of Cairo, Luxor.',
-    price: 800,
-    duration: '2-4 Days',
-    location: 'Cairo, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 145,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival',
-      description: 'Start your 4 Days Cairo and Luxor Tour Package.',
-      activities: [
-        {
-          title: 'Arrival Highlights',
-          description: 'Start your 4 Days Cairo and Luxor Tour Package.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Exploration',
-      description: 'Guided tours and activities.',
-      activities: [
-        {
-          title: 'Exploration Highlights',
-          description: 'Guided tours and activities.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Departure',
-      description: 'End of your magnificent journey.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of your magnificent journey.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'pkg-4-4-days-cairo-and-aswan-tour',
-    title: '4 Days Cairo and Aswan Tour',
-    description: 'Immersive 4-day classic travel package exploring the wonders of Cairo, Aswan.',
-    price: 800,
-    duration: '2-4 Days',
-    location: 'Cairo, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 160,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival',
-      description: 'Start your 4 Days Cairo and Aswan Tour.',
-      activities: [
-        {
-          title: 'Arrival Highlights',
-          description: 'Start your 4 Days Cairo and Aswan Tour.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Exploration',
-      description: 'Guided tours and activities.',
-      activities: [
-        {
-          title: 'Exploration Highlights',
-          description: 'Guided tours and activities.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 4,
-      title: 'Day Four: Departure',
-      description: 'End of your magnificent journey.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of your magnificent journey.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'pkg-5-5-days-cairo-and-alexandria-tour-package',
-    title: '5 Days Cairo and Alexandria Tour Package',
-    description: 'Immersive 5-day classic travel package exploring the wonders of Cairo, Alexandria.',
-    price: 900,
-    duration: '5+ Days',
-    location: 'Cairo, Alexandria',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 175,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival',
-      description: 'Start your 5 Days Cairo and Alexandria Tour Package.',
-      activities: [
-        {
-          title: 'Arrival Highlights',
-          description: 'Start your 5 Days Cairo and Alexandria Tour Package.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Exploration',
-      description: 'Guided tours and activities.',
-      activities: [
-        {
-          title: 'Exploration Highlights',
-          description: 'Guided tours and activities.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Departure',
-      description: 'End of your magnificent journey.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of your magnificent journey.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'pkg-6-5-days-cairo---luxor-tour-package',
-    title: '5 Days Cairo & Luxor Tour Package',
-    description: 'Immersive 5-day classic travel package exploring the wonders of Cairo, Luxor.',
-    price: 900,
-    duration: '5+ Days',
-    location: 'Cairo, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 190,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival at Cairo Airport",
-            "description": "The moment you set your foot in magical Egypt, our \"Travision Tours\" employee will be waiting for you at Cairo Airport where he will help you complete all of your passport formalities and luggage identification & carry. From the Airport, you will be transferred by a private air-conditioned vehicle to your 5* hotel in Cairo for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour by a dinner cruise on the heavenly Nile as you will get to relax and witness a colorful belly dancing show with a folklore band featuring the amazing Tannoura spin in keeping with Egypt's whirling dervishes' tradition then.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "In the end, you will be transferred back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Giza Pyramids, Gem, & Saqqara",
-            "description": "After you enjoy your breakfast, you will begin your tour around Cairo and Luxor tour package in 5 days and behold the immortal attractions of this holy country by visiting:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Giza Pyramids Complex is one of the world's most famous and well-known sites and a true reflection of the greatness of the ancient Egyptian civilization. It was located in the mysterious western desert for the last 4000 years which makes it one of the oldest monuments in History. The entire complex consists of three main pyramids each one for a pharaoh named Khafre, Khufu, and Menkaure, six little pyramids, the great protector of Egypt the glorious sphinx, and there is also the valley temple that was used to preserve the heritage and legacy of the kings and queens for countless generations.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu is the last remaining intact wonder of the Seven Wonders of the Ancient World which makes it one of the oldest and largest structures in history and on the planet. The pyramid was designed by King Khufu's vizier Hemiunu to stand at the height of 147 m (481 ft) which made it the tallest building in the world for 3800 years until the construction of the Lincoln Cathedral in England in 1311. It dates to 2580 BC which makes it older than 4500 years old.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is the world's greatest and oldest statue in history, it has the shape of a mythical creature known as the Sphinx which has the body of a lion and the head of a man probably King Khafre's head as a symbol of power and wisdom. It is known as Abu Al-Hawl which means The Father of Terror in Arabic and in ancient times, it was called \"Hor-em-Akhet\" which means \"Horus of the Horizon\". It has a height of 73 m (240 ft) and 19 m (66 ft) and was carved out of single limestone rock.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is as old as the pyramids of Giza. It was constructed in Egypt's Old Kingdom (2686- 2134 BC), and it's the place where the Mummification Process took place. It is one of the best-preserved structures of the ancient Egyptian civilization, made entirely from limestone and granite, and holds amazing diorite statues of Chephren.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid is the first Pyramid ever constructed in Egypt in 2700 and is credited with starting the age of construction. It was built by the legendary Imhotep the vizier of Pharaoh Djoser. The pyramid has a unique design as it is made of six steps and stands at the height of 62 m and is surrounded by a 10.5 m high wall consisting of 14 doors. The pyramid is surrounded by a unique complex which was the first of its kind containing beautiful decorations and majestic ceremonial structures that remain in very good condition.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, we drive you back to your hotel for spending the overnight in Cairo.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Old Cairo Sightseeing + Fly to Luxor",
-            "description": "After you have your breakfast, you will step into the heart of \"The City of Minarets\" and explore all of Cairo's tourist attractions with your tour guide, you will start with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Khan-El-Khalili-Bazaar-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is one of the greatest museums on earth which contains a number of significant artifacts and relics dating to more than 5000 years from various time periods. Inside the two floors of the museum lies an amazing collection of rare artifacts that tells a great deal about the history of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a local restaurant in Cairo then proceed to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Salah El Din Citadel",
-                        "description": "The Citadel of Salah El-Din has seen everything that came across this immortal city that's why it became known as the Cairo Citadel. It looks over the entire city of Cairo since its construction was completed in 1182 AD by the great conqueror Salah El-Din. It served as the center of ruler and a powerful fortress against the Crusaders & Napoleon's French invasion and late on in the 19th century, it became the headquarters of the government for more than 700 years.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Mohamed Ali Mosque",
-                        "description": "The beautiful Mohamed Ali Mosque has gained the name \"The Alabaster Mosque\" due to its unique design and the extensive usage of marble. It was constructed between 1830 and 1848 AD to be a replica of the blue mosque in Istanbul and act as a symbol of independence and freedom against the Ottoman Empire. The mosque is truly enchanting with its Ottoman-style architecture of French rococo influences with enchanting finishes of ornate red, green, gold, and a great enchanting dome.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "The National Museum of Egyptian Civilization (NMEC) is a golden compass showcasing all directions leading to the immortal heritage of ancient Egypt that dates back to more than 5000 years. It holds between its massive doors a collection of 50000 artifacts, plus a Grand holy of Mummies of 28 royal figures from the entire course of Egyptian history.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz li-Din Allah al-Fatemi Street is a cultural heritage that stood the test of time since its construction in the 10th century by the Fatimid dynasty to be the main economical heart of Cairo. Nowadays it acts as an ideal representation of the development of Islamic architecture as seen across all the houses, cafes, colossal stone doors, and various art galleries.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili bazaar is known as the golden brick road of the Middle East as it is the oldest market in the region dating back to 970 AD. The street remains active today and contains everything a traveler might desire plus all the magical cafes and shops that date back hundreds of years. All the phenomenal Islamic architecture and decorations of the street are highly enchanting and remain in good condition today.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you to Cairo airport to catch the flight to Luxor and upon arrival, meet our representative to assist you to a 5* hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Luxor Attractions + Fly Back to Cairo",
-            "description": "On day four, you will enjoy your breakfast early morning at your hotel, then check-out and join your private tour guide to complete the second part of your 5 days Cairo & Luxor tour package by visiting:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Karnak-Temple-in-Luxor-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The Valley of the Kings has been the passage to the afterlife and a stairway to heaven for the greatest kings and queens of Egypt's new kingdom (1570-1070 BC). It is one of the most important archaeological sites in the world as it became a World Heritage Site by UNESCO in 1979. It holds 63 tombs filled with various enchanting artifacts, decorations, and the remains of pharaohs like Ramses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Hatshepsut, and the famous boy-king Tutankhamen.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "Hatshepsut Temple is the solidification of beauty and the truest reflection of the greatness of the new kingdom (1550-1070 BC) and showcases the vision and glory of one of the most successful rulers in the history of Ancient Egypt Queen Hatshepsut. It was designed by Hatshepsut s chancellor Senenmut in 1479 BC and took 15 years to construct. The design of the temple is based on the concept of Classical Architecture. The temple is known as Deir El-Bahari and was once known as Djeser-Djeseru (Holy of Holies). It holds some of the most impressive decorations and statues in all of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon is considered to be the guardian of the great city of Luxor. The colossi consist of two blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each which has the shape of Amenhotep III(1386-1350). The colossi are quite damaged due to a large earthquake in 27 BC but were rebuilt again in 199 AD. The statues were famous during the Greco-Roman period as there used to be a rumor of The Vocal Memnon as the statues sang from time to time at dawn in a crying sound which was nothing more than the sound of the wind passing through the statue.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch TimeKarnak Temple",
-                        "description": "Karnak Temple Complex is a unique archeological site in the world as it is one of the world's biggest open-air museums, it was known as Ipet-isu which means The Most Selected Of Places, and Pr-Imn House Of Amon. It dates back more than 4000 years and is the largest religious man-made construction in history. It was the center of the religious worship of the entire ancient Egyptian kingdom. It was directly dedicated to the Theban triad that consisted of God Amun with his wife the Goddess of Justice Mut and their son the moon god Khnsou, plus other deities like Osiris, Montu, Ptah, and Isis.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you to Luxor Airport to catch your flight back to Cairo, then to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: End Your 5 Days Cairo and Luxor Tours Package",
-            "description": "Breakfast at the hotel then our representative will transfer you to the airport and assist you at the airport through final departure formalities to end your 5 days Cairo & Luxor tour package.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Final-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-7-5-days-cairo--luxor---abu-simbel-tour',
-    title: '5 Days Cairo, Luxor & Abu Simbel Tour',
-    description: 'Immersive 5-day classic travel package exploring the wonders of Cairo, Luxor, Abu Simbel.',
-    price: 900,
-    duration: '5+ Days',
-    location: 'Cairo, Luxor, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 205,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival',
-      description: 'Start your 5 Days Cairo, Luxor & Abu Simbel Tour.',
-      activities: [
-        {
-          title: 'Arrival Highlights',
-          description: 'Start your 5 Days Cairo, Luxor & Abu Simbel Tour.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 2,
-      title: 'Day Two: Exploration',
-      description: 'Guided tours and activities.',
-      activities: [
-        {
-          title: 'Exploration Highlights',
-          description: 'Guided tours and activities.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 5,
-      title: 'Day Five: Departure',
-      description: 'End of your magnificent journey.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of your magnificent journey.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'pkg-8-5-days-cairo-aswan-abu-simbel-tour-package',
-    title: '5 Days Cairo Aswan Abu Simbel Tour Package',
-    description: 'Immersive 5-day classic travel package exploring the wonders of Cairo, Aswan, Abu Simbel.',
-    price: 900,
-    duration: '5+ Days',
-    location: 'Cairo, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 220,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Cairo Airport - Welcome to Egypt",
-            "description": "At the moment of your arrival at Cairo airport, our \"Travision Tours\" employee will be waiting for you to complete all of your passport control formalities and luggage identification and carry. Then you will be driven by a private air-conditioned car to your 5* hotel reservation for checking-in. meanwhile.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour by a Dinner cruise on the beautiful Nile as you will get to relax and observe a colorful belly dancing show with a folklore band featuring the amazing Tannoura spin in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, you will return to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to the Great Pyramids and the Egyptian Museum",
-            "description": "Enjoy the breakfast at your hotel, then you will join your private tour guide to visit some of the tiptop Cairo tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Egyptian-Museum-in-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Giza Pyramids Complex has existed for 5000 years as the oldest and biggest archaeological attraction on earth. The Golden Giza complex is the greatest open air-museum on earth.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid of Khufu",
-                        "description": "The Great Pyramid has been known as Khufu's horizon since its creation in 2570 BC it has gained the ultimate fame as a miracle waiting to be unfolded as the last-man-standing structure of the seven wonders of the ancient world. It reach a height of 147 m (481 ft) and has six million tons of weight which made it the tallest and heaviest building in the world. It is a magical creation that is able to exhibit the most majestic forms of architectural design as shown in the King's chamber and Queen's chamber.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is a golden warrior from paradise that comes in the shape of a mythical creature named the sphinx which has the body of a pre-historical lion and the head of King Khafre to transform into the immortal powerful and wise Horus of the Horizon. The sphinx is at the height of 73 m (240 ft) and 19 m (66 ft) and was carved out of a single huge piece of limestone rock and still surrounded by plenty of mystery since its creation in the old kingdom(2686-2134 BC).",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is a highly preserved mythical art that was formed within Egypt's Old Kingdom by king Khafre within the complex to perform the mummification process, also known as the ceremony of the opening of the mouth which is one of the most important events within the ancient Egyptian civilization and the source of important facts about the religious and mythical beliefs of the ancient Egyptians.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a golden portal leading to cosmic ancient Egyptian creations that comes in the shape of captivating archaeological treasures, aligned with the stellar pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will then have your lunch at a pyramid, Nile view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a sacred home of magnificence and marvel as it includes the most extensive collection of ancient Egyptian artifacts and monuments in the world dating back to more than 5000 years located inside the two stories building that comes in the form of statues, funerary objects, the Narmer palette, Papyrus, and countless others.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After finishing your tour, transfer back to the hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Fly to Aswan - Visit Aswan Top Attractions",
-            "description": "Enjoy a pleasant breakfast and check out from your hotel and head to Cairo airport to catch your flight to Aswan, upon arrival join your tour guide to visit some of Aswan's tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Temple-of-Philae-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "Aswan High Dam is an advanced and modern attraction constructed between 1960 & 1970 during the reign of president Gamal Adel-Nasser. The dam was designed as a cooperation project with the Soviet Union Moscow-based Hydro project Institute to control the Nile floods and save them in the artificial Nasser Lake, generate Hydroelectricity, and provide increased water storage for irrigation and farming.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The unfinished obelisk was destined to pierce the skies and become a golden pillar from the utopia ordered by the power of Queen Hatshepsut (1508-1458 BC) to stand at the grand entrance of the Karnak temple. It reached a height of 41.75 m (137.0 ft) and weighed 1200 tons plus was cracked during the carving process and now it sits in the bedrock that's why it is by far the most incredible ideal Open-Air museum showcasing the incredible skill, carving methods and tools of the ancient Egyptian builders.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will enjoy your lunch at an outstanding restaurant in Aswan and get ready to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "Philea temple holds the tale and tales \"Myth of Osiris\" that still echos in our current times which showcases the husband of Isis the goddess of motherhood \"Osiris\" Is killed by his brother Set gods of Choas and desert hen Osiris is resurrected as the ruler of the underworld afterward Set is defeated by Isis and Osiris Son Hours the sky falcon god of protections and victory. The temple is one of the latest constructed temples in Egypt and one of the most ideal examples of ancient Egyptian architecture which was made in 380-362 BC during the Ptolemaic empire. The temple was relocated to Agilkia Island in the 60s as a part of a rescue mission led by UNESCO.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will check in 5* hotel in Aswan to spend your overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to the Temples of Abu Simbel",
-            "description": "Early morning, you will be transferred with your breakfast boxes by a modern Air-Conditioned vehicle to visit the most historical archaeological site in Egypt which is:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Abu-Simbel-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The incredible Temple of Ramesses, beloved by Amun Abu Simbel temple is the custodian of the southern border and the celestial evidence of the immortal power and legacy of King Ramses II (1279-1213 BCE) who created this epic masterpiece of architecture in Egypt new kingdom (1570-1050 BC) in 1264 BC to eternalize his heritage and identity till this current moment. Abu Simbel is made up of two temples, the massive one is for Ramses where the sun festival takes place on the 22 of February & October of each year when the sun shines on the faces of the four seated statues of the divine king Ramses II, Amun (The Creator God), Ptah (God of creation), and Ra-Horakhty while the smaller temple is dedicated to his precious wife Queen Nefertari which is dedicated to the goddess Hathor. The temple was part of a rescue mission referred to as the most challenging archeological rescue operation in history led by UNESCO in the mid-60s.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Finally, return back to Aswan to have your lunch.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Catch your flight back to Cairo and transfer to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: End Your 5 Days Cairo, Aswan, Abu Simbel Tour - Fly Back Home",
-            "description": "On your final day, you have your last breakfast in Egypt then our representative of \"Travision Tours\" will transfer you to the airport so you can return home safely with the finest memories thus ending your 5 days Cairo, Aswan, Abu Simbel packages.",
-            "image": "https://www.egypttoursportal.com/images/2018/04/Final-Day-8-Days-Hurghada-and-Nile-Cruise-Vacation-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-9-6-days-cairo--luxor---aswan-holiday',
-    title: '6 Days Cairo, Luxor & Aswan Holiday',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo, Luxor, Aswan.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 235,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt the Land of Pharaohs",
-            "description": "Your tour will take effect when the moment you land at Cairo airport as our \"Travision Tours\" staff member will be waiting for you at your arrival gate where he will help you complete all of your passport control formalities and luggage identification & carry. From the airport, you will be immediately transferred by a private Air-Conditioned Car to your 5* hotel reservation to check in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour package by a dinner cruise on the one & only Nile River while enjoying a colorful belly dancing show with a folklore band featuring an amazing Tannoura spin in keeping with Egypt's whirling dervishes' tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After the show is over, you will head back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to the Pyramids & Gem",
-            "description": "In the morning, after breakfast, you will join your private tour guide to start your Cairo, Luxor & Aswan tour package by visiting the most famous archaeological site in the world Giza Pyramids:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Giza-Pyramids-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The complex has lasted for 4000 years which makes it one of the oldest intact monuments in the world. The Giza complex consists of three main pyramids, six little pyramids, the great sphinx, and the house of the afterlife the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of King Khufu will be your first destination within the complex, it is one of the biggest structures in the world and the last intact structure of the Seven Wonders of the Ancient World. The structure was constructed in 2580 BC which makes it older than 4500 years old. It was built in 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons and a workforce of 100,000 free skilled workers. The Pyramid stands at the height of 147 m (481 ft) which made it the tallest building in the world for 3800 years until the construction of the Lincoln Cathedral in England in 1311. For the last millennia, the pyramid was & still is surrounded by mysteries and fringe theories due to its complex interior compared to its magnitude.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx takes a special place among the entire artifacts of Egypt and possibly the world. It is one of a kind due to its, age, size, and questionable origin. The Sphinx has a height of 73 m (240 ft) and 19 m (66 ft) and was carved out of single limestone rock. It has the shape of a mythical creature called the Sphinx that has the body of a lion and the head of a man king Khafre to represent wisdom & might. It is known in Egypt as Abu Al-Hawl which is Arabic for The Father of terror.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley temple is the place where the Mummification Process took place. The valley was constructed within the old kingdom (2686 2134 BC), it's one of the best-preserved structures of the ancient Egyptian civilization and the source of great information about the mummification of Ancient Egypt. The valley is made entirely from limestone, and granite and holds magnificent diorite statues of King Khafre.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "The Grand Egyptian Museum is a magnificant piece of advanced science and magnificence that is loaded with beautiful archaeological marvels. The Gem is aligned with the celestial pyramids of Giza, and spans nearly 490,000 square meters. It serves as a gateway to 5,000 years of history, illuminating the artistry, spirituality, and enduring legacy of ancient Egypt for generations to come. GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then we will move on to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid was the Pyramid that started everything revolving around pyramids construction golden age of Ancient Egypt, it is one of the first Pyramids ever constructed in Egypt in 2700 BC. It was built by the infamous Imhotep the vizier of Pharaoh Djoser. The Pyramid has a unique design of six steps and stands at the height of 62 m made entirely of limestone and is surrounded by first of a kind complex.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "We'll fly to Aswan and check into the hotel for the overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Aswan Attractions",
-            "description": "Day three of Cairo, Luxor & Aswan tour package, morning time, have your breakfast, and meet your private Egyptologist tour guide, then move to visit Aswan monuments starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "The High Dam represents the modern soul of the entire city of Luxor, it was constructed between 1960 & 1970 during the reign of Gamal Adel-Nasser. The dam was designed in cooperation with the Moscow-based Hydro project Institute to have better control over Nile flooding, generate Hydroelectricity, and provide increased water storage for irrigation in its reservoir lake Nasser.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The Unfinished Obelisk is a monument that deserves to be visited, it was constructed by Queen Hatshepsut (1508-1458 BC) to stand at the entrance of the Karnak temple with the Lateran Obelisk which resides now at the Lateran palace in Rome but Unfortunately, the obelisk was cracked during construction and remained there till today, it reached a height of 42 m and weighed 1200 tons.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Enjoy your lunch at a restaurant in Aswan, then continue your 6 Days Cairo, Luxor & Aswan tour by exploring:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "Philae temple is the mesmerizing temple of goddess Isis of Love & Beauty, it is famous for holding the \"Myth of Osiris\" on its walls that tells the story of the husband of Isis \"Osiris\" being killed by his evil brother \"Set\" out of pure hatred & envy then Osiris is resurrected to be the ruler of the underworld then set is defeated by Isis and Osiris Son Hours the sky God in a fierce battle at the temple of Edfu.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Taking the train from Aswan to Luxor and checking into a hotel in Luxor for the overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Luxor Attractions",
-            "description": "Enjoy breakfast at the hotel, meet your private tour guide and transfer to Luxor by train. Upon arrival continue your Cairo, Luxor & Aswan tour package by a tour to:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Karnak-Temple-in-Luxor-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "Valley of the Kings is true without comparison, in the deep core of a mountain lies the valley as the final resting place of the greatest kings and queens of Egypt's new Kingdom (1570-1070 BC). The valley became a World Heritage Site by UNESCO in 1979 because of the number of enchanting decorations and breathtaking treasures. It holds 63 tombs filled with various enchanting artifacts, statues, hypnotic decorations, and the remains of pharaohs like Rameses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Hatshepsut, and the famous King Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "Hatshepsut Temple Djeser-Djeseru (Holy of Holies) is the most genuine example of the beauty of the ancient Egyptian civilization, it showcases the grandeur of the new kingdom (1550-1070 BC), Hatshepsut's dedication to Amun and reflects eminence & allure of one of the most successful rulers in the history of ancient Egypt Queen Hatshepsut. It was built in 1479 BC to be the house of the god Amun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon are the colossal guardians of Luxor, they consist of two blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each and have the shape of Pharaoh Amenhotep III(1386-1350). The colossi were damaged due to a large earthquake in 27 BC but were rebuilt again in 199 AD. The statues were very famous during the Greco-Roman period due to the phenomenon called The Vocal Memnon which resulted from the statues making a sinning sound from time to time at dawn which was nothing more than the sound of the wind passing through the statue.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then move to have your lunch on an island, so your tour includes a boat trip in the Nile River followed by a tour to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temples",
-                        "description": "The Karnak temple is the holiest of all the places in Luxor and probably the world, it is one of the world's biggest open-air museums which was known as Ipet-isu, The Most Selected of Places, and Pr-Imn House Of Amon. It dates to more than 4000 years and also is the largest religious man-made construction in the world, it was the heart of the religious practices of the entire ancient Egyptian kingdom for more than 1500 years.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Then overnight at 5* hotel in Luxor.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Fly to Cairo - Tour to Cairo Sightseeing",
-            "description": "In the morning enjoy breakfast at the hotel, then transfer to Luxor airport for a flight to Cairo. Arrival in Cairo, meet your tour guide, and complete your journey in the Egyptian Museum & Coptic and Islamic landmarks in old Cairo:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Egyptian-Museum-in-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is the magical book of Egypt that holds all of its secrets, wonders, and mysteries, it is one of the biggest museums in the world and holds a number of mesmerizing artifacts and monuments dating more than 4000 years from various time periods from ancient Egyptian times.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Lunch will be served at a local restaurant in Cairo then proceed to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Salah El Din Citadel",
-                        "description": "The Citadel of Salah El-Din A.K.A. Cairo Citadel has been towering & protecting the city for ages. It looks over the entire city of Cairo since its construction was completed in 1182 AD by the great ruler Salah El-Din. It served as the kingdom's headquarters and as a powerful fortress against the crusaders & napoleon's French invasion and again in the 19th century, it became the headquarters of the government for more than 700 years.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Mohamed Ali Mosque",
-                        "description": "Mohamed Ali Mosque is known as the Alabaster Mosque because of the extensive usage of marble. It was constructed between 1830 and 1848 AD to be a replica of the blue mosque in Istanbul and acts as a symbol of independence and freedom against the Ottoman Empire. The mosque is truly enchanting with its ottoman-style architecture of French rococo influences and a great breathtaking dome.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "The lavish National Museum of Egyptian Civilization (NMEC) is a newly added wonder that has opened its gates after being renovated in 2020 to display a magical collection of the oldest and most informative artifacts and monuments from different time periods. Within the majestic museum is the hall of mummies that contains 28 royal kings and queens from the 5000 years old history of ancient Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "The celestial cultural wonder of Al-Muizz street will illuminate the golden history of the Islamic era of Cairo during the 10th century AD where it was built in the heart of the magical city of minarets next to the enriching khan El Khalili bazaar. This magnificent massive social gathering is filled with incredible cafes and ancient constructions.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili is walking around memory lane into the time of the ancient Islamic empire. The bazaar is known as the golden brick road of the Middle East and the oldest active market in the Middle East dating back to 970 AD. The street holds captivating Islamic architecture designs and decorations.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, we will transfer you to the hotel for overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: End of Cairo, Luxor & Aswan Tour Package",
-            "description": "Breakfast at the hotel, then our representative will transfer you to the airport and assist you at the airport through final departure formalities to end your Cairo, Luxor & Aswan tour package.",
-            "image": "https://www.egypttoursportal.com/images/2018/04/Final-Day-8-Days-Hurghada-and-Nile-Cruise-Vacation-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-10-6-days-cairo-and-nile-cruise-package',
-    title: '6 Days Cairo and Nile Cruise Package',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 250,
-    itinerary: [
-      {
-      day: 1,
-      title: 'Day One: Arrival',
-      description: 'Start your 6 Days Cairo and Nile Cruise Package.',
-      activities: [
-        {
-          title: 'Arrival Highlights',
-          description: 'Start your 6 Days Cairo and Nile Cruise Package.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 3,
-      title: 'Day Three: Exploration',
-      description: 'Guided tours and activities.',
-      activities: [
-        {
-          title: 'Exploration Highlights',
-          description: 'Guided tours and activities.',
-          icon: 'tour'
-        }
-      ]
-    },
-      {
-      day: 6,
-      title: 'Day Six: Departure',
-      description: 'End of your magnificent journey.',
-      activities: [
-        {
-          title: 'Departure Highlights',
-          description: 'End of your magnificent journey.',
-          icon: 'tour'
-        }
-      ]
-    }
-    ]
-  },
-  {
-    id: 'pkg-11-6-days-cairo--luxor--aswan---abu-simbel-package',
-    title: '6 Days Cairo, Luxor, Aswan & Abu Simbel Package',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo, Luxor, Aswan, Abu Simbel.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo, Luxor, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 265,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt Land of Pharaohs",
-            "description": "As soon as you arrive at Cairo Airport, our \"Travision Tours\" representative will be waiting for you at your gate where he will help you complete all of your passport control formalities and luggage identification and carry. You will then be transferred by a private air-conditioned car to your 5* hotel reservation for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour by a Dinner cruise on the blessed Nile as you will get to chill and observe a colorful belly dancing show with a folklore band featuring the amazing Tannoura spin in keeping with Egypt's whirling dervishes' tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "End the first day of your Cairo, Luxor, Aswan & Abu Simbel tour by returning to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Giza Pyramids & The Egyptian Museum",
-            "description": "You will begin your second day by enjoying your breakfast, and check-out from the hotel then join your private tour guide to discover the wonders of Ancient Egypt starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Giza Pyramids Complex will be in your presence, the complex has existed for 4000 years which makes it one of the oldest structures on the face of the planet. The Giza complex consists of three main pyramids, six little pyramids, the great sphinx, and the place of immortal preservation of the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu lies among the skies of paradise, it is known for being the last intact structure of the Seven Wonders of the Ancient World. It is older than 4500 years old which makes it the world's oldest mystery because of the fringe theories attached to its origin, and its complex interior compared to its magnitude. It was constructed in 2580 BC for 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons and a workforce of 100,000 free skilled workers resulting in making the height of the pyramid 147 m (481 ft) which made it the tallest building in the world for 3800 years until the construction of the Lincoln Cathedral in England in 1311.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is one of the most mysterious objects in existence, it has the shape of a mythical creature called the sphinx that has the body of a lion and the head of a man who is believed to be king Khafre to represent power and wisdom. It is known as Abu Al-Hawl which is Arabic for The Father of terror. The sphinx is at the height of 73 m (240 ft) and 19 m (66 ft) and was carved out of single limestone rock.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley temple is home to the Mummification process, it was constructed within Egypt's Old Kingdom (2686 2134 BC) within the complex. It's one of the best-preserved archeological sites of the ancient Egyptian civilization and the source of great information about the mummification of Ancient Egypt. The valley is made of limestone, and granite and holds unique diorite statues of King Khafre.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then we will move to continue your Cairo, Luxor, Aswan & Abu Simbel holiday by visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum contains the largest collection of ancient Egyptian artifacts and monuments in the world dating back to more than 4000 years across. Inside the two-level building are a collection of rare & priceless archeological wonders that stood the test of time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, you will drive to Cairo Airport then catch your flight to Luxor then check-in 5* hotel for spending the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Luxor East & West Attractions",
-            "description": "On day three, you will enjoy your breakfast at the hotel, then accompany your Egyptologist tour guide to explore all the famous Luxor tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Tutankhamun-Tomb-in-Valley-of-the-Kings-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The valley of the kings is like a time capsule located in the heart of the holy mountain which has acted as the final resting place of the greatest kings and queens of Egypt's new kingdom (1570-1070 BC). It holds 63 tombs filled with various enchanting treasures, artifacts, statues, hypnotically beautiful decorations, and the remains of pharaohs like Rameses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Hatshepsut, and the famous King Tutankhamun which all resulted in the valley becoming a World Heritage Site by the UNESCO in 1979.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Queen Hatshepsut Temple",
-                        "description": "The Hatshepsut Temple is renowned for being the beauty of Luxor, it gained the name Djoser-Djeseru (Holy of Holies) and showcases the might & will of one of the most successful rulers in the history of ancient Egypt Queen Hatshepsut. The temple was designed in 1479 BC and took 15 years to construct. The design of the temple is based on the concept of Classical Architecture of the new kingdom and within the temple lies some of the most impressive statues, decorations, and artifacts in all of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon is different than most of the monuments in Upper Egypt, it has been known as the colossal guardians of Luxor. They are basically two massive blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each and have the shape of Pharaoh Amenhotep III(1386-1350). The colossi were damaged due to a large earthquake in 27 BC but were rebuilt again in 199 AD. The statues gained quite a fame during the Greco-Roman period due to The Vocal Memnon which resulted from the statues singing from time to time which were nothing more than the sound of the wind passing through the statue at dawn.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then move to have your lunch on an island, so your tour includes a boat trip in the Nile River followed by a tour to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Karnak temple is one of the holiest places on the face of the planet, it was known as Ipet-isu The Most Selected Of Places, and Pr-Imn House Of Amon, it dates to more than 4000 years and is the largest religious man-made construction in the world & also the biggest open-air museums on earth. It was the heart of the religious worship of the entire ancient Egyptian kingdom for more than 1500 years to various deities but was dedicated primarily to the Theban triad that consisted of God Amun with his wife the Goddess of Justice Mut and his son the moon god Khnsou, plus other gods like the great Osiris, Montu, Ptah and Isis.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will spend your overnight at your hotel in Luxor.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Transfer to Aswan by Train - Tour to Aswan Landmarks",
-            "description": "In the morning time, you will have your breakfast and check out from the hotel in Luxor to continue Cairo, Luxor, Aswan & Abu Simbel tour by boarding a 1*class train to Aswan, the moment you arrive you will join your private Egyptologist tour guide to enjoy a tour around all Aswan tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "The High Dam represents the modern might of the city of Aswan, the dam was constructed between 1960 & 1970 during the reign of president Gamal Adel-Nasser. The dam was designed as a cooperation project with the Moscow-based Hydro project Institute to have better control over Nile flooding, generate Hydroelectricity, and provide increased water storage for irrigation in its reservoir lake Nasser.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The Unfinished Obelisk is a tale that was sadly left unfinished, it was ordered by Queen Hatshepsut (1508-1458 BC) to stand at the entrance of the Karnak temple. It was known as \"Tekhenu\" which means to pierce the sky\" and shows how obelisks were created from scratch and the method of construction of Ancient Egypt, it reached the height of 42 m and weighed 1200 tons. Unfortunately, the obelisk was cracked during construction and remained at the same location even today.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will enjoy your lunch in a local restaurant in Aswan to get ready to complete your day by visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "Philea Temple is truly the essence of myth, allure, and charm in the city of Aswan, it is famous for spreading the\" Myth of Osiris\" which entails the husband of Isis \"Osiris\" Is killed by His brother Set out of pure hatred & envy then Osiris is resurrected to be the ruler of the underworld afterward Set is defeated by Isis and Osiris Son Hours the sky God ending an age of tyranny & injustice. The temple was relocated in the 60s to the island of Agilkia as a part of a rescue mission led by UNESCO after the construction of the Aswan High Dam.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will then check in at Aswan 5* hotel to spend your overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Tour to the Two Temples of Abu Simbel + Fly Back to Cairo",
-            "description": "Morning time, check out from the hotel before you will be transferred with your breakfast boxes to Abu Simbel by a private air-conditioned car joined by your private tour guide.",
-            "image": "https://www.egypttoursportal.com/images/2018/06/Abu-Simbel-Two-Days-Luxor-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The two great Abu Simbel Temples have been the final frontier & the guardian of the southern border since its creation by King Ramses II (1279-1213 BCE) during the new kingdom to immortalize his legacy till the end of times. Everything about this temple reflects the ultimate concept of greatness & glory. The temple was called the \"Temple of Ramesses, beloved by Amun\". Abu Simbel consists of two temples, the bigger one is for Ramses where the sun festival takes place on the 22 of February & October of each year when the sun shines on the faces of the four seated statues of Ramses II, Ptah (God of creation), Amun (The Creator God), and Ra (Sun God), the smaller temple is dedicated to his wife Queen Nefertari. The temple was part of a rescue mission led by UNESCO in the mid-60s in what is referred to as the most challenging archeological rescue operation in history.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Finally, return to Aswan city by A/C vehicle to have your lunch at a local restaurant.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Catch your flight back to Cairo and transfer to your hotel for spending overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six : End of Cairo, Luxor, Aswan & Abu Simbel Package",
-            "description": "On your final day, you have your breakfast then our representative of \"Travision Tours\" will transfer you to the airport so you can return home safely with the finest memories.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-12-6-days-cairo-and-alexandria-vacation',
-    title: '6 Days Cairo and Alexandria Vacation',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo, Alexandria.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo, Alexandria',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 280,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Cairo - Dinner Cruise",
-            "description": "The vacation of your life will begin at the moment of your arrival at Cairo airport, our \"Travision Tours\" employee will help you finish your passport control formalities and luggage identification & carry. Then, you will be transferred by a private air-conditioned car to your hotel for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Arrival-to-Egypt-AirPort-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour by a Dinner cruise on the heavenly Nile as you will get to relax and enjoy a colorful belly dancing show with a folklore band featuring the hypnotic Tannoura spin in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will return to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Giza Pyramids, Gem, & Sakkara",
-            "description": "In your second day you will tour around the great pyramids of Giza, first thing in the morning time after you have your delicious breakfast, and then join your private tour guide to explore the great monuments in ancient Egyptian civilization which are:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Giza-Pyramids-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "Giza pyramids complex is a time paradox where everything remains the same, it dates to more than 4000 years and includes the three main pyramids, six little pyramids, the sole Guardian the great sphinx, and the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid of Khufu",
-                        "description": "The Great Pyramid of Khufu is the clearest example of the power and eminence of the ancient Egyptian civilization. It is one of the oldest and largest constructions in the world as it dates to 2580 BC which makes it older than 4500 years old. It was built in 20 years using 2,300,000 pieces of limestone. It stands at the height of 147 m (481 ft) to be the first of its kind which started the golden age of construction in Ancient Egypt and made it the tallest building in existence for 3800 years.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is the heavenly guardian and trustiest reflection of the powerful spirit of the holy country. It is the oldest statue in history that served as a source of inspiration to countless travelers and artists even today as a lot of mystery and allure still surrounds this place. It has a height of 73 m (240 ft) and 19 m (66 ft) and the shape of a mythical creature called the Sphinx that has the body of a lion and the head of a man probably King Khafre as a symbol of power and wisdom.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The temple is where time lost its power the place where the extraordinary mummification process took place since the old kingdom (2686-2181 BC). It is one of the best-preserved buildings of Ancient Egypt made entirely from limestone, and granite, and holds amazing diorite statues of King Chephren.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then we will move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid is credited with starting the golden age of Pyramids constructions in Ancient Egypt. It was built by the genius Imhotep the vizier of Pharaoh Djoser. It has a unique design as it is made of six steps and stands at the height of 62 m and is surrounded by a complex which was the first of its kind containing enchanting decorations and majestic ceremonial structures.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, you will return to your hotel for spending the overnight in Cairo.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Alexandria Attractions",
-            "description": "On your third day, after you have your breakfast you will head to the pearl of the Mediterranean city of Alexandria to continue your 6 days Cairo and Alexandria vacation where you will begin exploring:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Qaitbay-Citadel-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Qaitbay Citadel",
-                        "description": "The Citadel of Qaitbey is an echo from the past preserving the spirit of an ancient wonder. It was constructed in 1477 by Sultan Al-Ashraf Sayf al-din Qa'it Bay on the same site which held the legendary lighthouse of Alexandria one of the Seven Wonders of the Ancient World using the stones salvaged from the destroyed lighthouse that served as the third longest surviving ancient wonder in the history until its demise by series of earthquakes between 956 AD and 1323 AD. The citadel is appreciated among travelers as it holds the illuminating spirit of the Alexandria Lighthouse mixed with some amazing architectural designs & decorations for the Islamic era.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Catacombs of Kom El Shoqafa",
-                        "description": "The Catacombs of Kom El Shoqafa is like a magical middle-age painting buried in the ground where it came to life. It symbolizes the influence of the ancient Egyptian culture on the Greco-Roman Period. It was built as a necropolis dating to the 2nd century AD which is able to fuse the artistic elements of the Hellenistic and Roman culture with the ancient Egyptian Pharaonic one in the finest fashion. It holds great numbers of Greek and Roman artifacts & decorations between its three-level stories which made it known as one of the seven wonders of the Middle Ages.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Pompey's Pillar",
-                        "description": "Pompey's Pillar is an example of the might of glory of the ancient Greek civilization, it is famous for being the largest monolith column ever built outside of Rome. It was named Pompey's pillar because in the Middle Ages the Crusaders believed that the remains of the great Roman general Pompey are located in a pot at the very high top of the pillar. It stands at a height of 28 m tall and 2.7 m wide, made of pure red granite, and on its western upper side is a Greek inscription dedicated to Emperor Diocletian.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Move to have your lunch at a seafood restaurant in Alexandria, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Alexandria Library",
-                        "description": "Alexandria Library is one of the largest and most advanced libraries in the world which acts as a commemoration of the ancient Alexandria library. It contains the world's sixth-largest Francophone library in the world as the library is a trilingual one containing books in Arabic, English, and French plus it holds the largest depository of French books in North Africa and the Middle East, majestic art galleries plus full collections of some of the rarest collection of books on earth.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, we will drive you back to return to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Old Cairo Tourist Attractions",
-            "description": "On the fourth day, you will continue your 6 days Cairo and Alexandria vacation by having your breakfast, and then you will head to the heart of \"The City of Minarets\" Cairo with your tour guide and witness all the magic unfold in:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Egyptian-Museum-in-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a heavenly house of transcendence that showcases the endless treasures of the ancient Egyptian civilization that dates all way to 5000 years. This two-floor building in the heart of downtown Cairo which was built in 1902 will exhibit the true legacy and ancient culture of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Move to enjoy your lunch at a local restaurant in Cairo, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Hanging Church",
-                        "description": "The Hanging Church is one of the most famous Coptic spots in Egypt. The church dates to the 5th century AD when it was constructed on the southern wall of a Roman fortress called Babylon. The church served as the residence for the Coptic patriarch for a long time. It is 30 ft above the ground and looks over the entire city. The construction and the interior of the hanging church are completely enchanting with elements from the 7th to 13th-century artistic design.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Amr Ibn Al Aas Mosque",
-                        "description": "Amr Ibn Al-Aas Mosque was the first mosque to be built in Africa in 641 AD. The mosque was rebuilt countless times throughout the 7th century till today. The mosque still acts as an active house of worship and is one of Egypt's most important & prominent historical landmarks. The mosque was rebuilt various times which made it stands as a living example of the progress of Islamic architecture over the centuries.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Ben Ezra Synagogue",
-                        "description": "Ben Ezra Synagogue is perhaps the unique destination in Egypt as there is no place like it in all of Egypt. It dates back to the 19th century when it was used for church and then was transformed into a synagogue in 882 AD. It is believed that it held a copy of the Old Testament. The place has been the capital of Jewish worship for countless years until the 1950s. The place remains in good condition and has incredible decorations.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "The National Museum of Egyptian Civilization (NMEC) is a miraculous center for exhibiting the historical and cultural wealth of ancient Egypt that date across 5000 years. This museum is the first of its kind in Africa and the world which was open to the public in 2020 to offer a golden path leading to the eternal treasures of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz li-Din Allah al-Fatemi's magical labyrinth of streets that were made across 953–975 AD and was enlarged in1171 AD to showcase the architectural and artistic brilliance of the golden ancient Egyptian civilization, especially during the Islamic period and become a commercial venture that showcase the golden culture of Cairo.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili is the most active street in the Middle East which became known as the golden brick road of the Middle East. The street dates to 970 AD and remains very busy till today and holds everything a traveler might imagine. It has all the magical caf s and shops that date back to countless generations. All the extraordinary Islamic architecture and decorations of the street are in a very intact condition as you feel the spirit of the past in your heart.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, transfer back to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Islamic Day Tour in Cairo",
-            "description": "In day five, you will continue your 6 days Cairo and Alexandria vacation by exploring all the majestic Islamic attractions which the city of Cairo has to offer such as:",
-            "image": "https://www.egypttoursportal.com/images/2017/02/Mohamed-Ali-Mosque-2-Days-from-Hurghada-to-Cairo-by-Bus-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Salah El Din Citadel",
-                        "description": "The Citadel of Salah El Din has been tower of the glorious city of Cairo for more than 800 years. It was constructed in 1182 AD by the great Ruler the victorious Salah El-Din. It served as the center of rule and a powerful fortress against foreign invaders like the crusaders & napoleon's French troops. It became the headquarters of the government for more than 700 years. Within the citadel lies a number of museums, and miraculously structured buildings.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Mohamed Ali Mosque",
-                        "description": "Muhammad Ali Mosque has known as the Alabaster Mosque due to its unique design and the extensive usage of marble. It was built between 1830 and 1848 AD to be a replica of the blue mosque in Istanbul and act as a symbol of independence and freedom against the Ottoman Kingdom. The mosque is very captivating with its ottoman-style architecture with French rococo influences. One of the unique aspects of The mosque is that it holds an ornate brass clock a gift from King Louis Philippe of France to Muhammad Ali in 1845 in exchange for an obelisk that stands in Concorde square in Paris.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Sultan Hassan Mosque",
-                        "description": "Sultan Hassan Mosque is one of the early Islamic Mamluk architecture in Cairo as it was built by Sultan Hassan between 1356 A.D and 1363 A.D. The Mosque is very massive with 150 m in length and covering 7,906 sqm in land space plus its walls reach the height of 36 m. It was using stones from the Pyramids of Giza and it is rumored that the construction was so costly and expensive, that it nearly emptied the Mamluk Treasury because of the magical and truly enchanting decoration within the mosque.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Move to enjoy your lunch with your tour guide, then continue your tour by visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Al Rifai Mosque",
-                        "description": "Al Rifai Mosque is one of the most majestic constructions in Egypt. It s located in Midan Al-Qal in Cairo next to the Cairo Citadel and opposite the Mosque of Sultan Hassan. It s known in English as the Royal Mosque. It was designed to resemble the mosque of Sultan Hassan in magnitude and height and to become a prayer house and a mausoleum for the royal family of the descent of Mohammad Ali. The mosque was built on 6,500 square meters, and began construction in 1868, and was completed in 1912.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Ibn Tulun Mosque",
-                        "description": "Ibn Tulun Mosque is the best example of Islamic architecture as it was able to capture the true spirit and essence of Islamic civilization in Egypt in the most gorgeous manner. The mosque was constructed by the Emir Ahmed Ibn Tulun who ruled Egypt from 868 to 883 A.D on a location believed to be the landing location of Noah s Ark. It was built on 26,318 sqm, which makes it the third-largest mosque in the world. It's known that Ibn Tulun mosque architecture had a great impact on Gothic Architecture.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will return to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: End Your Trip to Egypt",
-            "description": "In your final day, you will enjoy your last breakfast in Egypt then head to Cairo airport so you can return home safely with the best memories thus ending your 6 days Cairo & Alexandria Vacation.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-13-6-days-cairo-and-hurghada-package',
-    title: '6 Days Cairo and Hurghada Package',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo, Hurghada.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo, Hurghada',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 295,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt + Dinner Cruise",
-            "description": "Your 6 days Cairo and Hurghada tour will begin when you arrive at Cairo Airport as our \"Travision Tours\" employee will help you to complete your passport control formalities and luggage identification & carry. Then, you will be transferred by a private air-conditioned car to your hotel for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour with a magical delicious dinner cruise on the heavenly Nile as you will get to totally relax and enjoy a colorful belly dancing show with a folklore band featuring the hypnotic Tannoura spin in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will head back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Pyramids, Sakkara & Gem",
-            "description": "On day two you will explore the Pyramids of Giza in the early morning after you had your breakfast, and then join your private tour guide to explore the great monument in ancient Egyptian civilization which is:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The Spectacular Giza Plateau",
-                        "description": "Giza pyramids complex is a time capsule dating to more than 4000 years and includes the three main pyramids, six little pyramids, the sole Guardian the great sphinx, and the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Impressive Pyramid of Khufu",
-                        "description": "The Great Pyramid of King Khufu is a wonder of an unforgotten past, it is one of the oldest and largest constructions in the world as it dates to 2580 BC which brings the total age to more than 4500 years old. It was constructed in 20 years using 2,300,000 pieces of limestone. It stands at a total height of 147 m (481 ft) to be the first of its kind which started the golden age of construction in Ancient Egypt and made it the tallest building in existence for about 3800 years.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx is the heavenly spirit that guards this holy country which served as a source of inspiration to countless travelers and artists even till today as a lot of wonder & mystery surrounds these colossal monuments. It has a height of 73 m (240 ft) and 19 m (66 ft) and the shape of a mythical creature called the sphinx that has the body of a lion and the head of King Khafre which symbolizes power and wisdom.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is where immortality was achieved using the extraordinary mummification process, which took place since the Old Kingdom (2686-2181 BC). It is one of the best-preserved ancient structures in all of Egypt, made entirely from limestone and granite, and it holds amazing diorite statues of Chephren.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Move to have your delicious lunch at a pyramid view restaurant, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid is the one that started it all, as it is credited with launching the golden age of pyramid construction in the ancient Egyptian civilization. It was built by the brilliant architect Imhotep, the vizier of Pharaoh Djoser, to have a unique design made of six steps and stands at a height of 62 m and is surrounded by a complex that was the first of its kind, containing majestic decorations and ceremonial structures.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, you will then return to your hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Fly from Cairo to Hurghada",
-            "description": "In day three, you will check out from your hotel in Cairo then proceed to the airport to continue your 6 days Cairo & Hurghada tour where you will catch your flight to the beauty of the Red Sea Hurghada where you will check-in your hotel then enjoy a free day around this hypnotic city.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Snorkeling Trip in Hurghada",
-            "description": "On day four, you will get to snorkel in the mesmerizing waters of the Red Sea and observe the magical underwater marine life of Hurghada and witness all the wonders of this ecosystem.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Snorkeling-Trip-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Fly from Hurghada to Cairo - Visit Old Cairo Attractions",
-            "description": "On day five, you will enjoy your breakfast and check out from the hotel in Hurghada then, you will fly back to Cairo to explore all the marvelous Cairo tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Egyptian-Museum-in-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is a celestial place of preeminence that displays the everlasting glories of the ancient Egyptian civilization over 5000 years. It is made of two floors located in downtown Cairo that was constructed in 1902 and is the ultimate example of the immortal beauty and greatness of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Move to enjoy your lunch at a local restaurant in Cairo accompanied by your tour guide, then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Hanging Church",
-                        "description": "A.K.A The holy Church of the Virgin Mary dates to the 5th century AD when it was built on the southern wall of a Roman fortress called Babylon. The church is one of the most important Coptic sites in Egypt which served as the residence for the Coptic patriarch for a long time. The church is 30 ft and looks over the entire city of Cairo, and the construction and the interior of the Hanging Church are completely hypnotic with elements from the 7th to 13th-century artistic design.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Amr Ibn Al Aas Mosque",
-                        "description": "Amr Ibn Al-Aas Mosque made history as the first mosque to be built in Africa in 641 AD. The mosque still acts as an active house of worship and is one of Egypt's most important & prominent Islamic landmarks. It was rebuilt countless times throughout the 7th century till today. The mosque was rebuilt many times which made it acts as a living example of the progress of Islamic architecture over the centuries.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Ben Ezra Synagogue",
-                        "description": "Ben Ezra Synagogue is without any equal as there is no place like it in all of Egypt. It dates back to the 19th century when it was used to be a church and then was transformed into a synagogue in 882 AD. It is believed that it held an original copy of the Old Testament. The synagogue remains in good condition, holding phenomenal designs and decorations. The place used to be the capital of Jewish worship for many years until the 1950s.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "The National Museum of Egyptian Civilization (NMEC) is the key to fully exploring a number of rare and incredible artifacts from the rich and diverse culture and history of Egypt that dates to more than 400 years from Pre-historical to Ancient Egyptian Periods, Greco-Roman, Coptic, Islamic, and Contemporary modern times.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "Al-Muizz Street is a metaphysical maze of golden streets that was completed across 953–975 AD and then enlarged in1171 AD to exhibit all the majestic Islamic art and architecture of this golden civilization. The heavenly streets of Al Muizz have always been a magical attraction that acted as a marvelous cultural center filled with cafes, house museums, and art galleries.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili Bazaar is the source of allure and brightness of ancient Egypt. The street dates to 970 AD and remains very busy till today and holds everything a traveler might imagine which explains how the bazaar became known as the golden brick road of the Middle East. It has various vintage cafes and shops that date back to different generations. All the extraordinary Islamic architecture and decorations of the street are in a very intact condition as you feel the soul of the ancient past illuminating your heart.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will return to the hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: End of Your 6 Days Cairo and Hurghada Package",
-            "description": "On your final day, you will have your last breakfast in Egypt then head to Cairo airport so you can return home safely with the finest memories thus ending your trip.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-14-6-days-cairo--alexandria--luxor---abu-simbel-tour',
-    title: '6 Days Cairo, Alexandria, Luxor & Abu Simbel Tour',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo, Alexandria, Luxor, Abu Simbel.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo, Alexandria, Luxor, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 310,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrive in Egypt/Enjoy Dinner Cruise",
-            "description": "Pack your luggage and book your flight to Cairo to start your incredible adventure in the cradle of human civilization with \"Travision Tours\". On arrival at Cairo Airport, our company's deputy will greet and kindly assist you through your travel formalities and passport procedures before you'll be taken by your private tour guide to 5* hotel in Cairo by a modern A/C vehicle to check in smoothly and freshen up yourself for a while. You will be picked once more by late afternoon to start your first steps.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/End-Your-Trip-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "Let's have an exceptional night introductory in Cairo and enjoy a very special Dinner Cruise on the Nile River. Live the adventure, enjoy an atmospheric open buffet dinner meal, witness the majestic appearance of the Nile River and also impress some of the traditional music, the local dancing shows, and the other folkloric concerts.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "We will drive you to your hotel for an overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Witness Pyramids of Giza/Cairo Museum",
-            "description": "Breakfast at the hotel then you will join your highly qualified tour guide to visit the most impressive wonders in Cairo including:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Giza-Pyramids-and-Sphinx-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The celestial Giza Pyramids complex was established in 2600 BC to honor the legacy of the 4th dynasty which wished to achieve immortality and reach the final limits of the heavens.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The immortal Great Pyramid is an architectural miracle that was made for Pharaoh Khufu (2609 BC - 2584 BC) in 2570 BC to face the four cardinal points. It was designed by his main vizier to become his final resting place. It was the tallest monument in history for 3800 years and the only standing wonder of the divine wonders of the ancient world.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The mythical and epic Sphinx was created to honor Pharaoh Khafre (2558–2532 BC) by carving his face on the top prehistorical colossal lion. Between the paws of this magical Sphinx is Dream Steele of Thutmose IV (1401–1391 BC) which is able to shed light on the endless wisdom and power of the sphinx.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The immortal house of mummification Valley temple is one of the most highly preserved archaeological monuments in history where the opening of the mouth ceremony was performed.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Enjoy an Egyptian lunch at a very good local restaurant then proceed to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "Within the blessed center of Cairo is the golden Egyptian Museum which was created in 1901 to display all the golden archeological wonders of Egypt that stood the test of time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will fly to Aswan and spend the night at the 5* hotel.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour the Great Temples of Abu Simbel",
-            "description": "Breakfast boxes then you will join your private tour guide to start an early morning tour by a private deluxe A/C vehicle to Abu Simbel to visit:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Statues-of-King-Ramses-II-in-Abu-Simbel-Temple-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The celestial Abu Simbel Temples is a magical piece of art that was made by Pharaoh Ramses the great (1279-1213 BC) to eternalize his heritage and show his love and affection for his queen wife Nefertari. Cross the walls are images of the battle of Kadesh which ended in the signing of the first documented peace treaty in 1247 BC. Amun, Ptah, Ra Horakhty, and Ozymandias are honored each year on the 22 of February and October during the sun festival.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "We will drive you back to Aswan to have lunch at a good quality Nile view restaurant.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will board a 1st class train to Luxor. Check-in 5* hotel and overnight in Luxor.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Luxor Landmarks",
-            "description": "Check out after breakfast then you will be taken to the most fascinating monumental sites on the east and west bank of the Nile including:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Queen-Hathsepsut-Temple-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The astral and epic Hatsheput temple was made in the vision of Queen Hatshepsut (1508-1458 BC) to become an eternal and ideal example of classical architecture that was completed in 1479 BC. The temple was dedicated to preserving his legacy and honoring the creator god Amun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "Under the golden lands of Thebes are 63 tombs dedicated to incredible rulers who shaped the New Kingdom (1570 – 1050 BC) which are Seti I, Rameses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Tutankhamun, Hatshepsut, and more. The Valley of the Kings has artistic images showcasing the funerary and mythical beliefs of this divine civilization.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The magical twin statues of Colossi of Memnon were built in the image of king Amenhotep III (1391–1353 BC) and were completed in 1350 BC to stand at a giant temple that faded over time. The 18 m (60 ft) and 720 tons each statue has many images and 107 inscriptions telling a lot of magical facts.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Enjoy a boat ride in the Nile to an island where your lunch will be served then move to witness:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The divine and celestial Karnak temples complex is the greatest religious monument on earth found across 247 acres during the Middle, New, and Greco-Roman period between 1971 BC and 30 BC. The Karnak temple is made to be the worship center of the 18th Theban triad of Mut, Khunso, and Amun. The Hypostyle hall is known to be the most ideal example of magical art and architecture.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After finishing, you will be transported to the airport to fly to Cairo and upon arrival, you'll check-in and spend the night at 5* hotel.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Tour to Alexandria attractions",
-            "description": "A private air-conditioned vehicle will be well prepared for you to start a full day trip in Alexandria with one of the best skillful tour guides to visit Alexandria must-see touristic spots including:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Pompeys-Pillar-in-Alexandria-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Catacombs of Kom El Shoqafa",
-                        "description": "The incredible underground mound of shards was one of the seven wonders of the middle ages which were created as an underground tomb in the 2nd century and the 4th century AD. The Catacombs of Alexandria are able to offer magical works of the art mixing the Imperial Roman, Hellenistic, and Pharaonic styles into one.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Pompey's Pillar",
-                        "description": "The giant Pompey's Pillar was made on the eastern side of the Serapeum of Alexandria as a majestic Roman monolith column made between 298–302 AD to honor Emperor Diocletian",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Qaitbay Citadel",
-                        "description": "The legendary Qaitbey Citadel was created between 1477 AD to 1479 AD to act as a powerful defensive castle from any foreign attack. It was built in the same location where the lighthouse of Alexandria stood. It was built to house the most magical mamluk art and architecture using the rock of the fallen lighthouse the ancient member of the seven wonders of the ancient world.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "A delicious lunch will be served at a fish restaurant then move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Alexandria Library",
-                        "description": "The blessed Bibliotheca Alexandrina is a magical attraction that was inaugurated in 2002 to preserve the memory of the incredible library of Alexandria which was one of the seven wonders of the ancient world. The Bibliotheca Alexandrina has 8 million books and is the sixth-largest Francophone library on earth.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Transfer back to your hotel in Cairo.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: End Your 6 Days Egypt Tour",
-            "description": "This is the time to have your last breakfast before our representative will transfer you to Cairo International to fly back home and end your Egypt trip.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-15-6-days-medieval-art-of-cairo-tour-package',
-    title: '6 Days Medieval Art of Cairo Tour Package',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 325,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival in Cairo + Dinner Cruise",
-            "description": "As you step foot in Cairo after arriving at Cairo Airport, you will meet our representative who will take you on a private A/C vehicle where you will feel the palpable energy of this bustling metropolis.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Cruise",
-                        "description": "After settling into your 5* hotel, prepare for an enchanting evening aboard a dinner cruise on the majestic Nile River. Delight in a sumptuous epic feast while gliding along the shimmering waters of the blessed Nile, admiring the illuminated landmarks that grace the riverbanks and narrating the most amazing tales. Let the magic of Cairo envelop you from the very beginning and live your dream.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will head back to your hotel to relax and prepare for your next adventure.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Secrets of the Coptic Quarter",
-            "description": "You will have your breakfast then head with your tour guide to enter the hidden world of the Coptic Quarter to discover:",
-            "image": "https://www.egypttoursportal.com/images/2019/11/The-Hanging-Church-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The Hanging Church",
-                        "description": "The hanging Church is a sacred sanctuary that exudes tranquility and devotion that is named for its location above a gatehouse of the Babylon Fortress, the Roman fortress that once protected the city. The Hanging Church is one of the oldest churches in Egypt that dates back to the 3rd century when it was founded and built around 690 AD plus it has been rebuilt and restored many times over the centuries. It has remarkable architecture and interior design, featuring a wooden roof that resembles Noah's ark, 13 marvelous marble columns that represent Christ and his apostles, a richly decorated altar screen with icons and paintings, and a crypt that is said to have sheltered the Holy Family during their voyage into Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Coptic Museum",
-                        "description": "The Coptic Museum provides a fascinating insight into the history, culture, and artistic traditions of the Coptic culture that have a treasure trove of ancient artifacts and religious treasures that are totally priceless. It was inaugurated in 1910 and has a remarkable collection of Coptic art, including intricate textiles, beautifully carved wooden objects, Coptic antiquities, various architectural designs, and stunning icons.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "St.Sergius Church",
-                        "description": "St. Sergius Church \"Saints Sergius and Bacchus Church\" is one of the oldest churches in Cairo. Steeped in history and spiritual significance, this ancient sanctuary is believed to have sheltered the Holy Family during their escape to Egypt. The church is dedicated to two Roman soldiers known as Sergius and Bacchus, who were martyred during the 4th century. The church's peaceful ambiance and architectural beauty create a serene atmosphere for reflection and prayer.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Virgin Mary Church",
-                        "description": "The Virgin Mary Church in Maadi serves as a spiritual hub for the local Coptic Orthodox community and holds historical and religious significance within the Coptic Christian community. It is believed that the church was established in the 4th century AD in this epic capital. Its long history and connection to the early Christian era make it a site of great importance. The architecture of the Virgin Mary Church in Maadi is captivating as it features a traditional Coptic design, characterized by its unique cross shape and beautiful domes.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Indulge in a delightful lunch at a renowned restaurant in Cairo, savoring the flavors of Egyptian cuisine. Enjoy a delectable array of dishes, blending traditional spices and fresh ingredients. Immerse yourself in the vibrant ambiance while relishing the culinary delights.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day's adventures, you will be transferred to your hotel in Cairo, ensuring a comfortable and convenient journey, allowing you to unwind and recharge for the next day's explorations.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Legends of Old Cairo",
-            "description": "You will have your breakfast then continue your tour with your tour guide leading to:",
-            "image": "https://www.egypttoursportal.com/images/2021/07/Sultan-Hassan-Mosque-Banner-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Ibn Tulun Mosque",
-                        "description": "The Ibn Tulun Mosque is a true golden masterpiece that changed the whole world of architecture and became one of the oldest and largest mosques in Cairo & Africa which were completed around 879 AD by the Tulunid dynasty ruler Ahmad ibn Tulun of the Abbasid period. It exhibits the grandeur of Islamic architecture with its soaring minaret, vast courtyard, and intricately decorated arches. many believe it is the place where the ark of Noah landed The mosque's historical significance and architectural beauty make it a must-visit attraction as it was built with an open courtyard that is filled with natural sunlight and has many carved stucco and wood decorations.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Gayer Anderson Museum",
-                        "description": "The Gayer-Anderson Museum is an incredible wonder which is located within the historic Islamic district of Cairo and showcases the personal collection of Major Gayer-Anderson, an art collector and British army officer. The museum was official in the mid-40s and is located next to the mosque of Ahmad ibn Tulun which houses a vast array of artifacts, including antique furniture, carpets, textiles, and Islamic art plus many artifacts across the middle east. Exploring the museum's rooms and courtyards provide an immersive experience of traditional Egyptian architecture and the collector's eclectic tastes.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Sultan Hassan Madrassa-Mosque",
-                        "description": "The Mosque-Madrasa of Sultan Hassan is a monumental structure made of divine gold and luxury that impresses with its sheer size and architectural magnificence. This impressive and incredible marvel was built in 1363 AD and features intricate stone carvings, soaring arches, and a massive central courtyard filled with heavenly minarets, exterior, and interior. The mosque stands as a testament to the grandeur of Islamic architecture during the Mamluk period and is by far one of the most complete examples of architecture. All the vast halls and intricate details have the power to shed light on the rich history and craftsmanship of that epic time period.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Rifai Mosque",
-                        "description": "The Mosque of Sultan Rifai is a stunning modern piece of Mamluk-style architecture in Cairo which was built in the early 20th century to become the final resting place of members of the Egyptian royal family of the Muhammed Ali Dynasty. The mosque's grand domes, ornate decorations, and serene atmosphere create a sense of reverence and equilibrium which was designed to resemble the greatness of the Mosque-Madrasa of Sultan Hasan.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Experience a culinary delight at a charming restaurant in Cairo, where tantalizing aromas and exquisite flavors await. Immerse yourself in the rich Egyptian gastronomy, savoring authentic dishes that showcase the region's culinary heritage.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After a day filled with exploration and discovery, you will be chauffeured to your hotel in Cairo, ensuring a safe and relaxing journey. Rest, rejuvenate, and reflect on the unforgettable experiences of the day, ready to embrace the wonders that await you tomorrow.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Muizz Street and the Essence of Cairo",
-            "description": "You will have your breakfast then head with your tour guide across the legend of old Cairo which are:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Egypt-Khan-El-Khalili-of-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "The fabulous Al-Muizz li-Din Allah Street is a historic open-air museum of Islamic architecture and greatness due to its wealth of beautifully preserved buildings from different eras. It was created in 969 AD in the Fatimid era as one of the main streets of the capital and is filled with stunning mosques, madrasas, cafes, art displays, mausoleums, and palaces. The street showcases the architectural grandeur and historical legacy of this blessed capital.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El-Khalili is a golden vibrant and bustling market in the heart of the marvelous city of Cairo between 1382 and 1389. It has been a center of trade and commerce for centuries, offering a sensory feast of sights, sounds, and scents. The bazaar is a labyrinthine maze of narrow alleyways lined with shops selling a variety of goods, including jewelry, textiles, spices, and traditional crafts.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Bab El-Futuh",
-                        "description": "Bab El-Futuh's \"Gate of Conquests' is an ancient military gate & one of the historical gates of Cairo that once served as the entrance to Cairo's old city. It is a fascinating architectural landmark that provides a glimpse into the city's historical fortifications. It was created in 1092 Ad to lead to Bab Zuwayla. It was built by the Vizier Badr al-Jamali during the Fatimid dynasty. The game features impressive architectural details, including defensive elements such as battlements and watchtowers.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Sultan Qalawun Complex",
-                        "description": "The Sultan Qalawun Complex is a remarkable architectural gem that was built by Sultan al-Mansur Qalawun from 1284 to 1285 AD that comprises a hospital, a mosque, a madrasa, and a mausoleum. The complex showcases intricate decorations, elegant domes, and exquisite Islamic artistry. It offers a chance to appreciate the grandeur and brilliance of Mamluk architecture and experience the spiritual atmosphere of the epic city of old Cairo.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Sultan Barquq Mosque",
-                        "description": "The Sultan Barquq Mosque is a golden example of Mamluk architecture made in 1384-1386 AD by Sultan al-Zahir Barquq to become a school for religious education in the main 4 Islamic schools of thought. It features impressive minarets, graceful arches, a magnificent mausoleum, and beautiful courtyards. The mosque's interior and exterior showcases intricate patterns, decorative motifs, and a serene prayer hall.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Savor a delightful lunch at a local Cairo restaurant, where a fusion of flavors and Egyptian hospitality awaits. Relish mouthwatering dishes prepared with fresh, locally sourced ingredients, showcasing the essence of Egyptian cuisine.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After a day of exploration, unwind and enjoy a comfortable transfer to your hotel in Cairo, where you can relax and reflect on the captivating experiences of the day.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Treasures of Islamic Art and Royal Splendor",
-            "description": "You will have your breakfast then head in on a cultural odyssey as you will visit:",
-            "image": "https://www.egypttoursportal.com/images/2023/06/Museum-of-Islamic-Art-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Museum of Islamic Art Cairo",
-                        "description": "The marvelous Museum of Islamic Art is a golden time capsule established in 1903 which is filled with a heavenly treasure trove of exquisite artifacts that chronicle the artistic legacy of the Islamic world. The museum houses 4,500 artifacts in 25 halls and over 100,000 artifacts of Islamic art, including ceramics, textiles, metalwork, woodwork, and illuminated rare manuscripts of the Qur'an found within its storage room.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Manial Palace of Muhammed Ali",
-                        "description": "The Medieval Manuscripts Museum, also known as the Museum of Islamic Calligraphy, is found in the Manial palace and is dedicated to preserving and showcasing precious medieval manuscripts. The museum's collection features beautifully illuminated Qur'ans, scientific texts, poetry, and historical manuscripts written in intricate calligraphy.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Indulge in a culinary journey during lunch at a charming Cairo restaurant. Immerse yourself in the vibrant ambiance as you savor a delectable feast of Egyptian delicacies, artfully prepared to tantalize your taste buds.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "As the day draws to a close, enjoy a seamless transfer to your hotel in Cairo, where you can unwind and reminisce about the day's adventures, creating lasting memories of your time in this captivating city.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Farewell to Cairo",
-            "description": "You will bid farewell to Cairo with amazing memories that will last a lifetime. You will Check out of your accommodation and then return to your destination safely.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-16-6-days-gem-and-valley-of-the-kings-tour',
-    title: '6 Days Gem and Valley of the Kings Tour',
-    description: 'Immersive 6-day classic travel package exploring the wonders of Cairo.',
-    price: 1000,
-    duration: '5+ Days',
-    location: 'Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 340,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival to Cairo",
-            "description": "Your tour begins the moment you arrive at Cairo Airport, where our representative will meet you at the arrival gate and assist you with passport procedures, luggage handling, and airport formalities. You will then be transferred in a private air-conditioned vehicle to your 5-star hotel for check-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-Airport-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "Everyone will enjoy a delightful dinner cruise on the legendary Nile River, complete with live entertainment including a belly dancing performance, traditional folklore music, and a captivating Tanoura show inspired by Egypt’s whirling dervish heritage.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After this memorable evening, you will return to your hotel for an overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day 2: The Ethereal Structures of Giza Complex",
-            "description": "After breakfast, you will meet your private Egyptologist guide and begin your tour with a visit to the legendary Giza Pyramids, one of the most iconic archaeological sites on earth:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Giza-Pyramids-and-Sphinx-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "This ancient complex has stood for more than 4,500 years and includes the three main pyramids of Khufu, Khafre, and Menkaure, several smaller queens’ pyramids, the Great Sphinx, and the Valley Temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of King Khufu is the last surviving wonder of the ancient world. This mysterious marvel was built around 2580 BC from 2.3 m pieces of limestone, each weighing 2.5 tons, and a workforce of 100,000 free skilled workers. It remained the tallest man-made structure on earth for thousands of years, reaching a height of 147 m (481 ft) and continues to fascinate visitors with its scale, precision, and mystery.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx the master of wisdom and might, is one of Egypt’s most glorious and remarkable statues ever created in the history of the world. Carved from a single gigantic limestone rock, it combines the body of a lion with the head of a king, traditionally associated with Khafre, symbolizing royal power, wisdom, and protection.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple of King Khafre is a gateway to heaven, one of the best-preserved monuments of the Old Kingdom (2686 - 2134 BC). It is made of from limestone and granite, it is closely connected with ancient Egyptian funerary rituals and offers valuable insight into royal Mummification Process practices.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "After exploring the Giza Plateau, enjoy lunch at a local restaurant in Cairo before continuing to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid is one of the oldest archaeological monuments ever made in existence, which launched the golden age of pyramid building. Designed by the brilliant architect Imhotep around 2700 BC, this pyramid is considered the earliest major stone pyramid in Egypt and the beginning of the pyramid-building age.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will return to your hotel in Cairo for an overnight stay.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: The Miraculous GEM",
-            "description": "You will have your breakfast at your hotel, then head with your tour guide to explore:",
-            "image": "https://www.egypttoursportal.com/images/2023/03/Grand-Egyptian-Museum-Attraction-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "Beyond its exhibition halls, the GEM is also a leading center for preservation and research, housing one of the largest conservation facilities in the Middle East, along with advanced laboratories and educational spaces dedicated to safeguarding Egypt’s heritage for future generations.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "After exploring the Giza Plateau, enjoy lunch at a local restaurant.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will head to your Cairo airport to catch your flight to Luxor, then head to your luxor hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day 4: The Celestial City of Luxor",
-            "description": "After breakfast at your hotel, continue your journey with a visit to the remarkable attractions of Luxor’s East Bank, beginning with the magnificent Karnak Temple.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/King-Ramses-II-Luxor-Temple-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Known in ancient Egypt as Ipet-isu, meaning “The Most Selected of Places,” and Pr-Imn, meaning “The House of Amun,” Karnak Temple is one of the largest religious complexes ever built by human hands. Its construction and expansion continued for more than 4,000 years, and for over 1,500 years it served as one of the most important spiritual centers of ancient Egypt. The complex honored many deities, including Osiris, Montu, Ptah, and Isis, but it was mainly dedicated to the Theban Triad: Amun, his wife Mut, and their son Khonsu, the moon god.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will then enjoy your lunch meal in an outstanding restaurant in Luxor and then at night move with your tour guide to enjoy:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Luxor Temple by Night",
-                        "description": "Luxor Temple is one of the most beautiful temples to experience at the grace of the night sky. It was built around 1400 BCE during the reign of Pharaoh Amenhotep III, the temple was known as Ipet-resyt, meaning “The Southern Sanctuary.” It was dedicated to Amun and closely connected with the renewal of kingship. With its graceful columns, detailed decorations, and atmospheric night lighting, Luxor Temple reveals a truly enchanting side of ancient Egyptian architecture.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, transfer back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Discover the Marvels of Luxor's Valleys",
-            "description": "You will have your breakfast at your hotel, then head with your tour guide to:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Valley-of-the-Kings-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The Valley of the Kings is one of ancient Egypt’s most sacred and remarkable burial grounds, created as the royal necropolis for the kings and queens of the New Kingdom period from 1570 to 1070 BC. It contains 63 tombs decorated with magnificent scenes, inscriptions, statues, treasures, artifacts, and the remains of many great pharaohs, including Ramesses I, II, III, IV, V, VI, VII, IX, and X, as well as Amenhotep I, Hatshepsut, and Tutankhamen. Among them, the tomb of Tutankhamun remains the most famous and most visited, alongside the legacy of Ramesses the Great. Due to its outstanding historical and archaeological importance, the Valley of the Kings was recognized as a UNESCO World Heritage Site in 1979.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Have a break to enjoy your lunch meal before visiting:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Valley of the Queens",
-                        "description": "Valley of the Queens is the burial place of many of ancient Egypt’s most beautiful and powerful queens, along with important members of the royal family. Located on the West Bank of Luxor within the Theban Necropolis near the Valley of the Kings, it was known during the New Kingdom period (1570–1050 BC) as Ta-Set-Neferu, meaning “The Place of Beauty.” Like the Valley of the Kings, its exterior was intentionally simple and modest to avoid attracting looters and tomb raiders. The valley contains more than 75 tombs dating to the 18th, 19th, and 20th Dynasties.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will head to your Luxor Airport to catch your flight to Cairo, where you will head back to your hotel to spend the night.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Final Day: Departure",
-            "description": "On your final day, you will enjoy your last breakfast in Egypt then head to Cairo airport so you can return home safely with the finest memories thus ending your tour.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-17-7-days-cairo-and-hurghada-holiday',
-    title: '7 Days Cairo and Hurghada Holiday',
-    description: 'Immersive 7-day classic travel package exploring the wonders of Cairo, Hurghada.',
-    price: 1100,
-    duration: '5+ Days',
-    location: 'Cairo, Hurghada',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 355,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt",
-            "description": "Day one will begin at the moment of your arrival at Cairo airport, our \"Travision Tours\" employee will assist you in completing your passport control formalities and luggage identification & carry. From the airport, you will be driven by a private air-conditioned car to your hotel for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Arrival-to-Egypt-AirPort-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "During the evening, you will begin your Cairo tour by a Dinner cruise on the heavenly Nile. You will enjoy a colorful belly dancing show with a folklore band featuring the memorable Tannoura spin in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "You will return to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Pyramids, Sakkara & Gem",
-            "description": "In the morning time, you will have your breakfast, and then join your private tour guide to begin your 7 Days Cairo & Hurghada holiday by exploring the greatest monuments of the ancient Egyptian Civilization starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "Giza Pyramids Complex is the home to the oldest wonder in existence as it dates to more than 4000 years and holds the three main pyramids, six little pyramids, the great sphinx, and the valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu is one of the most known artifacts on the planet as it dates to 2580 BC which makes it older than 4500 years old. It was built in 20 years using 2,300,000 pieces of limestone which made it one of the biggest constructions in the world even today. It stands at the height of 147 m (481 ft) which made it the tallest building on earth for 3800 years until the construction of the Lincoln Cathedral in England in 1311. The pyramid is surrounded by various fringe theories about its origin, purpose, and marvelous construction.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx has acted as the sole guardian of Egypt since ancient times. It is the oldest statue in the world that served as a source of inspiration to countless dreamers and travelers across the centuries even today as a lot of mystery still surrounds the statue regarding its age, purpose & origin. It has a height of 73 m (240 ft) and 19 m (66 ft) and has the shape of a mythical creature called the sphinx which has the body of a lion and the head of a man probably king Khafre as a symbol of power and wisdom.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is the place where the rules of nature were broken during challenging times with the mummification process since Egypt old Kingdom (2686-2181 BC), it is one of the best-preserved structures of the ancient Egyptian civilization, made entirely from limestone, granite and holds amazing diorite statues of king Chephren plus showcases a great deal of information about the ritual burial customs of that time.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then we will move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Saqqara Step Pyramid",
-                        "description": "Saqqara Step Pyramid is one of kind structure in the world as the earliest large-cut stone construction. It was built by the brilliant Imhotep the vizier of Pharaoh Djoser. It has a unique design as it is made of six steps and stands at a height of 62 m. The pyramid is surrounded by a complex which was the first of its kind containing beautiful decorations and majestic ceremonial structures that started the golden age of construction.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, we drive you back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to the Egyptian Museum & Cairo Old Landmarks",
-            "description": "After you have your breakfast and check out from the hotel, you will continue your tour 7 days Cairo & Hurghada Holiday by exploring Cairo tourist attractions starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Khan-El-Khalili-Bazaar-in-Old-Cairo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "One of the most amazing constructions found in the marvelous city of Cairo is the Egyptian Museum which came to be in 1901 to shed light on all the historical and cultural wonders of this blessed land.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Salah El Din Citadel",
-                        "description": "Salah El-Din Citadel has gained the name of \"Cairo Citadel\" as it looks & completely towers over the entire city of Cairo when its construction was completed in 1182 AD by the great conqueror Salah El-Din. It served as the center of the rule and a defensive powerful fortress against the crusaders & napoleon's French invasion and late on in the 19th century, it became the headquarters of the government. Within the citadel lies a hall of justice, an arsenal, entrance routes, four palaces, a huge terrace, and numerous gates mosques holding breathtaking designs.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Mohamed Ali Mosque",
-                        "description": "Mohamed Ali Mosque is known as the alabaster mosque which is a majestic work of artistic design. It was constructed between 1830 and 1848 AD to be a replica of the blue mosque in Istanbul and act as a symbol of independence and freedom against the Ottoman Empire royal law prohibited anyone except the Turkish sultan from constructing a mosque with more than two minarets. The mosque is breathtaking with its ottoman style architecture of French rococo influences with enchanting finishes of ornate of red, green, gold and a great dome.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The National Museum of Egyptian Civilization",
-                        "description": "",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Al Muizz Street",
-                        "description": "The celestial of Al-Muizz street will illuminate the golden culture and history of the blessed Islamic era of Cairo during the 10th century AD where it was built in the center of the magical city of minarets next to the rich and blessed khan El Khalili bazaar. This marvelous enormous social gathering contains amazing cafes and ancient constructions and blessed decorations.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Khan El Khalili Bazaar",
-                        "description": "Khan El Khalili Bazaar is the magical golden brick road of the Middle East as it is the oldest market in the region dating back to 970 AD when the city of Cairo came to be. The street remains active till today and contains everything a traveler might desire plus all the magical caf s and shops that date back hundreds of years. All the phenomenal Islamic architecture and decorations of the street are highly enchanting and remain in good condition today.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, you will head to Cairo airport then fly to Hurghada and check in a 5*hotel where you will spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Safari Excursions in Hurghada",
-            "description": "On day four, you will have your breakfast then you & your guide will discover the beauty of the desert during your safari trip by quad.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Safari-Trips-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Snorkeling Excursion in The Red Sea",
-            "description": "In your day five, you will enjoy your breakfast then join your instructor for an amazing snorkeling excursion in the Red Sea.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Snorkeling-Trips-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Fly to Cairo from Hurghada",
-            "description": "On day six, after you have your breakfast, you will check out from your hotel in Hurghada then catch the evening flight to Cairo where you will spend the overnight.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day Seven: End Your Cairo and Hurghada Holiday",
-            "description": "On your final day, you will have your breakfast then you will be transferred to the airport where you will end your 7 days Cairo and Hurghada Holiday and return home safely.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-18-7-days-cairo--luxor---hurghada-holiday',
-    title: '7 Days Cairo, Luxor & Hurghada Holiday',
-    description: 'Immersive 7-day classic travel package exploring the wonders of Cairo, Luxor, Hurghada.',
-    price: 1100,
-    duration: '5+ Days',
-    location: 'Cairo, Luxor, Hurghada',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 370,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Cairo Airport + Dinner Cruise",
-            "description": "Your journey will begin on day one when you land in Egypt as our \"Travision Tours\" representative will be waiting for you at Cairo airport at your arrival gate where he will help you complete all of your passport control formalities and luggage identification & carry. You will then be taken by a private air-conditioned vehicle to your 5* hotel reservation for checking-in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-The-Land-of-Pharaohs-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening, you will begin your tour by a Dinner cruise on the immortal Nile River where you will get to relax and enjoy a colorful belly dancing show with a folklore band featuring a magical Tannoura spin in keeping with Egypt's whirling dervishes' tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "In the end, you will head back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Giza Pyramids & the Egyptian Museum + Fly to Luxor",
-            "description": "You will enjoy your breakfast in the early morning and check-out from the hotel, then join your private tour guide across some of the most amazing historical sites on the plant such as:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Giza-Pyramids-Complex-in-Egypt-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The Giza Pyramids Complex will be your first stop which has been waiting for your visit for the last 4000 years. The Giza complex consists of three main pyramids, six little pyramids, the glorious sphinx, and the house of immortality valley temple.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The Great Pyramid of Khufu is pure ancient history made of magic & wonder as it is the last intact structure of the Seven Wonders of the Ancient World. It was built in 2580 BC which makes it older than 4500 years old, it was constructed in 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons, and a workforce of 100,000 free skilled workers, which resulted in creating a pyramid standing at the height of 147 m (481 ft) which made it the tallest building in the world for 3800 years. The Great Pyramid is still able to turn heads due to its complex interior compared to its massive magnitude.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The Great Sphinx has inspired great artists, travelers & rulers for countless centuries, it has the shape of a mythical creature called the sphinx which has the body of a lion and the head of a man who probably was King Khafre to represent power and wisdom. The Sphinx has gained many names over time known in Arabic as Abu Al-Hawl which is Arabic for The Father of terror. The Sphinx has a height of 73 m (240 ft) and 20 m (66 ft) and was carved out of single limestone rock in 3 years using about 100 workers its origin and age are shrouded with a lot of mystery.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The Valley Temple is the place where the Mummification Process took place, it was constructed within Egypt's old Kingdom (2686 - 2134 BC). It is one of the best-preserved structures of the ancient Egyptian Civilization and the source of great information about the mummification of Ancient Egypt. The Valley is made entirely from limestone, and granite, and holds magnificent diorite statues of King Khafra.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Enjoy your lunch at a Pyramid / Nile view restaurant, then you will head to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Egyptian Museum is an epic construction filled with amazing archaeological wonders that date back more than 5000 years. Within the two floors of the Museum are a number of amazing artifacts such as the Narmer Palette, the complete burials of Yuya and Thuya, Psusennes I, and the treasures of Tanis, Papyrus, statues, plus a number of great treasures.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After that, you will transfer to Cairo Airport to catch your flight to Luxor. Upon your arrival, you will check in at a 5* hotel in Cairo for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Luxor East Bank",
-            "description": "Morning time, after breakfast, you will head to Luxor East bank where you will continue your Cairo, Luxor & Hurghada holiday by exploring some tiptop Luxor tourist attractions including:",
-            "image": "https://www.egypttoursportal.com/images/2020/02/Luxor-Temple-Makadi-Bay-Excursion-to-Luxor-in-Two-Days-Trip-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Karnak Temple",
-                        "description": "Karnak Temple Complex is a piece of heaven on earth, this holy land is one of the world's biggest open-air museums, it was known as Ipet-isu The Most Selected Of Places, and Pr-Imn House Of Amon. It is one of the largest religious man-made construction on the planet and dates to more than 4000 years, it served as the center of the religious practices of the entire ancient Egyptian Kingdom for more than 1500 years. The temple of Karnak had a shrine for various deities like Osiris, Montu, Ptah, Isis, and more but it was dedicated mainly to the Theban triad which consisted of God Amun with his wife the Goddess of Justice Mut, and his son the moon god Khnsou.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will then enjoy your lunch meal, then transfer to your hotel to refresh yourself, then at night move with your tour guide to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Luxor Temple by Night",
-                        "description": "Luxor Temple is the gem of the entire city which showcases the artistic soul of ancient times, it was built in 1400 BCE during the reign of Pharaoh Amenhotep III where it was known as \"Ipetresyet\" which means the Southern Sanctuary. It was dedicated to the God Amun of the Theban Triad and to represent the idea of the rejuvenation of kingship. The temple is filled with enchanting extensive decorations & constructions. The best time to visit the temple is at night when the light of the moon illuminates the temple & the entire temple is born once again.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After that, you will transfer back to your hotel for spending the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Luxor West Bank & Transfer to Hurghada",
-            "description": "You will have your breakfast and check-out from the hotel in Luxor, then continue your breathtaking Cairo, Luxor & Hurghada holiday with your tour guide then enjoy a tour of Luxor West Bank starting with:",
-            "image": "https://www.egypttoursportal.com/images/2020/02/Hatshepsut-Temple-Makadi-Bay-Excursion-to-Luxor-in-Two-Days-Trip-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "The Valley of the Kings is a magical place between the earth & the heavens built by the ancient Egyptians in the heart of a mountain to be the final resting place of the greatest Kings and Queens of Egypt's New Kingdom (1570-1070 BC). It holds 63 tombs filled with various majestic artifacts, statues, and majestic decorations, and the most famous ones are Ramses II, Amenhotep I, Hatshepsut, and the famous boy-king Tutankhamen. The Valley became a World Heritage Site by UNESCO in 1979 because of its historical & artistic importance.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "Hatshepsut Temple is the finest example of prestige, success & class. It was known as Djeser-Djeseru (Holy of Holies) and is famous for being the most beautiful structure of the ancient Egyptian civilization. It was built in 1479 BC to showcase the powerful spirit of the new kingdom (1550-1070 BC), Hatshepsut's dedication to the god Amun and her power & her legacy as one of the most successful rulers in the history of Ancient Egypt. The unique design of the temple is based on the concept of Classical Architecture and contains some of the most impressive statues in her image, decorations, and art pieces in all of Egypt.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "Colossi of Memnon have been protecting the city of Luxor for a long time, they were built by Amenhotep III (1386-1350), and they consist of two colossal blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each and has the shape of Pharaoh himself. The colossi were damaged due to a large earthquake in 27 BC but were rebuilt once again in 199 AD. The statues gained quite a fame in the Greco-Roman period due to the phenomenon called the Vocal Memnon where a sinning sound was made from time to time which was nothing more than the sound of the wind passing through the statue at dawn.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "You will then have your lunch at a Nile view restaurant and then drive to Hurghada.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Upon your arrival check in for a 5* hotel to spend the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Hurghada Free Day",
-            "description": "In your day five, you will be in Hurghada where you will have a free day so you can explore the city resort on your own and enjoy all that the city has to offer.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Beaches-in-Egypt-Egypt-Tours-Portal-1.jpg",
-            "activities": [],
-            "meals": "Breakfast, Lunch, Dinner, Soft Drinks",
-            "overnight": "Hurghada Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Hurghada to Cairo + Fly Back to Cairo",
-            "description": "On day six, after you have your breakfast, you will check out from your hotel in Hurghada then catch the evening flight to Cairo where you will spend the overnight.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Egypt-Cairo-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day Seven: End Your Cairo, Luxor & Hurghada Holiday",
-            "description": "On your final day, you will have your breakfast then you will be transferred to the airport where you will end your 7 days Cairo, Luxor & Hurghada Holiday, and return home safely.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: 'pkg-19-7-days-cairo--luxor--aswan---abu-simbel-include-edfu-and-kom-ombo',
-    title: '7 Days Cairo, Luxor, Aswan & Abu Simbel Include Edfu and Kom Ombo',
-    description: 'Immersive 7-day classic travel package exploring the wonders of Cairo, Luxor, Aswan, Abu Simbel.',
-    price: 1100,
-    duration: '5+ Days',
-    location: 'Cairo, Luxor, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 385,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day One: Arrival to Egypt Land of Pharaohs",
-            "description": "Arrive at Cairo airport, \"Travision Tours\" representative will assist you through passport control formalities, luggage identification & portage will greet you. From the airport, you will be transferred by a private air-conditioned minivan to a 5* hotel in Cairo to check in.",
-            "image": "https://www.egypttoursportal.com/images/2019/01/Arrival-to-The-Land-of-Pharaohs-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Dinner Time",
-                        "description": "In the evening time, start your trip by enjoying a Dinner Cruise with your tour guide, sit back, and relax while you enjoy a colorful belly dancing show with a folklore band, featuring the unforgettable Tannoura spin, in keeping with Egypt's whirling dervishes tradition.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "After that back to your hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Dinner",
-            "overnight": "Cairo Airport"
-      },
-      {
-            "day": 2,
-            "title": "Day Two: Tour to Giza Pyramids & The Egyptian Museum",
-            "description": "In the morning, after breakfast, check out from the hotel and join your private Egyptologist tour guide to visit the most famous Cairo tourist attractions such as:",
-            "image": "https://www.egypttoursportal.com/images/2017/01/Giza-Pyramids-Overnight-Trips-to-Cairo-from-Hurghada-By-Plane-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids Complex",
-                        "description": "The greatest archaeological wonder on the face of the earth the Giza Plateau was created by the immortal kings of the 4th dynasty between 2600 BC and 2500 BC to lead a golden path to the heavens.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Great Pyramid",
-                        "description": "The legendary legacy of King Khufu was immortalized within the golden core of the Great Pyramid that dates back to 2570 BC which was built in only 15 years using ramps and 400,000 workers under the command of Hemiunu the main architecture became 146.6 meters (481 feet) and weigh a total of six million tons. Within the great pyramid are the divine Queen's Chamber and King's Chamber that showcases the brilliance and mastery of the ancient Egyptian builders.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Great Sphinx",
-                        "description": "The oldest monumental sculpture in history and the most famous statue on the face of the earth was created during the rule of Pharaoh Khafre (2558–2532 BC). The design of the Great Sphinx has based on the impressive design of the mythical sphinx which displayed the face of Khafre. The statue is the source of great speculations about its origin and age as it attracted many theories of pseudohistory and pseudoarcheology",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Valley Temple",
-                        "description": "The heavenly valley temple of Chephren is composed of 16 massive limestone pillars which are covered with polished red-pink granite that acted as the center of the reception, Mummification, and purification of the royal bodies of the 4th dynasty.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Grand Egyptian Museum",
-                        "description": "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Proceed to have your lunch at a local restaurant in Cairo. Then we will move to visit:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "The Egyptian Museum",
-                        "description": "The Epic Egyptian Museum was created to offer a magical road that displays the brilliance and glamour of the ancient Egyptian Civilization that dates back to more than 5000 years.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Finally, we drive you to Cairo Airport to fly to Luxor and check-in 5* hotel for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 3,
-            "title": "Day Three: Tour to Luxor Attractions",
-            "description": "Enjoy breakfast at the hotel, and continue your vacation by meeting your private Egyptologist tour guide to visit the most famous Luxor tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Karnak-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings",
-                        "description": "In the underground core of the Theban Necropolis on the west bank of the Nile \"Valley of the Kings\" is the heavenly 63 tombs of the greatest kings, queens, and influential nobles of the New Kingdom (1570 BC - 1544 BC) from the 18th dynasty to the 20th dynasty. The entrance of the valley leads below the ground from a magical hill that looks like the BEN-BEN where the world was created by Atum which is a golden symbol of eternal life and rebirth.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Hatshepsut Temple",
-                        "description": "The magical mortuary temple of Queen Hatshepsut (1508–1458 BC) is the greatest example of ancient Egyptian architecture that was created by the vision of Senenmut the royal overseer of the works who honors the creator god Amun-Ra plus it offers an artistic piece showcasing the epic life cycle of Hatshepsut from the time of her coronation till the time of her rebirth. It is made of three great terraces which were carved in the great Deir El Bahari cliffs.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Colossi of Memnon",
-                        "description": "The epic Colossi of Memnon has been tested by time since its construction in 1350 BC to offer a golden glimpse into the greatness of Amenhotep III which showcases a number of 107 Roman-era inscriptions dating between 20 & 250 AD in Greek and Latin which tells the great tale of Memnon the Greek mythological king plus it holds carvings dedicated to the god of the Nile Hapi, his wife Tiye and mother Mutemwiya.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Then move to have your lunch on an island, so your tour includes a boat trip in the Nile River followed by a tour to:",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Karnak Temple",
-                        "description": "The mythical fortified village of the Karnak Temple is the second most visited historical destination which was created in the reign of Senusret I in 1971 BC and lasted all the way till the end of the Ptolemaic Kingdom (305–30 BCE) which earned the title of the most selected of places which became the religious capital of Thebes that honored the god of Amen-Re, Mut, and Montu that created the Theban triad.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Then back to the hotel in Luxor for overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Luxor Hotel"
-      },
-      {
-            "day": 4,
-            "title": "Day Four: Tour to Edfu and Kom Ombo Temples",
-            "description": "Morning time, have your breakfast and check-out from the hotel, then join your private Egyptologist tour guide to transfer by a private air-conditioned vehicle to visit:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Temple-of-Kom-Ombo-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "Edfu temple",
-                        "description": "The miraculous house of triumph and honor was built between 237 BC and 57 BC to offer a magical portal leading to the greatest examples of religion, myth, and language from the Egyptian Hellenistic period. Edfu Temple was dedicated to the god of Skies and the victory of the falcon god Horus plus it stands as the greatest example of late architectural development.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Kom Ombo Temple",
-                        "description": "The heavenly Kom Ombo Temple is a highly unique construction that honor great gods on the northern and southern aspect of the double temple the falcon god Haroeris and the crocodile god Sobek which were created in the Ptolemaic dynasty between 180 BC and 47 BC. The entire temple is the source of great facts about the Egyptian calendar and the medical innovation of that era.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "After that have your lunch meal at a restaurant in Kom Ombo.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Transfer to Aswan by your private air-conditioned car to check-in at the 5* hotel and overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 5,
-            "title": "Day Five: Tour to the Two Temples of Abu Simbel",
-            "description": "Morning time, breakfast boxes then transfer to Abu Simbel by a private air-conditioned car joining your private tour guide to discover:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Great-Abu-Simbel-Temple-Egypt-Tours-Portal.jpg",
-            "activities": [
-                  {
-                        "title": "Abu Simbel Temples",
-                        "description": "The legendary Abu Simbel Temple was created in 1264 BC for the sole purpose of immortalizing the golden heritage of the great king Pharaoh Ramsess the great, honoring Amun-Re, Ptah, and Re-Horakhte through the solar sun phenomenon, eternalizing his win at the epic battle of Kadesh in 1274 BC which ended in the signing of the first peace treaty and showcase his love to his beloved wife Nefertari and children.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Transfer back to your hotel in Aswan to enjoy your lunch.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "At the end of the day, return back to your hotel in Aswan for the overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Aswan Hotel"
-      },
-      {
-            "day": 6,
-            "title": "Day Six: Tour to Aswan Attractions",
-            "description": "Breakfast at the hotel, then check-out and join the Egyptologist tour guide to visit Aswan tourist attractions starting by:",
-            "image": "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
-            "activities": [
-                  {
-                        "title": "The High Dam",
-                        "description": "During the modern age in the mid-60s, and 70s the golden Aswan High Dam achieved everlasting greatness and was assigned to make electricity from the flood waters.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "The Unfinished Obelisk",
-                        "description": "The Great Unfinished Obelisk was on the path of Greatness as it was meant to stand at the Karnak Temple as the biggest obelisk in existence which was meant to reach the high 41.75 meters (137.0 ft) and weigh about 2000 African Elephant to further immortalize the legacy of Queen Hatshepsut (1508 - 1458 BC).",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Philae Temple",
-                        "description": "The magical Philae temple holds the greatest story ever told about the sacrifice of Isis the goddess of motherhood to her husband the god of the Underworld across its great walls which are found on Agilkia Island which was created in the Ptolemaic era between 380-362 BC during the reign of Nectanebo I plus it was renovated and enlarged on the rule of Ptolemy V Epiphanes, Ptolemy II Philadelphus, and Ptolemy VI Philometor.",
-                        "icon": "tour"
-                  },
-                  {
-                        "title": "Lunch Time",
-                        "description": "Finally, you will have your tasteful lunch at a restaurant in Aswan.",
-                        "icon": "dinner"
-                  },
-                  {
-                        "title": "Overnight",
-                        "description": "Transfer to Aswan Airport to catch your flight back to Cairo and check-in 5* hotel for overnight.",
-                        "icon": "overnight"
-                  }
-            ],
-            "meals": "Breakfast, Lunch",
-            "overnight": "Cairo Hotel"
-      },
-      {
-            "day": 7,
-            "title": "Day Seven: End of the 7 Days Experience Egypt Tour",
-            "description": "Breakfast at the hotel, then the representative of \"Travision Tours\" will transfer you to the airport and assist you at the airport through final departure formalities to end your trip in Egypt.",
-            "image": "https://www.egypttoursportal.com/images/2020/04/The-Final-Day-Egypt-Tours-Portal.jpg",
-            "activities": [],
-            "meals": "Breakfast",
-            "overnight": ""
-      }
-]
-  },
-  {
-    id: '4-days-cairo-giza-pyramids-tour',
-    title: '4 Days Cairo & Giza Pyramids Tour',
-    description: 'A perfectly crafted short break for those who want to experience the magic of Cairo and the iconic Giza Pyramids. In just four days, you\'ll stand before the last remaining wonder of the ancient world, explore the corridors of the Egyptian Museum, and wander through the ancient streets of Old Cairo. Ideal for first-time visitors or travelers with limited time who refuse to miss Egypt\'s greatest highlights.',
-    price: 390,
-    duration: '4 Days / 3 Nights',
-    location: 'Cairo, Giza',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.5,
-    reviewsCount: 93,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Private airport transfer to hotel. Welcome briefing with your guide. Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Private airport transfer to hotel. Welcome briefing with your guide. Overnight Cairo.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Full day at the Giza Plateau — Great Pyramid of Khufu, Pyramid of Khafre, Pyramid of Menkaure, the Great Sphinx, and the Valley Temple",
-            "description": "Optional camel ride. Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Full day at the Giza Plateau — Great Pyramid of Khufu, Pyramid of Khafre, Pyramid of Menkaure, the Great Sphinx, and the Valley Temple Highlights",
-                        "description": "Optional camel ride. Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Egyptian Museum (including the Tutankhamun treasures and Royal Mummies Hall), Citadel of Saladin, Mohamed Ali Mosque, Khan El Khalili Bazaar",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Egyptian Museum (including the Tutankhamun treasures and Royal Mummies Hall), Citadel of Saladin, Mohamed Ali Mosque, Khan El Khalili Bazaar Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Optional morning visit to Old Cairo (Hanging Church, Coptic Museum, Ben Ezra Synagogue)",
-            "description": "Transfer to Cairo Airport. Departure.",
-            "activities": [
-                  {
-                        "title": "Optional morning visit to Old Cairo (Hanging Church, Coptic Museum, Ben Ezra Synagogue) Highlights",
-                        "description": "Transfer to Cairo Airport. Departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotel accommodation (3 nights)","private Egyptologist guide","daily breakfast","all entrance fees","all transfers."],
-  },
-  {
-    id: '7-days-cairo-luxor-aswan-abu-simbel-edfu-kom-ombo',
-    title: '7 Days Cairo, Luxor, Aswan & Abu Simbel (Edfu & Kom Ombo)',
-    description: 'Take the full scenic route through ancient Egypt. This seven-day tour adds the remarkably preserved Temple of Edfu and the unique double-deity Temple of Kom Ombo to the classic itinerary — giving you a richer, more complete picture of ancient Egyptian civilization along the Nile Valley.',
-    price: 1,
-    duration: '7 Days / 6 Nights',
-    location: 'Cairo, Luxor, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 170,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Transfer and welcome.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Transfer and welcome.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids, Sphinx, Saqqara, Memphis",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids, Sphinx, Saqqara, Memphis Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Egyptian Museum, Citadel of Saladin, Old Cairo",
-            "description": "Fly to Luxor. Overnight Luxor.",
-            "activities": [
-                  {
-                        "title": "Egyptian Museum, Citadel of Saladin, Old Cairo Highlights",
-                        "description": "Fly to Luxor. Overnight Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon, Karnak Temple",
-            "description": "Overnight Luxor.",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon, Karnak Temple Highlights",
-                        "description": "Overnight Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Drive south",
-            "description": "Visit Edfu Temple (dedicated to Horus) and Kom Ombo Temple (dedicated to Sobek & Haroeris). Arrive Aswan. Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Drive south Highlights",
-                        "description": "Visit Edfu Temple (dedicated to Horus) and Kom Ombo Temple (dedicated to Sobek & Haroeris). Arrive Aswan. Overnight Aswan.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Philae Temple, High Dam, Nubian Village",
-            "description": "Abu Simbel excursion. Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Philae Temple, High Dam, Nubian Village Highlights",
-                        "description": "Abu Simbel excursion. Overnight Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Fly to Cairo",
-            "description": "Departure.",
-            "activities": [
-                  {
-                        "title": "Fly to Cairo Highlights",
-                        "description": "Departure.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotel accommodation","domestic flights","private Egyptologist guide","daily breakfast","entrance fees","all transfers."],
-  },
-  {
-    id: '9-days-cairo-alexandria-luxor-aswan-trip',
-    title: '9 Days Cairo, Alexandria, Luxor & Aswan Trip',
-    description: 'Go beyond the pyramids and explore Egypt in full dimension. This nine-day journey adds the magnificent Mediterranean city of Alexandria — with its ancient library, Roman ruins, and seaside citadel — to the classic Upper Egypt circuit. A truly well-rounded adventure spanning thousands of years of civilization.',
-    price: 1,
-    duration: '9 Days / 8 Nights',
-    location: 'Cairo, Alexandria, Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1599957134371-55cc0d6f281e?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 146,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Transfer and welcome.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Transfer and welcome.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids, Sphinx, Egyptian Museum",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids, Sphinx, Egyptian Museum Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Day trip to Alexandria — Bibliotheca Alexandrina, Qaitbay Citadel, Pompey's Pillar, Montaza Gardens",
-            "description": "Return to Cairo. Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Day trip to Alexandria — Bibliotheca Alexandrina, Qaitbay Citadel, Pompey's Pillar, Montaza Gardens Highlights",
-                        "description": "Return to Cairo. Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Saqqara, Memphis, Old Cairo",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Saqqara, Memphis, Old Cairo Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Fly to Luxor",
-            "description": "Karnak Temple, Luxor Temple. Overnight Luxor.",
-            "activities": [
-                  {
-                        "title": "Fly to Luxor Highlights",
-                        "description": "Karnak Temple, Luxor Temple. Overnight Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon",
-            "description": "Overnight Luxor.",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon Highlights",
-                        "description": "Overnight Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Travel to Aswan via Edfu and Kom Ombo",
-            "description": "Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Travel to Aswan via Edfu and Kom Ombo Highlights",
-                        "description": "Overnight Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Abu Simbel excursion",
-            "description": "Philae Temple, Unfinished Obelisk. Nubian Village visit. Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Abu Simbel excursion Highlights",
-                        "description": "Philae Temple, Unfinished Obelisk. Nubian Village visit. Overnight Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Fly to Cairo",
-            "description": "Departure.",
-            "activities": [
-                  {
-                        "title": "Fly to Cairo Highlights",
-                        "description": "Departure.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotel accommodation","domestic flights","private Egyptologist guide","daily breakfast","all entrance fees","all transfers."],
-  },
-  {
-    id: '10-days-egypt-cultural-sightseeing-tour',
-    title: '10 Days Egypt Cultural Sightseeing Tour',
-    description: 'An immersive deep dive into Egypt\'s extraordinary cultural heritage. Over ten days, explore Cairo\'s Islamic and Coptic districts, sail the Nile, wander vast temple complexes, and experience authentic local life — from Nubian villages in Aswan to bustling bazaars in Cairo. Perfect for history enthusiasts who want more than just a highlights reel.',
-    price: 1,
-    duration: '10 Days / 9 Nights',
-    location: 'Cairo, Aswan, Nile River',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 266,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Transfer to hotel.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Transfer to hotel.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids, Sphinx, Solar Boat Museum, Valley Temple",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids, Sphinx, Solar Boat Museum, Valley Temple Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Egyptian Museum (Royal Mummies Hall), Khan El Khalili Bazaar, Al-Azhar Mosque, Citadel",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Egyptian Museum (Royal Mummies Hall), Khan El Khalili Bazaar, Al-Azhar Mosque, Citadel Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Saqqara (Step Pyramid, Mastabas), Memphis",
-            "description": "Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Saqqara (Step Pyramid, Mastabas), Memphis Highlights",
-                        "description": "Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Fly to Luxor",
-            "description": "Karnak Temple. Optional Sound & Light Show. Overnight Luxor.",
-            "activities": [
-                  {
-                        "title": "Fly to Luxor Highlights",
-                        "description": "Karnak Temple. Optional Sound & Light Show. Overnight Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Valley of the Kings, Tutankhamun's Tomb, Deir el-Medina, Hatshepsut Temple",
-            "description": "Overnight Luxor.",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Tutankhamun's Tomb, Deir el-Medina, Hatshepsut Temple Highlights",
-                        "description": "Overnight Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Luxor Temple, Luxor Museum",
-            "description": "Drive to Edfu and Kom Ombo. Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Luxor Temple, Luxor Museum Highlights",
-                        "description": "Drive to Edfu and Kom Ombo. Overnight Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Philae Temple, High Dam, Nubian Village boat ride",
-            "description": "Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Philae Temple, High Dam, Nubian Village boat ride Highlights",
-                        "description": "Overnight Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Abu Simbel full day excursion",
-            "description": "Fly to Cairo. Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Abu Simbel full day excursion Highlights",
-                        "description": "Fly to Cairo. Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Final Cairo exploration or shopping",
-            "description": "Transfer to airport. Departure.",
-            "activities": [
-                  {
-                        "title": "Final Cairo exploration or shopping Highlights",
-                        "description": "Transfer to airport. Departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotel accommodation","domestic flights","private guide","daily breakfast","all entrance fees","all transfers."],
-  },
-  {
-    id: '13-days-culture-trip-to-egypt',
-    title: '13 Days Culture Trip to Egypt',
-    description: 'A thorough, thoughtfully paced cultural journey through Egypt\'s most compelling cities and sites. Thirteen days gives you the luxury of time — to linger in museums, explore lesser-visited temples, and absorb the living culture alongside the ancient one. For the traveler who wants to truly understand Egypt, not just photograph it.',
-    price: 2,
-    duration: '13 Days / 12 Nights',
-    location: 'Egypt',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 115,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Welcome transfer.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Welcome transfer.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids, Sphinx, Valley Temple, Solar Boat Museum",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids, Sphinx, Valley Temple, Solar Boat Museum Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Egyptian Museum, Citadel, Mohamed Ali Mosque, Khan El Khalili",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Egyptian Museum, Citadel, Mohamed Ali Mosque, Khan El Khalili Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Saqqara, Dahshur (Bent & Red Pyramids), Memphis",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Saqqara, Dahshur (Bent & Red Pyramids), Memphis Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Old Cairo — Coptic Cairo, Hanging Church, Ben Ezra Synagogue, Islamic Museum",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Old Cairo — Coptic Cairo, Hanging Church, Ben Ezra Synagogue, Islamic Museum Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Fly to Luxor",
-            "description": "Karnak Temple complex, Luxor Temple.",
-            "activities": [
-                  {
-                        "title": "Fly to Luxor Highlights",
-                        "description": "Karnak Temple complex, Luxor Temple.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: West Bank — Valley of the Kings, Deir el-Medina, Ramesseum",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "West Bank — Valley of the Kings, Deir el-Medina, Ramesseum Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Hatshepsut Temple, Colossi of Memnon, Luxor Museum",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Hatshepsut Temple, Colossi of Memnon, Luxor Museum Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Scenic drive south",
-            "description": "Edfu Temple, Kom Ombo Temple. Arrive Aswan.",
-            "activities": [
-                  {
-                        "title": "Scenic drive south Highlights",
-                        "description": "Edfu Temple, Kom Ombo Temple. Arrive Aswan.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Philae Temple, Aswan High Dam, Nubian Museum, Felucca ride",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Philae Temple, Aswan High Dam, Nubian Museum, Felucca ride Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Abu Simbel full-day excursion",
-            "description": "Return to Aswan.",
-            "activities": [
-                  {
-                        "title": "Abu Simbel full-day excursion Highlights",
-                        "description": "Return to Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Fly to Cairo",
-            "description": "Day trip to Alexandria — Qaitbay Citadel, Roman Amphitheater, Bibliotheca Alexandrina.",
-            "activities": [
-                  {
-                        "title": "Fly to Cairo Highlights",
-                        "description": "Day trip to Alexandria — Qaitbay Citadel, Roman Amphitheater, Bibliotheca Alexandrina.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 13,
-            "title": "Day 13: Transfer to Cairo Airport",
-            "description": "Departure.",
-            "activities": [
-                  {
-                        "title": "Transfer to Cairo Airport Highlights",
-                        "description": "Departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotel accommodation","domestic flights","private Egyptologist guide","daily breakfast","all entrance fees","all transfers."],
-  },
-  {
-    id: '14-days-trip-to-the-best-of-egypt',
-    title: '14 Days Trip to the Best of Egypt',
-    description: 'Two full weeks to experience everything Egypt has to offer — pyramids, Nile cruises, Mediterranean coastlines, and Red Sea beaches. This is the definitive Egypt journey, covering every major region of the country while leaving room to breathe and truly savor each destination.',
-    price: 2,
-    duration: '14 Days / 13 Nights',
-    location: 'Cairo, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 48,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Transfer and welcome.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Transfer and welcome.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids, Sphinx, Solar Boat Museum",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids, Sphinx, Solar Boat Museum Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Egyptian Museum, Islamic Cairo, Khan El Khalili",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Egyptian Museum, Islamic Cairo, Khan El Khalili Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Saqqara, Memphis, Dahshur",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Saqqara, Memphis, Dahshur Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Day trip to Alexandria",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Day trip to Alexandria Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Fly to Luxor",
-            "description": "Karnak and Luxor Temples.",
-            "activities": [
-                  {
-                        "title": "Fly to Luxor Highlights",
-                        "description": "Karnak and Luxor Temples.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Valley of the Kings, Hatshepsut, Deir el-Medina",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Hatshepsut, Deir el-Medina Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Board Nile Cruise",
-            "description": "Sail toward Edfu.",
-            "activities": [
-                  {
-                        "title": "Board Nile Cruise Highlights",
-                        "description": "Sail toward Edfu.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Edfu Temple, Kom Ombo",
-            "description": "Sail to Aswan.",
-            "activities": [
-                  {
-                        "title": "Edfu Temple, Kom Ombo Highlights",
-                        "description": "Sail to Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Philae Temple, High Dam, Nubian Village",
-            "description": "Overnight onboard.",
-            "activities": [
-                  {
-                        "title": "Philae Temple, High Dam, Nubian Village Highlights",
-                        "description": "Overnight onboard.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Abu Simbel excursion",
-            "description": "Fly to Cairo. Overnight Cairo.",
-            "activities": [
-                  {
-                        "title": "Abu Simbel excursion Highlights",
-                        "description": "Fly to Cairo. Overnight Cairo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Fly to Hurghada or Sharm El Sheikh",
-            "description": "Beach resort. Overnight.",
-            "activities": [
-                  {
-                        "title": "Fly to Hurghada or Sharm El Sheikh Highlights",
-                        "description": "Beach resort. Overnight.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 13,
-            "title": "Day 13: Free leisure day — snorkeling, diving, spa, or desert safari",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Free leisure day — snorkeling, diving, spa, or desert safari Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 14,
-            "title": "Day 14: Transfer to airport",
-            "description": "Departure.",
-            "activities": [
-                  {
-                        "title": "Transfer to airport Highlights",
-                        "description": "Departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotel accommodation","full-board Nile cruise","domestic flights","private guide","daily breakfast","entrance fees","all transfers."],
-  },
-  {
-    id: '15-days-marvelous-egypt-tour-package',
-    title: '15 Days Marvelous Egypt Tour Package',
-    description: 'The grand Egypt experience — fifteen days of pure wonder across every corner of this extraordinary country. From the pyramids of Giza and the temples of Luxor to the Red Sea coast and the Western Desert, this tour is for the adventurous traveler who refuses to miss a single thing.',
-    price: 2,
-    duration: '15 Days / 14 Nights',
-    location: 'Cairo, Giza, Luxor, Western Desert',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.5,
-    reviewsCount: 210,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrive Cairo",
-            "description": "Welcome transfer.",
-            "activities": [
-                  {
-                        "title": "Arrive Cairo Highlights",
-                        "description": "Welcome transfer.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Giza Pyramids, Sphinx, Valley Temple, Solar Boat Museum",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Giza Pyramids, Sphinx, Valley Temple, Solar Boat Museum Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Egyptian Museum, Coptic Cairo, Islamic Cairo, Khan El Khalili",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Egyptian Museum, Coptic Cairo, Islamic Cairo, Khan El Khalili Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Saqqara, Memphis, Dahshur Pyramids",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Saqqara, Memphis, Dahshur Pyramids Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Day trip to Alexandria — Library, Citadel, Roman ruins",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Day trip to Alexandria — Library, Citadel, Roman ruins Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Fly to Luxor",
-            "description": "Karnak Temple, Luxor Temple.",
-            "activities": [
-                  {
-                        "title": "Fly to Luxor Highlights",
-                        "description": "Karnak Temple, Luxor Temple.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Board Nile Cruise",
-            "description": "Edfu Temple. Sail to Kom Ombo.",
-            "activities": [
-                  {
-                        "title": "Board Nile Cruise Highlights",
-                        "description": "Edfu Temple. Sail to Kom Ombo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Kom Ombo Temple",
-            "description": "Sail to Aswan. Philae Temple.",
-            "activities": [
-                  {
-                        "title": "Kom Ombo Temple Highlights",
-                        "description": "Sail to Aswan. Philae Temple.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Abu Simbel full excursion",
-            "description": "Nubian Village. Overnight Aswan.",
-            "activities": [
-                  {
-                        "title": "Abu Simbel full excursion Highlights",
-                        "description": "Nubian Village. Overnight Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Fly to Cairo",
-            "description": "Optional bazaar visit.",
-            "activities": [
-                  {
-                        "title": "Fly to Cairo Highlights",
-                        "description": "Optional bazaar visit.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Drive to Bahariya Oasis / Western Desert Safari",
-            "description": "Overnight desert camp.",
-            "activities": [
-                  {
-                        "title": "Drive to Bahariya Oasis / Western Desert Safari Highlights",
-                        "description": "Overnight desert camp.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 13,
-            "title": "Day 13: Return to Cairo",
-            "description": "Fly to Hurghada or Sharm.",
-            "activities": [
-                  {
-                        "title": "Return to Cairo Highlights",
-                        "description": "Fly to Hurghada or Sharm.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 14,
-            "title": "Day 14: Red Sea leisure — snorkeling, beach, optional diving or hike",
-            "description": "",
-            "activities": [
-                  {
-                        "title": "Red Sea leisure — snorkeling, beach, optional diving or hike Highlights",
-                        "description": "",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 15,
-            "title": "Day 15: Transfer to airport",
-            "description": "Departure.",
-            "activities": [
-                  {
-                        "title": "Transfer to airport Highlights",
-                        "description": "Departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    inclusions: ["Hotels + desert camp + full-board Nile cruise","domestic flights","private Egyptologist guide","daily breakfast","entrance fees","all transfers."],
-  },
-  {
-    id: '4-days-classic-cairo-tour',
-    title: '4 Days Classic Cairo Tour',
-    description: 'An affordable yet rich introduction to Cairo\'s ancient wonders. Explore the Giza Pyramids, the Sphinx, the Egyptian Museum\'s world-class collection, and the historic streets of Old Cairo with a private guide. Perfect for budget-conscious travelers who still want a quality experience.',
-    price: 515,
-    duration: '4 Days / 3 Nights',
-    location: 'Cairo, Giza',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 252,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Giza Pyramids",
-            "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Giza Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Egyptian Museum",
-            "description": "Take a guided tour to experience the majestic Egyptian Museum in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Egyptian Museum Highlights",
-                        "description": "Take a guided tour to experience the majestic Egyptian Museum in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Giza Pyramids","Egyptian Museum","Khan El Khalili","Old Cairo."],
-  },
-  {
-    id: '5-days-classic-egypt-tour-cairo-luxor',
-    title: '5 Days Classic Egypt Tour (Cairo & Luxor)',
-    description: 'Combine the pyramids of Cairo with the legendary temples of Luxor on this classic five-day journey. Visit the Valley of the Kings, Karnak Temple, and the West Bank monuments before returning home with memories of a lifetime.',
-    price: 699,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 159,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Giza Pyramids",
-            "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Giza Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Karnak",
-            "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Karnak Highlights",
-                        "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Giza Pyramids","Karnak","Valley of the Kings","Hatshepsut Temple."],
-  },
-  {
-    id: '7-days-classic-egypt-discovery',
-    title: '7 Days Classic Egypt Discovery',
-    description: 'A well-paced week-long tour taking in the best of Cairo, Luxor, and Aswan. Travel between cities by air and enjoy guided explorations of all the key ancient sites at a comfortable, relaxed pace.',
-    price: 999,
-    duration: '7 Days / 6 Nights',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 141,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Egyptian Museum",
-            "description": "Take a guided tour to experience the majestic Egyptian Museum in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Egyptian Museum Highlights",
-                        "description": "Take a guided tour to experience the majestic Egyptian Museum in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Luxor temples",
-            "description": "Take a guided tour to experience the majestic Luxor temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor temples Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Abu Simbel",
-            "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Philae.",
-            "description": "Take a guided tour to experience the majestic Philae. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Philae. Highlights",
-                        "description": "Take a guided tour to experience the majestic Philae. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Egyptian Museum","Luxor temples","Abu Simbel","Philae."],
-  },
-  {
-    id: '5-days-luxury-cairo-nile-experience',
-    title: '5 Days Luxury Cairo & Nile Experience',
-    description: 'Experience Egypt\'s iconic landmarks in absolute comfort. Stay in 5-star hotels, travel in premium air-conditioned vehicles, and enjoy exclusive access with a senior Egyptologist guide. Includes private Nile felucca at sunset and a special dinner overlooking the Pyramids.',
-    price: 580,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 281,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Giza Pyramids",
-            "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Giza Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Egyptian Museum",
-            "description": "Take a guided tour to experience the majestic Egyptian Museum in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Egyptian Museum Highlights",
-                        "description": "Take a guided tour to experience the majestic Egyptian Museum in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit private felucca",
-            "description": "Take a guided tour to experience the majestic private felucca in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private felucca Highlights",
-                        "description": "Take a guided tour to experience the majestic private felucca in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Giza Pyramids","Egyptian Museum","private felucca","gourmet dining."],
-  },
-  {
-    id: '7-days-luxury-egypt-nile-cruise',
-    title: '7 Days Luxury Egypt & Nile Cruise',
-    description: 'A sumptuous journey through Egypt\'s ancient heartland aboard a luxury 5-star Nile cruise ship. Enjoy spacious cabins, gourmet meals, and spa facilities while your private guide escorts you through the grandest temples in Luxor and Aswan.',
-    price: 1,
-    duration: '7 Days / 6 Nights',
-    location: 'Luxor, Aswan, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 231,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Luxury Nile cruise",
-            "description": "Take a guided tour to experience the majestic Luxury Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxury Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxury Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Karnak",
-            "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Karnak Highlights",
-                        "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Abu Simbel",
-            "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit 5-star hotels.",
-            "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels. Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Luxury Nile cruise","Valley of the Kings","Karnak","Abu Simbel","5-star hotels."],
-  },
-  {
-    id: '10-days-premium-egypt-holiday',
-    title: '10 Days Premium Egypt Holiday',
-    description: 'The ultimate luxury Egypt holiday. Combining Cairo\'s finest monuments, a premium Nile cruise, and a Red Sea resort stay, this tour delivers an unrivaled level of comfort, exclusivity, and personalization. Includes private airport meet-and-greet, luxury vehicle transfers, and a dedicated tour manager throughout.',
-    price: 1,
-    duration: '10 Days / 9 Nights',
-    location: 'Cairo, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 195,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit 5-star hotels",
-            "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit private guided tours",
-            "description": "Take a guided tour to experience the majestic private guided tours in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private guided tours Highlights",
-                        "description": "Take a guided tour to experience the majestic private guided tours in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit luxury cruise",
-            "description": "Take a guided tour to experience the majestic luxury cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit luxury cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic luxury cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Red Sea resort.",
-            "description": "Take a guided tour to experience the majestic Red Sea resort. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Red Sea resort. Highlights",
-                        "description": "Take a guided tour to experience the majestic Red Sea resort. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit 5-star hotels",
-            "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit private guided tours",
-            "description": "Take a guided tour to experience the majestic private guided tours in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private guided tours Highlights",
-                        "description": "Take a guided tour to experience the majestic private guided tours in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit luxury cruise",
-            "description": "Take a guided tour to experience the majestic luxury cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit luxury cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic luxury cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit Red Sea resort.",
-            "description": "Take a guided tour to experience the majestic Red Sea resort. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Red Sea resort. Highlights",
-                        "description": "Take a guided tour to experience the majestic Red Sea resort. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["5-star hotels","private guided tours","luxury cruise","Red Sea resort."],
-  },
-  {
-    id: '3-days-budget-cairo-tour',
-    title: '3 Days Budget Cairo Tour',
-    description: 'Egypt\'s most famous city and its ancient wonders in three affordable days. See the Giza Pyramids, the Egyptian Museum, and the historic Khan El Khalili bazaar without breaking the bank. Comfortable accommodation and a professional guide included.',
-    price: 325,
-    duration: '3 Days / 2 Nights',
-    location: 'Cairo, Giza',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 30,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Giza Pyramids",
-            "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Giza Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Giza Pyramids","Sphinx","Egyptian Museum","Khan El Khalili."],
-  },
-  {
-    id: '5-days-budget-egypt-tour',
-    title: '5 Days Budget Egypt Tour',
-    description: 'An unbeatable value five-day tour covering Cairo and Luxor\'s greatest attractions. Comfortable 3-star hotels, daily breakfast, and a knowledgeable guide make this one of the best-value tours available.',
-    price: 515,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo, Luxor',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 262,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Luxor temples",
-            "description": "Take a guided tour to experience the majestic Luxor temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor temples Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Luxor temples","Valley of the Kings","Nile views."],
-  },
-  {
-    id: '8-days-budget-egypt-complete-tour',
-    title: '8 Days Budget Egypt Complete Tour',
-    description: 'Cover Cairo, Luxor, and Aswan at an affordable price on this eight-day budget adventure. Stay in comfortable hotels, travel by domestic flights, and explore the key monuments with an expert local guide.',
-    price: 799,
-    duration: '8 Days / 7 Nights',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 214,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Nile Valley temples",
-            "description": "Take a guided tour to experience the majestic Nile Valley temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Nile Valley temples Highlights",
-                        "description": "Take a guided tour to experience the majestic Nile Valley temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Abu Simbel",
-            "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Aswan",
-            "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Aswan Highlights",
-                        "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Hurghada option.",
-            "description": "Take a guided tour to experience the majestic Hurghada option. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Hurghada option. Highlights",
-                        "description": "Take a guided tour to experience the majestic Hurghada option. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Nile Valley temples","Abu Simbel","Aswan","Hurghada option."],
-  },
-  {
-    id: '5-days-christmas-cairo-luxor-tour',
-    title: '5 Days Christmas Cairo & Luxor Tour',
-    description: 'Spend Christmas week discovering the timeless wonders of ancient Egypt. While the world celebrates the holidays, you\'ll be exploring the Pyramids of Giza, the temples of Karnak, and the Valley of the Kings. Includes a special Christmas Eve dinner at a riverside restaurant with Nile views.',
-    price: 499,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo, Giza, Luxor',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 202,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Karnak",
-            "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Karnak Highlights",
-                        "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Karnak","Valley of the Kings","Christmas dinner event."],
-  },
-  {
-    id: '8-days-christmas-egypt-nile-cruise',
-    title: '8 Days Christmas Egypt & Nile Cruise',
-    description: 'Celebrate Christmas aboard a magical Nile cruise between Luxor and Aswan, visiting ancient temples by day and enjoying festive onboard celebrations by night. A truly unique way to mark the holiday season among the monuments of the pharaohs.',
-    price: 999,
-    duration: '8 Days / 7 Nights',
-    location: 'Luxor, Aswan, Nile River',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 195,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Christmas Nile cruise",
-            "description": "Take a guided tour to experience the majestic Christmas Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Christmas Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic Christmas Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Luxor & Aswan temples",
-            "description": "Take a guided tour to experience the majestic Luxor & Aswan temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor & Aswan temples Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor & Aswan temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Abu Simbel",
-            "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit festive onboard dinner.",
-            "description": "Take a guided tour to experience the majestic festive onboard dinner. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit festive onboard dinner. Highlights",
-                        "description": "Take a guided tour to experience the majestic festive onboard dinner. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Christmas Nile cruise",
-            "description": "Take a guided tour to experience the majestic Christmas Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Christmas Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic Christmas Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Luxor & Aswan temples",
-            "description": "Take a guided tour to experience the majestic Luxor & Aswan temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor & Aswan temples Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor & Aswan temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Christmas Nile cruise","Luxor & Aswan temples","Abu Simbel","festive onboard dinner."],
-  },
-  {
-    id: '12-days-christmas-egypt-deluxe-holiday',
-    title: '12 Days Christmas Egypt Deluxe Holiday',
-    description: 'A lavish Christmas and New Year holiday through all of Egypt\'s finest destinations. From Cairo and Alexandria to a Nile cruise and the beaches of Hurghada, this festive tour covers everything with five-star comfort and unforgettable celebrations.',
-    price: 1,
-    duration: '12 Days / 11 Nights',
-    location: 'Cairo, Alexandria, Hurghada, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 138,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Full Egypt coverage",
-            "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Full Egypt coverage Highlights",
-                        "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit New Year's celebration",
-            "description": "Take a guided tour to experience the majestic New Year's celebration in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit New Year's celebration Highlights",
-                        "description": "Take a guided tour to experience the majestic New Year's celebration in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit 5-star hotels.",
-            "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels. Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Full Egypt coverage",
-            "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Full Egypt coverage Highlights",
-                        "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit New Year's celebration",
-            "description": "Take a guided tour to experience the majestic New Year's celebration in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit New Year's celebration Highlights",
-                        "description": "Take a guided tour to experience the majestic New Year's celebration in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit 5-star hotels.",
-            "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels. Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit Full Egypt coverage",
-            "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Full Egypt coverage Highlights",
-                        "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit New Year's celebration",
-            "description": "Take a guided tour to experience the majestic New Year's celebration in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit New Year's celebration Highlights",
-                        "description": "Take a guided tour to experience the majestic New Year's celebration in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Visit 5-star hotels.",
-            "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels. Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Visit Full Egypt coverage",
-            "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Full Egypt coverage Highlights",
-                        "description": "Take a guided tour to experience the majestic Full Egypt coverage in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Full Egypt coverage","New Year's celebration","5-star hotels."],
-  },
-  {
-    id: '5-days-easter-cairo-nile-tour',
-    title: '5 Days Easter Cairo & Nile Tour',
-    description: 'Celebrate Easter in the land where civilization began. Visit the ancient Coptic churches of Old Cairo — some of the oldest Christian sites in the world — alongside the Pyramids and the Egyptian Museum. A deeply moving and historically rich holiday for Easter travelers.',
-    price: 799,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 214,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Coptic Cairo",
-            "description": "Take a guided tour to experience the majestic Coptic Cairo in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Coptic Cairo Highlights",
-                        "description": "Take a guided tour to experience the majestic Coptic Cairo in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Hanging Church",
-            "description": "Take a guided tour to experience the majestic Hanging Church in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Hanging Church Highlights",
-                        "description": "Take a guided tour to experience the majestic Hanging Church in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Coptic Cairo","Hanging Church","Pyramids","Egyptian Museum."],
-  },
-  {
-    id: '8-days-easter-egypt-discovery-tour',
-    title: '8 Days Easter Egypt Discovery Tour',
-    description: 'An eight-day Easter journey through Cairo, Luxor, and Aswan. Visit Coptic monuments, ancient pharaonic sites, and stunning Nile Valley temples during one of Egypt\'s most pleasant travel seasons — warm days and cool evenings with far fewer crowds.',
-    price: 1,
-    duration: '8 Days / 7 Nights',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 67,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Coptic sites",
-            "description": "Take a guided tour to experience the majestic Coptic sites in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Coptic sites Highlights",
-                        "description": "Take a guided tour to experience the majestic Coptic sites in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Karnak",
-            "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Karnak Highlights",
-                        "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Philae.",
-            "description": "Take a guided tour to experience the majestic Philae. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Philae. Highlights",
-                        "description": "Take a guided tour to experience the majestic Philae. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Coptic sites",
-            "description": "Take a guided tour to experience the majestic Coptic sites in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Coptic sites Highlights",
-                        "description": "Take a guided tour to experience the majestic Coptic sites in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Coptic sites","Pyramids","Karnak","Valley of the Kings","Philae."],
-  },
-  {
-    id: '10-days-premium-easter-egypt-tour',
-    title: '10 Days Premium Easter Egypt Tour',
-    description: 'The definitive Easter holiday in Egypt. Over ten days, experience the full breadth of Egyptian history and culture, from the ancient Coptic heritage of Cairo to the pharaonic grandeur of Upper Egypt. Includes a felucca sunrise on the Nile and an optional Easter Sunday church service in Old Cairo.',
-    price: 1,
-    duration: '10 Days / 9 Nights',
-    location: 'Cairo',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 152,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Coptic Cairo",
-            "description": "Take a guided tour to experience the majestic Coptic Cairo in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Coptic Cairo Highlights",
-                        "description": "Take a guided tour to experience the majestic Coptic Cairo in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Luxor",
-            "description": "Take a guided tour to experience the majestic Luxor in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Aswan",
-            "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Aswan Highlights",
-                        "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Abu Simbel",
-            "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Nile felucca sunrise.",
-            "description": "Take a guided tour to experience the majestic Nile felucca sunrise. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Nile felucca sunrise. Highlights",
-                        "description": "Take a guided tour to experience the majestic Nile felucca sunrise. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Coptic Cairo",
-            "description": "Take a guided tour to experience the majestic Coptic Cairo in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Coptic Cairo Highlights",
-                        "description": "Take a guided tour to experience the majestic Coptic Cairo in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit Luxor",
-            "description": "Take a guided tour to experience the majestic Luxor in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit Aswan",
-            "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Aswan Highlights",
-                        "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Coptic Cairo","Luxor","Aswan","Abu Simbel","Nile felucca sunrise."],
-  },
-  {
-    id: '5-days-egypt-unesco-highlights-tour',
-    title: '5 Days Egypt UNESCO Highlights Tour',
-    description: 'Follow the UNESCO World Heritage trail through Egypt\'s most internationally recognized sites. Explore the ancient Memphis and its Necropolis (including Saqqara and Giza), then fly to Luxor for the ancient Thebes complex — one of the richest collections of ancient monuments on earth.',
-    price: 599,
-    duration: '5 Days / 4 Nights',
-    location: 'Giza, Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 230,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Giza Pyramids",
-            "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Giza Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Giza Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Saqqara",
-            "description": "Take a guided tour to experience the majestic Saqqara in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Saqqara Highlights",
-                        "description": "Take a guided tour to experience the majestic Saqqara in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Memphis",
-            "description": "Take a guided tour to experience the majestic Memphis in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Memphis Highlights",
-                        "description": "Take a guided tour to experience the majestic Memphis in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Giza Pyramids","Saqqara","Memphis","Karnak","Luxor","Valley of the Kings."],
-  },
-  {
-    id: '8-days-egypt-unesco-complete-tour',
-    title: '8 Days Egypt UNESCO Complete Tour',
-    description: 'An in-depth tour of Egypt\'s UNESCO World Heritage Sites, from the Memphis Necropolis in Giza to the Ancient Thebes monuments of Luxor and the Nubian monuments of Abu Simbel. A scholarly and deeply rewarding journey through humanity\'s greatest surviving ancient heritage.',
-    price: 1,
-    duration: '8 Days / 7 Nights',
-    location: 'Giza, Luxor, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 261,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Giza",
-            "description": "Take a guided tour to experience the majestic Giza in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Giza Highlights",
-                        "description": "Take a guided tour to experience the majestic Giza in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Saqqara",
-            "description": "Take a guided tour to experience the majestic Saqqara in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Saqqara Highlights",
-                        "description": "Take a guided tour to experience the majestic Saqqara in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Luxor",
-            "description": "Take a guided tour to experience the majestic Luxor in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxor Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxor in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Karnak",
-            "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Karnak Highlights",
-                        "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Philae",
-            "description": "Take a guided tour to experience the majestic Philae in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Philae Highlights",
-                        "description": "Take a guided tour to experience the majestic Philae in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Giza","Saqqara","Luxor","Karnak","Valley of the Kings","Philae","Abu Simbel."],
-  },
-  {
-    id: '12-days-egypt-unesco-grand-tour',
-    title: '12 Days Egypt UNESCO Grand Tour',
-    description: 'The ultimate UNESCO tour of Egypt covering all recognized heritage sites from north to south. Includes Alexandria\'s ancient sites, the Memphis Necropolis, the Theban monuments, and the Nubian treasures of Aswan and Abu Simbel — a once-in-a-lifetime journey through the entire sweep of Egyptian civilization.',
-    price: 2,
-    duration: '12 Days / 11 Nights',
-    location: 'Alexandria, Aswan, Abu Simbel',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1599957134371-55cc0d6f281e?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 146,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Visit All major heritage sites from Cairo to Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major heritage sites from Cairo to Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic All major heritage sites from Cairo to Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["All major heritage sites from Cairo to Abu Simbel."],
-  },
-  {
-    id: '5-days-family-cairo-adventure',
-    title: '5 Days Family Cairo Adventure',
-    description: 'Designed with families in mind, this five-day Cairo tour makes ancient history come alive for all ages. Kids will love the Giza Pyramids, the mummies at the Egyptian Museum, and a camel ride on the Giza Plateau. Your private family guide knows how to make every moment educational, fun, and memorable.',
-    price: 499,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo, Giza',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 78,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids camel ride",
-            "description": "Take a guided tour to experience the majestic Pyramids camel ride in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids camel ride Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids camel ride in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit mummies",
-            "description": "Take a guided tour to experience the majestic mummies in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit mummies Highlights",
-                        "description": "Take a guided tour to experience the majestic mummies in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Khan El Khalili treasure hunt",
-            "description": "Take a guided tour to experience the majestic Khan El Khalili treasure hunt in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Khan El Khalili treasure hunt Highlights",
-                        "description": "Take a guided tour to experience the majestic Khan El Khalili treasure hunt in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids camel ride","mummies","Khan El Khalili treasure hunt","family-friendly hotels."],
-  },
-  {
-    id: '8-days-family-egypt-tour-cairo-luxor-aswan',
-    title: '8 Days Family Egypt Tour (Cairo, Luxor & Aswan)',
-    description: 'An eight-day family adventure spanning Cairo, Luxor, and Aswan. Children will be captivated by the Valley of the Kings, the Nubian village experience, and the magical Abu Simbel temples. Family rooms, child-friendly restaurants, and a pace designed for kids make this the perfect family Egypt holiday.',
-    price: 999,
-    duration: '8 Days / 7 Nights',
-    location: 'Cairo, Luxor, Aswan, Abu Simbel',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 150,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Nubian village",
-            "description": "Take a guided tour to experience the majestic Nubian village in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Nubian village Highlights",
-                        "description": "Take a guided tour to experience the majestic Nubian village in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Abu Simbel",
-            "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Nile felucca ride",
-            "description": "Take a guided tour to experience the majestic Nile felucca ride in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Nile felucca ride Highlights",
-                        "description": "Take a guided tour to experience the majestic Nile felucca ride in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit family meals included.",
-            "description": "Take a guided tour to experience the majestic family meals included. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit family meals included. Highlights",
-                        "description": "Take a guided tour to experience the majestic family meals included. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Valley of the Kings","Nubian village","Abu Simbel","Nile felucca ride","family meals included."],
-  },
-  {
-    id: '12-days-family-egypt-red-sea-holiday',
-    title: '12 Days Family Egypt & Red Sea Holiday',
-    description: 'Combine Egypt\'s ancient wonders with a family beach holiday at the Red Sea. After exploring the Pyramids, Luxor, and Aswan, the whole family will love snorkeling the vibrant coral reefs of Hurghada, enjoying water parks, and relaxing on beautiful sandy beaches.',
-    price: 1,
-    duration: '12 Days / 11 Nights',
-    location: 'Cairo, Luxor, Aswan, Hurghada',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.5,
-    reviewsCount: 286,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit temples",
-            "description": "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit temples Highlights",
-                        "description": "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Red Sea snorkeling",
-            "description": "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Red Sea snorkeling Highlights",
-                        "description": "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit beach resort",
-            "description": "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit beach resort Highlights",
-                        "description": "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit water sports",
-            "description": "Take a guided tour to experience the majestic water sports in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit water sports Highlights",
-                        "description": "Take a guided tour to experience the majestic water sports in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit family entertainment.",
-            "description": "Take a guided tour to experience the majestic family entertainment. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit family entertainment. Highlights",
-                        "description": "Take a guided tour to experience the majestic family entertainment. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit temples",
-            "description": "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit temples Highlights",
-                        "description": "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Visit Red Sea snorkeling",
-            "description": "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Red Sea snorkeling Highlights",
-                        "description": "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Visit beach resort",
-            "description": "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit beach resort Highlights",
-                        "description": "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","temples","Red Sea snorkeling","beach resort","water sports","family entertainment."],
-  },
-  {
-    id: '5-days-romantic-cairo-honeymoon',
-    title: '5 Days Romantic Cairo Honeymoon',
-    description: 'Begin your married life with an unforgettable romantic escape in Cairo. Enjoy a private candlelit dinner with a direct view of the illuminated Pyramids, explore the ancient wonders together, and watch the sunset over the Nile. Honeymoon upgrades and special touches arranged upon request.',
-    price: 650,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 108,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramid dinner",
-            "description": "Take a guided tour to experience the majestic Pyramid dinner in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramid dinner Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramid dinner in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Nile sunset cruise",
-            "description": "Take a guided tour to experience the majestic Nile sunset cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Nile sunset cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic Nile sunset cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit luxury hotel",
-            "description": "Take a guided tour to experience the majestic luxury hotel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit luxury hotel Highlights",
-                        "description": "Take a guided tour to experience the majestic luxury hotel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramid dinner","Nile sunset cruise","luxury hotel","rose welcome","private guide."],
-  },
-  {
-    id: '7-days-honeymoon-nile-cruise-cairo',
-    title: '7 Days Honeymoon Nile Cruise & Cairo',
-    description: 'Sail the legendary Nile together on a romantic cruise between Luxor and Aswan, before spending time in Cairo exploring the ancient world hand-in-hand. Couples will enjoy private guided tours, sundeck Nile views, and a special anniversary or honeymoon celebration onboard.',
-    price: 899,
-    duration: '7 Days / 6 Nights',
-    location: 'Cairo, Luxor, Aswan, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 281,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Honeymoon Nile cruise suite",
-            "description": "Take a guided tour to experience the majestic Honeymoon Nile cruise suite in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Honeymoon Nile cruise suite Highlights",
-                        "description": "Take a guided tour to experience the majestic Honeymoon Nile cruise suite in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit sunset felucca",
-            "description": "Take a guided tour to experience the majestic sunset felucca in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit sunset felucca Highlights",
-                        "description": "Take a guided tour to experience the majestic sunset felucca in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit private temples tour",
-            "description": "Take a guided tour to experience the majestic private temples tour in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private temples tour Highlights",
-                        "description": "Take a guided tour to experience the majestic private temples tour in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit couples spa treatment (optional).",
-            "description": "Take a guided tour to experience the majestic couples spa treatment (optional). in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit couples spa treatment (optional). Highlights",
-                        "description": "Take a guided tour to experience the majestic couples spa treatment (optional). in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Honeymoon Nile cruise suite",
-            "description": "Take a guided tour to experience the majestic Honeymoon Nile cruise suite in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Honeymoon Nile cruise suite Highlights",
-                        "description": "Take a guided tour to experience the majestic Honeymoon Nile cruise suite in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Honeymoon Nile cruise suite","sunset felucca","private temples tour","couples spa treatment (optional)."],
-  },
-  {
-    id: '10-days-luxury-egypt-honeymoon',
-    title: '10 Days Luxury Egypt Honeymoon',
-    description: 'The most romantic way to experience Egypt — ten days of luxury travel covering Cairo, a Nile cruise, and a seaside resort on the Red Sea. 5-star accommodation throughout, honeymoon room upgrades, private guided tours, and personalized romantic moments designed to make your honeymoon truly extraordinary.',
-    price: 1,
-    duration: '10 Days / 9 Nights',
-    location: 'Cairo, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 111,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Luxury Cairo hotel",
-            "description": "Take a guided tour to experience the majestic Luxury Cairo hotel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxury Cairo hotel Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxury Cairo hotel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit 5-star Nile cruise suite",
-            "description": "Take a guided tour to experience the majestic 5-star Nile cruise suite in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star Nile cruise suite Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star Nile cruise suite in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Red Sea resort",
-            "description": "Take a guided tour to experience the majestic Red Sea resort in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Red Sea resort Highlights",
-                        "description": "Take a guided tour to experience the majestic Red Sea resort in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit surprise romantic setups",
-            "description": "Take a guided tour to experience the majestic surprise romantic setups in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit surprise romantic setups Highlights",
-                        "description": "Take a guided tour to experience the majestic surprise romantic setups in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit private experiences.",
-            "description": "Take a guided tour to experience the majestic private experiences. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private experiences. Highlights",
-                        "description": "Take a guided tour to experience the majestic private experiences. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Luxury Cairo hotel",
-            "description": "Take a guided tour to experience the majestic Luxury Cairo hotel in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Luxury Cairo hotel Highlights",
-                        "description": "Take a guided tour to experience the majestic Luxury Cairo hotel in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit 5-star Nile cruise suite",
-            "description": "Take a guided tour to experience the majestic 5-star Nile cruise suite in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star Nile cruise suite Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star Nile cruise suite in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit Red Sea resort",
-            "description": "Take a guided tour to experience the majestic Red Sea resort in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Red Sea resort Highlights",
-                        "description": "Take a guided tour to experience the majestic Red Sea resort in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Luxury Cairo hotel","5-star Nile cruise suite","Red Sea resort","surprise romantic setups","private experiences."],
-  },
-  {
-    id: '6-days-small-group-egypt-classic-tour',
-    title: '6 Days Small Group Egypt Classic Tour',
-    description: 'Join a small group of like-minded travelers for a fantastic value six-day tour through Egypt\'s greatest hits. With a maximum group size of 12 people, you get a personalized experience at a more affordable price. Share the wonder of the Pyramids, Luxor, and Aswan with new friends from around the world.',
-    price: 799,
-    duration: '6 Days / 5 Nights',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 117,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Pyramids",
-            "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Karnak",
-            "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Karnak Highlights",
-                        "description": "Take a guided tour to experience the majestic Karnak in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit Valley of the Kings",
-            "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Valley of the Kings Highlights",
-                        "description": "Take a guided tour to experience the majestic Valley of the Kings in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Aswan",
-            "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Aswan Highlights",
-                        "description": "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Karnak","Valley of the Kings","Aswan","Abu Simbel."],
-  },
-  {
-    id: '9-days-small-group-nile-cruise-cairo',
-    title: '9 Days Small Group Nile Cruise & Cairo',
-    description: 'Experience the magic of Egypt on a shared Nile cruise and Cairo city tour with a small, friendly group. Enjoy all the social fun of group travel with the intimacy of a small party. Includes all meals onboard the cruise and a fully guided experience throughout.',
-    price: 1,
-    duration: '9 Days / 8 Nights',
-    location: 'Cairo, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 31,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Full Nile cruise",
-            "description": "Take a guided tour to experience the majestic Full Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Full Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic Full Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit Cairo sights",
-            "description": "Take a guided tour to experience the majestic Cairo sights in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Cairo sights Highlights",
-                        "description": "Take a guided tour to experience the majestic Cairo sights in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit group social events",
-            "description": "Take a guided tour to experience the majestic group social events in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit group social events Highlights",
-                        "description": "Take a guided tour to experience the majestic group social events in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit Abu Simbel.",
-            "description": "Take a guided tour to experience the majestic Abu Simbel. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Abu Simbel. Highlights",
-                        "description": "Take a guided tour to experience the majestic Abu Simbel. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Full Nile cruise",
-            "description": "Take a guided tour to experience the majestic Full Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Full Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic Full Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit Cairo sights",
-            "description": "Take a guided tour to experience the majestic Cairo sights in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Cairo sights Highlights",
-                        "description": "Take a guided tour to experience the majestic Cairo sights in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit group social events",
-            "description": "Take a guided tour to experience the majestic group social events in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit group social events Highlights",
-                        "description": "Take a guided tour to experience the majestic group social events in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Full Nile cruise","Cairo sights","group social events","Abu Simbel."],
-  },
-  {
-    id: '12-days-small-group-complete-egypt-tour',
-    title: '12 Days Small Group Complete Egypt Tour',
-    description: 'The most comprehensive small group tour available — twelve days exploring every major Egyptian destination from Cairo to Hurghada. Great value, great company, and great memories with fellow adventurers who share your passion for discovery.',
-    price: 1,
-    duration: '12 Days / 11 Nights',
-    location: 'Cairo, Hurghada',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 259,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1",
-            "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 Highlights",
-                        "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit 199) ----------------------------------------------------------------",
-            "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 199) ---------------------------------------------------------------- Highlights",
-                        "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1",
-            "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 Highlights",
-                        "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit 199) ----------------------------------------------------------------",
-            "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 199) ---------------------------------------------------------------- Highlights",
-                        "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1",
-            "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 Highlights",
-                        "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit 199) ----------------------------------------------------------------",
-            "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 199) ---------------------------------------------------------------- Highlights",
-                        "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1",
-            "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 Highlights",
-                        "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit 199) ----------------------------------------------------------------",
-            "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 199) ---------------------------------------------------------------- Highlights",
-                        "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1",
-            "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 Highlights",
-                        "description": "Take a guided tour to experience the majestic All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1 in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Visit 199) ----------------------------------------------------------------",
-            "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 199) ---------------------------------------------------------------- Highlights",
-                        "description": "Take a guided tour to experience the majestic 199) ---------------------------------------------------------------- in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["All major Egypt sites + Red Sea beach extension.  ---------------------------------------------------------------- EGYPT TOURS FOR SENIORS (Price Range: $599 - $1","199) ----------------------------------------------------------------"],
-  },
-  {
-    id: '5-days-senior-friendly-cairo-tour',
-    title: '5 Days Senior-Friendly Cairo Tour',
-    description: 'Designed with comfort and accessibility in mind, this five-day Cairo tour moves at a gentle pace with rest breaks built in. Comfortable 4-star hotels, easy-access vehicles, and a patient, knowledgeable guide ensure a relaxed and thoroughly enjoyable experience.',
-    price: 599,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 56,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Comfortable pacing",
-            "description": "Take a guided tour to experience the majestic Comfortable pacing in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Comfortable pacing Highlights",
-                        "description": "Take a guided tour to experience the majestic Comfortable pacing in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit rest stops",
-            "description": "Take a guided tour to experience the majestic rest stops in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit rest stops Highlights",
-                        "description": "Take a guided tour to experience the majestic rest stops in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit 4-star hotels",
-            "description": "Take a guided tour to experience the majestic 4-star hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 4-star hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic 4-star hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Comfortable pacing","rest stops","4-star hotels","easy-access transport","optional site skip for mobility issues."],
-  },
-  {
-    id: '8-days-senior-egypt-tour-cairo-luxor-aswan',
-    title: '8 Days Senior Egypt Tour (Cairo, Luxor & Aswan)',
-    description: 'A thoughtfully paced eight-day journey through Egypt\'s greatest wonders, crafted for older travelers seeking comfort, safety, and quality. All sites are carefully selected for accessibility, with golf carts available at the Pyramids and comfortable cruise options on the Nile.',
-    price: 899,
-    duration: '8 Days / 7 Nights',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 99,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Golf cart at Pyramids",
-            "description": "Take a guided tour to experience the majestic Golf cart at Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Golf cart at Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Golf cart at Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit accessible Nile cruise",
-            "description": "Take a guided tour to experience the majestic accessible Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit accessible Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic accessible Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit 4-star hotels",
-            "description": "Take a guided tour to experience the majestic 4-star hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 4-star hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic 4-star hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit early site visits to avoid heat and crowds.",
-            "description": "Take a guided tour to experience the majestic early site visits to avoid heat and crowds. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit early site visits to avoid heat and crowds. Highlights",
-                        "description": "Take a guided tour to experience the majestic early site visits to avoid heat and crowds. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Golf cart at Pyramids",
-            "description": "Take a guided tour to experience the majestic Golf cart at Pyramids in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Golf cart at Pyramids Highlights",
-                        "description": "Take a guided tour to experience the majestic Golf cart at Pyramids in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit accessible Nile cruise",
-            "description": "Take a guided tour to experience the majestic accessible Nile cruise in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit accessible Nile cruise Highlights",
-                        "description": "Take a guided tour to experience the majestic accessible Nile cruise in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Golf cart at Pyramids","accessible Nile cruise","4-star hotels","early site visits to avoid heat and crowds."],
-  },
-  {
-    id: '12-days-senior-egypt-deluxe-tour',
-    title: '12 Days Senior Egypt Deluxe Tour',
-    description: 'The ultimate senior Egypt holiday — twelve days of discovery at a pace that suits you. From Cairo\'s monuments to a Nile cruise and optional Red Sea relaxation, every element is designed for comfort, safety, and maximum enjoyment for the mature traveler.',
-    price: 1,
-    duration: '12 Days / 11 Nights',
-    location: 'Cairo, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 197,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit All accessibility considerations",
-            "description": "Take a guided tour to experience the majestic All accessibility considerations in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All accessibility considerations Highlights",
-                        "description": "Take a guided tour to experience the majestic All accessibility considerations in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit 5-star hotels",
-            "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit private transfers",
-            "description": "Take a guided tour to experience the majestic private transfers in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private transfers Highlights",
-                        "description": "Take a guided tour to experience the majestic private transfers in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit leisurely pacing",
-            "description": "Take a guided tour to experience the majestic leisurely pacing in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit leisurely pacing Highlights",
-                        "description": "Take a guided tour to experience the majestic leisurely pacing in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit dedicated tour manager.",
-            "description": "Take a guided tour to experience the majestic dedicated tour manager. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit dedicated tour manager. Highlights",
-                        "description": "Take a guided tour to experience the majestic dedicated tour manager. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit All accessibility considerations",
-            "description": "Take a guided tour to experience the majestic All accessibility considerations in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All accessibility considerations Highlights",
-                        "description": "Take a guided tour to experience the majestic All accessibility considerations in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit 5-star hotels",
-            "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 5-star hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic 5-star hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit private transfers",
-            "description": "Take a guided tour to experience the majestic private transfers in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit private transfers Highlights",
-                        "description": "Take a guided tour to experience the majestic private transfers in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Visit leisurely pacing",
-            "description": "Take a guided tour to experience the majestic leisurely pacing in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit leisurely pacing Highlights",
-                        "description": "Take a guided tour to experience the majestic leisurely pacing in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Visit dedicated tour manager.",
-            "description": "Take a guided tour to experience the majestic dedicated tour manager. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit dedicated tour manager. Highlights",
-                        "description": "Take a guided tour to experience the majestic dedicated tour manager. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["All accessibility considerations","5-star hotels","private transfers","leisurely pacing","dedicated tour manager."],
-  },
-  {
-    id: '5-days-solo-woman-cairo-tour',
-    title: '5 Days Solo Woman Cairo Tour',
-    description: 'A safe, empowering, and enriching solo adventure through Cairo designed specially for solo female travelers. Your private female-option guide, carefully selected hotels in safe central areas, and 24/7 support from our team ensure complete peace of mind throughout your trip.',
-    price: 650,
-    duration: '5 Days / 4 Nights',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 159,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Vetted accommodation",
-            "description": "Take a guided tour to experience the majestic Vetted accommodation in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Vetted accommodation Highlights",
-                        "description": "Take a guided tour to experience the majestic Vetted accommodation in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit female guide option",
-            "description": "Take a guided tour to experience the majestic female guide option in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit female guide option Highlights",
-                        "description": "Take a guided tour to experience the majestic female guide option in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit 24/7 support",
-            "description": "Take a guided tour to experience the majestic 24/7 support in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 24/7 support Highlights",
-                        "description": "Take a guided tour to experience the majestic 24/7 support in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Vetted accommodation","female guide option","24/7 support","safety briefing included."],
-  },
-  {
-    id: '8-days-solo-woman-egypt-classic-tour',
-    title: '8 Days Solo Woman Egypt Classic Tour',
-    description: 'Explore Egypt\'s most iconic destinations confidently as a solo female traveler. This eight-day tour covers Cairo, Luxor, and Aswan with carefully managed logistics, safe hotels, and the option to join a small group of other solo female travelers for added companionship.',
-    price: 999,
-    duration: '8 Days / 7 Nights',
-    location: 'Cairo, Luxor, Aswan',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 127,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit Female guide option",
-            "description": "Take a guided tour to experience the majestic Female guide option in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Female guide option Highlights",
-                        "description": "Take a guided tour to experience the majestic Female guide option in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit solo-friendly hotels",
-            "description": "Take a guided tour to experience the majestic solo-friendly hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit solo-friendly hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic solo-friendly hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit optional group connection",
-            "description": "Take a guided tour to experience the majestic optional group connection in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit optional group connection Highlights",
-                        "description": "Take a guided tour to experience the majestic optional group connection in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit 24/7 emergency support.",
-            "description": "Take a guided tour to experience the majestic 24/7 emergency support. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit 24/7 emergency support. Highlights",
-                        "description": "Take a guided tour to experience the majestic 24/7 emergency support. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit Female guide option",
-            "description": "Take a guided tour to experience the majestic Female guide option in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit Female guide option Highlights",
-                        "description": "Take a guided tour to experience the majestic Female guide option in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit solo-friendly hotels",
-            "description": "Take a guided tour to experience the majestic solo-friendly hotels in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit solo-friendly hotels Highlights",
-                        "description": "Take a guided tour to experience the majestic solo-friendly hotels in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["Female guide option","solo-friendly hotels","optional group connection","24/7 emergency support."],
-  },
-  {
-    id: '12-days-solo-woman-egypt-complete-tour',
-    title: '12 Days Solo Woman Egypt Complete Tour',
-    description: 'The most comprehensive solo female travel experience in Egypt — twelve days of discovery from Cairo to the Red Sea with complete safety, comfort, and independence. Designed to give solo female travelers the freedom to explore Egypt with total confidence.',
-    price: 1,
-    duration: '12 Days / 11 Nights',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 134,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Arrival & Welcome",
-            "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-            "activities": [
-                  {
-                        "title": "Arrival & Welcome Highlights",
-                        "description": "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
-                        "icon": "transfer"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Visit All safety measures included",
-            "description": "Take a guided tour to experience the majestic All safety measures included in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All safety measures included Highlights",
-                        "description": "Take a guided tour to experience the majestic All safety measures included in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Visit flexible itinerary",
-            "description": "Take a guided tour to experience the majestic flexible itinerary in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit flexible itinerary Highlights",
-                        "description": "Take a guided tour to experience the majestic flexible itinerary in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Visit solo-friendly group tour option",
-            "description": "Take a guided tour to experience the majestic solo-friendly group tour option in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit solo-friendly group tour option Highlights",
-                        "description": "Take a guided tour to experience the majestic solo-friendly group tour option in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Visit female guide priority.",
-            "description": "Take a guided tour to experience the majestic female guide priority. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit female guide priority. Highlights",
-                        "description": "Take a guided tour to experience the majestic female guide priority. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 6,
-            "title": "Day 6: Visit All safety measures included",
-            "description": "Take a guided tour to experience the majestic All safety measures included in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All safety measures included Highlights",
-                        "description": "Take a guided tour to experience the majestic All safety measures included in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 7,
-            "title": "Day 7: Visit flexible itinerary",
-            "description": "Take a guided tour to experience the majestic flexible itinerary in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit flexible itinerary Highlights",
-                        "description": "Take a guided tour to experience the majestic flexible itinerary in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 8,
-            "title": "Day 8: Visit solo-friendly group tour option",
-            "description": "Take a guided tour to experience the majestic solo-friendly group tour option in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit solo-friendly group tour option Highlights",
-                        "description": "Take a guided tour to experience the majestic solo-friendly group tour option in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 9,
-            "title": "Day 9: Visit female guide priority.",
-            "description": "Take a guided tour to experience the majestic female guide priority. in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit female guide priority. Highlights",
-                        "description": "Take a guided tour to experience the majestic female guide priority. in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 10,
-            "title": "Day 10: Visit All safety measures included",
-            "description": "Take a guided tour to experience the majestic All safety measures included in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit All safety measures included Highlights",
-                        "description": "Take a guided tour to experience the majestic All safety measures included in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 11,
-            "title": "Day 11: Visit flexible itinerary",
-            "description": "Take a guided tour to experience the majestic flexible itinerary in detail, including historical briefings and photo sessions.",
-            "activities": [
-                  {
-                        "title": "Visit flexible itinerary Highlights",
-                        "description": "Take a guided tour to experience the majestic flexible itinerary in detail, including historical briefings and photo sessions.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 12,
-            "title": "Day 12: Departure",
-            "description": "Complete your final sightseeing and transfer to the airport for departure.",
-            "activities": [
-                  {
-                        "title": "Departure Highlights",
-                        "description": "Complete your final sightseeing and transfer to the airport for departure.",
-                        "icon": "transfer"
-                  }
-            ]
-      }
-],
-    highlights: ["All safety measures included","flexible itinerary","solo-friendly group tour option","female guide priority."],
-  },
-  {
-    id: 'day-trip-to-giza-pyramids-from-cairo',
-    title: 'Day Trip to Giza Pyramids from Cairo',
-    description: 'The essential Cairo day trip. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the iconic Great Sphinx with your private expert guide. Includes the Valley Temple and an optional camel ride on the plateau. One of the world\'s greatest experiences, perfectly organized for a single memorable day.',
-    price: 80,
-    duration: '1 Day',
-    location: 'Cairo, Giza',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 104,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Itinerary: Day Trip to Giza Pyramids from Cairo",
-            "description": "The essential Cairo day trip. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the iconic Great Sphinx with your private expert guide. Includes the Valley Temple and an optional camel ride on the plateau. One of the world's greatest experiences, perfectly organized for a single memorable day.",
-            "activities": [
-                  {
-                        "title": "Day Trip to Giza Pyramids from Cairo Main Excursion",
-                        "description": "The essential Cairo day trip. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the iconic Great Sphinx with your private expert guide. Includes the Valley Temple and an optional camel ride on the plateau. One of the world's greatest experiences, perfectly organized for a single memorable day.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Great Pyramid","Sphinx","Valley Temple","optional camel ride."],
-  },
-  {
-    id: 'tour-to-giza-pyramids-old-cairo',
-    title: 'Tour to Giza Pyramids & Old Cairo',
-    description: 'Combine Egypt\'s ancient pharaonic heritage with its Coptic and Islamic past in one packed day. Start at the Pyramids and Sphinx, then explore the Hanging Church, the Coptic Museum, and the vibrant Khan El Khalili bazaar.',
-    price: 70,
-    duration: '1 Day',
-    location: 'Cairo, Giza',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 146,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Itinerary: Tour to Giza Pyramids & Old Cairo",
-            "description": "Combine Egypt's ancient pharaonic heritage with its Coptic and Islamic past in one packed day. Start at the Pyramids and Sphinx, then explore the Hanging Church, the Coptic Museum, and the vibrant Khan El Khalili bazaar.",
-            "activities": [
-                  {
-                        "title": "Tour to Giza Pyramids & Old Cairo Main Excursion",
-                        "description": "Combine Egypt's ancient pharaonic heritage with its Coptic and Islamic past in one packed day. Start at the Pyramids and Sphinx, then explore the Hanging Church, the Coptic Museum, and the vibrant Khan El Khalili bazaar.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Sphinx","Hanging Church","Khan El Khalili."],
-  },
-  {
-    id: 'pyramids-tour-from-cairo-airport',
-    title: 'Pyramids Tour from Cairo Airport',
-    description: 'Arriving in Cairo with a long layover? Make the most of your time with a direct Pyramids excursion from the airport. See the world\'s greatest ancient wonder and return in time for your connecting flight. Smooth, efficient, and unforgettable.',
-    price: 110,
-    duration: '1 Day',
-    location: 'Cairo',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200',
+    id: "pyramids-tour-from-cairo-airport",
+    title: "Pyramids Tour from Cairo Airport",
+    description: "Arriving in Cairo with a long layover? Make the most of your time with a direct Pyramids excursion from the airport. See the world's greatest ancient wonder and return in time for your connecting flight. Smooth, efficient, and unforgettable.",
+    price: 100,
+    duration: "1 Day",
+    location: "Cairo",
+    category: "cultural",
+    image: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
     rating: 4.7,
     reviewsCount: 204,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Pyramids Tour from Cairo Airport",
-            "description": "Arriving in Cairo with a long layover? Make the most of your time with a direct Pyramids excursion from the airport. See the world's greatest ancient wonder and return in time for your connecting flight. Smooth, efficient, and unforgettable.",
-            "activities": [
-                  {
-                        "title": "Pyramids Tour from Cairo Airport Main Excursion",
-                        "description": "Arriving in Cairo with a long layover? Make the most of your time with a direct Pyramids excursion from the airport. See the world's greatest ancient wonder and return in time for your connecting flight. Smooth, efficient, and unforgettable.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 1,
+        title: "Itinerary: Pyramids Tour from Cairo Airport",
+        description: "Arriving in Cairo with a long layover? Make the most of your time with a direct Pyramids excursion from the airport. See the world's greatest ancient wonder and return in time for your connecting flight. Smooth, efficient, and unforgettable.",
+        activities: [
+          {
+            title: "Pyramids Tour from Cairo Airport Main Excursion",
+            description: "Arriving in Cairo with a long layover? Make the most of your time with a direct Pyramids excursion from the airport. See the world's greatest ancient wonder and return in time for your connecting flight. Smooth, efficient, and unforgettable.",
+            icon: "tour"
+          }
+        ]
       }
-],
-    highlights: ["Giza Pyramids","Sphinx — no hotel stay required."],
+    ],
+    highlights: [
+      "Giza Pyramids",
+      "Sphinx — no hotel stay required."
+    ]
   },
   {
-    id: 'cairo-to-alexandria-day-trip',
-    title: 'Cairo to Alexandria Day Trip',
-    description: 'Escape Cairo for a day and discover the glittering Mediterranean city of Alexandria. Visit the stunning Bibliotheca Alexandrina, the medieval Qaitbay Citadel, Pompey\'s Pillar, and the Catacombs of Kom El Shoqafa before returning to Cairo.',
-    price: 95,
-    duration: '1 Day',
-    location: 'Cairo, Alexandria',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1599957134371-55cc0d6f281e?auto=format&fit=crop&q=80&w=1200',
+    id: "day-trip-to-giza-pyramids-from-cairo",
+    title: "Day Trip to Pyramids from Cairo",
+    description: "The essential Cairo day trip. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the iconic Great Sphinx with your private expert guide. Includes the Valley Temple and an optional camel ride on the plateau. One of the world's greatest experiences, perfectly organized for a single memorable day.",
+    price: 80,
+    duration: "1 Day",
+    location: "Cairo, Giza",
+    category: "cultural",
+    image: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.9,
+    reviewsCount: 104,
+    itinerary: [
+      {
+        day: 1,
+        title: "Itinerary: Day Trip to Giza Pyramids from Cairo",
+        description: "The essential Cairo day trip. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the iconic Great Sphinx with your private expert guide. Includes the Valley Temple and an optional camel ride on the plateau. One of the world's greatest experiences, perfectly organized for a single memorable day.",
+        activities: [
+          {
+            title: "Day Trip to Giza Pyramids from Cairo Main Excursion",
+            description: "The essential Cairo day trip. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the iconic Great Sphinx with your private expert guide. Includes the Valley Temple and an optional camel ride on the plateau. One of the world's greatest experiences, perfectly organized for a single memorable day.",
+            icon: "tour"
+          }
+        ]
+      }
+    ],
+    highlights: [
+      "Great Pyramid",
+      "Sphinx",
+      "Valley Temple",
+      "optional camel ride."
+    ]
+  },
+  {
+    id: "tour-to-giza-pyramids-old-cairo",
+    title: "Tour to Giza Pyramids & Old Cairo",
+    description: "Combine Egypt's ancient pharaonic heritage with its Coptic and Islamic past in one packed day. Start at the Pyramids and Sphinx, then explore the Hanging Church, the Coptic Museum, and the vibrant Khan El Khalili bazaar.",
+    price: 70,
+    duration: "1 Day",
+    location: "Cairo, Giza",
+    category: "historical",
+    image: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.8,
+    reviewsCount: 146,
+    itinerary: [
+      {
+        day: 1,
+        title: "Itinerary: Tour to Giza Pyramids & Old Cairo",
+        description: "Combine Egypt's ancient pharaonic heritage with its Coptic and Islamic past in one packed day. Start at the Pyramids and Sphinx, then explore the Hanging Church, the Coptic Museum, and the vibrant Khan El Khalili bazaar.",
+        activities: [
+          {
+            title: "Tour to Giza Pyramids & Old Cairo Main Excursion",
+            description: "Combine Egypt's ancient pharaonic heritage with its Coptic and Islamic past in one packed day. Start at the Pyramids and Sphinx, then explore the Hanging Church, the Coptic Museum, and the vibrant Khan El Khalili bazaar.",
+            icon: "tour"
+          }
+        ]
+      }
+    ],
+    highlights: [
+      "Pyramids",
+      "Sphinx",
+      "Hanging Church",
+      "Khan El Khalili."
+    ]
+  },
+  {
+    id: "4-days-cairo-giza-pyramids-tour",
+    title: "Giza Pyramids and Old Cairo Private Tour",
+    description: "A perfectly crafted short break for those who want to experience the magic of Cairo and the iconic Giza Pyramids. In just four days, you'll stand before the last remaining wonder of the ancient world, explore the corridors of the Egyptian Museum, and wander through the ancient streets of Old Cairo. Ideal for first-time visitors or travelers with limited time who refuse to miss Egypt's greatest highlights.",
+    price: 370,
+    duration: "4 Days / 3 Nights",
+    location: "Cairo, Giza",
+    category: "cultural",
+    image: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
     rating: 4.5,
-    reviewsCount: 245,
+    reviewsCount: 93,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Cairo to Alexandria Day Trip",
-            "description": "Escape Cairo for a day and discover the glittering Mediterranean city of Alexandria. Visit the stunning Bibliotheca Alexandrina, the medieval Qaitbay Citadel, Pompey's Pillar, and the Catacombs of Kom El Shoqafa before returning to Cairo.",
-            "activities": [
-                  {
-                        "title": "Cairo to Alexandria Day Trip Main Excursion",
-                        "description": "Escape Cairo for a day and discover the glittering Mediterranean city of Alexandria. Visit the stunning Bibliotheca Alexandrina, the medieval Qaitbay Citadel, Pompey's Pillar, and the Catacombs of Kom El Shoqafa before returning to Cairo.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 1,
+        title: "Day 1: Arrive Cairo",
+        description: "Private airport transfer to hotel. Welcome briefing with your guide. Overnight Cairo.",
+        activities: [
+          {
+            title: "Arrive Cairo Highlights",
+            description: "Private airport transfer to hotel. Welcome briefing with your guide. Overnight Cairo.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: Full day at the Giza Plateau — Great Pyramid of Khufu, Pyramid of Khafre, Pyramid of Menkaure, the Great Sphinx, and the Valley Temple",
+        description: "Optional camel ride. Overnight Cairo.",
+        activities: [
+          {
+            title: "Full day at the Giza Plateau — Great Pyramid of Khufu, Pyramid of Khafre, Pyramid of Menkaure, the Great Sphinx, and the Valley Temple Highlights",
+            description: "Optional camel ride. Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "Day 3: Egyptian Museum (including the Tutankhamun treasures and Royal Mummies Hall), Citadel of Saladin, Mohamed Ali Mosque, Khan El Khalili Bazaar",
+        description: "Overnight Cairo.",
+        activities: [
+          {
+            title: "Egyptian Museum (including the Tutankhamun treasures and Royal Mummies Hall), Citadel of Saladin, Mohamed Ali Mosque, Khan El Khalili Bazaar Highlights",
+            description: "Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "Day 4: Optional morning visit to Old Cairo (Hanging Church, Coptic Museum, Ben Ezra Synagogue)",
+        description: "Transfer to Cairo Airport. Departure.",
+        activities: [
+          {
+            title: "Optional morning visit to Old Cairo (Hanging Church, Coptic Museum, Ben Ezra Synagogue) Highlights",
+            description: "Transfer to Cairo Airport. Departure.",
+            icon: "transfer"
+          }
+        ]
       }
-],
-    highlights: ["Bibliotheca Alexandrina","Qaitbay Citadel","Pompey's Pillar."],
+    ],
+    inclusions: [
+      "Hotel accommodation (3 nights)",
+      "private Egyptologist guide",
+      "daily breakfast",
+      "all entrance fees",
+      "all transfers."
+    ]
   },
   {
-    id: 'hurghada-snorkeling-red-sea-trip',
-    title: 'Hurghada Snorkeling & Red Sea Trip',
-    description: 'Discover the dazzling underwater world of the Red Sea on a guided snorkeling boat trip from Hurghada. Visit two of the most vibrant coral reef sites in the region, teeming with tropical fish and colorful marine life. Includes snorkeling equipment, light lunch, and soft drinks onboard.',
-    price: 45,
-    duration: '1 Day',
-    location: 'Hurghada',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
+    id: "pkg-7-5-days-cairo--luxor---abu-simbel-tour",
+    title: "Cairo, Abu Simbel, and Luxor Private Tour",
+    description: "Immersive 5-day classic travel package exploring the wonders of Cairo, Luxor, Abu Simbel.",
+    price: 960,
+    duration: "5 Days / 4 Nights",
+    location: "Cairo, Luxor, Abu Simbel",
+    category: "historical",
+    image: "https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.8,
+    reviewsCount: 205,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day One: Arrival",
+        description: "Start your 5 Days Cairo, Luxor & Abu Simbel Tour.",
+        activities: [
+          {
+            title: "Arrival Highlights",
+            description: "Start your 5 Days Cairo, Luxor & Abu Simbel Tour.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day Two: Exploration",
+        description: "Guided tours and activities.",
+        activities: [
+          {
+            title: "Exploration Highlights",
+            description: "Guided tours and activities.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "Day Five: Departure",
+        description: "End of your magnificent journey.",
+        activities: [
+          {
+            title: "Departure Highlights",
+            description: "End of your magnificent journey.",
+            icon: "tour"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "6-days-cairo-luxor-aswan",
+    title: "Cairo, Luxor, Aswan, and Abu Simbel Guided Tour",
+    description: "A comprehensive 6-day package exploring Upper and Lower Egypt. From the Great Pyramids to the colossal temples of Ramses II at Abu Simbel, witness the pinnacle of Pharaonic civilization.",
+    price: 1070,
+    duration: "6 Days / 5 Nights",
+    location: "Cairo, Luxor, Aswan",
+    category: "historical",
+    image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.8,
+    reviewsCount: 185,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day One: Arrival to Egypt Land of Pharaohs",
+        description: "As soon as you arrive at Cairo Airport, our \"Travision Tours\" representative will be waiting for you at your gate where he will help you complete all of your passport control formalities and luggage identification and carry. You will then be transferred by a private air-conditioned car to your 5* hotel reservation for checking-in.",
+        image: "https://www.egypttoursportal.com/images/2019/01/Arrival-to-Cairo-International-Airport-Egypt-Tours-Portal.jpg",
+        activities: [
+          {
+            title: "Dinner Time",
+            description: "In the evening, you will begin your tour by a Dinner cruise on the blessed Nile as you will get to chill and observe a colorful belly dancing show with a folklore band featuring the amazing Tannoura spin in keeping with Egypt's whirling dervishes' tradition.",
+            icon: "dinner"
+          },
+          {
+            title: "Overnight",
+            description: "End the first day of your Cairo, Luxor, Aswan & Abu Simbel tour by returning to your hotel for the overnight.",
+            icon: "overnight"
+          }
+        ],
+        meals: "Dinner",
+        overnight: "Cairo Hotel"
+      },
+      {
+        day: 2,
+        title: "Day Two: Tour to Giza Pyramids & The Egyptian Museum",
+        description: "You will begin your second day by enjoying your breakfast, and check-out from the hotel then join your private tour guide to discover the wonders of Ancient Egypt starting with:",
+        image: "https://www.egypttoursportal.com/images/2020/04/The-Great-Pyramids-of-Giza-Egypt-Tours-Portal.jpg",
+        activities: [
+          {
+            title: "Giza Pyramids Complex",
+            description: "The Giza Pyramids Complex will be in your presence, the complex has existed for 4000 years which makes it one of the oldest structures on the face of the planet. The Giza complex consists of three main pyramids, six little pyramids, the great sphinx, and the place of immortal preservation of the valley temple.",
+            icon: "tour"
+          },
+          {
+            title: "The Great Pyramid",
+            description: "The Great Pyramid of Khufu lies among the skies of paradise, it is known for being the last intact structure of the Seven Wonders of the Ancient World. It is older than 4500 years old which makes it the world's oldest mystery because of the fringe theories attached to its origin, and its complex interior compared to its magnitude. It was constructed in 2580 BC for 20 years using 2,300,000 pieces of limestone each weighing 2.5 tons and a workforce of 100,000 free skilled workers resulting in making the height of the pyramid 147 m (481 ft) which made it the tallest building in the world for 3800 years until the construction of the Lincoln Cathedral in England in 1311.",
+            icon: "dinner"
+          },
+          {
+            title: "The Great Sphinx",
+            description: "The Great Sphinx is one of the most mysterious objects in existence, it has the shape of a mythical creature called the sphinx that has the body of a lion and the head of a man who is believed to be king Khafre to represent power and wisdom. It is known as Abu Al-Hawl which is Arabic for The Father of terror. The sphinx is at the height of 73 m (240 ft) and 19 m (66 ft) and was carved out of single limestone rock.",
+            icon: "tour"
+          },
+          {
+            title: "The Valley Temple",
+            description: "The Valley temple is home to the Mummification process, it was constructed within Egypt's Old Kingdom (2686 2134 BC) within the complex. It's one of the best-preserved archeological sites of the ancient Egyptian civilization and the source of great information about the mummification of Ancient Egypt. The valley is made of limestone, and granite and holds unique diorite statues of King Khafre.",
+            icon: "tour"
+          },
+          {
+            title: "The Grand Egyptian Museum",
+            description: "GEM is designed to have one of the biggest conservation centers in the Middle East, along with research labs and educational facilities dedicated to preserving Egypt’s heritage. Everyone can marvel at treasures such as the Hanging Obelisk, the 11-meter colossus of Ramses II, and the complete collection of over 5,000 artifacts from Tutankhamun.",
+            icon: "tour"
+          },
+          {
+            title: "Lunch Time",
+            description: "Proceed to have your lunch at a local restaurant in Cairo. Then we will move to continue your Cairo, Luxor, Aswan & Abu Simbel holiday by visiting:",
+            icon: "dinner"
+          },
+          {
+            title: "The Egyptian Museum",
+            description: "The Egyptian Museum contains the largest collection of ancient Egyptian artifacts and monuments in the world dating back to more than 4000 years across. Inside the two-level building are a collection of rare & priceless archeological wonders that stood the test of time.",
+            icon: "tour"
+          },
+          {
+            title: "Overnight",
+            description: "Finally, you will drive to Cairo Airport then catch your flight to Luxor then check-in 5* hotel for spending the overnight.",
+            icon: "overnight"
+          }
+        ],
+        meals: "Breakfast, Lunch",
+        overnight: "Luxor Hotel"
+      },
+      {
+        day: 3,
+        title: "Day Three: Tour to Luxor East & West Attractions",
+        description: "On day three, you will enjoy your breakfast at the hotel, then accompany your Egyptologist tour guide to explore all the famous Luxor tourist attractions such as:",
+        image: "https://www.egypttoursportal.com/images/2020/04/Tutankhamun-Tomb-in-Valley-of-the-Kings-Egypt-Tours-Portal.jpg",
+        activities: [
+          {
+            title: "Valley of the Kings",
+            description: "The valley of the kings is like a time capsule located in the heart of the holy mountain which has acted as the final resting place of the greatest kings and queens of Egypt's new kingdom (1570-1070 BC). It holds 63 tombs filled with various enchanting treasures, artifacts, statues, hypnotically beautiful decorations, and the remains of pharaohs like Rameses (I, II, III, IV, V, VI, VII, IX, X), Amenhotep I, Hatshepsut, and the famous King Tutankhamun which all resulted in the valley becoming a World Heritage Site by the UNESCO in 1979.",
+            icon: "tour"
+          },
+          {
+            title: "Queen Hatshepsut Temple",
+            description: "The Hatshepsut Temple is renowned for being the beauty of Luxor, it gained the name Djoser-Djeseru (Holy of Holies) and showcases the might & will of one of the most successful rulers in the history of ancient Egypt Queen Hatshepsut. The temple was designed in 1479 BC and took 15 years to construct. The design of the temple is based on the concept of Classical Architecture of the new kingdom and within the temple lies some of the most impressive statues, decorations, and artifacts in all of Egypt.",
+            icon: "tour"
+          },
+          {
+            title: "Colossi of Memnon",
+            description: "Colossi of Memnon is different than most of the monuments in Upper Egypt, it has been known as the colossal guardians of Luxor. They are basically two massive blocks of quartzite sandstone standing at the height of 18 m (60ft) weighing 720 tons each and have the shape of Pharaoh Amenhotep III(1386-1350). The colossi were damaged due to a large earthquake in 27 BC but were rebuilt again in 199 AD. The statues gained quite a fame during the Greco-Roman period due to The Vocal Memnon which resulted from the statues singing from time to time which were nothing more than the sound of the wind passing through the statue at dawn.",
+            icon: "tour"
+          },
+          {
+            title: "Lunch Time",
+            description: "Then move to have your lunch on an island, so your tour includes a boat trip in the Nile River followed by a tour to:",
+            icon: "dinner"
+          },
+          {
+            title: "Karnak Temple",
+            description: "Karnak temple is one of the holiest places on the face of the planet, it was known as Ipet-isu The Most Selected Of Places, and Pr-Imn House Of Amon, it dates to more than 4000 years and is the largest religious man-made construction in the world & also the biggest open-air museums on earth. It was the heart of the religious worship of the entire ancient Egyptian kingdom for more than 1500 years to various deities but was dedicated primarily to the Theban triad that consisted of God Amun with his wife the Goddess of Justice Mut and his son the moon god Khnsou, plus other gods like the great Osiris, Montu, Ptah and Isis.",
+            icon: "tour"
+          },
+          {
+            title: "Overnight",
+            description: "You will spend your overnight at your hotel in Luxor.",
+            icon: "overnight"
+          }
+        ],
+        meals: "Breakfast, Lunch",
+        overnight: "Luxor Hotel"
+      },
+      {
+        day: 4,
+        title: "Day Four: Transfer to Aswan by Train - Tour to Aswan Landmarks",
+        description: "In the morning time, you will have your breakfast and check out from the hotel in Luxor to continue Cairo, Luxor, Aswan & Abu Simbel tour by boarding a 1*class train to Aswan, the moment you arrive you will join your private Egyptologist tour guide to enjoy a tour around all Aswan tourist attractions such as:",
+        image: "https://www.egypttoursportal.com/images/2020/04/Philae-Temple-Egypt-Tours-Portal-1.jpg",
+        activities: [
+          {
+            title: "The High Dam",
+            description: "The High Dam represents the modern might of the city of Aswan, the dam was constructed between 1960 & 1970 during the reign of president Gamal Adel-Nasser. The dam was designed as a cooperation project with the Moscow-based Hydro project Institute to have better control over Nile flooding, generate Hydroelectricity, and provide increased water storage for irrigation in its reservoir lake Nasser.",
+            icon: "tour"
+          },
+          {
+            title: "The Unfinished Obelisk",
+            description: "The Unfinished Obelisk is a tale that was sadly left unfinished, it was ordered by Queen Hatshepsut (1508-1458 BC) to stand at the entrance of the Karnak temple. It was known as \"Tekhenu\" which means to pierce the sky\" and shows how obelisks were created from scratch and the method of construction of Ancient Egypt, it reached the height of 42 m and weighed 1200 tons. Unfortunately, the obelisk was cracked during construction and remained at the same location even today.",
+            icon: "tour"
+          },
+          {
+            title: "Lunch Time",
+            description: "You will enjoy your lunch in a local restaurant in Aswan to get ready to complete your day by visiting:",
+            icon: "dinner"
+          },
+          {
+            title: "Philae Temple",
+            description: "Philea Temple is truly the essence of myth, allure, and charm in the city of Aswan, it is famous for spreading the\" Myth of Osiris\" which entails the husband of Isis \"Osiris\" Is killed by His brother Set out of pure hatred & envy then Osiris is resurrected to be the ruler of the underworld afterward Set is defeated by Isis and Osiris Son Hours the sky God ending an age of tyranny & injustice. The temple was relocated in the 60s to the island of Agilkia as a part of a rescue mission led by UNESCO after the construction of the Aswan High Dam.",
+            icon: "tour"
+          },
+          {
+            title: "Overnight",
+            description: "You will then check in at Aswan 5* hotel to spend your overnight.",
+            icon: "overnight"
+          }
+        ],
+        meals: "Breakfast, Lunch",
+        overnight: "Aswan Hotel"
+      },
+      {
+        day: 5,
+        title: "Day Five: Tour to the Two Temples of Abu Simbel + Fly Back to Cairo",
+        description: "Morning time, check out from the hotel before you will be transferred with your breakfast boxes to Abu Simbel by a private air-conditioned car joined by your private tour guide.",
+        image: "https://www.egypttoursportal.com/images/2018/06/Abu-Simbel-Two-Days-Luxor-Abu-Simbel-Trips-from-Cairo-Egypt-Tours-Portal.jpg",
+        activities: [
+          {
+            title: "Abu Simbel Temples",
+            description: "The two great Abu Simbel Temples have been the final frontier & the guardian of the southern border since its creation by King Ramses II (1279-1213 BCE) during the new kingdom to immortalize his legacy till the end of times. Everything about this temple reflects the ultimate concept of greatness & glory. The temple was called the \"Temple of Ramesses, beloved by Amun\". Abu Simbel consists of two temples, the bigger one is for Ramses where the sun festival takes place on the 22 of February & October of each year when the sun shines on the faces of the four seated statues of Ramses II, Ptah (God of creation), Amun (The Creator God), and Ra (Sun God), the smaller temple is dedicated to his wife Queen Nefertari. The temple was part of a rescue mission led by UNESCO in the mid-60s in what is referred to as the most challenging archeological rescue operation in history.",
+            icon: "tour"
+          },
+          {
+            title: "Lunch Time",
+            description: "Finally, return to Aswan city by A/C vehicle to have your lunch at a local restaurant.",
+            icon: "dinner"
+          },
+          {
+            title: "Overnight",
+            description: "Catch your flight back to Cairo and transfer to your hotel for spending overnight.",
+            icon: "overnight"
+          }
+        ],
+        meals: "Breakfast, Lunch",
+        overnight: "Cairo Hotel"
+      },
+      {
+        day: 6,
+        title: "Day Six : End of Cairo, Luxor, Aswan & Abu Simbel Package",
+        description: "On your final day, you have your breakfast then our representative of \"Travision Tours\" will transfer you to the airport so you can return home safely with the finest memories.",
+        image: "https://www.egypttoursportal.com/images/2020/04/Departure-Day-Egypt-Tours-Portal.jpg",
+        activities: [],
+        meals: "Breakfast",
+        overnight: ""
+      }
+    ]
+  },
+  {
+    id: "7-days-cairo-luxor-aswan-abu-simbel-edfu-kom-ombo",
+    title: "Cairo and Upper Egypt with Edfu & Kom Ombo Tour",
+    description: "Take the full scenic route through ancient Egypt. This seven-day tour adds the remarkably preserved Temple of Edfu and the unique double-deity Temple of Kom Ombo to the classic itinerary — giving you a richer, more complete picture of ancient Egyptian civilization along the Nile Valley.",
+    price: 1140,
+    duration: "7 Days / 6 Nights",
+    location: "Cairo, Luxor, Aswan, Abu Simbel",
+    category: "historical",
+    image: "https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200",
     rating: 4.7,
-    reviewsCount: 145,
+    reviewsCount: 170,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Hurghada Snorkeling & Red Sea Trip",
-            "description": "Discover the dazzling underwater world of the Red Sea on a guided snorkeling boat trip from Hurghada. Visit two of the most vibrant coral reef sites in the region, teeming with tropical fish and colorful marine life. Includes snorkeling equipment, light lunch, and soft drinks onboard.",
-            "activities": [
-                  {
-                        "title": "Hurghada Snorkeling & Red Sea Trip Main Excursion",
-                        "description": "Discover the dazzling underwater world of the Red Sea on a guided snorkeling boat trip from Hurghada. Visit two of the most vibrant coral reef sites in the region, teeming with tropical fish and colorful marine life. Includes snorkeling equipment, light lunch, and soft drinks onboard.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 1,
+        title: "Day 1: Arrive Cairo",
+        description: "Transfer and welcome.",
+        activities: [
+          {
+            title: "Arrive Cairo Highlights",
+            description: "Transfer and welcome.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: Giza Pyramids, Sphinx, Saqqara, Memphis",
+        description: "Overnight Cairo.",
+        activities: [
+          {
+            title: "Giza Pyramids, Sphinx, Saqqara, Memphis Highlights",
+            description: "Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "Day 3: Egyptian Museum, Citadel of Saladin, Old Cairo",
+        description: "Fly to Luxor. Overnight Luxor.",
+        activities: [
+          {
+            title: "Egyptian Museum, Citadel of Saladin, Old Cairo Highlights",
+            description: "Fly to Luxor. Overnight Luxor.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "Day 4: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon, Karnak Temple",
+        description: "Overnight Luxor.",
+        activities: [
+          {
+            title: "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon, Karnak Temple Highlights",
+            description: "Overnight Luxor.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "Day 5: Drive south",
+        description: "Visit Edfu Temple (dedicated to Horus) and Kom Ombo Temple (dedicated to Sobek & Haroeris). Arrive Aswan. Overnight Aswan.",
+        activities: [
+          {
+            title: "Drive south Highlights",
+            description: "Visit Edfu Temple (dedicated to Horus) and Kom Ombo Temple (dedicated to Sobek & Haroeris). Arrive Aswan. Overnight Aswan.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 6,
+        title: "Day 6: Philae Temple, High Dam, Nubian Village",
+        description: "Abu Simbel excursion. Overnight Aswan.",
+        activities: [
+          {
+            title: "Philae Temple, High Dam, Nubian Village Highlights",
+            description: "Abu Simbel excursion. Overnight Aswan.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 7,
+        title: "Day 7: Fly to Cairo",
+        description: "Departure.",
+        activities: [
+          {
+            title: "Fly to Cairo Highlights",
+            description: "Departure.",
+            icon: "tour"
+          }
+        ]
       }
-],
-    highlights: ["Coral reef snorkeling","tropical fish","glass-bottom boat (optional)","onboard lunch."],
+    ],
+    inclusions: [
+      "Hotel accommodation",
+      "domestic flights",
+      "private Egyptologist guide",
+      "daily breakfast",
+      "entrance fees",
+      "all transfers."
+    ]
   },
   {
-    id: 'hurghada-desert-safari-by-quad-bike',
-    title: 'Hurghada Desert Safari by Quad Bike',
-    description: 'Venture into the Egyptian Eastern Desert on a thrilling quad bike safari. Ride through golden sand dunes, visit a Bedouin village, enjoy traditional mint tea, and watch a spectacular desert sunset before returning to your hotel.',
-    price: 40,
-    duration: 'Half Day',
-    location: 'Hurghada, Western Desert',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 54,
+    id: "8-days-budget-egypt-complete-tour",
+    title: "Private Tour to Cairo, Giza Pyramids & Nile Cruise",
+    description: "Cover Cairo, Luxor, and Aswan at an affordable price on this eight-day budget adventure. Stay in comfortable hotels, travel by domestic flights, and explore the key monuments with an expert local guide.",
+    price: 1200,
+    duration: "8 Days / 7 Nights",
+    location: "Cairo, Luxor, Aswan",
+    category: "adventure",
+    image: "https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.8,
+    reviewsCount: 214,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Hurghada Desert Safari by Quad Bike",
-            "description": "Venture into the Egyptian Eastern Desert on a thrilling quad bike safari. Ride through golden sand dunes, visit a Bedouin village, enjoy traditional mint tea, and watch a spectacular desert sunset before returning to your hotel.",
-            "activities": [
-                  {
-                        "title": "Hurghada Desert Safari by Quad Bike Main Excursion",
-                        "description": "Venture into the Egyptian Eastern Desert on a thrilling quad bike safari. Ride through golden sand dunes, visit a Bedouin village, enjoy traditional mint tea, and watch a spectacular desert sunset before returning to your hotel.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 1,
+        title: "Day 1: Arrival & Welcome",
+        description: "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
+        activities: [
+          {
+            title: "Arrival & Welcome Highlights",
+            description: "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: Visit Pyramids",
+        description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Pyramids Highlights",
+            description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "Day 3: Visit Nile Valley temples",
+        description: "Take a guided tour to experience the majestic Nile Valley temples in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Nile Valley temples Highlights",
+            description: "Take a guided tour to experience the majestic Nile Valley temples in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "Day 4: Visit Abu Simbel",
+        description: "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Abu Simbel Highlights",
+            description: "Take a guided tour to experience the majestic Abu Simbel in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "Day 5: Visit Aswan",
+        description: "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Aswan Highlights",
+            description: "Take a guided tour to experience the majestic Aswan in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 6,
+        title: "Day 6: Visit Hurghada option.",
+        description: "Take a guided tour to experience the majestic Hurghada option. in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Hurghada option. Highlights",
+            description: "Take a guided tour to experience the majestic Hurghada option. in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 7,
+        title: "Day 7: Visit Pyramids",
+        description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Pyramids Highlights",
+            description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 8,
+        title: "Day 8: Departure",
+        description: "Complete your final sightseeing and transfer to the airport for departure.",
+        activities: [
+          {
+            title: "Departure Highlights",
+            description: "Complete your final sightseeing and transfer to the airport for departure.",
+            icon: "transfer"
+          }
+        ]
       }
-],
-    highlights: ["Quad biking","Bedouin village","camel ride","desert sunset."],
+    ],
+    highlights: [
+      "Pyramids",
+      "Nile Valley temples",
+      "Abu Simbel",
+      "Aswan",
+      "Hurghada option."
+    ]
   },
   {
-    id: 'full-day-luxor-east-west-bank-tour',
-    title: 'Full Day Luxor East & West Bank Tour',
-    description: 'The complete Luxor experience in a single day. Visit the East Bank\'s Karnak Temple and Luxor Temple, then cross the Nile to the West Bank for the Valley of the Kings, Hatshepsut Temple, and the Colossi of Memnon. Everything Luxor has to offer, perfectly organized in one unforgettable day.',
-    price: 75,
-    duration: '1 Day',
-    location: 'Luxor',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
+    id: "9-days-cairo-alexandria-luxor-aswan-trip",
+    title: "Cairo, Alexandria, Luxor, and Aswan Private Trip",
+    description: "Go beyond the pyramids and explore Egypt in full dimension. This nine-day journey adds the magnificent Mediterranean city of Alexandria — with its ancient library, Roman ruins, and seaside citadel — to the classic Upper Egypt circuit. A truly well-rounded adventure spanning thousands of years of civilization.",
+    price: 1370,
+    duration: "9 Days / 8 Nights",
+    location: "Cairo, Alexandria, Luxor, Aswan",
+    category: "historical",
+    image: "https://images.unsplash.com/photo-1599957134371-55cc0d6f281e?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.6,
+    reviewsCount: 146,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Arrive Cairo",
+        description: "Transfer and welcome.",
+        activities: [
+          {
+            title: "Arrive Cairo Highlights",
+            description: "Transfer and welcome.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: Giza Pyramids, Sphinx, Egyptian Museum",
+        description: "Overnight Cairo.",
+        activities: [
+          {
+            title: "Giza Pyramids, Sphinx, Egyptian Museum Highlights",
+            description: "Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "Day 3: Day trip to Alexandria — Bibliotheca Alexandrina, Qaitbay Citadel, Pompey's Pillar, Montaza Gardens",
+        description: "Return to Cairo. Overnight Cairo.",
+        activities: [
+          {
+            title: "Day trip to Alexandria — Bibliotheca Alexandrina, Qaitbay Citadel, Pompey's Pillar, Montaza Gardens Highlights",
+            description: "Return to Cairo. Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "Day 4: Saqqara, Memphis, Old Cairo",
+        description: "Overnight Cairo.",
+        activities: [
+          {
+            title: "Saqqara, Memphis, Old Cairo Highlights",
+            description: "Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "Day 5: Fly to Luxor",
+        description: "Karnak Temple, Luxor Temple. Overnight Luxor.",
+        activities: [
+          {
+            title: "Fly to Luxor Highlights",
+            description: "Karnak Temple, Luxor Temple. Overnight Luxor.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 6,
+        title: "Day 6: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon",
+        description: "Overnight Luxor.",
+        activities: [
+          {
+            title: "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon Highlights",
+            description: "Overnight Luxor.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 7,
+        title: "Day 7: Travel to Aswan via Edfu and Kom Ombo",
+        description: "Overnight Aswan.",
+        activities: [
+          {
+            title: "Travel to Aswan via Edfu and Kom Ombo Highlights",
+            description: "Overnight Aswan.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 8,
+        title: "Day 8: Abu Simbel excursion",
+        description: "Philae Temple, Unfinished Obelisk. Nubian Village visit. Overnight Aswan.",
+        activities: [
+          {
+            title: "Abu Simbel excursion Highlights",
+            description: "Philae Temple, Unfinished Obelisk. Nubian Village visit. Overnight Aswan.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 9,
+        title: "Day 9: Fly to Cairo",
+        description: "Departure.",
+        activities: [
+          {
+            title: "Fly to Cairo Highlights",
+            description: "Departure.",
+            icon: "tour"
+          }
+        ]
+      }
+    ],
+    inclusions: [
+      "Hotel accommodation",
+      "domestic flights",
+      "private Egyptologist guide",
+      "daily breakfast",
+      "all entrance fees",
+      "all transfers."
+    ]
+  },
+  {
+    id: "12-days-family-egypt-red-sea-holiday",
+    title: "Cairo, Nile Cruise, and Hurghada Vacation",
+    description: "Combine Egypt's ancient wonders with a family beach holiday at the Red Sea. After exploring the Pyramids, Luxor, and Aswan, the whole family will love snorkeling the vibrant coral reefs of Hurghada, enjoying water parks, and relaxing on beautiful sandy beaches.",
+    price: 1740,
+    duration: "12 Days / 11 Nights",
+    location: "Cairo, Luxor, Aswan, Hurghada",
+    category: "adventure",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200",
     rating: 4.5,
-    reviewsCount: 209,
+    reviewsCount: 286,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Full Day Luxor East & West Bank Tour",
-            "description": "The complete Luxor experience in a single day. Visit the East Bank's Karnak Temple and Luxor Temple, then cross the Nile to the West Bank for the Valley of the Kings, Hatshepsut Temple, and the Colossi of Memnon. Everything Luxor has to offer, perfectly organized in one unforgettable day.",
-            "activities": [
-                  {
-                        "title": "Full Day Luxor East & West Bank Tour Main Excursion",
-                        "description": "The complete Luxor experience in a single day. Visit the East Bank's Karnak Temple and Luxor Temple, then cross the Nile to the West Bank for the Valley of the Kings, Hatshepsut Temple, and the Colossi of Memnon. Everything Luxor has to offer, perfectly organized in one unforgettable day.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Karnak","Luxor Temple","Valley of the Kings","Hatshepsut","Colossi of Memnon."],
-  },
-  {
-    id: 'luxor-west-bank-valley-of-the-kings-tour',
-    title: 'Luxor West Bank & Valley of the Kings Tour',
-    description: 'Focus your time on Luxor\'s legendary West Bank — the City of the Dead where pharaohs were buried in grand style. Explore the Valley of the Kings (including Tutankhamun\'s tomb), the stunning Temple of Hatshepsut, and the Colossi of Memnon with your private guide.',
-    price: 55,
-    duration: 'Half Day',
-    location: 'Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 39,
-    itinerary: [
+        day: 1,
+        title: "Day 1: Arrival & Welcome",
+        description: "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
+        activities: [
+          {
+            title: "Arrival & Welcome Highlights",
+            description: "Arrive and check into your accommodation. Meet your guide for a brief introduction to your tour details.",
+            icon: "transfer"
+          }
+        ]
+      },
       {
-            "day": 1,
-            "title": "Itinerary: Luxor West Bank & Valley of the Kings Tour",
-            "description": "Focus your time on Luxor's legendary West Bank — the City of the Dead where pharaohs were buried in grand style. Explore the Valley of the Kings (including Tutankhamun's tomb), the stunning Temple of Hatshepsut, and the Colossi of Memnon with your private guide.",
-            "activities": [
-                  {
-                        "title": "Luxor West Bank & Valley of the Kings Tour Main Excursion",
-                        "description": "Focus your time on Luxor's legendary West Bank — the City of the Dead where pharaohs were buried in grand style. Explore the Valley of the Kings (including Tutankhamun's tomb), the stunning Temple of Hatshepsut, and the Colossi of Memnon with your private guide.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Valley of the Kings","Hatshepsut Temple","Colossi of Memnon."],
-  },
-  {
-    id: 'luxor-hot-air-balloon-ride',
-    title: 'Luxor Hot Air Balloon Ride',
-    description: 'Float silently above the temples, tombs, and Nile River of ancient Thebes at sunrise in a breathtaking hot air balloon. One of the most magical experiences Egypt has to offer — the view of the Valley of the Kings and Nile Valley from above is simply unforgettable.',
-    price: 90,
-    duration: 'Half Day (Early Morning)',
-    location: 'Luxor',
-    category: 'historical',
-    image: 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 37,
-    itinerary: [
+        day: 2,
+        title: "Day 2: Visit Pyramids",
+        description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Pyramids Highlights",
+            description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
       {
-            "day": 1,
-            "title": "Itinerary: Luxor Hot Air Balloon Ride",
-            "description": "Float silently above the temples, tombs, and Nile River of ancient Thebes at sunrise in a breathtaking hot air balloon. One of the most magical experiences Egypt has to offer — the view of the Valley of the Kings and Nile Valley from above is simply unforgettable.",
-            "activities": [
-                  {
-                        "title": "Luxor Hot Air Balloon Ride Main Excursion",
-                        "description": "Float silently above the temples, tombs, and Nile River of ancient Thebes at sunrise in a breathtaking hot air balloon. One of the most magical experiences Egypt has to offer — the view of the Valley of the Kings and Nile Valley from above is simply unforgettable.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Sunrise balloon flight","aerial views of Valley of the Kings","Nile","temples","and farmland."],
-  },
-  {
-    id: 'full-day-aswan-sightseeing-tour',
-    title: 'Full Day Aswan Sightseeing Tour',
-    description: 'Explore all of Aswan\'s major attractions in one comfortable day. Visit the island temple of Philae, the ancient Unfinished Obelisk still lying in its quarry, the Aswan High Dam, and a traditional Nubian village on the Nile, concluding with a relaxing felucca sailboat ride.',
-    price: 65,
-    duration: '1 Day',
-    location: 'Aswan, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 291,
-    itinerary: [
+        day: 3,
+        title: "Day 3: Visit temples",
+        description: "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit temples Highlights",
+            description: "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
       {
-            "day": 1,
-            "title": "Itinerary: Full Day Aswan Sightseeing Tour",
-            "description": "Explore all of Aswan's major attractions in one comfortable day. Visit the island temple of Philae, the ancient Unfinished Obelisk still lying in its quarry, the Aswan High Dam, and a traditional Nubian village on the Nile, concluding with a relaxing felucca sailboat ride.",
-            "activities": [
-                  {
-                        "title": "Full Day Aswan Sightseeing Tour Main Excursion",
-                        "description": "Explore all of Aswan's major attractions in one comfortable day. Visit the island temple of Philae, the ancient Unfinished Obelisk still lying in its quarry, the Aswan High Dam, and a traditional Nubian village on the Nile, concluding with a relaxing felucca sailboat ride.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Philae Temple","Unfinished Obelisk","High Dam","Nubian village","felucca sail."],
-  },
-  {
-    id: 'aswan-nubian-village-felucca-ride',
-    title: 'Aswan Nubian Village & Felucca Ride',
-    description: 'Cross the Nile by motorboat to visit an authentic Nubian village and experience the warm hospitality and vibrant culture of the Nubian people. Enjoy traditional food, colorful houses, and a peaceful felucca sailboat ride on the Nile around Elephantine Island.',
-    price: 45,
-    duration: 'Half Day',
-    location: 'Aswan, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 275,
-    itinerary: [
+        day: 4,
+        title: "Day 4: Visit Red Sea snorkeling",
+        description: "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Red Sea snorkeling Highlights",
+            description: "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
       {
-            "day": 1,
-            "title": "Itinerary: Aswan Nubian Village & Felucca Ride",
-            "description": "Cross the Nile by motorboat to visit an authentic Nubian village and experience the warm hospitality and vibrant culture of the Nubian people. Enjoy traditional food, colorful houses, and a peaceful felucca sailboat ride on the Nile around Elephantine Island.",
-            "activities": [
-                  {
-                        "title": "Aswan Nubian Village & Felucca Ride Main Excursion",
-                        "description": "Cross the Nile by motorboat to visit an authentic Nubian village and experience the warm hospitality and vibrant culture of the Nubian people. Enjoy traditional food, colorful houses, and a peaceful felucca sailboat ride on the Nile around Elephantine Island.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Nubian village visit","traditional food","Elephantine Island","felucca sailboat."],
-  },
-  {
-    id: 'ras-mohammed-snorkeling-diving-trip',
-    title: 'Ras Mohammed Snorkeling & Diving Trip',
-    description: 'Explore the world-famous Ras Mohammed National Park, home to some of the most spectacular coral reefs and marine life on earth. Snorkel or dive through crystal-clear waters and discover a dazzling underwater world of sharks, rays, turtles, and tropical fish.',
-    price: 55,
-    duration: '1 Day',
-    location: 'Egypt',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 255,
-    itinerary: [
+        day: 5,
+        title: "Day 5: Visit beach resort",
+        description: "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit beach resort Highlights",
+            description: "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
       {
-            "day": 1,
-            "title": "Itinerary: Ras Mohammed Snorkeling & Diving Trip",
-            "description": "Explore the world-famous Ras Mohammed National Park, home to some of the most spectacular coral reefs and marine life on earth. Snorkel or dive through crystal-clear waters and discover a dazzling underwater world of sharks, rays, turtles, and tropical fish.",
-            "activities": [
-                  {
-                        "title": "Ras Mohammed Snorkeling & Diving Trip Main Excursion",
-                        "description": "Explore the world-famous Ras Mohammed National Park, home to some of the most spectacular coral reefs and marine life on earth. Snorkel or dive through crystal-clear waters and discover a dazzling underwater world of sharks, rays, turtles, and tropical fish.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Ras Mohammed coral reefs","snorkeling/diving","boat trip","marine national park."],
-  },
-  {
-    id: 'cairo-day-trip-from-sharm-el-sheikh-by-plane',
-    title: 'Cairo Day Trip from Sharm El Sheikh by Plane',
-    description: 'Fly from Sharm El Sheikh to Cairo for a full private day at the Giza Pyramids, the Egyptian Museum, and the historic streets of Old Cairo. Returns to Sharm the same evening. The perfect add-on to your Sharm resort holiday.',
-    price: 500,
-    duration: '1 Day',
-    location: 'Cairo, Giza, Sharm El Sheikh',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 196,
-    itinerary: [
+        day: 6,
+        title: "Day 6: Visit water sports",
+        description: "Take a guided tour to experience the majestic water sports in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit water sports Highlights",
+            description: "Take a guided tour to experience the majestic water sports in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
       {
-            "day": 1,
-            "title": "Itinerary: Cairo Day Trip from Sharm El Sheikh by Plane",
-            "description": "Fly from Sharm El Sheikh to Cairo for a full private day at the Giza Pyramids, the Egyptian Museum, and the historic streets of Old Cairo. Returns to Sharm the same evening. The perfect add-on to your Sharm resort holiday.",
-            "activities": [
-                  {
-                        "title": "Cairo Day Trip from Sharm El Sheikh by Plane Main Excursion",
-                        "description": "Fly from Sharm El Sheikh to Cairo for a full private day at the Giza Pyramids, the Egyptian Museum, and the historic streets of Old Cairo. Returns to Sharm the same evening. The perfect add-on to your Sharm resort holiday.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 7,
+        title: "Day 7: Visit family entertainment.",
+        description: "Take a guided tour to experience the majestic family entertainment. in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit family entertainment. Highlights",
+            description: "Take a guided tour to experience the majestic family entertainment. in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 8,
+        title: "Day 8: Visit Pyramids",
+        description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Pyramids Highlights",
+            description: "Take a guided tour to experience the majestic Pyramids in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 9,
+        title: "Day 9: Visit temples",
+        description: "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit temples Highlights",
+            description: "Take a guided tour to experience the majestic temples in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 10,
+        title: "Day 10: Visit Red Sea snorkeling",
+        description: "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit Red Sea snorkeling Highlights",
+            description: "Take a guided tour to experience the majestic Red Sea snorkeling in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 11,
+        title: "Day 11: Visit beach resort",
+        description: "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
+        activities: [
+          {
+            title: "Visit beach resort Highlights",
+            description: "Take a guided tour to experience the majestic beach resort in detail, including historical briefings and photo sessions.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 12,
+        title: "Day 12: Departure",
+        description: "Complete your final sightseeing and transfer to the airport for departure.",
+        activities: [
+          {
+            title: "Departure Highlights",
+            description: "Complete your final sightseeing and transfer to the airport for departure.",
+            icon: "transfer"
+          }
+        ]
       }
-],
-    highlights: ["Giza Pyramids","Sphinx","Egyptian Museum","Khan El Khalili."],
+    ],
+    highlights: [
+      "Pyramids",
+      "temples",
+      "Red Sea snorkeling",
+      "beach resort",
+      "water sports",
+      "family entertainment."
+    ]
   },
   {
-    id: 'sharm-to-petra-day-tour-jordan',
-    title: 'Sharm to Petra Day Tour (Jordan)',
-    description: 'Cross into Jordan for a day trip to the ancient rose-red city of Petra — one of the most breathtaking archaeological sites in the world. Travel by ferry from Sharm to Aqaba then onward to Petra with a private guide for a truly unforgettable cross-border adventure.',
-    price: 250,
-    duration: '1 Day',
-    location: 'Sharm El Sheikh, Petra, Jordan',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&q=80&w=1200',
+    id: "14-days-trip-to-the-best-of-egypt",
+    title: "Marvelous of Egypt Pyramids Tour",
+    description: "Two full weeks to experience everything Egypt has to offer — pyramids, Nile cruises, Mediterranean coastlines, and Red Sea beaches. This is the definitive Egypt journey, covering every major region of the country while leaving room to breathe and truly savor each destination.",
+    price: 1920,
+    duration: "14 Days / 13 Nights",
+    location: "Cairo, Nile River",
+    category: "cultural",
+    image: "https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200",
     rating: 4.8,
-    reviewsCount: 157,
+    reviewsCount: 48,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Sharm to Petra Day Tour (Jordan)",
-            "description": "Cross into Jordan for a day trip to the ancient rose-red city of Petra — one of the most breathtaking archaeological sites in the world. Travel by ferry from Sharm to Aqaba then onward to Petra with a private guide for a truly unforgettable cross-border adventure.",
-            "activities": [
-                  {
-                        "title": "Sharm to Petra Day Tour (Jordan) Main Excursion",
-                        "description": "Cross into Jordan for a day trip to the ancient rose-red city of Petra — one of the most breathtaking archaeological sites in the world. Travel by ferry from Sharm to Aqaba then onward to Petra with a private guide for a truly unforgettable cross-border adventure.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 1,
+        title: "Day 1: Arrive Cairo",
+        description: "Transfer and welcome.",
+        activities: [
+          {
+            title: "Arrive Cairo Highlights",
+            description: "Transfer and welcome.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: Giza Pyramids, Sphinx, Solar Boat Museum",
+        description: "",
+        activities: [
+          {
+            title: "Giza Pyramids, Sphinx, Solar Boat Museum Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "Day 3: Egyptian Museum, Islamic Cairo, Khan El Khalili",
+        description: "",
+        activities: [
+          {
+            title: "Egyptian Museum, Islamic Cairo, Khan El Khalili Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "Day 4: Saqqara, Memphis, Dahshur",
+        description: "",
+        activities: [
+          {
+            title: "Saqqara, Memphis, Dahshur Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "Day 5: Day trip to Alexandria",
+        description: "",
+        activities: [
+          {
+            title: "Day trip to Alexandria Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 6,
+        title: "Day 6: Fly to Luxor",
+        description: "Karnak and Luxor Temples.",
+        activities: [
+          {
+            title: "Fly to Luxor Highlights",
+            description: "Karnak and Luxor Temples.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 7,
+        title: "Day 7: Valley of the Kings, Hatshepsut, Deir el-Medina",
+        description: "",
+        activities: [
+          {
+            title: "Valley of the Kings, Hatshepsut, Deir el-Medina Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 8,
+        title: "Day 8: Board Nile Cruise",
+        description: "Sail toward Edfu.",
+        activities: [
+          {
+            title: "Board Nile Cruise Highlights",
+            description: "Sail toward Edfu.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 9,
+        title: "Day 9: Edfu Temple, Kom Ombo",
+        description: "Sail to Aswan.",
+        activities: [
+          {
+            title: "Edfu Temple, Kom Ombo Highlights",
+            description: "Sail to Aswan.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 10,
+        title: "Day 10: Philae Temple, High Dam, Nubian Village",
+        description: "Overnight onboard.",
+        activities: [
+          {
+            title: "Philae Temple, High Dam, Nubian Village Highlights",
+            description: "Overnight onboard.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 11,
+        title: "Day 11: Abu Simbel excursion",
+        description: "Fly to Cairo. Overnight Cairo.",
+        activities: [
+          {
+            title: "Abu Simbel excursion Highlights",
+            description: "Fly to Cairo. Overnight Cairo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 12,
+        title: "Day 12: Fly to Hurghada or Sharm El Sheikh",
+        description: "Beach resort. Overnight.",
+        activities: [
+          {
+            title: "Fly to Hurghada or Sharm El Sheikh Highlights",
+            description: "Beach resort. Overnight.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 13,
+        title: "Day 13: Free leisure day — snorkeling, diving, spa, or desert safari",
+        description: "",
+        activities: [
+          {
+            title: "Free leisure day — snorkeling, diving, spa, or desert safari Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 14,
+        title: "Day 14: Transfer to airport",
+        description: "Departure.",
+        activities: [
+          {
+            title: "Transfer to airport Highlights",
+            description: "Departure.",
+            icon: "transfer"
+          }
+        ]
       }
-],
-    highlights: ["Petra Treasury","Siq canyon","rose-red rock city","Jordan border."],
+    ],
+    inclusions: [
+      "Hotel accommodation",
+      "full-board Nile cruise",
+      "domestic flights",
+      "private guide",
+      "daily breakfast",
+      "entrance fees",
+      "all transfers."
+    ]
   },
   {
-    id: 'snorkeling-dolphin-watching-in-marsa-alam',
-    title: 'Snorkeling & Dolphin Watching in Marsa Alam',
-    description: 'Marsa Alam is one of the world\'s top diving and snorkeling destinations, famous for its dugongs, dolphins, and pristine reefs. Join a guided boat trip to the most spectacular reef sites and swim alongside some of the sea\'s most extraordinary creatures.',
-    price: 50,
-    duration: '1 Day',
-    location: 'Marsa Alam',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.6,
-    reviewsCount: 116,
+    id: "15-days-marvelous-egypt-tour-package",
+    title: "Best of Egypt Private Tour",
+    description: "The grand Egypt experience — fifteen days of pure wonder across every corner of this extraordinary country. From the pyramids of Giza and the temples of Luxor to the Red Sea coast and the Western Desert, this tour is for the adventurous traveler who refuses to miss a single thing.",
+    price: 1930,
+    duration: "15 Days / 14 Nights",
+    location: "Cairo, Giza, Luxor, Western Desert",
+    category: "cultural",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200",
+    rating: 4.5,
+    reviewsCount: 210,
     itinerary: [
       {
-            "day": 1,
-            "title": "Itinerary: Snorkeling & Dolphin Watching in Marsa Alam",
-            "description": "Marsa Alam is one of the world's top diving and snorkeling destinations, famous for its dugongs, dolphins, and pristine reefs. Join a guided boat trip to the most spectacular reef sites and swim alongside some of the sea's most extraordinary creatures.",
-            "activities": [
-                  {
-                        "title": "Snorkeling & Dolphin Watching in Marsa Alam Main Excursion",
-                        "description": "Marsa Alam is one of the world's top diving and snorkeling destinations, famous for its dugongs, dolphins, and pristine reefs. Join a guided boat trip to the most spectacular reef sites and swim alongside some of the sea's most extraordinary creatures.",
-                        "icon": "tour"
-                  }
-            ]
+        day: 1,
+        title: "Day 1: Arrive Cairo",
+        description: "Welcome transfer.",
+        activities: [
+          {
+            title: "Arrive Cairo Highlights",
+            description: "Welcome transfer.",
+            icon: "transfer"
+          }
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: Giza Pyramids, Sphinx, Valley Temple, Solar Boat Museum",
+        description: "",
+        activities: [
+          {
+            title: "Giza Pyramids, Sphinx, Valley Temple, Solar Boat Museum Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 3,
+        title: "Day 3: Egyptian Museum, Coptic Cairo, Islamic Cairo, Khan El Khalili",
+        description: "",
+        activities: [
+          {
+            title: "Egyptian Museum, Coptic Cairo, Islamic Cairo, Khan El Khalili Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 4,
+        title: "Day 4: Saqqara, Memphis, Dahshur Pyramids",
+        description: "",
+        activities: [
+          {
+            title: "Saqqara, Memphis, Dahshur Pyramids Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 5,
+        title: "Day 5: Day trip to Alexandria — Library, Citadel, Roman ruins",
+        description: "",
+        activities: [
+          {
+            title: "Day trip to Alexandria — Library, Citadel, Roman ruins Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 6,
+        title: "Day 6: Fly to Luxor",
+        description: "Karnak Temple, Luxor Temple.",
+        activities: [
+          {
+            title: "Fly to Luxor Highlights",
+            description: "Karnak Temple, Luxor Temple.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 7,
+        title: "Day 7: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon",
+        description: "",
+        activities: [
+          {
+            title: "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 8,
+        title: "Day 8: Board Nile Cruise",
+        description: "Edfu Temple. Sail to Kom Ombo.",
+        activities: [
+          {
+            title: "Board Nile Cruise Highlights",
+            description: "Edfu Temple. Sail to Kom Ombo.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 9,
+        title: "Day 9: Kom Ombo Temple",
+        description: "Sail to Aswan. Philae Temple.",
+        activities: [
+          {
+            title: "Kom Ombo Temple Highlights",
+            description: "Sail to Aswan. Philae Temple.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 10,
+        title: "Day 10: Abu Simbel full excursion",
+        description: "Nubian Village. Overnight Aswan.",
+        activities: [
+          {
+            title: "Abu Simbel full excursion Highlights",
+            description: "Nubian Village. Overnight Aswan.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 11,
+        title: "Day 11: Fly to Cairo",
+        description: "Optional bazaar visit.",
+        activities: [
+          {
+            title: "Fly to Cairo Highlights",
+            description: "Optional bazaar visit.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 12,
+        title: "Day 12: Drive to Bahariya Oasis / Western Desert Safari",
+        description: "Overnight desert camp.",
+        activities: [
+          {
+            title: "Drive to Bahariya Oasis / Western Desert Safari Highlights",
+            description: "Overnight desert camp.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 13,
+        title: "Day 13: Return to Cairo",
+        description: "Fly to Hurghada or Sharm.",
+        activities: [
+          {
+            title: "Return to Cairo Highlights",
+            description: "Fly to Hurghada or Sharm.",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 14,
+        title: "Day 14: Red Sea leisure — snorkeling, beach, optional diving or hike",
+        description: "",
+        activities: [
+          {
+            title: "Red Sea leisure — snorkeling, beach, optional diving or hike Highlights",
+            description: "",
+            icon: "tour"
+          }
+        ]
+      },
+      {
+        day: 15,
+        title: "Day 15: Transfer to airport",
+        description: "Departure.",
+        activities: [
+          {
+            title: "Transfer to airport Highlights",
+            description: "Departure.",
+            icon: "transfer"
+          }
+        ]
       }
-],
-    highlights: ["Dolphin Bay","dugong spots","coral reef snorkeling","boat trip."],
-  },
-  {
-    id: 'tour-to-cairo-luxor-abu-simbel-from-el-gouna',
-    title: 'Tour to Cairo, Luxor & Abu Simbel from El Gouna',
-    description: 'Leave El Gouna\'s beautiful lagoons for an immersive multi-day private tour covering Egypt\'s greatest monuments. Fly to Cairo for the Pyramids and Egyptian Museum, then travel to Luxor and Abu Simbel before returning to your resort refreshed and enriched.',
-    price: 450,
-    duration: 'Multi-day',
-    location: 'Cairo, Luxor, Abu Simbel, El Gouna',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 132,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Itinerary: Tour to Cairo, Luxor & Abu Simbel from El Gouna",
-            "description": "Leave El Gouna's beautiful lagoons for an immersive multi-day private tour covering Egypt's greatest monuments. Fly to Cairo for the Pyramids and Egyptian Museum, then travel to Luxor and Abu Simbel before returning to your resort refreshed and enriched.",
-            "activities": [
-                  {
-                        "title": "Tour to Cairo, Luxor & Abu Simbel from El Gouna Main Excursion",
-                        "description": "Leave El Gouna's beautiful lagoons for an immersive multi-day private tour covering Egypt's greatest monuments. Fly to Cairo for the Pyramids and Egyptian Museum, then travel to Luxor and Abu Simbel before returning to your resort refreshed and enriched.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Pyramids","Egyptian Museum","Karnak","Valley of the Kings","Abu Simbel."],
-  },
-  {
-    id: 'el-gouna-desert-safari-quad-biking',
-    title: 'El Gouna Desert Safari & Quad Biking',
-    description: 'Jump on a quad bike and explore the stunning Eastern Desert landscape surrounding El Gouna. Ride through dramatic desert terrain, visit a Bedouin camp, enjoy traditional tea, and witness a breathtaking desert sunset — all within easy reach of your resort.',
-    price: 40,
-    duration: 'Half Day',
-    location: 'El Gouna, Western Desert',
-    category: 'adventure',
-    image: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.7,
-    reviewsCount: 18,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Itinerary: El Gouna Desert Safari & Quad Biking",
-            "description": "Jump on a quad bike and explore the stunning Eastern Desert landscape surrounding El Gouna. Ride through dramatic desert terrain, visit a Bedouin camp, enjoy traditional tea, and witness a breathtaking desert sunset — all within easy reach of your resort.",
-            "activities": [
-                  {
-                        "title": "El Gouna Desert Safari & Quad Biking Main Excursion",
-                        "description": "Jump on a quad bike and explore the stunning Eastern Desert landscape surrounding El Gouna. Ride through dramatic desert terrain, visit a Bedouin camp, enjoy traditional tea, and witness a breathtaking desert sunset — all within easy reach of your resort.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    highlights: ["Quad biking","Eastern Desert","Bedouin camp","sunset."],
-  },
-  {
-    id: '4-days-3-nights-nile-cruise-aswan-to-luxor',
-    title: '4 Days / 3 Nights Nile Cruise (Aswan to Luxor)',
-    description: 'Sail northward from Aswan to Luxor aboard a comfortable 5-star Nile cruise ship, visiting the most spectacular temples of Upper Egypt along the way. Begin at the Philae Temple in Aswan, sail past the unique double-deity temple of Kom Ombo, visit the perfectly preserved Edfu Temple, and culminate your journey in the ancient city of Luxor for the Valley of the Kings and Karnak Temple.',
-    price: 550,
-    duration: '4 Days / 3 Nights',
-    location: 'Luxor, Aswan, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 52,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Embark in Aswan",
-            "description": "Philae Temple visit. Welcome dinner onboard. Sail overnight toward Kom Ombo.",
-            "activities": [
-                  {
-                        "title": "Embark in Aswan Highlights",
-                        "description": "Philae Temple visit. Welcome dinner onboard. Sail overnight toward Kom Ombo.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Kom Ombo Temple (dedicated to Sobek & Haroeris)",
-            "description": "Sail to Edfu. Edfu Temple (dedicated to Horus). Sail overnight toward Luxor.",
-            "activities": [
-                  {
-                        "title": "Kom Ombo Temple (dedicated to Sobek & Haroeris) Highlights",
-                        "description": "Sail to Edfu. Edfu Temple (dedicated to Horus). Sail overnight toward Luxor.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Arrive Luxor",
-            "description": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon (West Bank). Karnak Temple, Luxor Temple (East Bank).",
-            "activities": [
-                  {
-                        "title": "Arrive Luxor Highlights",
-                        "description": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon (West Bank). Karnak Temple, Luxor Temple (East Bank).",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Disembark Luxor",
-            "description": "Transfer to Luxor Airport or hotel.",
-            "activities": [
-                  {
-                        "title": "Disembark Luxor Highlights",
-                        "description": "Transfer to Luxor Airport or hotel.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    inclusions: ["Includes: Full-board accommodation onboard","private Egyptologist guide","all entrance fees","all onboard meals (breakfast","lunch","dinner)","transfers."],
-  },
-  {
-    id: '5-days-4-nights-nile-cruise-luxor-to-aswan',
-    title: '5 Days / 4 Nights Nile Cruise (Luxor to Aswan)',
-    description: 'Sail southward from Luxor to Aswan on a luxurious 5-star Nile cruise, exploring the grandest temples of ancient Egypt at every stop. Start with the awe-inspiring Karnak Temple complex and the legendary Valley of the Kings, then glide down the Nile stopping at Edfu, Kom Ombo, and culminating in the Nubian city of Aswan and the island temple of Philae.',
-    price: 670,
-    duration: '5 Days / 4 Nights',
-    location: 'Luxor, Aswan, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.8,
-    reviewsCount: 200,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Embark Luxor",
-            "description": "Karnak Temple, Luxor Temple. Sail overnight.",
-            "activities": [
-                  {
-                        "title": "Embark Luxor Highlights",
-                        "description": "Karnak Temple, Luxor Temple. Sail overnight.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon",
-            "description": "Sail toward Edfu. Overnight onboard.",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon Highlights",
-                        "description": "Sail toward Edfu. Overnight onboard.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Edfu Temple (Horus)",
-            "description": "Kom Ombo Temple (Sobek). Sail to Aswan. Overnight onboard.",
-            "activities": [
-                  {
-                        "title": "Edfu Temple (Horus) Highlights",
-                        "description": "Kom Ombo Temple (Sobek). Sail to Aswan. Overnight onboard.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Philae Temple, Aswan High Dam, Unfinished Obelisk",
-            "description": "Nubian Village visit. Overnight onboard in Aswan.",
-            "activities": [
-                  {
-                        "title": "Philae Temple, Aswan High Dam, Unfinished Obelisk Highlights",
-                        "description": "Nubian Village visit. Overnight onboard in Aswan.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Disembark Aswan",
-            "description": "Transfer to airport or hotel.",
-            "activities": [
-                  {
-                        "title": "Disembark Aswan Highlights",
-                        "description": "Transfer to airport or hotel.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    inclusions: ["Includes: Full-board onboard accommodation","private guide","all entrance fees","all meals","transfers."],
-  },
-  {
-    id: '5-days-4-nights-nile-cruise-luxor-to-aswan-abu-simbel',
-    title: '5 Days / 4 Nights Nile Cruise (Luxor to Aswan + Abu Simbel)',
-    description: 'The most complete Nile cruise experience — combining the classic Luxor-to-Aswan sailing with an excursion to the legendary Abu Simbel temples. This cruise covers every major monument of Upper Egypt in five unforgettable days aboard a comfortable 5-star ship.',
-    price: 700,
-    duration: '5 Days / 4 Nights',
-    location: 'Luxor, Aswan, Abu Simbel, Nile River',
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200',
-    rating: 4.9,
-    reviewsCount: 209,
-    itinerary: [
-      {
-            "day": 1,
-            "title": "Day 1: Embark Luxor",
-            "description": "Karnak Temple, Luxor Temple. Sail overnight.",
-            "activities": [
-                  {
-                        "title": "Embark Luxor Highlights",
-                        "description": "Karnak Temple, Luxor Temple. Sail overnight.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 2,
-            "title": "Day 2: Valley of the Kings, Hatshepsut Temple, Colossi of Memnon",
-            "description": "Sail toward Edfu. Overnight onboard.",
-            "activities": [
-                  {
-                        "title": "Valley of the Kings, Hatshepsut Temple, Colossi of Memnon Highlights",
-                        "description": "Sail toward Edfu. Overnight onboard.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 3,
-            "title": "Day 3: Edfu Temple, Kom Ombo Temple",
-            "description": "Sail to Aswan. Overnight onboard.",
-            "activities": [
-                  {
-                        "title": "Edfu Temple, Kom Ombo Temple Highlights",
-                        "description": "Sail to Aswan. Overnight onboard.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 4,
-            "title": "Day 4: Early morning excursion to Abu Simbel temples",
-            "description": "Afternoon: Philae Temple, Aswan High Dam. Overnight onboard.",
-            "activities": [
-                  {
-                        "title": "Early morning excursion to Abu Simbel temples Highlights",
-                        "description": "Afternoon: Philae Temple, Aswan High Dam. Overnight onboard.",
-                        "icon": "tour"
-                  }
-            ]
-      },
-      {
-            "day": 5,
-            "title": "Day 5: Disembark Aswan",
-            "description": "Transfer to airport or hotel.",
-            "activities": [
-                  {
-                        "title": "Disembark Aswan Highlights",
-                        "description": "Transfer to airport or hotel.",
-                        "icon": "tour"
-                  }
-            ]
-      }
-],
-    inclusions: ["Includes: Full-board onboard accommodation","private guide","Abu Simbel excursion","all entrance fees","all meals","transfers."],
-  },
+    ],
+    inclusions: [
+      "Hotels + desert camp + full-board Nile cruise",
+      "domestic flights",
+      "private Egyptologist guide",
+      "daily breakfast",
+      "entrance fees",
+      "all transfers."
+    ]
+  }
 ];
 
 export const SAMPLE_BLOG_POSTS: BlogPost[] = [
   {
-    id: '1',
-    title: 'Decoding the Book of the Dead',
-    excerpt: 'Understanding the journey through the Duat and the weighing of the heart.',
-    content: '...',
-    author: 'Dr. Sarah Amin',
-    date: '2024-03-15',
-    image: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200',
-    tags: ['History', 'Spirituality']
+    id: "1",
+    title: "Decoding the Book of the Dead",
+    excerpt: "Understanding the journey through the Duat and the weighing of the heart.",
+    content: "...",
+    author: "Dr. Sarah Amin",
+    date: "2024-03-15",
+    image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200",
+    tags: [
+      "History",
+      "Spirituality"
+    ]
   },
   {
-    id: '2',
-    title: '5 Tips for Sustainable Travel in Egypt',
-    excerpt: 'How to respect local customs and minimize your footprint.',
-    content: '...',
-    author: 'Ahmed Hassan',
-    date: '2024-03-10',
-    image: 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200',
-    tags: ['Tips', 'Sustainability']
+    id: "2",
+    title: "5 Tips for Sustainable Travel in Egypt",
+    excerpt: "How to respect local customs and minimize your footprint.",
+    content: "...",
+    author: "Ahmed Hassan",
+    date: "2024-03-10",
+    image: "https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200",
+    tags: [
+      "Tips",
+      "Sustainability"
+    ]
   }
 ];
