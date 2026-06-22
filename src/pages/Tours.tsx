@@ -116,18 +116,44 @@ const Tours = () => {
   }, [regionFilteredTours, currentPage]);
 
   return (
-    <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+    <div className="overflow-hidden bg-egypt-night min-h-screen">
       <SEO 
         title="Bespoke Egyptian Tours" 
         description="Browse our curated historical and cultural expeditions across Cairo, Luxor, and Aswan."
       />
-      <header className="mb-16">
 
-        <span className="text-label mb-4 block">Our Expeditions</span>
-        <h1 className="text-5xl md:text-7xl font-serif uppercase mb-6">Discover the <span className="text-egypt-gold">Unseen</span></h1>
-        
-        {/* Search & Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-6 mt-12 bg-egypt-basalt p-4 rounded-[30px] border border-white/5 glass">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] min-h-[400px] flex items-center pt-20 px-6">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/hero.jpg?v=2" 
+            alt="Travision Tours Group at Pyramids of Giza"
+            className="w-full h-full object-cover opacity-100"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-egypt-night/20 via-egypt-night/60 to-egypt-night" />
+        </div>
+
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="text-label mb-4 block">Our Expeditions</span>
+            <h1 className="text-5xl md:text-7xl font-serif uppercase text-white leading-tight">
+              Discover the <span className="text-egypt-gold italic font-light">Unseen</span>
+            </h1>
+            <p className="text-egypt-papyrus/70 text-sm md:text-base font-light max-w-xl mt-4 leading-relaxed">
+              Browse our curated historical and cultural expeditions across Cairo, Luxor, and Aswan.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-6 pb-20 mt-12">
+        <header className="mb-16">
+          {/* Search & Filter Bar */}
+          <div className="flex flex-col md:flex-row gap-6 mt-12 bg-egypt-basalt p-4 rounded-[30px] border border-white/5 glass">
           <div className="flex-grow relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-egypt-gold/50" size={20} />
             <input 
@@ -550,6 +576,7 @@ const Tours = () => {
           </button>
         </div>
       )}
+      </div>
     </div>
   );
 };
