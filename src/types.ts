@@ -12,13 +12,16 @@ export interface Tour {
   location: string;
   category: 'historical' | 'cultural' | 'adventure' | 'spiritual';
   image: string;
-  itinerary: ItineraryItem[];
+  itinerary?: ItineraryItem[];
   rating: number;
   reviewsCount: number;
   featured?: boolean;
   highlights?: string[];
   inclusions?: string[];
   exclusions?: string[];
+  mapUrl?: string;
+  gallery?: string[];
+  reviewsList?: { author: string; text: string; rating: number; date: string }[];
 }
 
 export interface ItineraryActivity {

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Search, Phone, Mail, ChevronDown, Globe } from 'lucide-react';
 import { SAMPLE_TOURS } from '../constants';
+import { DAY_TOURS } from '../dayTours';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,12 +20,9 @@ const Navbar = () => {
   }, []);
 
   // Categorize tours for dropdowns
-  const dayTours = SAMPLE_TOURS.filter(t => t.duration === '1 Day' || t.title.toLowerCase().includes('day trip') || t.title.toLowerCase().includes('day tour') || t.title.toLowerCase().includes('days trip') || t.title.toLowerCase().includes('days tour') || t.title.toLowerCase().includes('overnight trip'));
+  const dayTours = DAY_TOURS;
   const nileCruises = SAMPLE_TOURS.filter(t => t.title.toLowerCase().includes('cruise'));
-  const travelPackages = SAMPLE_TOURS.filter(t => {
-    const isDayTourItem = t.duration === '1 Day' || t.title.toLowerCase().includes('day trip') || t.title.toLowerCase().includes('day tour') || t.title.toLowerCase().includes('days trip') || t.title.toLowerCase().includes('days tour') || t.title.toLowerCase().includes('overnight trip');
-    return !isDayTourItem && !t.title.toLowerCase().includes('cruise');
-  }).slice(0, 8);
+  const travelPackages = SAMPLE_TOURS.filter(t => t.duration !== '1 Day' && !t.title.toLowerCase().includes('day trip') && !t.title.toLowerCase().includes('day tour'));
 
   const renderDropdown = (category: string, tours: typeof SAMPLE_TOURS) => {
     return (
@@ -114,45 +112,24 @@ const Navbar = () => {
               Home
             </Link>
 
-            <div 
-              className="relative h-full flex items-center py-2 cursor-pointer group"
-              onMouseEnter={() => setActiveDropdown('packages')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <Link to="/tours?type=packages" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 group-hover:text-egypt-gold transition-colors flex items-center gap-1">
-                Travel Packages <ChevronDown size={12} />
-              </Link>
-              {renderDropdown('packages', travelPackages)}
-            </div>
+            <Link to="/tours?type=packages" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
+              Travel Packages
+            </Link>
 
-            <div 
-              className="relative h-full flex items-center py-2 cursor-pointer group"
-              onMouseEnter={() => setActiveDropdown('daytours')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <Link to="/tours?type=daytours" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 group-hover:text-egypt-gold transition-colors flex items-center gap-1">
-                Day Tours <ChevronDown size={12} />
-              </Link>
-              {renderDropdown('daytours', dayTours)}
-            </div>
+            <Link to="/tours?type=daytours" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
+              Day Tours
+            </Link>
 
-            <div 
-              className="relative h-full flex items-center py-2 cursor-pointer group"
-              onMouseEnter={() => setActiveDropdown('cruises')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <Link to="/tours?type=cruises" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 group-hover:text-egypt-gold transition-colors flex items-center gap-1">
-                Nile Cruises <ChevronDown size={12} />
-              </Link>
-              {renderDropdown('cruises', nileCruises)}
-            </div>
+            <Link to="/tours?type=cruises" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
+              Nile Cruises
+            </Link>
 
-            <Link to="/tours" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
+            <Link to="/tours?type=shore" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
               Shore Excursions
             </Link>
 
             <Link to="/blog" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
-              Reviews
+              Blog
             </Link>
           </div>
 
@@ -199,56 +176,12 @@ const Navbar = () => {
             <div className="p-4 flex flex-col gap-2">
               <Link to="/" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Home</Link>
               
-              <div className="px-4 py-3 border-b border-white/10">
-                <div className="flex justify-between items-center text-xs tracking-widest uppercase font-bold text-egypt-papyrus hover:text-egypt-gold cursor-pointer" onClick={() => setActiveDropdown(activeDropdown === 'm-packages' ? null : 'm-packages')}>
-                  <Link to="/tours?type=packages" onClick={() => setIsOpen(false)}>Travel Packages</Link>
-                  <ChevronDown size={14} className={activeDropdown === 'm-packages' ? 'rotate-180 transform' : ''} />
-                </div>
-                <AnimatePresence>
-                {activeDropdown === 'm-packages' && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="mt-2 pl-4 flex flex-col gap-2 border-l border-egypt-gold/50 overflow-hidden">
-                    {travelPackages.map(tour => (
-                      <Link key={tour.id} to={`/tours/${tour.id}`} onClick={() => setIsOpen(false)} className="text-sm font-medium text-egypt-papyrus/80 hover:text-egypt-gold py-1">{tour.title}</Link>
-                    ))}
-                  </motion.div>
-                )}
-                </AnimatePresence>
-              </div>
+              <Link to="/tours?type=packages" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Travel Packages</Link>
+              <Link to="/tours?type=daytours" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Day Tours</Link>
+              <Link to="/tours?type=cruises" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Nile Cruises</Link>
 
-              <div className="px-4 py-3 border-b border-white/10">
-                <div className="flex justify-between items-center text-xs tracking-widest uppercase font-bold text-egypt-papyrus hover:text-egypt-gold cursor-pointer" onClick={() => setActiveDropdown(activeDropdown === 'm-daytours' ? null : 'm-daytours')}>
-                  <Link to="/tours?type=daytours" onClick={() => setIsOpen(false)}>Day Tours</Link>
-                  <ChevronDown size={14} className={activeDropdown === 'm-daytours' ? 'rotate-180 transform' : ''} />
-                </div>
-                <AnimatePresence>
-                {activeDropdown === 'm-daytours' && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="mt-2 pl-4 flex flex-col gap-2 border-l border-egypt-gold/50 overflow-hidden">
-                    {dayTours.map(tour => (
-                      <Link key={tour.id} to={`/tours/${tour.id}`} onClick={() => setIsOpen(false)} className="text-sm font-medium text-egypt-papyrus/80 hover:text-egypt-gold py-1">{tour.title}</Link>
-                    ))}
-                  </motion.div>
-                )}
-                </AnimatePresence>
-              </div>
-
-              <div className="px-4 py-3 border-b border-white/10">
-                <div className="flex justify-between items-center text-xs tracking-widest uppercase font-bold text-egypt-papyrus hover:text-egypt-gold cursor-pointer" onClick={() => setActiveDropdown(activeDropdown === 'm-cruises' ? null : 'm-cruises')}>
-                  <Link to="/tours?type=cruises" onClick={() => setIsOpen(false)}>Nile Cruises</Link>
-                  <ChevronDown size={14} className={activeDropdown === 'm-cruises' ? 'rotate-180 transform' : ''} />
-                </div>
-                <AnimatePresence>
-                {activeDropdown === 'm-cruises' && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="mt-2 pl-4 flex flex-col gap-2 border-l border-egypt-gold/50 overflow-hidden">
-                    {nileCruises.map(tour => (
-                      <Link key={tour.id} to={`/tours/${tour.id}`} onClick={() => setIsOpen(false)} className="text-sm font-medium text-egypt-papyrus/80 hover:text-egypt-gold py-1">{tour.title}</Link>
-                    ))}
-                  </motion.div>
-                )}
-                </AnimatePresence>
-              </div>
-
-              <Link to="/tours" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Shore Excursions</Link>
-              <Link to="/blog" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Reviews</Link>
+              <Link to="/tours?type=shore" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Shore Excursions</Link>
+              <Link to="/blog" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Blog</Link>
               
               <Link to="/planner" onClick={() => setIsOpen(false)} className="mt-6 bg-egypt-gold text-egypt-night px-6 py-4 rounded text-center text-xs font-black uppercase tracking-widest hover:bg-white transition-colors">
                 Tailor-Made Tour

@@ -5,6 +5,7 @@ import { ItineraryItem } from '../types';
 interface Props {
   item: ItineraryItem;
   defaultOpen?: boolean;
+  noAccordion?: boolean;
 }
 
 const getActivityIcon = (iconName?: string) => {
@@ -14,11 +15,11 @@ const getActivityIcon = (iconName?: string) => {
     case 'flight': return <Plane size={20} />;
     case 'transfer': return <Car size={20} />;
     case 'tour': return <MapPin size={20} />;
-    default: return <CheckCircle2 size={20} />;
+    default: return <MapPin size={20} />;
   }
 };
 
-const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false }) => {
+const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false, noAccordion = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const words = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty', 'Twenty-One'];
@@ -26,21 +27,27 @@ const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false }) => {
   const headerTitle = item.title || `Day ${dayStr}: ${item.activity}`;
 
   return (
-    <div className="mb-4 bg-egypt-basalt/40 backdrop-blur-sm border border-egypt-gold/20 shadow-xl overflow-hidden group">
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex justify-between items-center p-5 transition-all duration-300 ${
-          isOpen ? 'bg-egypt-gold/10' : 'hover:bg-egypt-gold/5'
-        }`}
-      >
-        <span className="text-[17px] font-serif tracking-wide text-egypt-gold uppercase">{headerTitle}</span>
-        <ChevronDown 
-          size={20} 
-          className={`text-egypt-gold transform transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} 
-        />
-      </button>
+    <div className="mb-4 bg-egypt-basalt/40 backdrop-blur-sm border border-egypt-gold/20 shadow-xl overflow-hidden group rounded-[20px]">
+      {noAccordion ? (
+        <div className="w-full p-5 bg-egypt-gold/10 border-b border-egypt-gold/10 flex justify-between items-center">
+          <span className="text-[17px] font-serif tracking-wide text-egypt-gold uppercase">{headerTitle}</span>
+        </div>
+      ) : (
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-full flex justify-between items-center p-5 transition-all duration-300 ${
+            isOpen ? 'bg-egypt-gold/10' : 'hover:bg-egypt-gold/5'
+          }`}
+        >
+          <span className="text-[17px] font-serif tracking-wide text-egypt-gold uppercase">{headerTitle}</span>
+          <ChevronDown 
+            size={20} 
+            className={`text-egypt-gold transform transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} 
+          />
+        </button>
+      )}
       
-      {isOpen && (
+      {(noAccordion || isOpen) && (
         <div className="mt-0 p-0 overflow-hidden border-t border-egypt-gold/10">
           {item.image && (
             <div className="w-full h-[300px] relative overflow-hidden">
@@ -63,11 +70,7 @@ const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false }) => {
                 {item.activities.map((act, idx) => (
                   <div key={idx} className="relative group/item">
                     <div className="absolute -left-[56px] top-0 w-11 h-11 rounded-full bg-egypt-night border border-egypt-gold/30 flex items-center justify-center text-egypt-gold z-10 shadow-lg group-hover/item:border-egypt-gold transition-colors duration-300">
-                      {act.icon === 'dinner' ? <Utensils size={20} /> :
-                       act.icon === 'overnight' ? <Bed size={20} /> :
-                       act.icon === 'flight' ? <Plane size={20} /> :
-                       act.icon === 'transfer' ? <Car size={20} /> :
-                       <MapPin size={20} />}
+                      {getActivityIcon(act.icon)}
                     </div>
                     <div>
                       <h5 className="font-serif text-[18px] text-white tracking-wide mb-2 group-hover/item:text-egypt-gold transition-colors duration-300">{act.title}</h5>
@@ -102,7 +105,7 @@ const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false }) => {
             )}
 
             {item.historicalSignificance && (
-               <div className="mt-10 bg-egypt-gold/5 p-6 border-l-2 border-egypt-gold relative overflow-hidden">
+               <div className="mt-10 bg-egypt-gold/5 p-6 border-l-2 border-egypt-gold relative overflow-hidden rounded-r-xl">
                   <div className="absolute top-0 right-0 p-2 opacity-10">
                     <MapPin size={40} className="text-egypt-gold" />
                   </div>
@@ -114,7 +117,6 @@ const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false }) => {
         </div>
       )}
     </div>
-
   );
 };
 

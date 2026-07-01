@@ -77,7 +77,7 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {SAMPLE_TOURS.slice(0, 3).map((tour, idx) => (
+          {SAMPLE_TOURS.filter(t => t.duration !== '1 Day' && !t.title.toLowerCase().includes('day trip') && !t.title.toLowerCase().includes('day tour')).slice(0, 3).map((tour, idx) => (
             <motion.div
               key={tour.id}
               initial={{ opacity: 0, y: 40 }}
