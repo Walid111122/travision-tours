@@ -4,13 +4,38 @@ import { ArrowRight, Star, MapPin, Calendar, Users, ShieldCheck } from 'lucide-r
 import { Link } from 'react-router-dom';
 import { SAMPLE_TOURS } from '../constants';
 import SEO from '../components/SEO';
+import { CONTACT_EMAIL, CONTACT_PHONE, DEFAULT_SOCIAL_IMAGE, SITE_URL } from '../config/site';
 
 const Home = () => {
   return (
     <div className="overflow-hidden">
       <SEO 
-        title="Experience Ancient Egypt" 
+        title="Private Egypt Tours & Tailor-Made Holidays"
         description="Premium, history-focused tours in Egypt. Discover the Giza Pyramids, Luxor, and Aswan with expert Egyptologists."
+        canonical="/"
+        image={DEFAULT_SOCIAL_IMAGE}
+        imageAlt="Travision Tours guests at the Pyramids of Giza"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'TravelAgency',
+          '@id': `${SITE_URL}/#organization`,
+          name: 'Travision Tours',
+          url: SITE_URL,
+          logo: `${SITE_URL}/favicon.svg`,
+          image: DEFAULT_SOCIAL_IMAGE,
+          description: 'Private Egypt tours, day trips, Nile cruises, and tailor-made holidays with expert Egyptologists.',
+          telephone: CONTACT_PHONE,
+          email: CONTACT_EMAIL,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Cairo',
+            addressCountry: 'EG'
+          },
+          areaServed: {
+            '@type': 'Country',
+            name: 'Egypt'
+          }
+        }}
       />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-32 md:pt-40 px-6">

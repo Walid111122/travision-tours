@@ -3,19 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Tours from './pages/Tours';
-import TourDetails from './pages/TourDetails';
-import Blog from './pages/Blog';
-import ItineraryBuilder from './pages/ItineraryBuilder';
-import Profile from './pages/Profile';
 
-import Guidelines from './pages/Guidelines';
+const Home = lazy(() => import('./pages/Home'));
+const Tours = lazy(() => import('./pages/Tours'));
+const TourDetails = lazy(() => import('./pages/TourDetails'));
+const Blog = lazy(() => import('./pages/Blog'));
+const ItineraryBuilder = lazy(() => import('./pages/ItineraryBuilder'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Guidelines = lazy(() => import('./pages/Guidelines'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
   return (
@@ -24,15 +25,18 @@ export default function App() {
         <div className="min-h-screen flex flex-col bg-egypt-night">
           <Navbar />
           <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/tours" element={<Tours />} />
-              <Route path="/tours/:id" element={<TourDetails />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/planner" element={<ItineraryBuilder />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/guidelines" element={<Guidelines />} />
-            </Routes>
+            <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-egypt-gold">Loading journey…</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tours" element={<Tours />} />
+                <Route path="/tours/:id" element={<TourDetails />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/planner" element={<ItineraryBuilder />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/guidelines" element={<Guidelines />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </main>
           <Footer />
         </div>
@@ -40,4 +44,3 @@ export default function App() {
     </HelmetProvider>
   );
 }
-

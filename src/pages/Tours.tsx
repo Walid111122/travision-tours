@@ -186,6 +186,19 @@ const Tours = () => {
               ? "Discover the best sea trips, snorkeling, and diving excursions along the beautiful Red Sea coast." 
               : "Browse our curated historical and cultural expeditions across Cairo, Luxor, and Aswan."
         }
+        canonical={
+          isDayToursPage
+            ? '/tours?type=daytours'
+            : isShorePage
+              ? '/tours?type=shore'
+              : selectedType === 'cruises'
+                ? '/tours?type=cruises'
+                : selectedType === 'packages'
+                  ? '/tours?type=packages'
+                  : '/tours'
+        }
+        image="/hero.jpg"
+        imageAlt="Egypt tours at the Pyramids of Giza"
       />
 
       {/* Hero Section */}

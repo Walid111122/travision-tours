@@ -10,6 +10,8 @@ import {
 import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS } from '../dayTours';
 import ItineraryAccordion from '../components/ItineraryAccordion';
+import SEO from '../components/SEO';
+import { SITE_URL, absoluteUrl } from '../config/site';
 
 // Combined catalog: packages + day tours. Day tours take precedence on id clash.
 const ALL_TOURS = [...SAMPLE_TOURS, ...DAY_TOURS];
@@ -17,6 +19,10 @@ const TourDetails = () => {
   const { id } = useParams();
   const tour = ALL_TOURS.find(t => t.id === id);
   const [activeTab, setActiveTab] = useState<string>('itinerary');
+  const [requestState, setRequestState] = useState<{
+    status: 'idle' | 'submitting' | 'success' | 'error';
+    message?: string;
+  }>({ status: 'idle' });
 
   const relatedTours = React.useMemo(() => {
     return ALL_TOURS
@@ -44,10 +50,129 @@ const TourDetails = () => {
     ];
   }, [tour]);
 
+  const handleBookingRequest = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!tour) return;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setRequestState({ status: 'submitting' });
+
+    try {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tourId: tour.id,
+          tourTitle: tour.title,
+          name: data.get('name'),
+          email: data.get('email'),
+          phone: data.get('phone'),
+          country: data.get('country'),
+          preferredDate: data.get('date'),
+          travelers: Number(data.get('travelers')),
+          requirements: data.get('requirements'),
+          wireTransferAcknowledged: data.get('wireTransferAcknowledged') === 'on'
+        })
+      });
+
+      const payload: unknown = await response.json();
+      if (!response.ok) {
+        const message =
+          payload &&
+          typeof payload === 'object' &&
+          'error' in payload &&
+          payload.error &&
+          typeof payload.error === 'object' &&
+          'message' in payload.error &&
+          typeof payload.error.message === 'string'
+            ? payload.error.message
+            : 'Your request could not be submitted. Please try again.';
+        throw new Error(message);
+      }
+
+      const reference =
+        payload &&
+        typeof payload === 'object' &&
+        'booking' in payload &&
+        payload.booking &&
+        typeof payload.booking === 'object' &&
+        'reference' in payload.booking &&
+        typeof payload.booking.reference === 'string'
+          ? payload.booking.reference
+          : '';
+
+      form.reset();
+      setRequestState({
+        status: 'success',
+        message: `Request received${reference ? ` — reference ${reference}` : ''}. We will review availability and contact you with a quotation.`
+      });
+    } catch (error) {
+      setRequestState({
+        status: 'error',
+        message: error instanceof Error ? error.message : 'Your request could not be submitted.'
+      });
+    }
+  };
+
   if (!tour) return <div className="pt-40 text-center text-white">Journey not found.</div>;
 
   return (
     <div className="bg-egypt-night min-h-screen">
+      <SEO
+        title={`${tour.title} – From $${tour.price}`}
+        description={tour.description.slice(0, 155)}
+        canonical={`/tours/${tour.id}`}
+        type="product"
+        image={tour.gallery?.[0] || tour.image}
+        imageAlt={`${tour.title} in ${tour.location}, Egypt`}
+        structuredData={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            '@id': `${SITE_URL}/tours/${tour.id}#tour`,
+            name: tour.title,
+            description: tour.description,
+            image: (tour.gallery?.length ? tour.gallery : [tour.image]).map(absoluteUrl),
+            category: 'Egypt Tour',
+            brand: {
+              '@type': 'Brand',
+              name: 'Travision Tours'
+            },
+            offers: {
+              '@type': 'Offer',
+              url: `${SITE_URL}/tours/${tour.id}`,
+              priceCurrency: 'USD',
+              price: tour.price,
+              availability: 'https://schema.org/InStock'
+            }
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: SITE_URL
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Egypt Tours',
+                item: `${SITE_URL}/tours`
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: tour.title,
+                item: `${SITE_URL}/tours/${tour.id}`
+              }
+            ]
+          }
+        ]}
+      />
       <div className="pt-32 pb-8 px-6 max-w-[1400px] mx-auto">
         <Link to="/tours" className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-xs uppercase tracking-[2px] font-bold mb-6">
           <ArrowLeft size={16} />
@@ -154,9 +279,14 @@ const TourDetails = () => {
                   <div className="border border-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</div>
                   Help
                 </button>
-                <button className="flex-grow bg-[#c63d2e] text-white py-3 rounded font-bold text-[13px] tracking-wide hover:bg-red-800 transition-colors">
+                <a
+                  href={`https://wa.me/201004051515?text=${encodeURIComponent(`Hello, I am interested in ${tour.title}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-grow bg-[#c63d2e] text-white py-3 rounded font-bold text-[13px] tracking-wide hover:bg-red-800 transition-colors text-center"
+                >
                   Click to Whatsapp
-                </button>
+                </a>
               </div>
 
               <p className="text-center text-[11px] font-bold text-white pt-2">
@@ -179,36 +309,62 @@ const TourDetails = () => {
               </div>
             </div>
 
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleBookingRequest}>
               <div>
                 <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Full Name</label>
-                <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="John Doe" />
+                <input required name="name" autoComplete="name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="John Doe" />
               </div>
               <div>
                 <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Email Address</label>
-                <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="john@example.com" />
+                <input required name="email" autoComplete="email" type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="john@example.com" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Phone</label>
+                  <input name="phone" autoComplete="tel" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="+1 555 000 0000" />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Country</label>
+                  <input name="country" autoComplete="country-name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Country" />
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Date</label>
-                  <input type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                  <input required name="date" type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
                 </div>
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Travelers</label>
-                  <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white appearance-none">
+                  <select name="travelers" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white appearance-none">
                     {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map(n => <option key={n} value={n} className="bg-egypt-night text-white">{n} {n === 1 ? 'Person' : 'People'}</option>)}
                   </select>
                 </div>
               </div>
               <div>
                 <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Special Requirements</label>
-                <textarea className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white h-24 resize-none" placeholder="Any special requests?"></textarea>
+                <textarea name="requirements" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white h-24 resize-none" placeholder="Any special requests?"></textarea>
               </div>
+              <label className="flex items-start gap-3 text-[11px] leading-relaxed text-white/60">
+                <input required name="wireTransferAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
+                <span>
+                  I understand this is a booking request, not a confirmed reservation. If approved, payment instructions will be sent privately and payment will be made by bank wire transfer.
+                </span>
+              </label>
 
-              <button type="submit" className="w-full bg-egypt-gold text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
-                <span>Send Request</span>
+              <button disabled={requestState.status === 'submitting'} type="submit" className="w-full bg-egypt-gold disabled:opacity-50 disabled:cursor-wait text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
+                <span>{requestState.status === 'submitting' ? 'Sending…' : 'Send Request'}</span>
                 <ChevronRight size={16} />
               </button>
+              {requestState.status === 'success' && (
+                <p role="status" className="text-xs text-emerald-400 text-center leading-relaxed">
+                  {requestState.message}
+                </p>
+              )}
+              {requestState.status === 'error' && (
+                <p role="alert" className="text-xs text-red-400 text-center leading-relaxed">
+                  {requestState.message}
+                </p>
+              )}
             </form>
 
             <p className="text-center text-[10px] text-white/40 mt-6 flex items-center justify-center gap-2">

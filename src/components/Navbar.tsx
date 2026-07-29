@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Search, Phone, Mail, ChevronDown, Globe } from 'lucide-react';
-import { SAMPLE_TOURS } from '../constants';
-import { DAY_TOURS } from '../dayTours';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const location = useLocation();
-
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -18,41 +13,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Categorize tours for dropdowns
-  const dayTours = DAY_TOURS;
-  const nileCruises = SAMPLE_TOURS.filter(t => t.title.toLowerCase().includes('cruise'));
-  const travelPackages = SAMPLE_TOURS.filter(t => t.duration !== '1 Day' && !t.title.toLowerCase().includes('day trip') && !t.title.toLowerCase().includes('day tour'));
-
-  const renderDropdown = (category: string, tours: typeof SAMPLE_TOURS) => {
-    return (
-      <AnimatePresence>
-        {activeDropdown === category && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-[120%] left-0 w-[400px] bg-egypt-night/98 backdrop-blur-xl border-t-2 border-egypt-gold shadow-2xl p-4 z-50 rounded-b-lg border border-white/5"
-          >
-            <div className="grid grid-cols-1 gap-1">
-              {tours.map(tour => (
-                <Link
-                  key={tour.id}
-                  to={`/tours/${tour.id}`}
-                  className="px-4 py-3 hover:bg-white/5 text-egypt-papyrus font-medium text-sm tracking-wide border-b border-white/5 last:border-0 transition-colors flex items-center gap-3"
-                  onClick={() => setActiveDropdown(null)}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-egypt-gold shrink-0"></span>
-                  {tour.title}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    );
-  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-egypt-night/95 backdrop-blur-lg border-b border-white/5' : 'bg-transparent'}`}>
@@ -70,7 +30,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="flex items-center gap-6">
-            <Link to="/login" className="hover:text-egypt-gold transition-colors">Login</Link>
+            <Link to="/profile" className="hover:text-egypt-gold transition-colors">Profile</Link>
             <div className="flex items-center gap-1 cursor-pointer hover:text-egypt-gold transition-colors">
               Language: English <ChevronDown size={12} />
             </div>
@@ -141,9 +101,9 @@ const Navbar = () => {
                  <Globe size={20} />
                  <span className="text-[7px] font-black absolute bg-egypt-night px-1 -bottom-2 border border-egypt-gold/50 rounded">ISO</span>
                </div>
-               <button className="text-egypt-papyrus/80 hover:text-egypt-gold p-2 transition-colors">
+               <Link to="/tours" aria-label="Search tours" className="text-egypt-papyrus/80 hover:text-egypt-gold p-2 transition-colors">
                  <Search size={20} />
-               </button>
+               </Link>
             </div>
             
             <Link 

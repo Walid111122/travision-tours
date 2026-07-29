@@ -13,6 +13,7 @@ const Profile = () => {
       <SEO 
         title="Explorer Profile" 
         description="Manage your Egyptian journeys, saved itineraries, and historical achievements."
+        noIndex
       />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Sidebar / User Info */}

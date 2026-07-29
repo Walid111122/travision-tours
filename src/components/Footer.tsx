@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -13,17 +13,6 @@ const Footer = () => {
           <p className="text-egypt-papyrus/50 text-sm leading-relaxed max-w-xs font-light">
             Preserving the legacy of Ancient Egypt through immersive, historically-accurate tours that connect you to the soul of the Nile.
           </p>
-          <div className="flex gap-4">
-            {[Facebook, Instagram, Twitter].map((Icon, idx) => (
-              <a 
-                key={idx} 
-                href="#" 
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-egypt-papyrus/50 hover:border-egypt-gold hover:text-egypt-gold transition-all"
-              >
-                <Icon size={18} />
-              </a>
-            ))}
-          </div>
         </div>
 
         <div>
@@ -54,16 +43,16 @@ const Footer = () => {
             <li className="flex items-start gap-3">
               <MapPin size={18} className="text-egypt-gold shrink-0" />
               <span className="text-sm text-egypt-papyrus/60 font-light leading-snug">
-                12 Sharia El-Nil, Zamalek,<br />Cairo, Egypt
+                Cairo, Egypt
               </span>
             </li>
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-egypt-gold shrink-0" />
-              <span className="text-sm text-egypt-papyrus/60 font-light">+20 123 456 789</span>
+              <a href="tel:+201004051515" className="text-sm text-egypt-papyrus/60 font-light hover:text-egypt-gold">(+20) 100 405 1515</a>
             </li>
             <li className="flex items-center gap-3">
               <Mail size={18} className="text-egypt-gold shrink-0" />
-              <span className="text-sm text-egypt-papyrus/60 font-light">info@travisiontours.com</span>
+              <a href="mailto:info@travisiontours.com" className="text-sm text-egypt-papyrus/60 font-light hover:text-egypt-gold">info@travisiontours.com</a>
             </li>
           </ul>
         </div>
@@ -71,12 +60,11 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-6 mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 font-light">
-          © 2026 Travision Tours. Built for the preservation of Egyptian Culture.
+          © {new Date().getFullYear()} Travision Tours. Built for the preservation of Egyptian Culture.
         </p>
-        <div className="flex gap-8">
-          <a href="#" className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 hover:text-egypt-gold transition-colors">Privacy Policy</a>
-          <a href="#" className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 hover:text-egypt-gold transition-colors">Terms of Service</a>
-        </div>
+        <a href="mailto:info@travisiontours.com?subject=Privacy%20and%20terms%20request" className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 hover:text-egypt-gold transition-colors">
+          Privacy & terms
+        </a>
       </div>
     </footer>
   );
