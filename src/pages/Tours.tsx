@@ -5,6 +5,7 @@ import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS, POPULAR_DAY_TOURS, DAY_TOUR_DESTINATIONS } from '../dayTours';
 import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { getTourSummary } from '../utils/tourContent';
 
 const Tours = () => {
   const location = useLocation();
@@ -262,7 +263,7 @@ const Tours = () => {
               </p>
             </div>
 
-            {/* Awards & Recognitions Banner */}
+            {/* Day-tour planning banner */}
             <div className="mb-20 relative rounded-[40px] overflow-hidden border border-egypt-gold/20 shadow-[0_0_30px_rgba(207,174,125,0.08)]">
               <img
                 src="/hero.jpg?v=2"
@@ -270,22 +271,12 @@ const Tours = () => {
                 className="w-full h-[160px] md:h-[200px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-egypt-night via-egypt-night/80 to-egypt-night/40 flex items-center justify-between px-8 md:px-16">
-                <div className="font-serif">
-                  <p className="text-egypt-gold text-2xl md:text-4xl italic">Awards &</p>
-                  <p className="text-white text-2xl md:text-4xl italic font-bold">Recognitions</p>
-                </div>
-                <div className="flex items-center gap-4 md:gap-8">
-                  <div className="w-16 h-16 md:w-24 md:h-24 bg-egypt-gold/80 rounded-full border-2 border-white flex items-center justify-center transform -rotate-12 shadow-xl">
-                    <Star size={28} className="text-white fill-white" />
-                  </div>
-                  <div className="w-16 h-16 md:w-24 md:h-24 bg-egypt-red/80 rounded-full border-2 border-white flex flex-col items-center justify-center shadow-xl">
-                    <span className="text-[10px] font-black uppercase text-white leading-tight">ISO</span>
-                    <span className="text-[10px] text-white">Certified</span>
-                  </div>
-                  <div className="hidden md:flex w-24 h-24 bg-white/10 backdrop-blur-md rounded-full border-2 border-white/40 flex-col items-center justify-center shadow-xl">
-                    <span className="text-egypt-gold text-2xl font-serif font-bold leading-none">15</span>
-                    <span className="text-[9px] uppercase text-white/80 tracking-wider mt-1">Years</span>
-                  </div>
+                <div className="font-serif max-w-xl">
+                  <p className="text-egypt-gold text-2xl md:text-4xl italic">Plan Your</p>
+                  <p className="text-white text-2xl md:text-4xl italic font-bold">Egypt Day Tour</p>
+                  <p className="mt-3 text-xs md:text-sm text-white/70 font-sans">
+                    Compare destinations and request a quotation for your preferred date and group size.
+                  </p>
                 </div>
               </div>
             </div>
@@ -295,10 +286,10 @@ const Tours = () => {
               <div className="text-center mb-10">
                 <span className="text-label mb-3 block">Quick Reference</span>
                 <h2 className="text-3xl md:text-4xl font-serif uppercase text-white">
-                  Most Popular <span className="text-egypt-gold italic font-light">Booking</span>
+                  Day Tour <span className="text-egypt-gold italic font-light">Comparison</span>
                 </h2>
                 <p className="text-egypt-papyrus/40 text-xs mt-3 max-w-xl mx-auto">
-                  Our most booked Egypt day tours — quick to compare, easy to book.
+                  Compare indicative prices and durations, then request current availability and a written quotation.
                 </p>
               </div>
 
@@ -308,7 +299,7 @@ const Tours = () => {
                     <tr className="border-b border-white/10 bg-egypt-gold/10">
                       <th className="text-left px-6 py-4 text-[11px] uppercase tracking-widest font-bold text-egypt-gold">Tour Name</th>
                       <th className="text-center px-6 py-4 text-[11px] uppercase tracking-widest font-bold text-egypt-gold">Duration</th>
-                      <th className="text-center px-6 py-4 text-[11px] uppercase tracking-widest font-bold text-egypt-gold">Price From</th>
+                      <th className="text-center px-6 py-4 text-[11px] uppercase tracking-widest font-bold text-egypt-gold">Estimate From</th>
                       <th className="text-center px-6 py-4 text-[11px] uppercase tracking-widest font-bold text-egypt-gold">View Tour</th>
                     </tr>
                   </thead>
@@ -457,7 +448,7 @@ const Tours = () => {
 
                     {/* Price Badge */}
                     <div className="absolute top-4 left-4 bg-egypt-gold text-egypt-night px-3 py-1.5 rounded-full">
-                      <span className="text-[9px] uppercase tracking-wider font-bold block leading-none mb-0.5">From</span>
+                      <span className="text-[9px] uppercase tracking-wider font-bold block leading-none mb-0.5">Estimate</span>
                       <span className="text-sm font-black leading-none">US${tour.price}</span>
                     </div>
 
@@ -468,8 +459,8 @@ const Tours = () => {
 
                     {/* Availability */}
                     <div className="absolute bottom-4 left-4 flex items-center gap-1.5">
-                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                      <span className="text-[9px] uppercase tracking-wider font-bold text-green-300">Available Daily</span>
+                      <div className="w-2 h-2 rounded-full bg-egypt-gold" />
+                      <span className="text-[9px] uppercase tracking-wider font-bold text-egypt-gold">Availability on request</span>
                     </div>
                   </div>
 
@@ -482,7 +473,7 @@ const Tours = () => {
                     </Link>
 
                     <p className="text-egypt-papyrus/50 text-xs font-light leading-relaxed mb-4 line-clamp-2 flex-1">
-                      {tour.description}
+                      {getTourSummary(tour)}
                     </p>
 
                     {/* Location */}
@@ -509,14 +500,7 @@ const Tours = () => {
                       </div>
                     </div>
 
-                    {/* Rating + CTA */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={12} className={`text-egypt-gold ${i < Math.floor(tour.rating) ? 'fill-egypt-gold' : ''}`} />
-                        ))}
-                        <span className="text-[10px] text-egypt-papyrus/40 ml-1">({tour.reviewsCount})</span>
-                      </div>
+                    <div className="flex items-center justify-end">
                       <Link
                         to={`/tours/${tour.id}`}
                         className="bg-egypt-gold text-egypt-night px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white transition-colors flex items-center gap-1.5"
@@ -742,33 +726,27 @@ const Tours = () => {
                        </div>
 
                        <div className="absolute inset-0 bg-egypt-night/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center text-center p-8 z-20 translate-y-4 group-hover:translate-y-0">
-                         <div className="flex gap-1 mb-2">
-                           {[...Array(5)].map((_, i) => (
-                             <Star key={i} size={16} className={`text-egypt-gold ${i < Math.floor(tour.rating) ? 'fill-egypt-gold' : ''}`} />
-                           ))}
-                         </div>
-                         <span className="text-2xl font-serif text-white mb-1">{tour.rating}</span>
-                         <span className="text-[10px] uppercase tracking-[2px] text-egypt-gold mb-6 font-bold">{tour.reviewsCount} Reviews</span>
+                         <span className="text-[10px] uppercase tracking-[2px] text-egypt-gold mb-4 font-bold">
+                           {tour.duration} · {tour.category}
+                         </span>
                          
                          <div className="w-12 h-[1px] bg-egypt-gold/30 mb-6" />
                          
                          <p className="text-[13px] font-light text-egypt-papyrus/80 leading-relaxed italic line-clamp-5">
-                           "{tour.description}"
+                           {getTourSummary(tour)}
                          </p>
                        </div>
                     </div>
                     <div className="px-4 flex justify-between items-center">
                        <div className="flex flex-col">
-                          <span className="text-2xl font-serif text-egypt-gold">${tour.price}</span>
+                          <span className="text-2xl font-serif text-egypt-gold">${tour.price} <span className="text-[9px] font-sans uppercase text-egypt-papyrus/40">est.</span></span>
                           <div className="flex items-center gap-2 text-egypt-papyrus/40 text-[10px] uppercase tracking-widest mt-1">
                              <Calendar size={12} />
                              {tour.duration}
                           </div>
                        </div>
-                       <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/5">
-                          <Star size={14} className="text-egypt-gold fill-egypt-gold" />
-                          <span className="text-xs font-bold">{tour.rating}</span>
-                          <span className="text-[10px] text-egypt-papyrus/30">({tour.reviewsCount})</span>
+                       <div className="bg-white/5 px-4 py-2 rounded-full border border-white/5">
+                          <span className="text-[10px] uppercase tracking-wider text-egypt-papyrus/60">Quotation required</span>
                        </div>
                     </div>
                   </Link>
@@ -784,7 +762,7 @@ const Tours = () => {
               <div className="hidden md:grid grid-cols-12 gap-6 px-8 py-4 mb-4 text-xs uppercase tracking-widest font-bold text-egypt-gold/70 border-b border-white/10">
                 <div className="col-span-5">Expedition</div>
                 <div className="col-span-2">Duration</div>
-                <div className="col-span-2">Rating</div>
+                <div className="col-span-2">Tour Type</div>
                 <div className="col-span-2 text-right">Price</div>
                 <div className="col-span-1 text-center">Details</div>
               </div>
@@ -824,16 +802,14 @@ const Tours = () => {
                           <span className="text-sm font-light text-egypt-papyrus/80">{tour.duration}</span>
                         </div>
 
-                        {/* Rating */}
+                        {/* Tour type */}
                         <div className="col-span-2 flex items-center gap-1.5">
-                          <Star size={14} className="text-egypt-gold fill-egypt-gold" />
-                          <span className="text-sm font-bold text-white">{tour.rating}</span>
-                          <span className="text-[10px] text-egypt-papyrus/30">({tour.reviewsCount})</span>
+                          <span className="text-sm capitalize text-egypt-papyrus/80">{tour.category}</span>
                         </div>
 
                         {/* Price */}
                         <div className="col-span-2 text-right">
-                          <span className="text-xs text-egypt-papyrus/40 block mb-1 uppercase tracking-widest">From</span>
+                          <span className="text-xs text-egypt-papyrus/40 block mb-1 uppercase tracking-widest">Estimate from</span>
                           <span className="text-xl font-serif text-egypt-gold">${tour.price}</span>
                         </div>
 
@@ -870,18 +846,16 @@ const Tours = () => {
                             </div>
                           </div>
                           <div>
-                            <span className="text-[9px] text-egypt-papyrus/40 uppercase tracking-wider block mb-1">Rating</span>
+                            <span className="text-[9px] text-egypt-papyrus/40 uppercase tracking-wider block mb-1">Availability</span>
                             <div className="flex items-center gap-1.5 text-egypt-papyrus/80">
-                              <Star size={12} className="text-egypt-gold fill-egypt-gold" />
-                              <span className="font-bold text-white">{tour.rating}</span>
-                              <span className="text-white/30">({tour.reviewsCount})</span>
+                              <span className="font-medium text-white">On request</span>
                             </div>
                           </div>
                         </div>
 
                         <div className="flex justify-between items-end pt-4 mt-4 border-t border-white/5">
                           <div>
-                            <span className="text-[9px] text-egypt-papyrus/40 uppercase tracking-wider block">Price From</span>
+                            <span className="text-[9px] text-egypt-papyrus/40 uppercase tracking-wider block">Estimate from</span>
                             <span className="text-xl font-serif text-egypt-gold">${tour.price}</span>
                           </div>
                           <div className="bg-egypt-gold text-egypt-night px-4 py-2 rounded-full font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">

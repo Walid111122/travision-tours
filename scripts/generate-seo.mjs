@@ -18,6 +18,7 @@ const publicRoutes = [
   '/tours?type=shore',
   '/blog',
   '/guidelines',
+  '/policies',
   ...[...new Set([...packageIds, ...dayTourIds])].map(id => `/tours/${id}`)
 ];
 

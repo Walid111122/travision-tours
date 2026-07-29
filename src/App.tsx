@@ -14,8 +14,8 @@ const Tours = lazy(() => import('./pages/Tours'));
 const TourDetails = lazy(() => import('./pages/TourDetails'));
 const Blog = lazy(() => import('./pages/Blog'));
 const ItineraryBuilder = lazy(() => import('./pages/ItineraryBuilder'));
-const Profile = lazy(() => import('./pages/Profile'));
 const Guidelines = lazy(() => import('./pages/Guidelines'));
+const Policies = lazy(() => import('./pages/Policies'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
@@ -32,8 +32,8 @@ export default function App() {
                 <Route path="/tours/:id" element={<TourDetails />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/planner" element={<ItineraryBuilder />} />
-                <Route path="/profile" element={<Profile />} />
                 <Route path="/guidelines" element={<Guidelines />} />
+                <Route path="/policies" element={<Policies />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from '../config/site';
 
 const Footer = () => {
   return (
@@ -34,6 +35,7 @@ const Footer = () => {
             <li><Link to="/guidelines" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Cultural Etiquette & Safety</Link></li>
             <li><Link to="/blog" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">History Blog</Link></li>
             <li><Link to="/planner" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Itinerary Planner</Link></li>
+            <li><Link to="/policies" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Booking & Payment Policies</Link></li>
           </ul>
         </div>
 
@@ -48,11 +50,11 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-egypt-gold shrink-0" />
-              <a href="tel:+201004051515" className="text-sm text-egypt-papyrus/60 font-light hover:text-egypt-gold">(+20) 100 405 1515</a>
+              <a href={`tel:${CONTACT_PHONE}`} className="text-sm text-egypt-papyrus/60 font-light hover:text-egypt-gold">{CONTACT_PHONE_DISPLAY}</a>
             </li>
             <li className="flex items-center gap-3">
               <Mail size={18} className="text-egypt-gold shrink-0" />
-              <a href="mailto:info@travisiontours.com" className="text-sm text-egypt-papyrus/60 font-light hover:text-egypt-gold">info@travisiontours.com</a>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm text-egypt-papyrus/60 font-light hover:text-egypt-gold">{CONTACT_EMAIL}</a>
             </li>
           </ul>
         </div>
@@ -62,9 +64,9 @@ const Footer = () => {
         <p className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 font-light">
           © {new Date().getFullYear()} Travision Tours. Built for the preservation of Egyptian Culture.
         </p>
-        <a href="mailto:info@travisiontours.com?subject=Privacy%20and%20terms%20request" className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 hover:text-egypt-gold transition-colors">
+        <Link to="/policies" className="text-[10px] uppercase tracking-widest text-egypt-papyrus/30 hover:text-egypt-gold transition-colors">
           Privacy & terms
-        </a>
+        </Link>
       </div>
     </footer>
   );

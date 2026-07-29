@@ -4,20 +4,23 @@ import { motion } from 'motion/react';
 import {
   Calendar, MapPin, Clock, Users, Star,
   ArrowLeft, Share2, Heart, Shield,
-  Info, ChevronRight, Play, CheckCircle2,
+  Info, ChevronRight, CheckCircle2,
   FileText, DollarSign, Image as ImageIcon, MessageCircle
 } from 'lucide-react';
 import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS } from '../dayTours';
 import ItineraryAccordion from '../components/ItineraryAccordion';
 import SEO from '../components/SEO';
-import { SITE_URL, absoluteUrl } from '../config/site';
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, SITE_URL, absoluteUrl } from '../config/site';
+import { getActivitySummary, getDaySummary, getTourSummary } from '../utils/tourContent';
 
 // Combined catalog: packages + day tours. Day tours take precedence on id clash.
 const ALL_TOURS = [...SAMPLE_TOURS, ...DAY_TOURS];
 const TourDetails = () => {
   const { id } = useParams();
   const tour = ALL_TOURS.find(t => t.id === id);
+  const tourSummary = tour ? getTourSummary(tour) : '';
+  const safeGallery = tour?.gallery ?? [];
   const [activeTab, setActiveTab] = useState<string>('itinerary');
   const [requestState, setRequestState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
@@ -31,24 +34,33 @@ const TourDetails = () => {
   }, [tour?.id]);
 
   const tourItinerary = React.useMemo(() => {
-    if (tour?.itinerary && tour.itinerary.length > 0) return tour.itinerary;
+    if (tour?.itinerary && tour.itinerary.length > 0) {
+      return tour.itinerary.map(day => ({
+        ...day,
+        description: getDaySummary(day.title || `Day ${day.day}`, tour.title),
+        activities: (day.activities ?? []).map(activity => ({
+          ...activity,
+          description: getActivitySummary(activity.title)
+        }))
+      }));
+    }
     if (!tour) return [];
     
     return [
       {
         day: 1,
         title: `Full Day Experience: ${tour.title}`,
-        description: tour.description,
+        description: tourSummary,
         activities: (tour.highlights || []).map((highlight) => ({
           title: highlight,
-          description: `Guided exploration and detailed sightseeing of the iconic ${highlight} with your private Egyptologist.`,
+          description: getActivitySummary(highlight),
           icon: 'tour' as const
         })),
-        meals: 'Bottled Water',
-        overnight: 'Return to Hotel'
+        meals: 'As stated in the final quotation',
+        overnight: 'Return arrangements to be confirmed'
       }
     ];
-  }, [tour]);
+  }, [tour, tourSummary]);
 
   const handleBookingRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -115,36 +127,64 @@ const TourDetails = () => {
     }
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: tour?.title || 'Travision Tours',
+      text: tour ? `Take a look at ${tour.title} from Travision Tours.` : 'Explore Travision Tours.',
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    await navigator.clipboard.writeText(window.location.href);
+    setRequestState({ status: 'success', message: 'Tour link copied to your clipboard.' });
+  };
+
+  const tourFaqs = [
+    {
+      question: 'Is submitting this form a confirmed booking?',
+      answer: 'No. It is a request for availability and a quotation. Your reservation is confirmed only after Travision Tours sends written confirmation.'
+    },
+    {
+      question: 'How do I pay for this tour?',
+      answer: 'Approved bookings are paid by bank wire transfer. Official transfer instructions are shared privately after your itinerary, dates, and quotation are agreed.'
+    },
+    {
+      question: 'Can this itinerary be customized?',
+      answer: 'Yes. Tell us your preferred pace, interests, accommodation needs, and any places you would like to add or remove when submitting your request.'
+    },
+    {
+      question: 'What should I check before traveling to Egypt?',
+      answer: 'Check current passport, visa, health, insurance, and entry requirements with official authorities before departure because requirements depend on nationality and can change.'
+    }
+  ];
+
   if (!tour) return <div className="pt-40 text-center text-white">Journey not found.</div>;
 
   return (
     <div className="bg-egypt-night min-h-screen">
       <SEO
-        title={`${tour.title} – From $${tour.price}`}
-        description={tour.description.slice(0, 155)}
+        title={`${tour.title} – Request a Quote`}
+        description={tourSummary.slice(0, 155)}
         canonical={`/tours/${tour.id}`}
-        type="product"
-        image={tour.gallery?.[0] || tour.image}
+        type="website"
+        image={safeGallery[0] || tour.image}
         imageAlt={`${tour.title} in ${tour.location}, Egypt`}
         structuredData={[
           {
             '@context': 'https://schema.org',
-            '@type': 'Product',
+            '@type': 'TouristTrip',
             '@id': `${SITE_URL}/tours/${tour.id}#tour`,
             name: tour.title,
-            description: tour.description,
-            image: (tour.gallery?.length ? tour.gallery : [tour.image]).map(absoluteUrl),
-            category: 'Egypt Tour',
-            brand: {
-              '@type': 'Brand',
+            description: tourSummary,
+            image: (safeGallery.length ? safeGallery : [tour.image]).map(absoluteUrl),
+            touristType: 'Private and tailor-made travel',
+            provider: {
+              '@type': 'TravelAgency',
               name: 'Travision Tours'
-            },
-            offers: {
-              '@type': 'Offer',
-              url: `${SITE_URL}/tours/${tour.id}`,
-              priceCurrency: 'USD',
-              price: tour.price,
-              availability: 'https://schema.org/InStock'
             }
           },
           {
@@ -170,6 +210,18 @@ const TourDetails = () => {
                 item: `${SITE_URL}/tours/${tour.id}`
               }
             ]
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: tourFaqs.map(item => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer
+              }
+            }))
           }
         ]}
       />
@@ -186,12 +238,12 @@ const TourDetails = () => {
 
           <div className="flex flex-wrap gap-3">
             <div className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold">
-              From: {tour.price} $
+              Estimate from: ${tour.price}
             </div>
-            <button className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-[#1f4a6b] transition-colors">
+            <button onClick={handleShare} className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-[#1f4a6b] transition-colors">
               Send To a Friend
             </button>
-            <button className="bg-[#1f4a6b] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-blue-900 transition-colors">
+            <button onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-[#1f4a6b] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-blue-900 transition-colors">
               Send an Inquiry
             </button>
           </div>
@@ -204,20 +256,19 @@ const TourDetails = () => {
             alt={tour.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-between px-8">
-            <div className="text-center font-serif">
-              <p className="text-white text-lg lg:text-3xl italic">Awards &</p>
-              <p className="text-white text-lg lg:text-3xl italic font-bold">Recognitions</p>
-            </div>
-            <div className="flex items-center gap-6">
-              {/* Simulated badges */}
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-egypt-gold/80 rounded-full border-2 border-white flex items-center justify-center transform -rotate-12 shadow-xl">
-                <Star size={24} className="text-white" />
-              </div>
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-[#c63d2e]/90 rounded-full border-2 border-white flex flex-col items-center justify-center shadow-xl">
-                <span className="text-[10px] font-bold uppercase text-white leading-tight">ISO</span>
-                <span className="text-[10px] text-white">Certified</span>
-              </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/70 flex items-center px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
+              {[
+                { label: 'Duration', value: tour.duration },
+                { label: 'Destination', value: tour.location },
+                { label: 'Tour style', value: tour.category },
+                { label: 'Availability', value: 'On request' }
+              ].map(fact => (
+                <div key={fact.label}>
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-egypt-gold mb-1">{fact.label}</p>
+                  <p className="text-sm md:text-base font-serif text-white capitalize">{fact.value}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -234,9 +285,10 @@ const TourDetails = () => {
               { id: 'inclusions', label: 'Inclusions/Exclusions', icon: <CheckCircle2 size={18} /> },
               { id: 'highlights', label: 'Tour Highlights', icon: <Star size={18} /> },
               { id: 'itinerary', label: 'Itinerary', icon: <MapPin size={18} /> },
-              { id: 'prices', label: 'Tour Prices', icon: <DollarSign size={18} /> },
+              { id: 'prices', label: 'Price & Quote', icon: <DollarSign size={18} /> },
               { id: 'virtual', label: 'Gallery', icon: <ImageIcon size={18} /> },
-              { id: 'reviews', label: 'Tour Reviews', icon: <Star size={18} /> },
+              { id: 'booking', label: 'How Booking Works', icon: <Shield size={18} /> },
+              { id: 'faq', label: 'Good to Know', icon: <Info size={18} /> },
               { id: 'map', label: 'Tour Map', icon: <MapPin size={18} /> },
               { id: 'info', label: 'Essential Trip Information', icon: <FileText size={18} /> },
               { id: 'related', label: 'Related Tours', icon: <Share2 size={18} /> },
@@ -250,7 +302,7 @@ const TourDetails = () => {
                     const y = el.getBoundingClientRect().top + window.scrollY - 100;
                     window.scrollTo({ top: y, behavior: 'smooth' });
                   }
-                  setActiveTab(tab.id as any);
+                  setActiveTab(tab.id);
                 }}
                 className={`w-full flex items-center gap-3 px-5 py-4 text-[13px] font-bold transition-all border-b border-white/10 last:border-0 ${activeTab === tab.id ? 'bg-[#c63d2e] text-white' : 'text-white hover:bg-white/10'
                   }`}
@@ -280,7 +332,7 @@ const TourDetails = () => {
                   Help
                 </button>
                 <a
-                  href={`https://wa.me/201004051515?text=${encodeURIComponent(`Hello, I am interested in ${tour.title}.`)}`}
+                  href={`https://wa.me/${CONTACT_PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello, I am interested in ${tour.title}.`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex-grow bg-[#c63d2e] text-white py-3 rounded font-bold text-[13px] tracking-wide hover:bg-red-800 transition-colors text-center"
@@ -302,12 +354,15 @@ const TourDetails = () => {
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-egypt-gold via-white to-egypt-gold"></div>
 
             <div className="mb-6">
-              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">Starting from</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">Indicative estimate from</p>
               <div className="flex items-end gap-2">
                 <span className="text-[40px] font-serif leading-none text-egypt-gold">${tour.price}</span>
-                <span className="text-xs text-white/40 uppercase tracking-widest pb-1 mb-1 border-b border-white/10">Per Person</span>
+                <span className="text-xs text-white/40 uppercase tracking-widest pb-1 mb-1 border-b border-white/10">Per person</span>
               </div>
             </div>
+            <p className="mb-5 text-[11px] leading-relaxed text-white/50">
+              This amount is for early planning only. Dates, group size, accommodation, transport, admissions, and supplier availability determine the written quotation.
+            </p>
 
             <form className="space-y-4" onSubmit={handleBookingRequest}>
               <div>
@@ -331,12 +386,13 @@ const TourDetails = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Date</label>
-                  <input required name="date" type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                  <input required name="date" min={new Date().toISOString().slice(0, 10)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
                 </div>
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Travelers</label>
                   <select name="travelers" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white appearance-none">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map(n => <option key={n} value={n} className="bg-egypt-night text-white">{n} {n === 1 ? 'Person' : 'People'}</option>)}
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(n => <option key={n} value={n} className="bg-egypt-night text-white">{n} {n === 1 ? 'Person' : 'People'}</option>)}
+                    <option value={9} className="bg-egypt-night text-white">9+ People</option>
                   </select>
                 </div>
               </div>
@@ -347,7 +403,8 @@ const TourDetails = () => {
               <label className="flex items-start gap-3 text-[11px] leading-relaxed text-white/60">
                 <input required name="wireTransferAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
                 <span>
-                  I understand this is a booking request, not a confirmed reservation. If approved, payment instructions will be sent privately and payment will be made by bank wire transfer.
+                  I understand this is a booking request, not a confirmed reservation. If approved, payment instructions will be sent privately and payment will be made by bank wire transfer. I have read the{' '}
+                  <Link to="/policies" className="text-egypt-gold hover:text-white">privacy, booking, and payment policies</Link>.
                 </span>
               </label>
 
@@ -369,7 +426,7 @@ const TourDetails = () => {
 
             <p className="text-center text-[10px] text-white/40 mt-6 flex items-center justify-center gap-2">
               <Shield size={12} className="text-emerald-500" />
-              No hidden costs. Secure payment.
+              No payment is collected on this website.
             </p>
           </div>
 
@@ -383,7 +440,7 @@ const TourDetails = () => {
               </div>
               <div>
                 <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Call Us</p>
-                <a href="tel:+20123456789" className="text-egypt-gold hover:text-white transition-colors">+20 12 345 6789</a>
+                <a href={`tel:${CONTACT_PHONE}`} className="text-egypt-gold hover:text-white transition-colors">{CONTACT_PHONE_DISPLAY}</a>
               </div>
             </div>
           </div>
@@ -398,7 +455,7 @@ const TourDetails = () => {
             <div id="overview" className="space-y-6 scroll-mt-32">
               <h2 className="text-3xl font-serif mb-8 uppercase tracking-tight">The <span className="text-egypt-gold italic">Essence</span> of the Journey</h2>
               <p className="text-xl text-egypt-papyrus/70 leading-relaxed font-light first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:leading-none">
-                {tour.description}
+                {tourSummary}
               </p>
             </div>
 
@@ -408,12 +465,9 @@ const TourDetails = () => {
                 <h3 className="text-2xl font-serif text-white uppercase tracking-widest pl-4 border-l-2 border-emerald-500">Inclusions</h3>
                 <ul className="space-y-3">
                   {(tour.inclusions || [
-                    'Pick up services from your hotel & return',
-                    'All transfers by a private air-conditioned vehicle',
-                    'Private English-speaking Egyptologist guide',
-                    'Entrance fees to all the mentioned sites',
-                    'Bottled water on board the vehicle during the tour',
-                    'All taxes & service charge'
+                    'Services itemized as included in your written quotation.',
+                    'Transport, meals, guides, and admission tickets only when specifically listed.',
+                    'Applicable taxes or service charges only when stated in the accepted quotation.'
                   ]).map((inc, idx) => (
                     <li key={idx} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/70">
                       <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
@@ -426,10 +480,9 @@ const TourDetails = () => {
                 <h3 className="text-2xl font-serif text-white uppercase tracking-widest pl-4 border-l-2 border-egypt-red">Exclusions</h3>
                 <ul className="space-y-3">
                   {(tour.exclusions || [
-                    'Any extras not mentioned in the itinerary',
-                    'Tipping (recommended but not mandatory)',
-                    'Entrance inside the Pyramids (optional)',
-                    'Personal expenses'
+                    'International flights, visas, travel insurance, and personal expenses unless specifically listed.',
+                    'Optional activities, gratuities, and services not identified as included.',
+                    'Bank fees or currency-conversion charges associated with the wire transfer.'
                   ]).map((exc, idx) => (
                     <li key={idx} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/60">
                       <Shield size={16} className="text-egypt-red mt-0.5 shrink-0" />
@@ -445,12 +498,9 @@ const TourDetails = () => {
               <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Tour Highlights</h3>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {(tour.highlights || [
-                  'Private guided tour for a personalized experience',
-                  'Visit the iconic Pyramids of Giza and the Sphinx',
-                  'Explore the ancient artifacts at the Egyptian Museum',
-                  'Comfortable transportation in an air-conditioned vehicle',
-                  'Entrance fees to the main historical sites included',
-                  'Free bottled water during the tour'
+                  `Planned sightseeing in ${tour.location}`,
+                  'Itinerary timing adapted to current site access',
+                  'Options confirmed in the written quotation'
                 ]).map((highlight, idx) => (
                   <li key={idx} className="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/5">
                     <Star size={16} className="text-egypt-gold mt-1 shrink-0" />
@@ -482,84 +532,51 @@ const TourDetails = () => {
 
             {/* Prices Section */}
             <div id="prices" className="space-y-12 scroll-mt-32 pt-8 border-t border-white/10">
-              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Tour Prices</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-white/20">
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Season</th>
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Price Per Person (1)</th>
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Price Per Person (2-3)</th>
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Price Per Person (4-6)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-white/5 bg-white/5">
-                      <td className="py-4 px-6 text-sm text-egypt-papyrus">Summer (May - Sep)</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price + 50}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${Math.round(tour.price * 0.85)}</td>
-                    </tr>
-                    <tr className="border-b border-white/5">
-                      <td className="py-4 px-6 text-sm text-egypt-papyrus">Winter (Oct - Apr)</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price + 80}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price + 20}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${Math.round(tour.price * 0.9)}</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Price & Quotation</h3>
+              <div className="glass rounded-[30px] border border-egypt-gold/20 p-8 md:p-10 grid md:grid-cols-[0.8fr_1.2fr] gap-8 items-center">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Indicative starting price</p>
+                  <p className="text-5xl font-serif text-egypt-gold">${tour.price}</p>
+                  <p className="text-xs text-white/40 mt-2">per person, subject to your final quotation</p>
+                </div>
+                <div className="space-y-4 text-sm text-egypt-papyrus/70 leading-relaxed">
+                  <p>Your final price depends on travel dates, group size, accommodation, requested changes, and supplier availability.</p>
+                  <p>Submit an inquiry for a written itinerary and itemized quotation. No payment is requested through this website.</p>
+                  <button onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-egypt-gold text-egypt-night px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest font-black">
+                    Request your quotation
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Reviews Section */}
-            <div id="reviews" className="space-y-10 scroll-mt-32 pt-8 border-t border-white/10">
-              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Tour Reviews</h3>
-              <div className="flex flex-col md:flex-row gap-10 items-start">
-                <div className="text-center p-8 glass rounded-[30px] border border-white/10 shrink-0 w-full md:w-48">
-                  <div className="text-5xl font-serif mb-2">{tour.rating}</div>
-                  <div className="flex justify-center gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-egypt-gold fill-egypt-gold" />)}
+            {/* Booking Process */}
+            <div id="booking" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">How Booking Works</h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {[
+                  ['01', 'Send your request', 'Share your dates, group size, and preferences.'],
+                  ['02', 'Review your quote', 'We confirm availability and send a written proposal.'],
+                  ['03', 'Arrange wire transfer', 'Official bank details are shared privately after approval.'],
+                  ['04', 'Receive confirmation', 'Your booking is confirmed in writing after payment verification.']
+                ].map(([number, title, description]) => (
+                  <div key={number} className="glass rounded-2xl border border-white/5 p-6">
+                    <span className="text-3xl font-serif text-egypt-gold/40">{number}</span>
+                    <h4 className="text-base uppercase mt-5 mb-3">{title}</h4>
+                    <p className="text-xs leading-relaxed text-egypt-papyrus/60">{description}</p>
                   </div>
-                  <p className="text-[9px] uppercase tracking-widest text-white/40">Global Rating</p>
-                </div>
-                <div className="flex-grow space-y-8">
-                  {(tour.reviewsList && tour.reviewsList.length > 0 ? tour.reviewsList : [
-                    { author: "Rebecca Miller", text: "Our family booking with Travision Tours was absolutely spectacular. Everything from our private transfers to our Egyptologist guide at the Giza Pyramids and Egyptian Museum was handled flawlessly. Highly recommended!", rating: 5, date: "12 May, 2026" },
-                    { author: "Thomas Vance", text: "The Nile Cruise and the tour of Karnak Temple were highlights of our lifetime. Travision Tours made sure every detail was perfect. The itinerary was well balanced and we felt incredibly safe and cared for.", rating: 5, date: "28 April, 2026" }
-                  ]).map((rev, idx) => (
-                    <div key={idx} className="border-b border-white/5 pb-8 last:border-0">
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-egypt-gold/20 flex items-center justify-center text-egypt-gold font-serif">
-                            {rev.author.charAt(0)}
-                          </div>
-                          <div>
-                            <h5 className="font-serif text-sm uppercase tracking-wider text-egypt-gold">{rev.author}</h5>
-                            <p className="text-[10px] text-white/30 uppercase tracking-widest">{rev.date}</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-0.5">
-                          {[...Array(rev.rating)].map((_, i) => <Star key={i} size={12} className="text-egypt-gold fill-egypt-gold" />)}
-                        </div>
-                      </div>
-                      <p className="text-sm italic font-light text-egypt-papyrus/70 leading-relaxed">
-                        "{rev.text}"
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
-              <button className="w-full py-5 rounded-2xl border border-egypt-gold/30 hover:border-egypt-gold transition-colors text-[10px] uppercase tracking-widest font-bold">
-                Join the Dialogue — Leave a Review
-              </button>
+              <div className="bg-egypt-red/10 border border-egypt-red/30 rounded-2xl p-6 text-sm text-egypt-papyrus/70">
+                For your security, never send funds using bank details published on a webpage or supplied by an unverified account. Confirm transfer instructions through official Travision Tours contact details.
+              </div>
             </div>
 
             {/* Gallery Section */}
             <div id="virtual" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
               <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Gallery</h3>
-              {tour.gallery && tour.gallery.length > 0 ? (
+              {safeGallery.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {tour.gallery.map((imgSrc, idx) => (
+                  {safeGallery.map((imgSrc, idx) => (
                     <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-pointer border border-white/10 shadow-lg">
                       <img src={imgSrc} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={`${tour.title} Gallery ${idx + 1}`} />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
@@ -569,16 +586,11 @@ const TourDetails = () => {
                   ))}
                 </div>
               ) : (
-                <div className="relative aspect-video rounded-[40px] overflow-hidden group cursor-pointer">
-                  <img src="https://images.unsplash.com/photo-1549495094-152cc98398e0?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700" alt="Virtual Preview" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-egypt-gold flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                      <Play size={32} className="text-egypt-night ml-2" />
-                    </div>
-                  </div>
+                <div className="relative aspect-video rounded-[40px] overflow-hidden">
+                  <img src={tour.image} className="w-full h-full object-cover opacity-70" alt={`${tour.title} preview`} />
                   <div className="absolute bottom-10 left-10 text-white">
-                    <h4 className="text-2xl font-serif uppercase mb-2">360° Portal</h4>
-                    <p className="text-sm text-white/70 font-light">Experience the sights before you arrive.</p>
+                    <h4 className="text-2xl font-serif uppercase mb-2">Tour Preview</h4>
+                    <p className="text-sm text-white/70 font-light">Representative image for this itinerary.</p>
                   </div>
                 </div>
               )}
@@ -611,7 +623,7 @@ const TourDetails = () => {
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
                   <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Passport & Entry Visas</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Passports must be valid for at least 6 months beyond travel dates. Most tourists can obtain a 30-day single-entry Visa on Arrival for $25 USD at Cairo International Airport bank kiosks (cash only) or pre-arrange an official eVisa online prior to departure.
+                    Entry requirements depend on nationality and can change. Check passport-validity and visa rules with Egypt's official authorities or the nearest Egyptian consulate before booking travel.
                   </p>
                 </div>
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
@@ -623,15 +635,33 @@ const TourDetails = () => {
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
                   <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Tipping Guide & Currency</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Tipping (called baksheesh) is a customary part of Egyptian tourism culture. Small amounts are given to hotel staff, drivers, and restaurant servers. Typical recommendations are $10–$15 per day for your private guide and $5–$8 for drivers. Local currency is the Egyptian Pound (EGP).
+                    Tipping, often called baksheesh, is customary but discretionary. Your travel specialist can provide current guidance before departure. The local currency is the Egyptian Pound (EGP).
                   </p>
                 </div>
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
-                  <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Emergency Support & Health</h4>
+                  <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Health & On-Trip Support</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Our team provides 24/7 client coordination and emergency hotlines. Bottled water is provided during sightseeing. Avoid tap water, and apply sun protection for temple visits.
+                    Support arrangements and emergency contacts are provided with your confirmed travel documents. Bring required medication, use sun protection, and follow current professional health advice.
                   </p>
                 </div>
+              </div>
+            </div>
+
+            {/* Frequently Asked Questions */}
+            <div id="faq" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Good to Know</h3>
+              <div className="space-y-4">
+                {tourFaqs.map(item => (
+                  <details key={item.question} className="glass rounded-2xl border border-white/5 p-6 group">
+                    <summary className="cursor-pointer list-none flex justify-between gap-6 font-serif text-base text-white">
+                      {item.question}
+                      <ChevronRight size={18} className="text-egypt-gold shrink-0 transition-transform group-open:rotate-90" />
+                    </summary>
+                    <p className="pt-4 mt-4 border-t border-white/5 text-sm leading-relaxed text-egypt-papyrus/65">
+                      {item.answer}
+                    </p>
+                  </details>
+                ))}
               </div>
             </div>
 
@@ -659,10 +689,7 @@ const TourDetails = () => {
                       </div>
                       <div className="flex justify-between items-center pt-3 border-t border-white/5">
                         <span className="text-[16px] font-serif text-egypt-gold">${relTour.price}</span>
-                        <div className="flex items-center gap-1 text-[11px] font-bold text-egypt-gold">
-                          <Star size={12} className="fill-egypt-gold" />
-                          <span>{relTour.rating}</span>
-                        </div>
+                        <span className="text-[10px] uppercase tracking-widest text-white/40">{relTour.duration}</span>
                       </div>
                     </div>
                   </Link>
@@ -672,7 +699,7 @@ const TourDetails = () => {
 
             {/* Read Before You Go Section */}
             <div id="read" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
-              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Read Before You Go</h3>
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Packing & Practical Notes</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="glass border border-white/5 p-6 rounded-2xl space-y-3">
                   <h4 className="font-serif text-white text-[15px] uppercase tracking-wider">What to Wear</h4>
@@ -683,7 +710,7 @@ const TourDetails = () => {
                 <div className="glass border border-white/5 p-6 rounded-2xl space-y-3">
                   <h4 className="font-serif text-white text-[15px] uppercase tracking-wider">Safety & Scams</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Egypt is generally a very safe destination for international travelers. Stay with your licensed guide, use official transport, and politely decline aggressive street vendors by saying "La, Shukran" (No, thank you).
+                    Follow current government travel advice and the guidance provided with your confirmed itinerary. Use arranged transport, keep valuables secure, and politely decline unwanted offers.
                   </p>
                 </div>
                 <div className="glass border border-white/5 p-6 rounded-2xl space-y-3">

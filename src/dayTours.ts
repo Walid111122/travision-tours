@@ -1,12 +1,8 @@
 import { Tour } from './types';
 
 /**
- * Egypt day-tour catalog, sourced & curated from the egypttoursportal.com
- * "Egypt Day Tours & Excursions" lineup. Kept as a separate dataset from the
- * SAMPLE_TOURS packages so the Day Tours page has its own dedicated inventory.
- *
- * Each entry conforms to the existing `Tour` type so it can be rendered by the
- * same components (cards, TourDetails, ItineraryAccordion, etc.).
+ * Original Travision Tours day-tour catalog.
+ * Kept separate from multi-day packages for filtering and presentation.
  */
 
 // Image helper — single, themed source for every day-tour card image.
@@ -67,7 +63,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'cairo-day-tour',
     title: 'Cairo Day Tour',
     description:
-      'The essential one-day immersion into the Egyptian capital. Stand before the Pyramids of Giza and the Sphinx, then trace 5,000 years of civilization through the treasures of the Egyptian Museum — all in a single expertly-guided day.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 85,
     duration: '1 Day',
     location: 'Cairo',
@@ -82,7 +78,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'giza-pyramids-day-tour',
     title: 'Giza Pyramids Day Tour',
     description:
-      'A focused half-or-full day at the last surviving wonder of the ancient world. Visit the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, the Valley Temple, and the Sphinx with an optional camel ride on the plateau.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 75,
     duration: '1 Day',
     location: 'Cairo, Giza',
@@ -97,7 +93,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'luxor-day-tour',
     title: 'Luxor Day Tour',
     description:
-      'A complete day across both banks of the Nile in Luxor. Descend into the tombs of the Valley of the Kings, visit the terraced Temple of Hatshepsut, the Colossi of Memnon, and the colossal Karnak Temple complex.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 110,
     duration: '1 Day',
     location: 'Luxor',
@@ -112,7 +108,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'aswan-day-tour',
     title: 'Aswan Day Tour',
     description:
-      'A relaxed day in Nubia\'s southern jewel. Visit the High Dam, the Unfinished Obelisk, and sail to the enchanting Philae Temple on its island — where the myth of Isis and Osiris comes to life.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 95,
     duration: '1 Day',
     location: 'Aswan',
@@ -126,7 +122,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'abu-simbel-day-tour',
     title: 'Abu Simbel Day Tour',
     description:
-      'A once-in-a-lifetime day trip to the colossal temples of Ramses II at Abu Simbel — saved from the rising Nile by a legendary UNESCO rescue mission and guarded by four towering seated pharaohs.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 165,
     duration: '1 Day',
     location: 'Aswan, Abu Simbel',
@@ -141,7 +137,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'alexandria-day-tour',
     title: 'Alexandria Day Tour',
     description:
-      'A full day in the great Mediterranean city of Alexander. Explore the modern Bibliotheca Alexandrina, the seaside Qaitbay Citadel, the Roman Catacombs of Kom El Shoqafa, and Pompey\'s Pillar.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 120,
     duration: '1 Day',
     location: 'Alexandria',
@@ -155,7 +151,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'old-cairo-day-tour',
     title: 'Old Cairo Day Tour',
     description:
-      'A journey through Egypt\'s layered faiths. Visit the Hanging Church and the Coptic Museum in Coptic Cairo, the Ben Ezra Synagogue, and the medieval mosques and bazaars of historic Islamic Cairo.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 70,
     duration: '1 Day',
     location: 'Cairo',
@@ -169,7 +165,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'hurghada-day-tour',
     title: 'Hurghada Day Tour',
     description:
-      'A Red Sea day of sun and color. Snorkel the coral gardens of Giftun Island, swim in crystal-clear waters, or unwind on the beaches of one of Egypt\'s most beloved resort towns.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 90,
     duration: '1 Day',
     location: 'Hurghada',
@@ -183,7 +179,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'sharm-el-sheikh-day-tour',
     title: 'Sharm El Sheikh Day Tour',
     description:
-      'A Sinai coast adventure. Snorkel or dive the world-famous Ras Mohammed National Park, ride a quad into the desert, and relax on the beaches of the Red Sea\'s premier resort city.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 95,
     duration: '1 Day',
     location: 'Sharm El Sheikh',
@@ -197,7 +193,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'marsa-alam-day-tour',
     title: 'Marsa Alam Day Tour',
     description:
-      'A pristine Red Sea escape in the deep south. Snorkel with wild spinner dolphins at Sataya Reef, dive the coral walls of the Samadai Protectorate, and discover untouched marine life.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 100,
     duration: '1 Day',
     location: 'Marsa Alam',
@@ -211,7 +207,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'el-gouna-day-tour',
     title: 'El Gouna Day Tour',
     description:
-      'A stylish Red Sea day in Egypt\'s lagoon city. Enjoy a boat trip to the islands, snorkel the outer reefs, and unwind in the canals and beaches of this purpose-built resort town.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 85,
     duration: '1 Day',
     location: 'El Gouna',
@@ -225,7 +221,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'makadi-bay-day-tour',
     title: 'Makadi Bay Day Tour',
     description:
-      'A relaxed Red Sea bay day. Snorkel the house reefs, sail on a semi-submarine to view the coral without getting wet, or take a family-friendly beach day on the sheltered Makadi coast.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 80,
     duration: '1 Day',
     location: 'Makadi Bay',
@@ -239,7 +235,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'soma-bay-day-tour',
     title: 'Soma Bay Day Tour',
     description:
-      'An upscale Red Sea day on a private peninsula. Snorkel or dive the pristine Tobia reefs, kitesurf the steady winds, or simply enjoy the unspoiled beaches of this premium resort enclave.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 90,
     duration: '1 Day',
     location: 'Soma Bay',
@@ -253,7 +249,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'port-ghalib-day-tour',
     title: 'Port Ghalib Day Tour',
     description:
-      'A Mediterranean-style marina day on the southern Red Sea. Sail to the protected reefs, snorkel in turquoise lagoons, and enjoy the waterfront promenade of this modern resort marina.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 95,
     duration: '1 Day',
     location: 'Port Ghalib',
@@ -267,7 +263,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'sakkara-day-tour',
     title: 'Sakkara & Memphis Day Tour',
     description:
-      'Step back to the dawn of pyramid-building. Visit the Step Pyramid of Djoser at Sakkara — the world\'s oldest stone monument — the ruined ancient capital of Memphis, and the Red and Bent Pyramids of Dahshur.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 70,
     duration: '1 Day',
     location: 'Cairo, Sakkara',
@@ -281,7 +277,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'dahshur-day-tour',
     title: 'Dahshur Pyramids Day Tour',
     description:
-      'A quieter, crowd-free pyramid experience. Visit the Bent Pyramid and the Red Pyramid of Sneferu — the first true smooth-sided pyramids — and explore a royal necropolis away from the Giza crowds.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 65,
     duration: '1 Day',
     location: 'Cairo, Dahshur',
@@ -295,7 +291,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'egyptian-museum-day-tour',
     title: 'Egyptian Museum Day Tour',
     description:
-      'A deep dive into the world\'s greatest collection of ancient artifacts. Spend the day with the golden treasures of Tutankhamun, the Royal Mummies, and millennia of masterpieces in Tahrir Square.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 55,
     duration: '1 Day',
     location: 'Cairo',
@@ -309,7 +305,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'white-desert-day-tour',
     title: 'White Desert Day Tour',
     description:
-      'A surreal day trip into one of Egypt\'s most otherworldly landscapes. Cross the Black Desert, the Crystal Mountain, and the chalk formations of the White Desert — nature\'s own sculpture garden.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 130,
     duration: '1 Day',
     location: 'Bahariya, Western Desert',
@@ -323,7 +319,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'philae-temple-day-tour',
     title: 'Philae Temple Day Tour',
     description:
-      'A serene half-day sail to the island temple of Isis. Explore the beautifully relocated Philae Temple, the Kiosk of Trajan, and the sound-and-light story of the goddess Isis on Agilkia Island.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 60,
     duration: '1 Day',
     location: 'Aswan',
@@ -337,7 +333,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'valley-of-kings-day-tour',
     title: 'Valley of the Kings Day Tour',
     description:
-      'A focused half-day at the most famous royal burial ground on Earth. Descend into decorated tombs of the New Kingdom pharaohs, including the option to visit the tomb of Tutankhamun.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 75,
     duration: '1 Day',
     location: 'Luxor',
@@ -351,7 +347,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'karnak-temple-day-tour',
     title: 'Karnak Temple Day Tour',
     description:
-      'A full morning at the largest religious complex ever built. Walk the Avenue of Sphinxes, stand beneath the towering columns of the Hypostyle Hall, and explore the sacred lake of the Amun-Ra temple.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 65,
     duration: '1 Day',
     location: 'Luxor',
@@ -365,7 +361,7 @@ export const DAY_TOURS: Tour[] = [
     id: 'nile-cruise-day-tour',
     title: 'Nile Felucca Day Tour',
     description:
-      'A timeless day on the river. Sail the Nile aboard a traditional felucca, watch the sunset over the palm-fringed banks, and experience Egypt the way travelers have for thousands of years.',
+      'Review the planned stops, duration, starting price, and available options before requesting a personalized quotation.',
     price: 50,
     duration: '1 Day',
     location: 'Luxor, Aswan',
