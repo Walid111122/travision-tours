@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, Reorder } from 'motion/react';
 import { 
   Plus, GripVertical, Trash2, Map, Share2, 
   Save, Landmark, Camera, Coffee, Info,
   Trophy, Sparkles
 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface Stop {
   id: string;
@@ -68,6 +69,34 @@ const ItineraryBuilder = () => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCity, setFilterCity] = useState('all');
+  const [notice, setNotice] = useState('');
+
+  useEffect(() => {
+    const sharedIds = new URLSearchParams(window.location.search).get('stops')?.split(',').filter(Boolean);
+    let savedIds: string[] = [];
+    try {
+      savedIds = JSON.parse(localStorage.getItem('travision-itinerary') || '[]') as string[];
+    } catch {
+      localStorage.removeItem('travision-itinerary');
+    }
+    const ids = sharedIds?.length ? sharedIds : savedIds;
+    setItems(ids.map(id => AVAILABLE_STOPS.find(stop => stop.id === id)).filter(Boolean) as Stop[]);
+  }, []);
+
+  const saveItinerary = () => {
+    localStorage.setItem('travision-itinerary', JSON.stringify(items.map(item => item.id)));
+    setNotice(items.length ? 'Itinerary saved on this device.' : 'Empty itinerary saved.');
+    window.setTimeout(() => setNotice(''), 3000);
+  };
+
+  const shareUrl = `${window.location.origin}/planner?stops=${items.map(item => item.id).join(',')}`;
+
+  const copyShareLink = async () => {
+    await navigator.clipboard.writeText(shareUrl);
+    setNotice('Share link copied.');
+    setShowShareModal(false);
+    window.setTimeout(() => setNotice(''), 3000);
+  };
 
   const addStop = (stop: Stop) => {
     if (!items.find(i => i.id === stop.id)) {
@@ -95,6 +124,12 @@ const ItineraryBuilder = () => {
 
   return (
     <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+      <SEO
+        title="Custom Egypt Itinerary Planner"
+        description="Build and save a custom Egypt itinerary with your preferred landmarks and destinations."
+        canonical="/planner"
+        noIndex
+      />
       <header className="mb-16">
         <div className="flex items-center gap-2 text-egypt-gold mb-4">
            <Trophy size={20} />
@@ -222,7 +257,12 @@ const ItineraryBuilder = () => {
                     >
                        Broadcast Legacy
                     </button>
-                    <button className="w-16 h-16 rounded-2xl border border-white/10 flex items-center justify-center hover:border-egypt-gold transition-all">
+                    <button
+                      type="button"
+                      onClick={saveItinerary}
+                      aria-label="Save itinerary on this device"
+                      className="w-16 h-16 rounded-2xl border border-white/10 flex items-center justify-center hover:border-egypt-gold transition-all"
+                    >
                        <Save size={20} />
                     </button>
                  </div>
@@ -268,7 +308,13 @@ const ItineraryBuilder = () => {
         </div>
       </div>
 
-      {/* Share Modal Mockup */}
+      {notice && (
+        <div role="status" className="fixed bottom-6 right-6 z-[110] bg-egypt-gold text-egypt-night px-6 py-4 rounded-xl font-bold text-sm shadow-2xl">
+          {notice}
+        </div>
+      )}
+
+      {/* Share Modal */}
       {showShareModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-egypt-night/95 backdrop-blur-xl">
            <motion.div 
@@ -281,14 +327,14 @@ const ItineraryBuilder = () => {
               </div>
               <h3 className="text-3xl font-serif uppercase mb-4">Share the <span className="text-egypt-gold">Legacy</span></h3>
               <p className="text-egypt-papyrus/60 font-light mb-10 leading-relaxed italic">
-                 Your personalized itinerary for "The Sands of Time" has been generated. Send this ritual link to your fellow explorers.
+                 Copy this link to share the selected stops and their current order.
               </p>
               <div className="bg-egypt-night p-4 rounded-2xl break-all font-mono text-[10px] text-egypt-gold mb-10 border border-white/5">
-                 https://travisiontours.com/share/itinerary/7x2h9z...
+                 {shareUrl}
               </div>
               <div className="grid grid-cols-2 gap-4">
-                 <button onClick={() => setShowShareModal(false)} className="py-4 bg-white text-egypt-night rounded-2xl font-black uppercase text-[10px] tracking-widest">
-                    Copy Script
+                 <button onClick={copyShareLink} className="py-4 bg-white text-egypt-night rounded-2xl font-black uppercase text-[10px] tracking-widest">
+                    Copy link
                  </button>
                  <button onClick={() => setShowShareModal(false)} className="py-4 border border-white/10 rounded-2xl font-black uppercase text-[10px] tracking-widest">
                     Close

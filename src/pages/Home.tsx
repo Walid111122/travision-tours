@@ -1,16 +1,41 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Star, MapPin, Calendar, Users, ShieldCheck } from 'lucide-react';
+import { ArrowRight, MapPin, Calendar, Users, ShieldCheck, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SAMPLE_TOURS } from '../constants';
 import SEO from '../components/SEO';
+import { CONTACT_EMAIL, CONTACT_PHONE, DEFAULT_SOCIAL_IMAGE, SITE_URL } from '../config/site';
 
 const Home = () => {
   return (
     <div className="overflow-hidden">
       <SEO 
-        title="Experience Ancient Egypt" 
+        title="Private Egypt Tours & Tailor-Made Holidays"
         description="Premium, history-focused tours in Egypt. Discover the Giza Pyramids, Luxor, and Aswan with expert Egyptologists."
+        canonical="/"
+        image={DEFAULT_SOCIAL_IMAGE}
+        imageAlt="Travision Tours guests at the Pyramids of Giza"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'TravelAgency',
+          '@id': `${SITE_URL}/#organization`,
+          name: 'Travision Tours',
+          url: SITE_URL,
+          logo: `${SITE_URL}/favicon.svg`,
+          image: DEFAULT_SOCIAL_IMAGE,
+          description: 'Private Egypt tours, day trips, Nile cruises, and tailor-made holidays with expert Egyptologists.',
+          telephone: CONTACT_PHONE,
+          email: CONTACT_EMAIL,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Cairo',
+            addressCountry: 'EG'
+          },
+          areaServed: {
+            '@type': 'Country',
+            name: 'Egypt'
+          }
+        }}
       />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-32 md:pt-40 px-6">
@@ -94,10 +119,6 @@ const Home = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-egypt-night/80 via-transparent to-transparent opacity-60" />
-                  <div className="absolute top-6 right-6 glass px-3 py-1 rounded-full flex items-center gap-1">
-                    <Star size={14} className="text-egypt-gold fill-egypt-gold" />
-                    <span className="text-xs font-medium">{tour.rating}</span>
-                  </div>
                   <div className="absolute bottom-6 left-6">
                     <span className="text-[10px] uppercase tracking-widest text-white/70 block mb-1">
                       {tour.location}
@@ -106,7 +127,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center px-2">
-                  <span className="text-egypt-gold font-serif text-lg">${tour.price} <span className="text-xs text-egypt-papyrus/40 font-sans uppercase">/ Person</span></span>
+                  <span className="text-egypt-gold font-serif text-lg">${tour.price} <span className="text-xs text-egypt-papyrus/40 font-sans uppercase">estimated / person</span></span>
                   <div className="flex gap-4 text-egypt-papyrus/50">
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
@@ -152,15 +173,15 @@ const Home = () => {
             <span className="text-label block">Why Travision Tours?</span>
             <h2 className="text-5xl font-serif leading-tight">Beyond Browsing: <br /><span className="text-egypt-gold italic">The Living History</span></h2>
             <p className="text-egypt-papyrus/60 font-light leading-relaxed text-lg">
-              Most tours show you the stones. We show you the stories etched into them. Our expeditions are curated by Egyptologists and locals who breathe the legacy of the Nile. No hotels, no filler—just pure, unadulterated history.
+              Explore Egypt through thoughtfully arranged itineraries that connect major landmarks with their historical and cultural context. Tell us your interests, preferred pace, and accommodation needs, and we will prepare a tailored quotation.
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6">
               {[
-                { icon: ShieldCheck, title: 'Safety First', desc: 'Secure routes & 24/7 support.' },
-                { icon: Users, title: 'Expert Led', desc: 'Masters in Ancient History.' },
-                { icon: MapPin, title: 'Local Soul', desc: 'Access to hidden gems.' },
-                { icon: Star, title: 'Bespoke', desc: 'Personalized to your interests.' }
+                { icon: ShieldCheck, title: 'Clear Planning', desc: 'Review details before confirming.' },
+                { icon: Users, title: 'Private Options', desc: 'Built around your travel party.' },
+                { icon: MapPin, title: 'Egypt Focused', desc: 'Itineraries across key destinations.' },
+                { icon: Compass, title: 'Tailor-Made', desc: 'Adjusted to your interests and pace.' }
               ].map((item, idx) => (
                 <div key={idx} className="flex gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 text-egypt-gold">
@@ -177,36 +198,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="text-label mb-4 block">Guardians of the Experience</span>
-            <h2 className="text-5xl font-serif uppercase tracking-tight">Voices of the <span className="text-egypt-gold italic">Enlightened</span></h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { name: 'Julian Thorne', role: 'Architect', text: 'The depth of knowledge brought to the Giza tour was unlike anything I experienced. Truly spiritual.' },
-              { name: 'Elena Petrova', role: 'Historian', text: 'A rare bridge between academic rigor and soul-stirring exploration. Travision is in a league of its own.' },
-              { name: 'Marcus Chen', role: 'Photographer', text: 'The light, the timing, and the exclusive access made this the trip of a lifetime. Highly recommended.' }
-            ].map((test, idx) => (
-              <div key={idx} className="glass p-10 rounded-[40px] border border-egypt-gold/10 relative">
-                <div className="absolute top-8 right-10 text-6xl font-serif text-egypt-gold/10">"</div>
-                <div className="flex gap-1 mb-6">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-egypt-gold fill-egypt-gold" />)}
-                </div>
-                <p className="text-lg italic font-light text-egypt-papyrus/80 mb-8 leading-relaxed">"{test.text}"</p>
-                <div>
-                  <h4 className="font-serif text-egypt-gold uppercase tracking-widest">{test.name}</h4>
-                  <p className="text-[10px] uppercase text-egypt-papyrus/40 tracking-wider font-medium">{test.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto bg-egypt-gold rounded-[60px] p-12 md:p-24 relative overflow-hidden text-center group">
@@ -217,7 +208,7 @@ const Home = () => {
             Write Your <span className="italic">Own Chapter</span> <br />In history
           </h2>
           <p className="text-egypt-night/70 text-lg max-w-xl mx-auto mb-12 relative z-10">
-            Join us on an expedition that refuses to settle for the surface. Secure your spot in our upcoming season.
+            Explore the available itineraries, then send a request for dates, availability, and a personalized quotation.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10 transition-transform group-hover:scale-105 duration-500">
             <Link to="/tours" className="bg-egypt-night text-egypt-gold px-12 py-5 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors shadow-2xl">

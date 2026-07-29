@@ -1,20 +1,70 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Travision Tours
 
-# Run and deploy your AI Studio app
+Travision Tours is a React and TypeScript storefront for Egypt travel packages,
+day tours, shore excursions, and custom itineraries.
 
-This contains everything you need to run your app locally.
+## Local development
 
-View your app in AI Studio: https://ai.studio/apps/b40f1e75-d916-4fb0-b375-18822403cd4d
+Requires Node.js 20 or newer.
 
-## Run Locally
+```bash
+npm install
+npm run dev
+```
 
-**Prerequisites:**  Node.js
+The local site is available at `http://localhost:3000`.
 
+### Local booking API
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+The booking workflow uses a Cloudflare Worker and a local D1 database. No
+Cloudflare account, production database, or domain is required for local work.
+
+Apply migrations once:
+
+```bash
+npm run db:migrate:local
+```
+
+Then use two terminals:
+
+```bash
+npm run dev:worker
+npm run dev
+```
+
+Vite proxies `/api` requests to the local Worker on port `8787`.
+
+Booking requests begin with the `new` status. The supported manual workflow is:
+
+```text
+new → quoted → awaiting_transfer → payment_verification → confirmed
+                                                        ↘ cancelled
+```
+
+Submitting a request does not confirm a reservation. Bank wire-transfer
+instructions are never stored in frontend code and will be communicated
+privately after Travision Tours reviews a request.
+
+## Quality checks
+
+```bash
+npm run lint
+npm run build
+```
+
+## Cloudflare (not deployed yet)
+
+The repository includes `wrangler.jsonc` for a future Cloudflare Workers Static
+Assets deployment. It serves `dist` and falls back to `index.html` for React
+Router routes.
+
+When the application is ready to host:
+
+```bash
+npm run build
+npx wrangler deploy
+```
+
+Do not put provider API keys in Vite client environment variables. Booking,
+email, authentication, payments, and AI calls should be implemented in Worker
+API routes, with secrets configured through Cloudflare.

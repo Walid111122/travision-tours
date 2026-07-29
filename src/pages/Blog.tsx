@@ -11,6 +11,8 @@ const Blog = () => {
       <SEO 
         title="Egyptian Culture Blog" 
         description="Deep dives into hieroglyphics, pharaonic history, and modern Egyptian culture."
+        canonical="/blog"
+        image="/hero.jpg"
       />
       <header className="mb-20">
         <span className="text-label mb-4 block">The Scribe's Archive</span>

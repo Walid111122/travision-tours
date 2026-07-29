@@ -35,7 +35,7 @@ const Guidelines = () => {
 
   return (
     <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
-      <SEO title="Safety & Customs" description="Essential guidelines for a respectful and safe journey through Egypt." />
+      <SEO title="Egypt Travel Safety & Customs" description="Essential guidelines for a respectful and safe journey through Egypt." canonical="/guidelines" image="/hero.jpg" />
       
       <header className="mb-20 text-center">
         <span className="text-label mb-4 block">Guardian Protocols</span>
