@@ -68,6 +68,8 @@ const TourDetails = () => {
 
     const form = event.currentTarget;
     const data = new FormData(form);
+    const adults = Number(data.get('adults'));
+    const children = Number(data.get('children'));
     setRequestState({ status: 'submitting' });
 
     try {
@@ -82,7 +84,15 @@ const TourDetails = () => {
           phone: data.get('phone'),
           country: data.get('country'),
           preferredDate: data.get('date'),
-          travelers: Number(data.get('travelers')),
+          departureDate: data.get('departureDate'),
+          travelers: adults + children,
+          adults,
+          children,
+          childAges: data.get('childAges'),
+          accommodationPreference: data.get('accommodationPreference'),
+          contactPreference: data.get('contactPreference'),
+          budgetRange: data.get('budgetRange'),
+          referralSource: data.get('referralSource'),
           requirements: data.get('requirements'),
           wireTransferAcknowledged: data.get('wireTransferAcknowledged') === 'on'
         })
@@ -376,7 +386,7 @@ const TourDetails = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Phone</label>
-                  <input name="phone" autoComplete="tel" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="+1 555 000 0000" />
+                  <input required name="phone" autoComplete="tel" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Phone / WhatsApp" />
                 </div>
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Country</label>
@@ -385,14 +395,66 @@ const TourDetails = () => {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Date</label>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Arrival Date</label>
                   <input required name="date" min={new Date().toISOString().slice(0, 10)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Travelers</label>
-                  <select name="travelers" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white appearance-none">
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(n => <option key={n} value={n} className="bg-egypt-night text-white">{n} {n === 1 ? 'Person' : 'People'}</option>)}
-                    <option value={9} className="bg-egypt-night text-white">9+ People</option>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Departure Date</label>
+                  <input name="departureDate" min={new Date().toISOString().slice(0, 10)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Adults</label>
+                  <input required name="adults" min="1" max="50" defaultValue="1" type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children</label>
+                  <input required name="children" min="0" max="20" defaultValue="0" type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children’s Ages</label>
+                <input name="childAges" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Example: 6, 10" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Accommodation</label>
+                  <select name="accommodationPreference" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="">No preference</option>
+                    <option value="comfortable">Comfortable</option>
+                    <option value="premium">Premium</option>
+                    <option value="luxury">Luxury</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Preferred Contact</label>
+                  <select name="contactPreference" defaultValue="whatsapp" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone call</option>
+                  </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Budget Range</label>
+                  <select name="budgetRange" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="">Not decided</option>
+                    <option value="under-1000">Under US$1,000 / person</option>
+                    <option value="1000-2000">US$1,000–2,000 / person</option>
+                    <option value="2000-4000">US$2,000–4,000 / person</option>
+                    <option value="4000-plus">US$4,000+ / person</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">How You Found Us</label>
+                  <select name="referralSource" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="">Prefer not to say</option>
+                    <option value="google">Google</option>
+                    <option value="social">Social media</option>
+                    <option value="friend">Friend or family</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
               </div>

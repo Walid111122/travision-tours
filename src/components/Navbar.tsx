@@ -87,6 +87,12 @@ const Navbar = () => {
             <Link to="/blog" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
               Blog
             </Link>
+            <Link to="/about" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
+              About
+            </Link>
+            <Link to="/contact" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
+              Contact
+            </Link>
           </div>
 
           {/* Right Action Icons & Button */}
@@ -133,6 +139,8 @@ const Navbar = () => {
 
               <Link to="/tours?type=shore" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Shore Excursions</Link>
               <Link to="/blog" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Blog</Link>
+              <Link to="/about" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">About</Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Contact</Link>
               
               <Link to="/planner" onClick={() => setIsOpen(false)} className="mt-6 bg-egypt-gold text-egypt-night px-6 py-4 rounded text-center text-xs font-black uppercase tracking-widest hover:bg-white transition-colors">
                 Tailor-Made Tour

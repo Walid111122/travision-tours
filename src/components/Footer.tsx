@@ -35,6 +35,8 @@ const Footer = () => {
             <li><Link to="/guidelines" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Cultural Etiquette & Safety</Link></li>
             <li><Link to="/blog" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">History Blog</Link></li>
             <li><Link to="/planner" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Itinerary Planner</Link></li>
+            <li><Link to="/about" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">About Travision Tours</Link></li>
+            <li><Link to="/contact" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Contact Us</Link></li>
             <li><Link to="/policies" className="text-sm text-egypt-papyrus/60 hover:text-egypt-gold transition-colors font-light">Booking & Payment Policies</Link></li>
           </ul>
         </div>

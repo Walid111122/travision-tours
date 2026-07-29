@@ -8,7 +8,15 @@ type BookingInput = {
   phone?: string;
   country?: string;
   preferredDate: string;
+  departureDate?: string;
   travelers: number;
+  adults: number;
+  children: number;
+  childAges?: string;
+  accommodationPreference?: string;
+  contactPreference?: string;
+  budgetRange?: string;
+  referralSource?: string;
   requirements?: string;
   wireTransferAcknowledged: boolean;
 };
@@ -117,6 +125,26 @@ function validateBooking(value: unknown): BookingInput {
     throw new ApiError(422, 'validation_error', 'Preferred date must be a valid date.');
   }
 
+  const departureDate = optionalString(input.departureDate, 'Departure date', 10);
+  if (departureDate && (!/^\d{4}-\d{2}-\d{2}$/.test(departureDate) || Number.isNaN(Date.parse(`${departureDate}T00:00:00Z`)))) {
+    throw new ApiError(422, 'validation_error', 'Departure date must be a valid date.');
+  }
+  if (departureDate && departureDate < preferredDate) {
+    throw new ApiError(422, 'validation_error', 'Departure date cannot be before the arrival date.');
+  }
+
+  const adults = input.adults;
+  const children = input.children;
+  if (typeof adults !== 'number' || !Number.isInteger(adults) || adults < 1 || adults > 50) {
+    throw new ApiError(422, 'validation_error', 'Adults must be a whole number between 1 and 50.');
+  }
+  if (typeof children !== 'number' || !Number.isInteger(children) || children < 0 || children > 20) {
+    throw new ApiError(422, 'validation_error', 'Children must be a whole number between 0 and 20.');
+  }
+  if (input.travelers !== adults + children) {
+    throw new ApiError(422, 'validation_error', 'Traveler total does not match adults and children.');
+  }
+
   if (
     typeof input.travelers !== 'number' ||
     !Number.isInteger(input.travelers) ||
@@ -142,7 +170,15 @@ function validateBooking(value: unknown): BookingInput {
     phone: optionalString(input.phone, 'Phone', 40),
     country: optionalString(input.country, 'Country', 80),
     preferredDate,
+    departureDate,
     travelers: input.travelers,
+    adults,
+    children,
+    childAges: optionalString(input.childAges, 'Children ages', 120),
+    accommodationPreference: optionalString(input.accommodationPreference, 'Accommodation preference', 80),
+    contactPreference: optionalString(input.contactPreference, 'Contact preference', 40),
+    budgetRange: optionalString(input.budgetRange, 'Budget range', 80),
+    referralSource: optionalString(input.referralSource, 'Referral source', 80),
     requirements: optionalString(input.requirements, 'Special requirements', 2000),
     wireTransferAcknowledged: true
   };
@@ -160,8 +196,10 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
       INSERT INTO bookings (
         id, reference, status, tour_id, tour_title, customer_name,
         customer_email, customer_phone, customer_country, preferred_date,
-        travelers, requirements, created_at, updated_at
-      ) VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        travelers, requirements, departure_date, adults, children, child_ages,
+        accommodation_preference, contact_preference, budget_range, referral_source,
+        created_at, updated_at
+      ) VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       id,
       reference,
@@ -174,6 +212,14 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
       input.preferredDate,
       input.travelers,
       input.requirements ?? null,
+      input.departureDate ?? null,
+      input.adults,
+      input.children,
+      input.childAges ?? null,
+      input.accommodationPreference ?? null,
+      input.contactPreference ?? null,
+      input.budgetRange ?? null,
+      input.referralSource ?? null,
       now,
       now
     ),

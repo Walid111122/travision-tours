@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ContactActions from './components/ContactActions';
 
 const Home = lazy(() => import('./pages/Home'));
 const Tours = lazy(() => import('./pages/Tours'));
@@ -16,6 +17,8 @@ const Blog = lazy(() => import('./pages/Blog'));
 const ItineraryBuilder = lazy(() => import('./pages/ItineraryBuilder'));
 const Guidelines = lazy(() => import('./pages/Guidelines'));
 const Policies = lazy(() => import('./pages/Policies'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
@@ -34,11 +37,14 @@ export default function App() {
                 <Route path="/planner" element={<ItineraryBuilder />} />
                 <Route path="/guidelines" element={<Guidelines />} />
                 <Route path="/policies" element={<Policies />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </main>
           <Footer />
+          <ContactActions />
         </div>
       </Router>
     </HelmetProvider>
