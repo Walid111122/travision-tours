@@ -64,7 +64,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m40!1m12!1m3!1d221185.7953705519!2d31.1558010452132!3d29.97862378768848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m25!3e0!4m5!1s0x145817082ea84f41%3A0xe065af2151e21386!2scairo%20airport!3m2!1d30.1119003!2d31.3962546!4m5!1s0x14584f7de239bbcd%3A0xca7474355a6e368b!2sgiza%20pyramids!3m2!1d29.977296199999998!2d31.132495499999997!4m5!1s0x14584a1288a1eb7d%3A0x155b5589aa3ae89c!2sMemphis%2C%20Mit-Rahineh%2C%20Egypt!3m2!1d29.844464199999997!2d31.2506725!4m5!1s0x145817082ea84f41%3A0xe065af2151e21386!2sCairo%20International%20Airport%2C%20El%20Nozha!3m2!1d30.1119003!2d31.3962546!5e0!3m2!1sen!2seg!4v1649232055316!5m2!1sen!2seg",
     "gallery": []
@@ -134,7 +134,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d55274.98827960371!2d31.13877551781535!3d30.017149297404753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14584f7de239bbcd%3A0xca7474355a6e368b!2sGiza%20Necropolis%2C%20Al%20Haram!3m2!1d29.977296199999998!2d31.132495499999997!5e0!3m2!1sen!2seg!4v1584831713363!5m2!1sen!2seg",
     "gallery": []
@@ -214,7 +214,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d55273.14100784907!2d31.14093283614484!3d30.020463381355135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14584f7de239bbcd%3A0xca7474355a6e368b!2sGiza%20Necropolis%2C%20Al%20Haram!3m2!1d29.977296199999998!2d31.132495499999997!5e0!3m2!1sen!2seg!4v1584831823132!5m2!1sen!2seg",
     "gallery": []
@@ -227,7 +227,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "4 Days / 3 Nights",
     "location": "Cairo, Giza",
     "category": "cultural",
-    "image": "/images/tours/4-days-cairo-giza-pyramids-tour/gallery-1.jpeg",
+    "image": "/images/tours/4-days-cairo-giza-pyramids-tour/gallery-3.jpeg",
     "rating": 4.5,
     "reviewsCount": 93,
     "itinerary": [
@@ -364,7 +364,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m48!1m8!1m3!1d442323.2092385686!2d31.257992!3d29.989485!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14584587ac8f291b%3A0x810c2f3fa2a52424!2sThe%20Great%20Pyramid%20of%20Giza%2C%20Al%20Haram%2C%20Nazlet%20El-Semman%2C%20Al%20Giza%20Desert%2C%20Giza%20Governorate!3m2!1d29.979234499999997!2d31.134201899999997!4m5!1s0x14584bd553b25c81%3A0x8c577a7fabef89d!2sPyramid%20of%20Djoser%2C%20Al%20Giza%20Desert%2C%20Giza%20Governorate!3m2!1d29.8713227!2d31.216542999999998!4m5!1s0x145841885535bec3%3A0x520da52b3a7a660f!2sThe%20Egyptian%20Museum%2C%20Tahrir%20Square%20rd%20Tahrir%20Square!3m2!1d30.0475781!2d31.233613899999998!4m5!1s0x145840ac90c2ed63%3A0x2fdb96e4e9f72e6f!2sSalah%20El%20Din%20Al%20Ayouby%20Citadel%2C%20Salah%20Salem%20St%2C%20El-Darb%20El-Ahmar%2C%20Cairo%20Governorate!3m2!1d30.0411188!2d31.2652608!4m5!1s0x145817082ea84f41%3A0xe065af2151e21386!2sCairo%20International%20Airport%2C%20Oruba%D8%8C%20Road%D8%8C%20El%20Nozha%2C%20Cairo%20Governorate!3m2!1d30.112826799999997!2d31.399790399999997!5e0!3m2!1sen!2seg!4v1584971589515!5m2!1sen!2seg",
     "gallery": [
@@ -535,7 +535,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m36!1m8!1m3!1d14664416.809973603!2d31.945715!3d26.190826!3m2!1i1024!2i768!4f13.1!4m25!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate!3m2!1d25.6872431!2d32.6396357!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Abu%20Simbel%2C%20Aswan%20Governorate!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2seg!4v1585573155849!5m2!1sen!2seg",
     "gallery": [
@@ -737,7 +737,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m42!1m8!1m3!1d14664416.809973603!2d31.946683!3d26.190826!3m2!1i1024!2i768!4f13.1!4m31!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate%2C%20Egypt!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate%2C%20Egypt!3m2!1d25.6872431!2d32.6396357!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan%2C%20Aswan%20Governorate%2C%20Egypt!3m2!1d24.088938!2d32.8998293!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Abu%20Simbel%2C%20Aswan%20Governorate%2C%20Egypt!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate%2C%20Egypt!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2sus!4v1584883932881!5m2!1sen!2sus",
     "gallery": [
@@ -759,7 +759,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "7 Days / 6 Nights",
     "location": "Cairo, Luxor, Aswan, Abu Simbel",
     "category": "historical",
-    "image": "/images/tours/7-days-cairo-luxor-aswan-abu-simbel-edfu-kom-ombo/gallery-1.jpeg",
+    "image": "/images/tours/7-days-cairo-luxor-aswan-abu-simbel-edfu-kom-ombo/gallery-3.jpeg",
     "rating": 4.7,
     "reviewsCount": 170,
     "itinerary": [
@@ -973,7 +973,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m36!1m8!1m3!1d7278264.407514577!2d31.945715!3d27.03522!3m2!1i1024!2i768!4f13.1!4m25!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate%2C%20Egypt!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate%2C%20Egypt!3m2!1d25.6872431!2d32.6396357!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan%2C%20Aswan%20Governorate%2C%20Egypt!3m2!1d24.088938!2d32.8998293!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate%2C%20Egypt!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2sus!4v1584883589615!5m2!1sen!2sus",
     "gallery": [
@@ -1200,7 +1200,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m54!1m8!1m3!1d14660074.40674344!2d31.960566000000004!3d26.225299!3m2!1i1024!2i768!4f13.1!4m43!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate!3m2!1d25.6872431!2d32.6396357!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan%2C%20Aswan%20Governorate!3m2!1d24.088938!2d32.8998293!4m5!1s0x1449ed130bac4eab%3A0xf260759eaff3d5e5!2sThe%20Temple%20of%20Horus%20at%20Edfu%2C%20Adfo%2C%20Edfo%2C%20Aswan%20Governorate!3m2!1d24.9779286!2d32.8733705!4m5!1s0x14360f70d70544e7%3A0x9d9f98faab1e13f4!2sKom%20Umbu%2C%20Kom%20Ombo%2C%20Markaz%20Kom%20Ombo%2C%20Aswan%20Governorate!3m2!1d24.4789609!2d32.9461465!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Abu%20Simbel%2C%20Aswan%20Governorate!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x145817082ea84f41%3A0xe065af2151e21386!2sCairo%20International%20Airport%2C%20Oruba%D8%8C%20Road%D8%8C%20El%20Nozha%2C%20Cairo%20Governorate!3m2!1d30.112826799999997!2d31.399790399999997!5e0!3m2!1sen!2seg!4v1585723409184!5m2!1sen!2seg",
     "gallery": [
@@ -1509,7 +1509,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m48!1m8!1m3!1d14590900.820064472!2d31.351927!3d26.768885!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan%2C%20Aswan%20Governorate!3m2!1d24.088938!2d32.8998293!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Abu%20Simbel%2C%20Aswan%20Governorate!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate!3m2!1d25.6872431!2d32.6396357!4m5!1s0x14f5c49126710fd3%3A0xb4e0cda629ee6bb9!2sAlexandria%2C%20Alexandria%20Governorate!3m2!1d31.2000924!2d29.9187387!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2seg!4v1584875537834!5m2!1sen!2seg",
     "gallery": [
@@ -1794,7 +1794,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d3666496.430693371!2d30.206380408358758!3d26.178360511072928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan!3m2!1d24.088938!2d32.8998293!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Kharga!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x1449144d810b1d13%3A0xdccb131aed31d344!2sLuxor%20City%2C%20Luxor!3m2!1d25.686819099999997!2d32.6588267!4m5!1s0x145287b2cd3dbbb3%3A0x2db807f98bd3c360!2sHurghada!3m2!1d27.2578957!2d33.8116067!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2seg!4v1584885615597!5m2!1sen!2seg",
     "gallery": [
@@ -2170,7 +2170,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m64!1m12!1m3!1d7299365.179202271!2d27.36133831878656!3d26.707873313269705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m49!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2scairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x145287b2cd3dbbb3%3A0x2db807f98bd3c360!2shurghada!3m2!1d27.2578957!2d33.8116067!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate!3m2!1d25.6872431!2d32.6396357!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan%2C%20Aswan%20Governorate!3m2!1d24.088938!2d32.8998293!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Abu%20Simbel%2C%20Aswan%20Governorate!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14f5c49126710fd3%3A0xb4e0cda629ee6bb9!2sAlexandria%2C%20Alexandria%20Governorate!3m2!1d31.2000924!2d29.9187387!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2seg!4v1644048515102!5m2!1sen!2seg",
     "gallery": []
@@ -2183,7 +2183,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "15 Days / 14 Nights",
     "location": "Cairo, Giza, Luxor, Western Desert",
     "category": "cultural",
-    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200",
+    "image": "/images/tours/15-days-marvelous-egypt-tour-package/gallery-1.jpeg",
     "rating": 4.5,
     "reviewsCount": 210,
     "itinerary": [
@@ -2519,10 +2519,21 @@ export const SAMPLE_TOURS: Tour[] = [
     "exclusions": [
       "International flights, visas, travel insurance, and personal expenses unless specifically listed.",
       "Optional activities, gratuities, and services not identified as included.",
-      "Bank fees or currency-conversion charges associated with the wire transfer."
+      "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d3620646.6645292235!2d29.61168217655335!3d27.600109033928312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14f5c49126710fd3%3A0xb4e0cda629ee6bb9!2sAlexandria!3m2!1d31.2000924!2d29.9187387!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan!3m2!1d24.088938!2d32.8998293!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor!3m2!1d25.6872431!2d32.6396357!4m5!1s0x145287b2cd3dbbb3%3A0x2db807f98bd3c360!2sHurghada!3m2!1d27.2578957!2d33.8116067!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2seg!4v1584966658214!5m2!1sen!2seg",
-    "gallery": []
+    "gallery": [
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-1.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-2.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-3.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-4.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-5.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-6.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-7.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-8.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-9.jpeg",
+      "/images/tours/15-days-marvelous-egypt-tour-package/gallery-10.jpeg"
+    ]
   }
 ];
 

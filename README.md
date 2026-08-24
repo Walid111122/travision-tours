@@ -41,9 +41,15 @@ new → quoted → awaiting_transfer → payment_verification → confirmed
                                                         ↘ cancelled
 ```
 
-Submitting a request does not confirm a reservation. Bank wire-transfer
-instructions are never stored in frontend code and will be communicated
-privately after Travision Tours reviews a request.
+Submitting a request does not confirm a reservation. After a quotation is
+accepted, the travel partner provides a secure Visa, Mastercard, or Apple Pay
+checkout link, or official wire-transfer instructions. Payment details are
+never stored in frontend code, and Travision Tours does not collect payment.
+
+Each new inquiry records the version of the website inquiry/payment policy that
+the customer acknowledged, the acceptance timestamp, and the disclosed payment
+recipient. Final quotation and tour-specific policy acceptance will be stored
+separately when that workflow is implemented.
 
 ## Quality checks
 

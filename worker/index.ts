@@ -1,11 +1,13 @@
 const MAX_BODY_BYTES = 16 * 1024;
+const INQUIRY_POLICY_VERSION = '2026-08-13';
+const PAYMENT_PARTNER_NAME = 'Egypt Online Tour';
 
 type BookingInput = {
   tourId: string;
   tourTitle: string;
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
   country?: string;
   preferredDate: string;
   departureDate?: string;
@@ -18,7 +20,7 @@ type BookingInput = {
   budgetRange?: string;
   referralSource?: string;
   requirements?: string;
-  wireTransferAcknowledged: boolean;
+  partnerPaymentAcknowledged: boolean;
 };
 
 class ApiError extends Error {
@@ -109,12 +111,39 @@ function optionalString(value: unknown, field: string, maxLength: number): strin
   return normalized || undefined;
 }
 
+function optionalChoice(
+  value: unknown,
+  field: string,
+  choices: readonly string[]
+): string | undefined {
+  const normalized = optionalString(value, field, 80);
+  if (normalized && !choices.includes(normalized)) {
+    throw new ApiError(422, 'validation_error', `Select a valid ${field.toLowerCase()}.`);
+  }
+  return normalized;
+}
+
+function cairoDate(): string {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Africa/Cairo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
 function validateBooking(value: unknown): BookingInput {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new ApiError(422, 'validation_error', 'Booking details are required.');
   }
 
   const input = value as Record<string, unknown>;
+  if (optionalString(input.companyWebsite, 'Company website', 200)) {
+    throw new ApiError(422, 'validation_error', 'The request could not be submitted.');
+  }
+
   const email = requiredString(input.email, 'Email', 254).toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     throw new ApiError(422, 'validation_error', 'Enter a valid email address.');
@@ -123,6 +152,9 @@ function validateBooking(value: unknown): BookingInput {
   const preferredDate = requiredString(input.preferredDate, 'Preferred date', 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(preferredDate) || Number.isNaN(Date.parse(`${preferredDate}T00:00:00Z`))) {
     throw new ApiError(422, 'validation_error', 'Preferred date must be a valid date.');
+  }
+  if (preferredDate < cairoDate()) {
+    throw new ApiError(422, 'validation_error', 'Preferred date cannot be in the past.');
   }
 
   const departureDate = optionalString(input.departureDate, 'Departure date', 10);
@@ -145,6 +177,11 @@ function validateBooking(value: unknown): BookingInput {
     throw new ApiError(422, 'validation_error', 'Traveler total does not match adults and children.');
   }
 
+  const childAges = optionalString(input.childAges, 'Children ages', 120);
+  if (children > 0 && !childAges) {
+    throw new ApiError(422, 'validation_error', 'Enter the age of each child.');
+  }
+
   if (
     typeof input.travelers !== 'number' ||
     !Number.isInteger(input.travelers) ||
@@ -154,11 +191,11 @@ function validateBooking(value: unknown): BookingInput {
     throw new ApiError(422, 'validation_error', 'Travelers must be a whole number between 1 and 50.');
   }
 
-  if (input.wireTransferAcknowledged !== true) {
+  if (input.partnerPaymentAcknowledged !== true) {
     throw new ApiError(
       422,
-      'wire_transfer_acknowledgement_required',
-      'You must acknowledge that this is a request and payment instructions are sent separately.'
+      'partner_payment_acknowledgement_required',
+      'You must acknowledge that this is a request and that partner payment instructions are sent separately.'
     );
   }
 
@@ -167,20 +204,20 @@ function validateBooking(value: unknown): BookingInput {
     tourTitle: requiredString(input.tourTitle, 'Tour title', 200),
     name: requiredString(input.name, 'Name', 120),
     email,
-    phone: optionalString(input.phone, 'Phone', 40),
+    phone: requiredString(input.phone, 'Phone', 40),
     country: optionalString(input.country, 'Country', 80),
     preferredDate,
     departureDate,
     travelers: input.travelers,
     adults,
     children,
-    childAges: optionalString(input.childAges, 'Children ages', 120),
-    accommodationPreference: optionalString(input.accommodationPreference, 'Accommodation preference', 80),
-    contactPreference: optionalString(input.contactPreference, 'Contact preference', 40),
-    budgetRange: optionalString(input.budgetRange, 'Budget range', 80),
-    referralSource: optionalString(input.referralSource, 'Referral source', 80),
+    childAges,
+    accommodationPreference: optionalChoice(input.accommodationPreference, 'Accommodation preference', ['comfortable', 'premium', 'luxury']),
+    contactPreference: optionalChoice(input.contactPreference, 'Contact preference', ['whatsapp', 'email', 'phone']),
+    budgetRange: optionalChoice(input.budgetRange, 'Budget range', ['under-1000', '1000-2000', '2000-4000', '4000-plus']),
+    referralSource: optionalChoice(input.referralSource, 'Referral source', ['google', 'social', 'friend', 'other']),
     requirements: optionalString(input.requirements, 'Special requirements', 2000),
-    wireTransferAcknowledged: true
+    partnerPaymentAcknowledged: true
   };
 }
 
@@ -198,8 +235,9 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
         customer_email, customer_phone, customer_country, preferred_date,
         travelers, requirements, departure_date, adults, children, child_ages,
         accommodation_preference, contact_preference, budget_range, referral_source,
+        inquiry_policy_version, inquiry_policy_accepted_at, payment_recipient,
         created_at, updated_at
-      ) VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       id,
       reference,
@@ -220,6 +258,9 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
       input.contactPreference ?? null,
       input.budgetRange ?? null,
       input.referralSource ?? null,
+      INQUIRY_POLICY_VERSION,
+      now,
+      PAYMENT_PARTNER_NAME,
       now,
       now
     ),
@@ -243,8 +284,9 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
       },
       message: 'Your request was received. It is not confirmed until Travision Tours reviews it and sends written confirmation.',
       payment: {
-        method: 'wire_transfer',
-        instructions: 'Wire transfer instructions will be sent privately after your request is reviewed.'
+        recipient: PAYMENT_PARTNER_NAME,
+        methods: ['visa', 'mastercard', 'apple_pay', 'wire_transfer'],
+        instructions: 'The travel partner will send a secure checkout link or official wire-transfer instructions privately after your quotation is accepted. Travision Tours does not collect payment.'
       }
     },
     { status: 201 }

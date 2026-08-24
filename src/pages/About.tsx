@@ -45,8 +45,8 @@ const About = () => (
           {[
             'Send your travel preferences.',
             'Receive availability and a written quotation.',
-            'Review the services, policies, and wire-transfer terms.',
-            'Receive written confirmation after payment verification.'
+            'Review the services, policies, and partner payment instructions.',
+            'Pay the travel partner and receive confirmation after verification.'
           ].map((step, index) => (
             <li key={step}>
               <span className="font-serif text-3xl">{String(index + 1).padStart(2, '0')}</span>

@@ -47,7 +47,8 @@ const Contact = () => (
 
       <div className="mt-10 rounded-2xl border border-egypt-gold/20 bg-egypt-gold/5 p-6 text-sm leading-relaxed text-egypt-papyrus/70">
         Do not send passport copies, card information, bank credentials, or payment through a
-        public form. Bank-transfer instructions are shared privately only after the quotation is accepted.
+        public form. After you accept a quotation, our travel partner will privately provide its
+        secure card or Apple Pay checkout link, or its official wire-transfer instructions.
       </div>
     </main>
   </div>

@@ -11,7 +11,7 @@ import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS } from '../dayTours';
 import ItineraryAccordion from '../components/ItineraryAccordion';
 import SEO from '../components/SEO';
-import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, SITE_URL, absoluteUrl } from '../config/site';
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, PAYMENT_PARTNER_NAME, SITE_URL, absoluteUrl } from '../config/site';
 import { getActivitySummary, getDaySummary, getTourSummary } from '../utils/tourContent';
 
 // Combined catalog: packages + day tours. Day tours take precedence on id clash.
@@ -21,11 +21,22 @@ const TourDetails = () => {
   const tour = ALL_TOURS.find(t => t.id === id);
   const tourSummary = tour ? getTourSummary(tour) : '';
   const safeGallery = tour?.gallery ?? [];
+  const displayImages = tour
+    ? [tour.image, ...safeGallery.filter(image => image !== tour.image)]
+    : [];
   const [activeTab, setActiveTab] = useState<string>('itinerary');
   const [requestState, setRequestState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message?: string;
   }>({ status: 'idle' });
+  const [arrivalDate, setArrivalDate] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [childrenCount, setChildrenCount] = useState('0');
+  const today = React.useMemo(() => {
+    const localDate = new Date();
+    localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
+    return localDate.toISOString().slice(0, 10);
+  }, []);
 
   const relatedTours = React.useMemo(() => {
     return ALL_TOURS
@@ -94,7 +105,8 @@ const TourDetails = () => {
           budgetRange: data.get('budgetRange'),
           referralSource: data.get('referralSource'),
           requirements: data.get('requirements'),
-          wireTransferAcknowledged: data.get('wireTransferAcknowledged') === 'on'
+          companyWebsite: data.get('companyWebsite'),
+          partnerPaymentAcknowledged: data.get('partnerPaymentAcknowledged') === 'on'
         })
       });
 
@@ -125,6 +137,9 @@ const TourDetails = () => {
           : '';
 
       form.reset();
+      setArrivalDate('');
+      setDepartureDate('');
+      setChildrenCount('0');
       setRequestState({
         status: 'success',
         message: `Request received${reference ? ` — reference ${reference}` : ''}. We will review availability and contact you with a quotation.`
@@ -160,7 +175,7 @@ const TourDetails = () => {
     },
     {
       question: 'How do I pay for this tour?',
-      answer: 'Approved bookings are paid by bank wire transfer. Official transfer instructions are shared privately after your itinerary, dates, and quotation are agreed.'
+      answer: `After you accept the quotation, ${PAYMENT_PARTNER_NAME}, our travel and payment partner, will provide a secure Visa, Mastercard, or Apple Pay checkout link, or official wire-transfer instructions. Payment is made directly to the partner, not to Travision Tours.`
     },
     {
       question: 'Can this itinerary be customized?',
@@ -181,7 +196,7 @@ const TourDetails = () => {
         description={tourSummary.slice(0, 155)}
         canonical={`/tours/${tour.id}`}
         type="website"
-        image={safeGallery[0] || tour.image}
+        image={tour.image}
         imageAlt={`${tour.title} in ${tour.location}, Egypt`}
         structuredData={[
           {
@@ -190,7 +205,7 @@ const TourDetails = () => {
             '@id': `${SITE_URL}/tours/${tour.id}#tour`,
             name: tour.title,
             description: tourSummary,
-            image: (safeGallery.length ? safeGallery : [tour.image]).map(absoluteUrl),
+            image: displayImages.map(absoluteUrl),
             touristType: 'Private and tailor-made travel',
             provider: {
               '@type': 'TravelAgency',
@@ -260,14 +275,18 @@ const TourDetails = () => {
         </div>
 
         {/* Hero Photo Banner */}
-        <div className="w-full h-[200px] md:h-[120px] lg:h-[150px] relative rounded-lg overflow-hidden border border-[#c63d2e]/40 shadow-[0_0_15px_rgba(198,61,46,0.2)]">
+        <div className="group relative min-h-[380px] overflow-hidden rounded-2xl border border-[#c63d2e]/40 bg-black shadow-[0_18px_55px_rgba(0,0,0,0.35)] md:min-h-[420px]">
           <img
             src={tour.image}
-            alt={tour.title}
-            className="w-full h-full object-cover"
+            alt={`${tour.title} in ${tour.location}`}
+            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1600ms] ease-out group-hover:scale-[1.025]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/70 flex items-center px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-black/10" />
+          <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-black/35 px-6 py-6 backdrop-blur-[3px] md:px-8 md:py-7">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-5 md:grid-cols-4 md:gap-8">
               {[
                 { label: 'Duration', value: tour.duration },
                 { label: 'Destination', value: tour.location },
@@ -275,8 +294,8 @@ const TourDetails = () => {
                 { label: 'Availability', value: 'On request' }
               ].map(fact => (
                 <div key={fact.label}>
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-egypt-gold mb-1">{fact.label}</p>
-                  <p className="text-sm md:text-base font-serif text-white capitalize">{fact.value}</p>
+                  <p className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.22em] text-egypt-gold md:text-[10px]">{fact.label}</p>
+                  <p className="font-serif text-sm capitalize text-white drop-shadow-md md:text-lg">{fact.value}</p>
                 </div>
               ))}
             </div>
@@ -375,52 +394,63 @@ const TourDetails = () => {
             </p>
 
             <form className="space-y-4" onSubmit={handleBookingRequest}>
-              <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Full Name</label>
-                <input required name="name" autoComplete="name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="John Doe" />
+              <div hidden aria-hidden="true">
+                <label htmlFor="companyWebsite">Company website</label>
+                <input id="companyWebsite" name="companyWebsite" type="text" tabIndex={-1} autoComplete="off" />
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Email Address</label>
-                <input required name="email" autoComplete="email" type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="john@example.com" />
+                <label htmlFor="inquiry-name" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Full Name</label>
+                <input id="inquiry-name" required name="name" autoComplete="name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="John Doe" />
+              </div>
+              <div>
+                <label htmlFor="inquiry-email" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Email Address</label>
+                <input id="inquiry-email" required name="email" autoComplete="email" type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="john@example.com" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Phone</label>
-                  <input required name="phone" autoComplete="tel" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Phone / WhatsApp" />
+                  <label htmlFor="inquiry-phone" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Phone</label>
+                  <input id="inquiry-phone" required name="phone" autoComplete="tel" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Phone / WhatsApp" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Country</label>
-                  <input name="country" autoComplete="country-name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Country" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Arrival Date</label>
-                  <input required name="date" min={new Date().toISOString().slice(0, 10)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
-                </div>
-                <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Departure Date</label>
-                  <input name="departureDate" min={new Date().toISOString().slice(0, 10)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                  <label htmlFor="inquiry-country" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Country</label>
+                  <input id="inquiry-country" name="country" autoComplete="country-name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Country" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Adults</label>
-                  <input required name="adults" min="1" max="50" defaultValue="1" type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                  <label htmlFor="inquiry-arrival" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Arrival Date</label>
+                  <input id="inquiry-arrival" required name="date" min={today} value={arrivalDate} onInput={(event) => {
+                    const nextArrival = event.currentTarget.value;
+                    setArrivalDate(nextArrival);
+                    if (departureDate && departureDate < nextArrival) setDepartureDate('');
+                  }} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children</label>
-                  <input required name="children" min="0" max="20" defaultValue="0" type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                  <label htmlFor="inquiry-departure" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Departure Date</label>
+                  <input id="inquiry-departure" name="departureDate" min={arrivalDate || today} value={departureDate} onInput={(event) => setDepartureDate(event.currentTarget.value)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="inquiry-adults" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Adults (12+)</label>
+                  <input id="inquiry-adults" required name="adults" min="1" max="50" defaultValue="1" type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+                <div>
+                  <label htmlFor="inquiry-children" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children (1–11)</label>
+                  <input id="inquiry-children" required name="children" min="0" max="20" value={childrenCount} onChange={(event) => setChildrenCount(event.target.value)} type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children’s Ages</label>
-                <input name="childAges" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Example: 6, 10" />
+                <label htmlFor="inquiry-child-ages" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children’s Ages (if applicable)</label>
+                <input id="inquiry-child-ages" name="childAges" required={Number(childrenCount) > 0} aria-describedby="child-ages-help" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Example: 6, 10" />
+                <p id="child-ages-help" className="mt-1 text-[10px] leading-relaxed text-white/40">
+                  {Number(childrenCount) > 0 ? 'Required for each child in this inquiry.' : 'Leave blank when no children are traveling.'}
+                </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Accommodation</label>
-                  <select name="accommodationPreference" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                  <label htmlFor="inquiry-accommodation" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Accommodation</label>
+                  <select id="inquiry-accommodation" name="accommodationPreference" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
                     <option value="">No preference</option>
                     <option value="comfortable">Comfortable</option>
                     <option value="premium">Premium</option>
@@ -428,8 +458,8 @@ const TourDetails = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Preferred Contact</label>
-                  <select name="contactPreference" defaultValue="whatsapp" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                  <label htmlFor="inquiry-contact" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Preferred Contact</label>
+                  <select id="inquiry-contact" name="contactPreference" defaultValue="whatsapp" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
                     <option value="whatsapp">WhatsApp</option>
                     <option value="email">Email</option>
                     <option value="phone">Phone call</option>
@@ -438,8 +468,8 @@ const TourDetails = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Budget Range</label>
-                  <select name="budgetRange" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                  <label htmlFor="inquiry-budget" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Budget Range</label>
+                  <select id="inquiry-budget" name="budgetRange" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
                     <option value="">Not decided</option>
                     <option value="under-1000">Under US$1,000 / person</option>
                     <option value="1000-2000">US$1,000–2,000 / person</option>
@@ -448,8 +478,8 @@ const TourDetails = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">How You Found Us</label>
-                  <select name="referralSource" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                  <label htmlFor="inquiry-referral" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">How You Found Us</label>
+                  <select id="inquiry-referral" name="referralSource" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
                     <option value="">Prefer not to say</option>
                     <option value="google">Google</option>
                     <option value="social">Social media</option>
@@ -459,18 +489,18 @@ const TourDetails = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Special Requirements</label>
-                <textarea name="requirements" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white h-24 resize-none" placeholder="Any special requests?"></textarea>
+                <label htmlFor="inquiry-requirements" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Special Requirements</label>
+                <textarea id="inquiry-requirements" name="requirements" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white h-24 resize-none" placeholder="Any special requests?"></textarea>
               </div>
               <label className="flex items-start gap-3 text-[11px] leading-relaxed text-white/60">
-                <input required name="wireTransferAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
+                <input id="inquiry-payment-acknowledgement" required name="partnerPaymentAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
                 <span>
-                  I understand this is a booking request, not a confirmed reservation. If approved, payment instructions will be sent privately and payment will be made by bank wire transfer. I have read the{' '}
+                  I understand this is a booking request, not a confirmed reservation. If I accept the quotation, payment will be made directly to {PAYMENT_PARTNER_NAME} by Visa, Mastercard, Apple Pay, or bank wire transfer using instructions sent privately. I have read the{' '}
                   <Link to="/policies" className="text-egypt-gold hover:text-white">privacy, booking, and payment policies</Link>.
                 </span>
               </label>
 
-              <button disabled={requestState.status === 'submitting'} type="submit" className="w-full bg-egypt-gold disabled:opacity-50 disabled:cursor-wait text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
+              <button disabled={requestState.status === 'submitting'} aria-busy={requestState.status === 'submitting'} type="submit" className="w-full bg-egypt-gold disabled:opacity-50 disabled:cursor-wait text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
                 <span>{requestState.status === 'submitting' ? 'Sending…' : 'Send Request'}</span>
                 <ChevronRight size={16} />
               </button>
@@ -488,7 +518,7 @@ const TourDetails = () => {
 
             <p className="text-center text-[10px] text-white/40 mt-6 flex items-center justify-center gap-2">
               <Shield size={12} className="text-emerald-500" />
-              No payment is collected on this website.
+              This website does not collect payment or card details.
             </p>
           </div>
 
@@ -544,7 +574,7 @@ const TourDetails = () => {
                   {(tour.exclusions || [
                     'International flights, visas, travel insurance, and personal expenses unless specifically listed.',
                     'Optional activities, gratuities, and services not identified as included.',
-                    'Bank fees or currency-conversion charges associated with the wire transfer.'
+                    'Payment-provider, bank, or currency-conversion charges unless specifically included.'
                   ]).map((exc, idx) => (
                     <li key={idx} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/60">
                       <Shield size={16} className="text-egypt-red mt-0.5 shrink-0" />
@@ -618,8 +648,8 @@ const TourDetails = () => {
                 {[
                   ['01', 'Send your request', 'Share your dates, group size, and preferences.'],
                   ['02', 'Review your quote', 'We confirm availability and send a written proposal.'],
-                  ['03', 'Arrange wire transfer', 'Official bank details are shared privately after approval.'],
-                  ['04', 'Receive confirmation', 'Your booking is confirmed in writing after payment verification.']
+                  ['03', 'Pay our travel partner', 'Use the secure card or Apple Pay link, or official wire instructions sent privately.'],
+                  ['04', 'Receive confirmation', 'Your booking is confirmed in writing after the partner verifies payment.']
                 ].map(([number, title, description]) => (
                   <div key={number} className="glass rounded-2xl border border-white/5 p-6">
                     <span className="text-3xl font-serif text-egypt-gold/40">{number}</span>
@@ -629,7 +659,7 @@ const TourDetails = () => {
                 ))}
               </div>
               <div className="bg-egypt-red/10 border border-egypt-red/30 rounded-2xl p-6 text-sm text-egypt-papyrus/70">
-                For your security, never send funds using bank details published on a webpage or supplied by an unverified account. Confirm transfer instructions through official Travision Tours contact details.
+                Payment is made directly to {PAYMENT_PARTNER_NAME}, not Travision Tours. Never enter card details in this inquiry form or send funds using instructions from an unverified account. Confirm unexpected payment instructions through the official Travision Tours contact details on this website.
               </div>
             </div>
 
@@ -640,7 +670,13 @@ const TourDetails = () => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {safeGallery.map((imgSrc, idx) => (
                     <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-pointer border border-white/10 shadow-lg">
-                      <img src={imgSrc} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={`${tour.title} Gallery ${idx + 1}`} />
+                      <img
+                        src={imgSrc}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        alt={`${tour.title} Gallery ${idx + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <span className="text-xs text-white tracking-wider font-light uppercase">View Sights</span>
                       </div>
