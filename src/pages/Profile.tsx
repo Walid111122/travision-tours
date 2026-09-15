@@ -1,7 +1,6 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { 
-  User, Settings, Heart, Map, Trophy, 
+  User, Settings, Map, Trophy,
   Award, Shield, Bell, LogOut, ChevronRight,
   Sparkles, Zap
 } from 'lucide-react';

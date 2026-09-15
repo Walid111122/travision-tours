@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
 import {
-  Calendar, MapPin, Clock, Users, Star,
-  ArrowLeft, Share2, Heart, Shield,
+  MapPin, Star,
+  ArrowLeft, Share2, Shield,
   Info, ChevronRight, CheckCircle2,
   FileText, DollarSign, Image as ImageIcon, MessageCircle
 } from 'lucide-react';
 import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS } from '../dayTours';
 import ItineraryAccordion from '../components/ItineraryAccordion';
+import ResponsiveImage from '../components/ResponsiveImage';
 import SEO from '../components/SEO';
-import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, PAYMENT_PARTNER_NAME, SITE_URL, absoluteUrl } from '../config/site';
+import NotFound from './NotFound';
+import TurnstileWidget, { isTurnstileEnabled } from '../components/TurnstileWidget';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED, PAYMENT_PARTNER_NAME, SITE_URL, absoluteUrl } from '../config/site';
 import { getActivitySummary, getDaySummary, getTourSummary } from '../utils/tourContent';
+import { formatUsd } from '../utils/money';
+import { createSubmissionKey, submitInquiry } from '../utils/inquiry';
+import { scrollToElement, scrollToTop } from '../utils/motion';
 
 // Combined catalog: packages + day tours. Day tours take precedence on id clash.
 const ALL_TOURS = [...SAMPLE_TOURS, ...DAY_TOURS];
@@ -28,10 +33,35 @@ const TourDetails = () => {
   const [requestState, setRequestState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message?: string;
+    reference?: string;
+    /** `notice` renders a plain message instead of the inquiry confirmation. */
+    kind?: 'inquiry' | 'notice';
   }>({ status: 'idle' });
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [childrenCount, setChildrenCount] = useState('0');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileReset, setTurnstileReset] = useState(0);
+
+  /**
+   * One submission key per intentional inquiry. It is kept across failures so a
+   * retry replays the original booking, and only replaced after a success.
+   */
+  const submissionKeyRef = useRef(createSubmissionKey());
+
+  /** The form-level error summary, focused when the server rejects a request. */
+  const bookingErrorRef = useRef<HTMLParagraphElement>(null);
+
+  /**
+   * A rejection is reported as one message rather than per field, so it is
+   * presented as an error summary and focused. `role="alert"` announces it; the
+   * focus move also guarantees the visitor lands on it rather than being left to
+   * hunt for what changed.
+   */
+  useEffect(() => {
+    if (requestState.status === 'error') bookingErrorRef.current?.focus();
+  }, [requestState.status]);
+
   const today = React.useMemo(() => {
     const localDate = new Date();
     localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
@@ -39,10 +69,36 @@ const TourDetails = () => {
   }, []);
 
   const relatedTours = React.useMemo(() => {
-    return ALL_TOURS
-      .filter(t => t.id !== tour?.id)
-      .slice(0, 3);
-  }, [tour?.id]);
+    if (!tour) return [];
+
+    const locations = tour.location
+      .toLowerCase()
+      .split(',')
+      .map(location => location.trim())
+      .filter(Boolean);
+
+    const rankedTours = ALL_TOURS
+      .filter(candidate => candidate.id !== tour.id)
+      .map((candidate, index) => {
+        const candidateLocation = candidate.location.toLowerCase();
+        const sharedLocations = locations.filter(location => candidateLocation.includes(location)).length;
+        const score = sharedLocations * 4
+          + (candidate.category === tour.category ? 2 : 0)
+          + (candidate.duration === tour.duration ? 1 : 0);
+
+        return { candidate, index, score };
+      })
+      .sort((a, b) => b.score - a.score || a.index - b.index);
+
+    const uniqueImages = new Set<string>();
+    const selected = rankedTours.filter(({ candidate }) => {
+      if (uniqueImages.has(candidate.image)) return false;
+      uniqueImages.add(candidate.image);
+      return true;
+    });
+
+    return selected.slice(0, 3).map(({ candidate }) => candidate);
+  }, [tour]);
 
   const tourItinerary = React.useMemo(() => {
     if (tour?.itinerary && tour.itinerary.length > 0) {
@@ -76,6 +132,8 @@ const TourDetails = () => {
   const handleBookingRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!tour) return;
+    // Guards against a double submit that slipped past the disabled button.
+    if (requestState.status === 'submitting') return;
 
     const form = event.currentTarget;
     const data = new FormData(form);
@@ -83,73 +141,50 @@ const TourDetails = () => {
     const children = Number(data.get('children'));
     setRequestState({ status: 'submitting' });
 
-    try {
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tourId: tour.id,
-          tourTitle: tour.title,
-          name: data.get('name'),
-          email: data.get('email'),
-          phone: data.get('phone'),
-          country: data.get('country'),
-          preferredDate: data.get('date'),
-          departureDate: data.get('departureDate'),
-          travelers: adults + children,
-          adults,
-          children,
-          childAges: data.get('childAges'),
-          accommodationPreference: data.get('accommodationPreference'),
-          contactPreference: data.get('contactPreference'),
-          budgetRange: data.get('budgetRange'),
-          referralSource: data.get('referralSource'),
-          requirements: data.get('requirements'),
-          companyWebsite: data.get('companyWebsite'),
-          partnerPaymentAcknowledged: data.get('partnerPaymentAcknowledged') === 'on'
-        })
-      });
+    const outcome = await submitInquiry(
+      {
+        tourId: tour.id,
+        name: data.get('name'),
+        email: data.get('email'),
+        phone: data.get('phone'),
+        country: data.get('country'),
+        preferredDate: data.get('date'),
+        departureDate: data.get('departureDate'),
+        travelers: adults + children,
+        adults,
+        children,
+        childAges: data.get('childAges'),
+        accommodationPreference: data.get('accommodationPreference'),
+        contactPreference: data.get('contactPreference'),
+        budgetRange: data.get('budgetRange'),
+        referralSource: data.get('referralSource'),
+        requirements: data.get('requirements'),
+        companyWebsite: data.get('companyWebsite'),
+        turnstileToken: turnstileToken || undefined,
+        partnerPaymentAcknowledged: data.get('partnerPaymentAcknowledged') === 'on'
+      },
+      submissionKeyRef.current
+    );
 
-      const payload: unknown = await response.json();
-      if (!response.ok) {
-        const message =
-          payload &&
-          typeof payload === 'object' &&
-          'error' in payload &&
-          payload.error &&
-          typeof payload.error === 'object' &&
-          'message' in payload.error &&
-          typeof payload.error.message === 'string'
-            ? payload.error.message
-            : 'Your request could not be submitted. Please try again.';
-        throw new Error(message);
-      }
-
-      const reference =
-        payload &&
-        typeof payload === 'object' &&
-        'booking' in payload &&
-        payload.booking &&
-        typeof payload.booking === 'object' &&
-        'reference' in payload.booking &&
-        typeof payload.booking.reference === 'string'
-          ? payload.booking.reference
-          : '';
-
-      form.reset();
-      setArrivalDate('');
-      setDepartureDate('');
-      setChildrenCount('0');
-      setRequestState({
-        status: 'success',
-        message: `Request received${reference ? ` — reference ${reference}` : ''}. We will review availability and contact you with a quotation.`
-      });
-    } catch (error) {
-      setRequestState({
-        status: 'error',
-        message: error instanceof Error ? error.message : 'Your request could not be submitted.'
-      });
+    if (!outcome.ok) {
+      // The submission key is intentionally kept so a retry is idempotent.
+      setRequestState({ status: 'error', message: outcome.message });
+      return;
     }
+
+    form.reset();
+    setArrivalDate('');
+    setDepartureDate('');
+    setChildrenCount('0');
+    // Only now is a fresh key issued: the next inquiry is a new submission.
+    submissionKeyRef.current = createSubmissionKey();
+    if (isTurnstileEnabled) setTurnstileReset(value => value + 1);
+    setTurnstileToken('');
+    setRequestState({
+      status: 'success',
+      message: outcome.message,
+      reference: outcome.reference
+    });
   };
 
   const handleShare = async () => {
@@ -165,7 +200,11 @@ const TourDetails = () => {
     }
 
     await navigator.clipboard.writeText(window.location.href);
-    setRequestState({ status: 'success', message: 'Tour link copied to your clipboard.' });
+    setRequestState({
+      status: 'success',
+      message: 'Tour link copied to your clipboard.',
+      kind: 'notice'
+    });
   };
 
   const tourFaqs = [
@@ -187,7 +226,20 @@ const TourDetails = () => {
     }
   ];
 
-  if (!tour) return <div className="pt-40 text-center text-white">Journey not found.</div>;
+  /**
+   * An unknown tour must render the same not-found page the host serves for it.
+   *
+   * `/tours/<anything>` matches the `/tours/:id` route, so the client resolves
+   * *this* component for a typo while Cloudflare answers with `404.html` — which
+   * the prerenderer produced from the `NotFound` component. Returning a bare
+   * paragraph here made the two disagree: React reported a hydration failure
+   * (minified error #418), discarded the server markup, and client-rendered a
+   * single unstyled line with no heading and no way back to the catalogue.
+   *
+   * Rendering `NotFound` keeps the client output identical to the served
+   * document, so hydration succeeds and the visitor gets the real 404 page.
+   */
+  if (!tour) return <NotFound />;
 
   return (
     <div className="bg-egypt-night min-h-screen">
@@ -263,12 +315,12 @@ const TourDetails = () => {
 
           <div className="flex flex-wrap gap-3">
             <div className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold">
-              Estimate from: ${tour.price}
+              Estimate from: {formatUsd(tour.price)}
             </div>
-            <button onClick={handleShare} className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-[#1f4a6b] transition-colors">
+            <button type="button" onClick={handleShare} className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-[#1f4a6b] transition-colors">
               Send To a Friend
             </button>
-            <button onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-[#1f4a6b] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-blue-900 transition-colors">
+            <button type="button" onClick={() => scrollToElement(document.getElementById('booking-form'))} className="bg-[#1f4a6b] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-blue-900 transition-colors">
               Send an Inquiry
             </button>
           </div>
@@ -276,13 +328,13 @@ const TourDetails = () => {
 
         {/* Hero Photo Banner */}
         <div className="group relative min-h-[380px] overflow-hidden rounded-2xl border border-[#c63d2e]/40 bg-black shadow-[0_18px_55px_rgba(0,0,0,0.35)] md:min-h-[420px]">
-          <img
+          <ResponsiveImage
             src={tour.image}
             alt={`${tour.title} in ${tour.location}`}
-            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1600ms] ease-out group-hover:scale-[1.025]"
-            loading="eager"
-            fetchPriority="high"
+            sizes="100vw"
+            priority
             decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1600ms] ease-out group-hover:scale-[1.025]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-black/10" />
           <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-black/35 px-6 py-6 backdrop-blur-[3px] md:px-8 md:py-7">
@@ -309,6 +361,10 @@ const TourDetails = () => {
         {/* Left Navigation Sidebar */}
         <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-32 h-fit z-20">
           <div className="bg-[#1f4a6b] rounded-md overflow-hidden flex flex-col shadow-lg shadow-black/20">
+            {/* In-page section navigation. `aria-current` tells a screen-reader
+                user which section the page is showing, which the colour change
+                conveys visually. */}
+            <nav aria-label="Tour sections">
             {[
               { id: 'overview', label: 'Tour Details', icon: <FileText size={18} /> },
               { id: 'inclusions', label: 'Inclusions/Exclusions', icon: <CheckCircle2 size={18} /> },
@@ -325,41 +381,38 @@ const TourDetails = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
+                type="button"
+                aria-current={activeTab === tab.id ? 'true' : undefined}
                 onClick={() => {
-                  const el = document.getElementById(tab.id);
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 100;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
+                  scrollToElement(document.getElementById(tab.id), 100);
                   setActiveTab(tab.id);
                 }}
                 className={`w-full flex items-center gap-3 px-5 py-4 text-[13px] font-bold transition-all border-b border-white/10 last:border-0 ${activeTab === tab.id ? 'bg-[#c63d2e] text-white' : 'text-white hover:bg-white/10'
                   }`}
               >
-                <div className="text-white/80">{tab.icon}</div>
+                <div className="text-white/80" aria-hidden="true">{tab.icon}</div>
                 <span className="tracking-wide">{tab.label}</span>
               </button>
             ))}
+            </nav>
 
             <div className="p-4 space-y-3 mt-4">
               <button
+                type="button"
                 className="w-full bg-[#c63d2e] text-white py-3 rounded text-[13px] font-bold tracking-wide hover:bg-red-800 transition-colors"
-                onClick={() => {
-                  const el = document.getElementById('booking-form');
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 100;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }}
+                onClick={() => scrollToElement(document.getElementById('booking-form'), 100)}
               >
                 Send A Request For This Tour
               </button>
 
               <div className="flex gap-2">
-                <button className="flex-shrink-0 bg-[#166ba1] text-white px-4 py-3 rounded flex items-center justify-center gap-2 font-bold text-[13px] hover:bg-blue-800 transition-colors">
+                <Link
+                  to="/contact"
+                  className="flex-shrink-0 bg-[#166ba1] text-white px-4 py-3 rounded flex items-center justify-center gap-2 font-bold text-[13px] hover:bg-blue-800 transition-colors"
+                >
                   <div className="border border-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</div>
                   Help
-                </button>
+                </Link>
                 <a
                   href={`https://wa.me/${CONTACT_PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello, I am interested in ${tour.title}.`)}`}
                   target="_blank"
@@ -370,9 +423,11 @@ const TourDetails = () => {
                 </a>
               </div>
 
-              <p className="text-center text-[11px] font-bold text-white pt-2">
-                Or email: info@travisiontours.com
-              </p>
+              {EMAIL_PUBLISHED && (
+                <p className="text-center text-[11px] font-bold text-white pt-2">
+                  Or email: {CONTACT_EMAIL}
+                </p>
+              )}
             </div>
           </div>
         </aside>
@@ -383,10 +438,10 @@ const TourDetails = () => {
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-egypt-gold via-white to-egypt-gold"></div>
 
             <div className="mb-6">
-              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">Indicative estimate from</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-1">Indicative estimate from</p>
               <div className="flex items-end gap-2">
-                <span className="text-[40px] font-serif leading-none text-egypt-gold">${tour.price}</span>
-                <span className="text-xs text-white/40 uppercase tracking-widest pb-1 mb-1 border-b border-white/10">Per person</span>
+                <span className="text-[40px] font-serif leading-none text-egypt-gold">{formatUsd(tour.price)}</span>
+                <span className="text-xs text-white/60 uppercase tracking-widest pb-1 mb-1 border-b border-white/10">Per person</span>
               </div>
             </div>
             <p className="mb-5 text-[11px] leading-relaxed text-white/50">
@@ -443,7 +498,7 @@ const TourDetails = () => {
               <div>
                 <label htmlFor="inquiry-child-ages" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children’s Ages (if applicable)</label>
                 <input id="inquiry-child-ages" name="childAges" required={Number(childrenCount) > 0} aria-describedby="child-ages-help" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Example: 6, 10" />
-                <p id="child-ages-help" className="mt-1 text-[10px] leading-relaxed text-white/40">
+                <p id="child-ages-help" className="mt-1 text-[10px] leading-relaxed text-white/60">
                   {Number(childrenCount) > 0 ? 'Required for each child in this inquiry.' : 'Leave blank when no children are traveling.'}
                 </p>
               </div>
@@ -496,27 +551,57 @@ const TourDetails = () => {
                 <input id="inquiry-payment-acknowledgement" required name="partnerPaymentAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
                 <span>
                   I understand this is a booking request, not a confirmed reservation. If I accept the quotation, payment will be made directly to {PAYMENT_PARTNER_NAME} by Visa, Mastercard, Apple Pay, or bank wire transfer using instructions sent privately. I have read the{' '}
-                  <Link to="/policies" className="text-egypt-gold hover:text-white">privacy, booking, and payment policies</Link>.
+                  {/* Underlined so the link is distinguishable without relying on colour alone. */}
+                  <Link to="/policies" className="text-egypt-gold underline underline-offset-2 hover:text-white">privacy, booking, and payment policies</Link>.
                 </span>
               </label>
+
+              <TurnstileWidget onToken={setTurnstileToken} resetSignal={turnstileReset} className="flex justify-center" />
 
               <button disabled={requestState.status === 'submitting'} aria-busy={requestState.status === 'submitting'} type="submit" className="w-full bg-egypt-gold disabled:opacity-50 disabled:cursor-wait text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
                 <span>{requestState.status === 'submitting' ? 'Sending…' : 'Send Request'}</span>
                 <ChevronRight size={16} />
               </button>
-              {requestState.status === 'success' && (
+              {requestState.status === 'success' && requestState.kind === 'notice' && (
                 <p role="status" className="text-xs text-emerald-400 text-center leading-relaxed">
                   {requestState.message}
                 </p>
               )}
+              {requestState.status === 'success' && requestState.kind !== 'notice' && (
+                <div role="status" className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-[11px] leading-relaxed text-emerald-100 space-y-2">
+                  <p className="font-bold text-emerald-300">
+                    This is a request, not a confirmed reservation.
+                  </p>
+                  {requestState.reference && (
+                    <p>
+                      Your booking reference:{' '}
+                      <span className="font-mono font-bold text-white">{requestState.reference}</span>
+                    </p>
+                  )}
+                  <p>
+                    Travision Tours or {PAYMENT_PARTNER_NAME} will follow up with your quotation and
+                    written confirmation.
+                  </p>
+                  <p>
+                    If you accept the quotation, payment instructions arrive separately, and payment
+                    is made directly to {PAYMENT_PARTNER_NAME}.
+                  </p>
+                </div>
+              )}
               {requestState.status === 'error' && (
-                <p role="alert" className="text-xs text-red-400 text-center leading-relaxed">
+                <p
+                  ref={bookingErrorRef}
+                  id="booking-request-error"
+                  role="alert"
+                  tabIndex={-1}
+                  className="text-xs text-red-400 text-center leading-relaxed"
+                >
                   {requestState.message}
                 </p>
               )}
             </form>
 
-            <p className="text-center text-[10px] text-white/40 mt-6 flex items-center justify-center gap-2">
+            <p className="text-center text-[10px] text-white/60 mt-6 flex items-center justify-center gap-2">
               <Shield size={12} className="text-emerald-500" />
               This website does not collect payment or card details.
             </p>
@@ -526,12 +611,14 @@ const TourDetails = () => {
             <h4 className="text-xs uppercase tracking-[2px] font-black mb-6 text-egypt-gold/70">Need Help?</h4>
             <div className="space-y-4 text-sm font-light text-egypt-papyrus/70">
               <p>Speak to our specialists to customize this tour to your exact needs.</p>
-              <div className="pt-4 border-t border-white/5">
-                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Email Us</p>
-                <a href="mailto:info@travisiontours.com" className="text-egypt-gold hover:text-white transition-colors">info@travisiontours.com</a>
-              </div>
+              {EMAIL_PUBLISHED && (
+                <div className="pt-4 border-t border-white/5">
+                  <p className="text-[10px] uppercase tracking-widest text-white/60 mb-1">Email Us</p>
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="text-egypt-gold hover:text-white transition-colors">{CONTACT_EMAIL}</a>
+                </div>
+              )}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Call Us</p>
+                <p className="text-[10px] uppercase tracking-widest text-white/60 mb-1">Call Us</p>
                 <a href={`tel:${CONTACT_PHONE}`} className="text-egypt-gold hover:text-white transition-colors">{CONTACT_PHONE_DISPLAY}</a>
               </div>
             </div>
@@ -627,14 +714,14 @@ const TourDetails = () => {
               <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Price & Quotation</h3>
               <div className="glass rounded-[30px] border border-egypt-gold/20 p-8 md:p-10 grid md:grid-cols-[0.8fr_1.2fr] gap-8 items-center">
                 <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Indicative starting price</p>
-                  <p className="text-5xl font-serif text-egypt-gold">${tour.price}</p>
-                  <p className="text-xs text-white/40 mt-2">per person, subject to your final quotation</p>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/60 mb-2">Indicative starting price</p>
+                  <p className="text-5xl font-serif text-egypt-gold">{formatUsd(tour.price)}</p>
+                  <p className="text-xs text-white/60 mt-2">per person, subject to your final quotation</p>
                 </div>
                 <div className="space-y-4 text-sm text-egypt-papyrus/70 leading-relaxed">
                   <p>Your final price depends on travel dates, group size, accommodation, requested changes, and supplier availability.</p>
                   <p>Submit an inquiry for a written itinerary and itemized quotation. No payment is requested through this website.</p>
-                  <button onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-egypt-gold text-egypt-night px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest font-black">
+                  <button type="button" onClick={() => scrollToElement(document.getElementById('booking-form'))} className="bg-egypt-gold text-egypt-night px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest font-black">
                     Request your quotation
                   </button>
                 </div>
@@ -652,7 +739,7 @@ const TourDetails = () => {
                   ['04', 'Receive confirmation', 'Your booking is confirmed in writing after the partner verifies payment.']
                 ].map(([number, title, description]) => (
                   <div key={number} className="glass rounded-2xl border border-white/5 p-6">
-                    <span className="text-3xl font-serif text-egypt-gold/40">{number}</span>
+                    <span className="text-3xl font-serif text-egypt-gold/75">{number}</span>
                     <h4 className="text-base uppercase mt-5 mb-3">{title}</h4>
                     <p className="text-xs leading-relaxed text-egypt-papyrus/60">{description}</p>
                   </div>
@@ -670,10 +757,11 @@ const TourDetails = () => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {safeGallery.map((imgSrc, idx) => (
                     <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-pointer border border-white/10 shadow-lg">
-                      <img
+                      <ResponsiveImage
                         src={imgSrc}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         alt={`${tour.title} Gallery ${idx + 1}`}
+                        sizes="(min-width: 768px) 260px, 45vw"
                         loading="lazy"
                         decoding="async"
                       />
@@ -685,7 +773,7 @@ const TourDetails = () => {
                 </div>
               ) : (
                 <div className="relative aspect-video rounded-[40px] overflow-hidden">
-                  <img src={tour.image} className="w-full h-full object-cover opacity-70" alt={`${tour.title} preview`} />
+                  <ResponsiveImage src={tour.image} sizes="(min-width: 768px) 800px, 92vw" className="w-full h-full object-cover opacity-70" alt={`${tour.title} preview`} />
                   <div className="absolute bottom-10 left-10 text-white">
                     <h4 className="text-2xl font-serif uppercase mb-2">Tour Preview</h4>
                     <p className="text-sm text-white/70 font-light">Representative image for this itinerary.</p>
@@ -771,11 +859,11 @@ const TourDetails = () => {
                   <Link 
                     key={relTour.id} 
                     to={`/tours/${relTour.id}`}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    onClick={() => scrollToTop()}
                     className="glass border border-white/5 rounded-[24px] overflow-hidden group hover:border-egypt-gold/30 transition-all flex flex-col h-full shadow-lg hover:shadow-2xl"
                   >
                     <div className="h-40 overflow-hidden relative">
-                      <img src={relTour.image} alt={relTour.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <ResponsiveImage src={relTour.image} alt={relTour.title} sizes="(min-width: 768px) 260px, 92vw" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                       <div className="absolute top-3 left-3 bg-[#c63d2e] text-white text-[9px] uppercase tracking-widest font-black px-3 py-1.5 rounded-full">
                         {relTour.duration}
                       </div>
@@ -783,11 +871,11 @@ const TourDetails = () => {
                     <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
                       <div>
                         <h4 className="font-serif text-[15px] uppercase text-white tracking-wide leading-snug line-clamp-2 group-hover:text-egypt-gold transition-colors">{relTour.title}</h4>
-                        <p className="text-[11px] text-white/40 uppercase tracking-widest mt-1">{relTour.location}</p>
+                        <p className="text-[11px] text-white/60 uppercase tracking-widest mt-1">{relTour.location}</p>
                       </div>
                       <div className="flex justify-between items-center pt-3 border-t border-white/5">
-                        <span className="text-[16px] font-serif text-egypt-gold">${relTour.price}</span>
-                        <span className="text-[10px] uppercase tracking-widest text-white/40">{relTour.duration}</span>
+                        <span className="text-[16px] font-serif text-egypt-gold">{formatUsd(relTour.price)}</span>
+                        <span className="text-[10px] uppercase tracking-widest text-white/60">{relTour.duration}</span>
                       </div>
                     </div>
                   </Link>

@@ -9,7 +9,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "1 Day",
     "location": "Cairo",
     "category": "cultural",
-    "image": "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
+    "image": "/images/tours/pyramids-tour-from-cairo-airport/gallery-1.jpeg",
     "rating": 4.7,
     "reviewsCount": 204,
     "itinerary": [
@@ -67,7 +67,7 @@ export const SAMPLE_TOURS: Tour[] = [
       "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m40!1m12!1m3!1d221185.7953705519!2d31.1558010452132!3d29.97862378768848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m25!3e0!4m5!1s0x145817082ea84f41%3A0xe065af2151e21386!2scairo%20airport!3m2!1d30.1119003!2d31.3962546!4m5!1s0x14584f7de239bbcd%3A0xca7474355a6e368b!2sgiza%20pyramids!3m2!1d29.977296199999998!2d31.132495499999997!4m5!1s0x14584a1288a1eb7d%3A0x155b5589aa3ae89c!2sMemphis%2C%20Mit-Rahineh%2C%20Egypt!3m2!1d29.844464199999997!2d31.2506725!4m5!1s0x145817082ea84f41%3A0xe065af2151e21386!2sCairo%20International%20Airport%2C%20El%20Nozha!3m2!1d30.1119003!2d31.3962546!5e0!3m2!1sen!2seg!4v1649232055316!5m2!1sen!2seg",
-    "gallery": []
+    "gallery": ["/images/tours/pyramids-tour-from-cairo-airport/gallery-1.jpeg", "/images/tours/pyramids-tour-from-cairo-airport/gallery-2.jpeg"]
   },
   {
     "id": "day-trip-to-giza-pyramids-from-cairo",
@@ -77,7 +77,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "1 Day",
     "location": "Cairo, Giza",
     "category": "cultural",
-    "image": "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
+    "image": "/images/tours/day-trip-to-giza-pyramids-from-cairo/gallery-1.jpeg",
     "rating": 4.9,
     "reviewsCount": 104,
     "itinerary": [
@@ -137,7 +137,7 @@ export const SAMPLE_TOURS: Tour[] = [
       "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d55274.98827960371!2d31.13877551781535!3d30.017149297404753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14584f7de239bbcd%3A0xca7474355a6e368b!2sGiza%20Necropolis%2C%20Al%20Haram!3m2!1d29.977296199999998!2d31.132495499999997!5e0!3m2!1sen!2seg!4v1584831713363!5m2!1sen!2seg",
-    "gallery": []
+    "gallery": ["/images/tours/day-trip-to-giza-pyramids-from-cairo/gallery-1.jpeg", "/images/tours/day-trip-to-giza-pyramids-from-cairo/gallery-2.jpeg"]
   },
   {
     "id": "tour-to-giza-pyramids-old-cairo",
@@ -147,7 +147,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "1 Day",
     "location": "Cairo, Giza",
     "category": "historical",
-    "image": "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=1200",
+    "image": "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-1.jpeg",
     "rating": 4.8,
     "reviewsCount": 146,
     "itinerary": [
@@ -217,7 +217,7 @@ export const SAMPLE_TOURS: Tour[] = [
       "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d55273.14100784907!2d31.14093283614484!3d30.020463381355135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14584f7de239bbcd%3A0xca7474355a6e368b!2sGiza%20Necropolis%2C%20Al%20Haram!3m2!1d29.977296199999998!2d31.132495499999997!5e0!3m2!1sen!2seg!4v1584831823132!5m2!1sen!2seg",
-    "gallery": []
+    "gallery": ["/images/tours/tour-to-giza-pyramids-old-cairo/gallery-1.jpeg", "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-2.jpeg", "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-3.jpeg", "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-4.jpeg", "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-5.jpeg", "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-6.jpeg"]
   },
   {
     "id": "4-days-cairo-giza-pyramids-tour",
@@ -1261,8 +1261,8 @@ export const SAMPLE_TOURS: Tour[] = [
             "icon": "tour"
           },
           {
-            "title": "The Valley TempleThe Grand Egyptian Museum",
-            "description": "Visit The Valley TempleThe Grand Egyptian Museum as part of the planned itinerary. Timing, access, and included admission will be confirmed in the written quotation.",
+            "title": "The Valley Temple",
+            "description": "Visit The Valley Temple as part of the planned itinerary. Timing, access, and included admission will be confirmed in the written quotation.",
             "icon": "tour"
           },
           {
@@ -1575,8 +1575,8 @@ export const SAMPLE_TOURS: Tour[] = [
             "icon": "tour"
           },
           {
-            "title": "The Valley TempleThe Grand Egyptian Museum",
-            "description": "Visit The Valley TempleThe Grand Egyptian Museum as part of the planned itinerary. Timing, access, and included admission will be confirmed in the written quotation.",
+            "title": "The Valley Temple",
+            "description": "Visit The Valley Temple as part of the planned itinerary. Timing, access, and included admission will be confirmed in the written quotation.",
             "icon": "tour"
           },
           {
@@ -1816,7 +1816,7 @@ export const SAMPLE_TOURS: Tour[] = [
     "duration": "14 Days / 13 Nights",
     "location": "Cairo, Nile River",
     "category": "cultural",
-    "image": "https://images.unsplash.com/photo-1605649440417-513b636030c1?auto=format&fit=crop&q=80&w=1200",
+    "image": "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-1.jpeg",
     "rating": 4.8,
     "reviewsCount": 48,
     "itinerary": [
@@ -2173,7 +2173,7 @@ export const SAMPLE_TOURS: Tour[] = [
       "Payment-provider, bank, or currency-conversion charges unless specifically included."
     ],
     "mapUrl": "https://www.google.com/maps/embed?pb=!1m64!1m12!1m3!1d7299365.179202271!2d27.36133831878656!3d26.707873313269705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m49!3e0!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2scairo!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x145287b2cd3dbbb3%3A0x2db807f98bd3c360!2shurghada!3m2!1d27.2578957!2d33.8116067!4m5!1s0x144915cf52cd95cd%3A0xe0f5dd2b8b1c0e96!2sLuxor%2C%20Luxor%20City%2C%20Luxor%2C%20Luxor%20Governorate!3m2!1d25.6872431!2d32.6396357!4m5!1s0x14367b5ab1a30e5f%3A0xfb109fe337cabccb!2sAswan%2C%20Aswan%20Governorate!3m2!1d24.088938!2d32.8998293!4m5!1s0x143aa988b126055b%3A0xa7d3cc6618f898d2!2sAbu%20Simbel%20Temples%2C%20Abu%20Simbel%2C%20Aswan%20Governorate!3m2!1d22.3372319!2d31.625798999999997!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!4m5!1s0x14f5c49126710fd3%3A0xb4e0cda629ee6bb9!2sAlexandria%2C%20Alexandria%20Governorate!3m2!1d31.2000924!2d29.9187387!4m5!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Cairo%20Governorate!3m2!1d30.044419599999998!2d31.2357116!5e0!3m2!1sen!2seg!4v1644048515102!5m2!1sen!2seg",
-    "gallery": []
+    "gallery": ["/images/tours/14-days-trip-to-the-best-of-egypt/gallery-1.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-2.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-3.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-4.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-5.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-6.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-7.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-8.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-9.jpeg", "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-10.jpeg"]
   },
   {
     "id": "15-days-marvelous-egypt-tour-package",
@@ -2227,8 +2227,8 @@ export const SAMPLE_TOURS: Tour[] = [
             "icon": "tour"
           },
           {
-            "title": "The Valley TempleThe Grand Egyptian Museum",
-            "description": "Visit The Valley TempleThe Grand Egyptian Museum as part of the planned itinerary. Timing, access, and included admission will be confirmed in the written quotation.",
+            "title": "The Valley Temple",
+            "description": "Visit The Valley Temple as part of the planned itinerary. Timing, access, and included admission will be confirmed in the written quotation.",
             "icon": "tour"
           },
           {
@@ -2537,31 +2537,13 @@ export const SAMPLE_TOURS: Tour[] = [
   }
 ];
 
-export const SAMPLE_BLOG_POSTS: BlogPost[] = [
-  {
-    "id": "1",
-    "title": "Decoding the Book of the Dead",
-    "excerpt": "Understanding the journey through the Duat and the weighing of the heart.",
-    "content": "...",
-    "author": "Dr. Sarah Amin",
-    "date": "2024-03-15",
-    "image": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=1200",
-    "tags": [
-      "History",
-      "Spirituality"
-    ]
-  },
-  {
-    "id": "2",
-    "title": "5 Tips for Sustainable Travel in Egypt",
-    "excerpt": "How to respect local customs and minimize your footprint.",
-    "content": "...",
-    "author": "Ahmed Hassan",
-    "date": "2024-03-10",
-    "image": "https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&q=80&w=1200",
-    "tags": [
-      "Tips",
-      "Sustainability"
-    ]
-  }
-];
+/**
+ * Blog articles are pending owner-approved originals.
+ *
+ * The Blog route is hidden from navigation and search until real articles are
+ * supplied, so this stays empty rather than shipping placeholder bodies with
+ * placeholder authors. The export name is also the marker that
+ * scripts/generate-seo.mjs uses to split package tours out of this file, so it
+ * must remain declared even while empty.
+ */
+export const SAMPLE_BLOG_POSTS: BlogPost[] = [];

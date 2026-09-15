@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Lightbulb, Users, Clock, Globe, CameraOff } from 'lucide-react';
+import { Shield, Users, Globe, CameraOff } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const Guidelines = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { CONTACT_EMAIL, INQUIRY_POLICY_VERSION, PAYMENT_PARTNER_NAME } from '../config/site';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED, INQUIRY_POLICY_VERSION, PAYMENT_PARTNER_NAME } from '../config/site';
 
 const Policies = () => (
   <div className="min-h-screen bg-egypt-night px-6 pb-24 pt-40 text-egypt-papyrus">
@@ -20,7 +20,7 @@ const Policies = () => (
         These policies explain how website inquiries work. Your final written quotation may contain
         additional itinerary-specific terms that you should review before confirming.
       </p>
-      <p className="mt-3 text-xs uppercase tracking-widest text-egypt-papyrus/45">
+      <p className="mt-3 text-xs uppercase tracking-widest text-egypt-papyrus/60">
         Last updated: {new Date(`${INQUIRY_POLICY_VERSION}T00:00:00Z`).toLocaleDateString('en-GB', {
           day: 'numeric',
           month: 'long',
@@ -76,10 +76,24 @@ const Policies = () => (
             sensitive information through the public inquiry form.
           </p>
           <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
-            To ask about your submitted information, contact{' '}
-            <a className="text-egypt-gold hover:text-white" href={`mailto:${CONTACT_EMAIL}`}>
-              {CONTACT_EMAIL}
-            </a>.
+            To ask about your submitted information,{' '}
+            {EMAIL_PUBLISHED ? (
+              <>
+                contact{' '}
+                {/* Underlined so the link is distinguishable without relying on colour alone. */}
+                <a className="text-egypt-gold underline underline-offset-2 hover:text-white" href={`mailto:${CONTACT_EMAIL}`}>
+                  {CONTACT_EMAIL}
+                </a>
+              </>
+            ) : (
+              <>
+                contact us through the inquiry form or by phone at{' '}
+                <a className="text-egypt-gold underline underline-offset-2 hover:text-white" href={`tel:${CONTACT_PHONE}`}>
+                  {CONTACT_PHONE_DISPLAY}
+                </a>
+              </>
+            )}
+            .
           </p>
         </section>
       </div>

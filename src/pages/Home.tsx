@@ -4,7 +4,9 @@ import { ArrowRight, MapPin, Calendar, Users, ShieldCheck, Compass } from 'lucid
 import { Link } from 'react-router-dom';
 import { SAMPLE_TOURS } from '../constants';
 import SEO from '../components/SEO';
-import { CONTACT_EMAIL, CONTACT_PHONE, DEFAULT_SOCIAL_IMAGE, SITE_URL } from '../config/site';
+import ResponsiveImage from '../components/ResponsiveImage';
+import { CONTACT_EMAIL, CONTACT_PHONE, DEFAULT_SOCIAL_IMAGE, EMAIL_PUBLISHED, SITE_URL } from '../config/site';
+import { formatUsd } from '../utils/money';
 
 const Home = () => {
   return (
@@ -25,7 +27,7 @@ const Home = () => {
           image: DEFAULT_SOCIAL_IMAGE,
           description: 'Private Egypt tours, day trips, Nile cruises, and tailor-made holidays with expert Egyptologists.',
           telephone: CONTACT_PHONE,
-          email: CONTACT_EMAIL,
+          ...(EMAIL_PUBLISHED ? { email: CONTACT_EMAIL } : {}),
           address: {
             '@type': 'PostalAddress',
             addressLocality: 'Cairo',
@@ -40,9 +42,11 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-32 md:pt-40 px-6">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/hero.jpg?v=2" 
+          <ResponsiveImage
+            src="/hero.jpg?v=2"
             alt="Travision Tours Group at Pyramids of Giza"
+            sizes="100vw"
+            priority
             className="w-full h-full object-cover opacity-100"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-egypt-night/20 via-egypt-night/60 to-egypt-night" />
@@ -84,7 +88,15 @@ const Home = () => {
 
         {/* Floating Numbers / Stats */}
         <div className="absolute bottom-12 right-6 hidden lg:flex flex-col items-end gap-2">
-          <span className="text-[120px] font-serif leading-none text-white/5 select-none">01</span>
+          {/*
+            The oversized numeral is a decorative watermark at 5% opacity, so it
+            is deliberately unreadable and carries no information — the label
+            beneath it is the actual content. Marking it aria-hidden both
+            exempts it from the contrast requirement (WCAG 1.4.3 excludes
+            incidental decoration) and stops screen readers announcing a bare
+            "01" with no context.
+          */}
+          <span aria-hidden="true" className="text-[120px] font-serif leading-none text-white/5 select-none">01</span>
           <span className="text-label text-right">The Pharaoh's Path</span>
         </div>
       </section>
@@ -113,9 +125,10 @@ const Home = () => {
             >
               <Link to={`/tours/${tour.id}`}>
                 <div className="relative aspect-[4/5] overflow-hidden rounded-t-[40px] rounded-b-[10px] mb-6">
-                  <img 
-                    src={tour.image} 
+                  <ResponsiveImage
+                    src={tour.image}
                     alt={tour.title}
+                    sizes="(min-width: 1024px) 380px, (min-width: 768px) 46vw, 92vw"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-egypt-night/80 via-transparent to-transparent opacity-60" />
@@ -127,7 +140,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center px-2">
-                  <span className="text-egypt-gold font-serif text-lg">${tour.price} <span className="text-xs text-egypt-papyrus/40 font-sans uppercase">estimated / person</span></span>
+                  <span className="text-egypt-gold font-serif text-lg">{formatUsd(tour.price)} <span className="text-xs text-egypt-papyrus/60 font-sans uppercase">estimated / person</span></span>
                   <div className="flex gap-4 text-egypt-papyrus/50">
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
@@ -146,9 +159,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="relative">
             <div className="aspect-square rounded-[60px] overflow-hidden border border-white/5">
-              <img 
-                src="https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=1200" 
-                alt="Egyptian Art"
+              <ResponsiveImage
+                src="/images/day-tours/egyptian-museum-day-tour.jpeg"
+                alt="A guide and visitors viewing a golden pharaonic funerary mask in a museum gallery"
+                sizes="(min-width: 1024px) 580px, 92vw"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -188,8 +202,8 @@ const Home = () => {
                     <item.icon size={20} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-egypt-papyrus mb-1">{item.title}</h4>
-                    <p className="text-xs text-egypt-papyrus/40 font-light">{item.desc}</p>
+                    <h3 className="font-medium text-egypt-papyrus mb-1">{item.title}</h3>
+                    <p className="text-xs text-egypt-papyrus/60 font-light">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -202,7 +216,7 @@ const Home = () => {
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto bg-egypt-gold rounded-[60px] p-12 md:p-24 relative overflow-hidden text-center group">
           <div className="absolute inset-0 opacity-10 pointer-events-none">
-             <div className="w-full h-full bg-[url('https://www.transparenttextures.com/patterns/hieroglyphs.png')] invert" />
+             <div className="texture-hieroglyph w-full h-full" />
           </div>
           <h2 className="text-4xl md:text-7xl font-serif text-egypt-night uppercase leading-none mb-8 relative z-10">
             Write Your <span className="italic">Own Chapter</span> <br />In history

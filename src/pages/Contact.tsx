@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import SEO from '../components/SEO';
-import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from '../config/site';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED } from '../config/site';
 
 const whatsappUrl = `https://wa.me/${CONTACT_PHONE.replace(/\D/g, '')}`;
 
@@ -33,11 +33,13 @@ const Contact = () => (
           <h2 className="mt-5 font-serif text-2xl text-white">Telephone</h2>
           <p className="mt-2 text-egypt-papyrus/60">{CONTACT_PHONE_DISPLAY}</p>
         </a>
-        <a href={`mailto:${CONTACT_EMAIL}`} className="glass rounded-3xl border border-white/10 p-8 hover:border-egypt-gold/50">
-          <Mail className="text-egypt-gold" />
-          <h2 className="mt-5 font-serif text-2xl text-white">Email</h2>
-          <p className="mt-2 text-egypt-papyrus/60">{CONTACT_EMAIL}</p>
-        </a>
+        {EMAIL_PUBLISHED && (
+          <a href={`mailto:${CONTACT_EMAIL}`} className="glass rounded-3xl border border-white/10 p-8 hover:border-egypt-gold/50">
+            <Mail className="text-egypt-gold" />
+            <h2 className="mt-5 font-serif text-2xl text-white">Email</h2>
+            <p className="mt-2 text-egypt-papyrus/60">{CONTACT_EMAIL}</p>
+          </a>
+        )}
         <div className="glass rounded-3xl border border-white/10 p-8">
           <MapPin className="text-egypt-gold" />
           <h2 className="mt-5 font-serif text-2xl text-white">Location</h2>

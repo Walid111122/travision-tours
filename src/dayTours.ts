@@ -5,55 +5,58 @@ import { Tour } from './types';
  * Kept separate from multi-day packages for filtering and presentation.
  */
 
-// Image helper — single, themed source for every day-tour card image.
-const UNSPLASH_IMAGES: Record<string, string> = {
-  'cairo-day-tour': 'https://images.unsplash.com/photo-1572252017412-2df25d259e87?auto=format&fit=crop&q=80&w=800',
-  'giza-pyramids-day-tour': 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&q=80&w=800',
-  'luxor-day-tour': 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800',
-  'aswan-day-tour': 'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?auto=format&fit=crop&q=80&w=800',
-  'abu-simbel-day-tour': 'https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&q=80&w=800',
-  'alexandria-day-tour': 'https://images.unsplash.com/photo-1568322422390-0ec4dc2e8571?auto=format&fit=crop&q=80&w=800',
-  'old-cairo-day-tour': 'https://images.unsplash.com/photo-1601569420042-3e28405d41df?auto=format&fit=crop&q=80&w=800',
-  'hurghada-day-tour': 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800',
+/**
+ * Day-tour card images.
+ *
+ * Every published day tour must have an explicit entry here. Entries are local
+ * assets where a destination-matched photo has been supplied, and remote stock
+ * URLs only for the Red Sea resorts that have no local asset yet.
+ *
+ * `white-desert-day-tour` deliberately has no entry: no White Desert photo
+ * exists in the library, so it resolves to PLACEHOLDER_TOUR_IMAGE and logs a
+ * development warning instead of silently showing an unrelated destination.
+ */
+const PLACEHOLDER_TOUR_IMAGE = '/hero.jpg';
+
+export const DAY_TOUR_IMAGES: Record<string, string> = {
+  // Local, destination-matched photos.
+  'cairo-day-tour': '/images/day-tours/cairo-day-tour.jpeg',
+  'giza-pyramids-day-tour': '/images/day-tours/giza-pyramids-day-tour.jpeg',
+  'luxor-day-tour': '/images/day-tours/luxor-day-tour.jpeg',
+  'aswan-day-tour': '/images/day-tours/aswan-day-tour.jpeg',
+  'abu-simbel-day-tour': '/images/day-tours/abu-simbel-day-tour.jpeg',
+  'alexandria-day-tour': '/images/day-tours/alexandria-day-tour.jpeg',
+  'old-cairo-day-tour': '/images/day-tours/old-cairo-day-tour.jpeg',
+  'hurghada-day-tour': '/images/day-tours/hurghada-day-tour.jpeg',
+  'sakkara-day-tour': '/images/day-tours/sakkara-day-tour.jpeg',
+  'dahshur-day-tour': '/images/day-tours/dahshur-day-tour.jpeg',
+  'egyptian-museum-day-tour': '/images/day-tours/egyptian-museum-day-tour.jpeg',
+  'philae-temple-day-tour': '/images/day-tours/philae-temple-day-tour.jpeg',
+  'valley-of-kings-day-tour': '/images/day-tours/valley-of-kings-day-tour.jpeg',
+  'karnak-temple-day-tour': '/images/day-tours/karnak-temple-day-tour.jpeg',
+  'nile-cruise-day-tour': '/images/day-tours/nile-cruise-day-tour.jpeg',
+
+  // Red Sea resorts: awaiting owner-supplied local photos.
   'sharm-el-sheikh-day-tour': 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=800',
   'marsa-alam-day-tour': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
   'el-gouna-day-tour': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800',
   'makadi-bay-day-tour': 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&q=80&w=800',
   'soma-bay-day-tour': 'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80&w=800',
-  'port-ghalib-day-tour': 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800',
-  'sakkara-day-tour': 'https://images.unsplash.com/photo-1608976328321-260aa72f416c?auto=format&fit=crop&q=80&w=800',
-  'dahshur-day-tour': 'https://images.unsplash.com/photo-1629815049063-74fc3e30f53a?auto=format&fit=crop&q=80&w=800',
-  'egyptian-museum-day-tour': 'https://images.unsplash.com/photo-1544850893-02e2c83ac58a?auto=format&fit=crop&q=80&w=800',
-  'khan-el-khalili-day-tour': 'https://images.unsplash.com/photo-1582298538104-fe2e74c27f59?auto=format&fit=crop&q=80&w=800',
-  'coptic-cairo-day-tour': 'https://images.unsplash.com/photo-1601569420042-3e28405d41df?auto=format&fit=crop&q=80&w=800',
-  'islamic-cairo-day-tour': 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&q=80&w=800',
-  'cairo-citadel-day-tour': 'https://images.unsplash.com/photo-1560242208-7260a0b22a0a?auto=format&fit=crop&q=80&w=800',
-  'nile-dinner-cruise-cairo': 'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&q=80&w=800',
-  'sound-and-light-show-giza': 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=800',
-  'west-bank-luxor-day-tour': 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800',
-  'east-bank-luxor-day-tour': 'https://images.unsplash.com/photo-1623877995180-2a829ba8ecab?auto=format&fit=crop&q=80&w=800',
-  'valley-of-the-kings-day-tour': 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800',
-  'karnak-temple-day-tour': 'https://images.unsplash.com/photo-1623877995180-2a829ba8ecab?auto=format&fit=crop&q=80&w=800',
-  'hatshepsut-temple-day-tour': 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800',
-  'dendera-temple-day-tour': 'https://images.unsplash.com/photo-1608976328321-260aa72f416c?auto=format&fit=crop&q=80&w=800',
-  'abydos-temple-day-tour': 'https://images.unsplash.com/photo-1544850893-02e2c83ac58a?auto=format&fit=crop&q=80&w=800',
-  'kom-ombo-edfu-day-tour': 'https://images.unsplash.com/photo-1560242208-7260a0b22a0a?auto=format&fit=crop&q=80&w=800',
-  'philae-temple-day-tour': 'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?auto=format&fit=crop&q=80&w=800',
-  'nubian-village-day-tour': 'https://images.unsplash.com/photo-1547983699-a2935406d229?auto=format&fit=crop&q=80&w=800',
-  'kalabsha-temple-day-tour': 'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?auto=format&fit=crop&q=80&w=800',
-  'st-simeon-monastery-day-tour': 'https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?auto=format&fit=crop&q=80&w=800',
-  'quad-bike-safari-giza': 'https://images.unsplash.com/photo-1565462214341-de046c827c1a?auto=format&fit=crop&q=80&w=800',
-  'felucca-ride-nile-cairo': 'https://images.unsplash.com/photo-1547983699-a2935406d229?auto=format&fit=crop&q=80&w=800',
-  'cairo-tower-day-trip': 'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?auto=format&fit=crop&q=80&w=800',
-  'al-azhar-park-cairo': 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&q=80&w=800',
-  'cairo-shopping-tour': 'https://images.unsplash.com/photo-1582298538104-fe2e74c27f59?auto=format&fit=crop&q=80&w=800',
-  'egyptian-food-tour-cairo': 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&q=80&w=800',
-  'mummy-hall-national-museum': 'https://images.unsplash.com/photo-1544850893-02e2c83ac58a?auto=format&fit=crop&q=80&w=800',
-  'grand-egyptian-museum-preview': 'https://images.unsplash.com/photo-1572252017412-2df25d259e87?auto=format&fit=crop&q=80&w=800'
+  'port-ghalib-day-tour': 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800'
 };
 
-const img = (id: string) =>
-  UNSPLASH_IMAGES[id] || `https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&q=80&w=800`;
+/**
+ * Resolve a day-tour image. A missing mapping is loud in development rather
+ * than silently shipping an unrelated photo.
+ */
+const img = (id: string) => {
+  const mapped = DAY_TOUR_IMAGES[id];
+  if (mapped) return mapped;
+  if (import.meta.env?.DEV) {
+    console.warn(`[dayTours] No image mapped for "${id}". Falling back to the placeholder image.`);
+  }
+  return PLACEHOLDER_TOUR_IMAGE;
+};
 
 // ---------------------------------------------------------------------------
 // DAY TOURS
