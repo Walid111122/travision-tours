@@ -1,0 +1,72 @@
+# Launch Checklist — Travision Tours
+
+The site is **pre-domain ready**: all engineering and verification that does
+not require live infrastructure is done. This checklist is the ordered path
+from here to a public launch. Owner decisions are in
+`CONTENT_GAPS.md` and `PHASE8_CONTENT_VALIDATION.md` §D — resolve them first.
+
+## 1. Owner blockers (before any launch step)
+
+- [ ] Confirm display currency (USD assumed — `formatUsd` is a one-function
+      change if EGP or a per-tour field is wanted instead).
+- [ ] Supply copy for the 51 uncovered attractions/activities (§A3b) or accept
+      the generic sentence on 65 stops.
+- [ ] Supply real photos: White Desert cover + six Red Sea day-tour covers
+      currently on Unsplash hotlinks.
+- [ ] Supply per-tour logistics (pickup/drop-off, accessibility, availability,
+      accommodation level, child policy) — see `CONTENT_GAPS.md`.
+- [ ] Substantiate or delete `rating`/`reviewsCount` data (never rendered).
+- [ ] Decide the blog: write real articles or keep the route hidden.
+- [ ] Sign off on the policy items in `PHASE8_CONTENT_VALIDATION.md` §C
+      (lawful basis, retention, deletion rights, governing law).
+- [ ] Confirm per-tour or final cancellation/refund terms (currently deferred
+      to the written quotation).
+
+## 2. Domain and mail
+
+- [ ] Register/confirm the domain.
+- [ ] Provision the mailbox for `info@travisiontours.com` and verify it
+      receives mail.
+- [ ] Flip `EMAIL_PUBLISHED` to `true` in `src/config/business.ts` — restores
+      the address in all seven suppressed locations at once.
+- [ ] Set `SITE_URL` in `.env` (see `.env.example`) — `build:production`
+      refuses to run without a real origin.
+
+## 3. Cloudflare production resources (free tier)
+
+- [ ] `wrangler login`, then create the production D1 database and update
+      `database_id` in `wrangler.jsonc`.
+- [ ] `wrangler d1 migrations apply travision-tours --remote`.
+- [ ] Create a Turnstile site, then `wrangler secret put TURNSTILE_SECRET_KEY`
+      and set `VITE_TURNSTILE_SITE_KEY` in `.env`.
+- [ ] Create the Cloudflare Access application for `/admin`; set
+      `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ACCESS_ALLOWED_EMAILS`.
+- [ ] `wrangler secret put RATE_LIMIT_SALT` (any random string).
+- [ ] Configure the operator notification webhook
+      (`NOTIFICATION_WEBHOOK_URL`, `NOTIFICATION_WEBHOOK_TOKEN`) or accept
+      log-only notifications.
+- [ ] `.dev.vars.example` documents every secret key — copy to `.dev.vars`
+      for local work.
+
+## 4. Deploy and verify
+
+- [ ] `npm run build:production && npm run verify` — all gates green.
+- [ ] `wrangler deploy` (first real deployment).
+- [ ] Point DNS at the Worker / configure the custom domain.
+- [ ] Submit one controlled inquiry end-to-end; confirm D1 row + operator
+      notification.
+- [ ] Verify the `/admin` route requires Access and serves real data.
+- [ ] Confirm sitemap.xml and robots.txt resolve on the production origin.
+
+## 5. Post-launch (from implementation plan §15)
+
+- [ ] Submit sitemap in Search Console; watch canonical/404 reports.
+- [ ] Add analytics (decision deferred — none configured today).
+- [ ] Monitor Worker errors, notification failures, abuse signals.
+- [ ] Keep the previous deployment available for rollback; rollback triggers:
+      booking submission, lead notification, routing, or critical rendering.
+
+## Rollback
+
+`wrangler rollback` (or redeploy the previous commit). Roll back if booking
+submission, lead notification, routing, or critical page rendering fails.
