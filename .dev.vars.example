@@ -1,0 +1,29 @@
+# Local Wrangler secrets. Copy to `.dev.vars` (gitignored — never commit it).
+#
+# These values exist so `wrangler dev` runs the full Phase 3 code path without
+# contacting Cloudflare. Production values are set with `wrangler secret put`.
+
+# --- Development-only bypasses -------------------------------------------
+# These two flags live here, and ONLY here, on purpose: .dev.vars is never
+# deployed, so a production Worker cannot inherit them. Each bypass also
+# requires ENVIRONMENT to be exactly "development", giving two independent
+# reasons it cannot activate in production.
+TURNSTILE_DEV_BYPASS=
+ACCESS_DEV_BYPASS=
+
+# Turnstile — production value is set with:
+#   wrangler secret put TURNSTILE_SECRET_KEY
+TURNSTILE_SECRET_KEY=
+
+# Salt used to hash client addresses for rate limiting (never stored raw).
+RATE_LIMIT_SALT=
+
+# Cloudflare Access — production values come from the Access application.
+ACCESS_TEAM_DOMAIN=
+ACCESS_AUD=
+ACCESS_ALLOWED_EMAILS=
+
+# Operator notification provider. Leave unset locally: development uses the
+# logging adapter and never sends a real message.
+NOTIFICATION_WEBHOOK_URL=
+NOTIFICATION_WEBHOOK_TOKEN=

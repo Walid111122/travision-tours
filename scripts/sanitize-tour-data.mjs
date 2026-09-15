@@ -51,7 +51,7 @@ console.log(`Sanitized ${tours.length} package tours.`);
 
 const dayToursUrl = new URL('../src/dayTours.ts', import.meta.url);
 const dayToursSource = await readFile(dayToursUrl, 'utf8');
-const dayTourDescriptionPattern = /    description:\r?\n      '(?:\\.|[^'])*',/g;
+const dayTourDescriptionPattern = / {4}description:\r?\n {6}'(?:\\.|[^'])*',/g;
 const dayTourDescriptions = dayToursSource.match(dayTourDescriptionPattern) ?? [];
 const cleanDayTours = dayToursSource
   .replace(
