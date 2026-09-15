@@ -3,49 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import ContactActions from './components/ContactActions';
+import AppShell, { type PageComponents } from './AppShell';
 
-const Home = lazy(() => import('./pages/Home'));
-const Tours = lazy(() => import('./pages/Tours'));
-const TourDetails = lazy(() => import('./pages/TourDetails'));
-const Blog = lazy(() => import('./pages/Blog'));
-const ItineraryBuilder = lazy(() => import('./pages/ItineraryBuilder'));
-const Guidelines = lazy(() => import('./pages/Guidelines'));
-const Policies = lazy(() => import('./pages/Policies'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-
-export default function App() {
+/**
+ * Browser entry. The route table and layout live in `AppShell` so that the
+ * prerenderer can render the identical tree with a `StaticRouter`.
+ *
+ * `pages` is supplied by `main.tsx`, which resolves the current route's chunk
+ * before hydrating so the first render does not suspend. Without it,
+ * `AppShell` falls back to loading every page lazily.
+ */
+export default function App({ pages }: { pages?: PageComponents }) {
   return (
     <HelmetProvider>
       <Router>
-        <div className="min-h-screen flex flex-col bg-egypt-night">
-          <Navbar />
-          <main className="flex-grow">
-            <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-egypt-gold">Loading journey…</div>}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/tours" element={<Tours />} />
-                <Route path="/tours/:id" element={<TourDetails />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/planner" element={<ItineraryBuilder />} />
-                <Route path="/guidelines" element={<Guidelines />} />
-                <Route path="/policies" element={<Policies />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </main>
-          <Footer />
-          <ContactActions />
-        </div>
+        <AppShell pages={pages} />
       </Router>
     </HelmetProvider>
   );

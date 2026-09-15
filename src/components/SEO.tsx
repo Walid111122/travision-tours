@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DEFAULT_SOCIAL_IMAGE, SITE_NAME, SITE_URL, absoluteUrl } from '../config/site';
+import { DEFAULT_SOCIAL_IMAGE, SITE_NAME, absoluteUrl } from '../config/site';
 
 interface SEOProps {
   title: string;
@@ -24,8 +24,16 @@ const SEO: React.FC<SEOProps> = ({
   structuredData
 }) => {
   const fullTitle = title === SITE_NAME ? SITE_NAME : `${title} | ${SITE_NAME}`;
-  const currentPath = typeof window === 'undefined' ? '/' : window.location.pathname;
-  const canonicalUrl = absoluteUrl(canonical || currentPath);
+
+  /**
+   * A canonical URL must be stated explicitly by the page.
+   *
+   * The previous fallback read `window.location.pathname`, which does not exist
+   * while a page is being prerendered — so every document without an explicit
+   * canonical silently claimed "/". That was most visible on the 404 page,
+   * which was telling search engines it was the homepage.
+   */
+  const canonicalUrl = canonical ? absoluteUrl(canonical) : null;
   const imageUrl = absoluteUrl(image);
 
   return (
@@ -33,13 +41,13 @@ const SEO: React.FC<SEOProps> = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
-      <link rel="canonical" href={canonicalUrl} />
+      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="en_US" />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={canonicalUrl} />
+      {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
       <meta property="og:image" content={imageUrl} />
       <meta property="og:image:alt" content={imageAlt || title} />
       <meta name="twitter:card" content="summary_large_image" />

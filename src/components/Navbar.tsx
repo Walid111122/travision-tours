@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Search, Phone, Mail } from 'lucide-react';
-import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from '../config/site';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED } from '../config/site';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,10 +25,12 @@ const Navbar = () => {
               <Phone size={12} className="text-egypt-gold" />
               {CONTACT_PHONE_DISPLAY}
             </a>
-            <a href={`mailto:${CONTACT_EMAIL}`} className="hidden sm:flex items-center gap-2 hover:text-egypt-gold transition-colors">
-              <Mail size={12} className="text-egypt-gold" />
-              {CONTACT_EMAIL}
-            </a>
+            {EMAIL_PUBLISHED && (
+              <a href={`mailto:${CONTACT_EMAIL}`} className="hidden sm:flex items-center gap-2 hover:text-egypt-gold transition-colors">
+                <Mail size={12} className="text-egypt-gold" />
+                {CONTACT_EMAIL}
+              </a>
+            )}
           </div>
           <div className="flex items-center gap-6">
             <Link to="/policies" className="hover:text-egypt-gold transition-colors">Booking & Payment</Link>
@@ -84,9 +86,6 @@ const Navbar = () => {
               Shore Excursions
             </Link>
 
-            <Link to="/blog" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
-              Blog
-            </Link>
             <Link to="/about" className="text-[11px] tracking-widest uppercase font-bold text-egypt-papyrus/80 hover:text-egypt-gold transition-colors">
               About
             </Link>
@@ -112,11 +111,15 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Toggle */}
-          <button 
-            className="lg:hidden text-egypt-papyrus"
+          <button
+            type="button"
+            className="lg:hidden text-egypt-papyrus p-2 -m-2"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
           </button>
         </div>
       </div>
@@ -128,6 +131,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
+            id="mobile-navigation"
             className="absolute top-full left-0 right-0 bg-egypt-night/95 backdrop-blur-xl border-t border-white/10 shadow-2xl lg:hidden overflow-hidden flex flex-col"
           >
             <div className="p-4 flex flex-col gap-2">
@@ -138,7 +142,6 @@ const Navbar = () => {
               <Link to="/tours?type=cruises" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Nile Cruises</Link>
 
               <Link to="/tours?type=shore" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Shore Excursions</Link>
-              <Link to="/blog" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Blog</Link>
               <Link to="/about" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">About</Link>
               <Link to="/contact" onClick={() => setIsOpen(false)} className="px-4 py-3 text-xs tracking-widest uppercase font-bold text-egypt-papyrus border-b border-white/10 hover:text-egypt-gold">Contact</Link>
               
