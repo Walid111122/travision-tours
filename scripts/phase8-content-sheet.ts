@@ -238,9 +238,9 @@ p();
 
 p('### A4. Empty arrays');
 p();
-p(`- \`SAMPLE_BLOG_POSTS\` in \`src/constants.ts\` is \`[]\`. The Blog route renders from it, so the`);
-p('  page is empty rather than absent. This is the open decision "Blog — real articles or stay');
-p('  hidden?".');
+p(`- \`SAMPLE_BLOG_POSTS\` now contains ${SAMPLE_BLOG_POSTS.length} published articles`);
+p('  (declared in `src/blogPosts.ts`, re-exported from `constants.ts`). The blog is public,');
+p('  indexable, in the sitemap, and linked from navigation and the footer.');
 p('- No tour has an empty `inclusions`, `exclusions`, `gallery`, `highlights` or `itinerary` array.');
 p();
 
@@ -457,7 +457,7 @@ p('| 1 | Confirm the display currency (USD assumed) or choose another | The form
 p(`| 2 | Supply copy for the ${genericTitleCount.size} distinct attractions/activities with no approved text | ${totalGeneric} stops still render the generic sentence (§A3b). The 13 naming variants are already aliased (§A3a) |`);
 p('| 3 | Confirm the contact mailbox is live, then flip `EMAIL_PUBLISHED` to `true` | The address is suppressed site-wide until then (§A8) |');
 p('| 4 | Substantiate or remove the rating and review-count values | Unsubstantiated data currently dead in source (§A5) |');
-p('| 5 | Blog — publish real articles or hide the route | `SAMPLE_BLOG_POSTS` is empty (§A4) |');
+p(`| 5 | ~~Blog — publish real articles or hide the route~~ — RESOLVED | ${SAMPLE_BLOG_POSTS.length} articles published; route is public and in the sitemap (§A4) |`);
 p('| 6 | Approve the policy items in Section C | Acceptance criterion: owner signs off on policies |');
 p('| 7 | Provide pickup/drop-off, accessibility, availability and accommodation level | Missing for all 34 tours (Section B) |');
 p('| 8 | Supply a White Desert cover photo, and local replacements for the six Unsplash-hosted day-tour covers | `white-desert-day-tour` shows `/hero.jpg`; Sharm, Marsa Alam, El Gouna, Makadi, Soma Bay and Port Ghalib hot-link stock photos that may not depict the actual location (§B) |');

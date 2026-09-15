@@ -24,6 +24,7 @@ import Home from './pages/Home';
 import Tours from './pages/Tours';
 import TourDetails from './pages/TourDetails';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import ItineraryBuilder from './pages/ItineraryBuilder';
 import Guidelines from './pages/Guidelines';
 import Policies from './pages/Policies';
@@ -43,6 +44,7 @@ const eagerPages: PageComponents = {
   Tours,
   TourDetails,
   Blog,
+  BlogPost,
   ItineraryBuilder,
   Guidelines,
   Policies,

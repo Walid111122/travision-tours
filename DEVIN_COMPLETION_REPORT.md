@@ -52,6 +52,26 @@ weakened.
 | `.dev.vars.example` + `.gitignore` | New secrets template (keys + comments only); `!.dev.vars.example` negation added | A fresh clone had no way to know which vars `.dev.vars` needs |
 | `src/pages/Profile.tsx` | (already in pass 1) | — |
 
+## 1c. Files changed in the third pass (blog publication)
+
+The blog was a flagged owner decision ("publish real articles or hide the
+route"). The owner requested five SEO-friendly articles, so the feature was
+built out and published — the previously empty/hidden route is now a real,
+indexable section.
+
+| File | Change | Why |
+|---|---|---|
+| `src/blogPosts.ts` | **New.** Five original articles (Pyramids first-time guide, two-day Luxor itinerary, Nile cruise vs land tour, Abu Simbel, what to wear in Egypt) with structured `##`/`###`/`-`/link/bold content | Owner request; copy is grounded in catalog facts only — no prices, ratings, review counts, or invented logistics — and every article links internally to the relevant tour page(s) |
+| `src/constants.ts` | `SAMPLE_BLOG_POSTS` now imports/re-exports the five posts instead of an empty array | Single data source the pages and the content sheet consume |
+| `src/pages/Blog.tsx` | Replaced the "articles being prepared" stub with a real listing: responsive article cards with `ResponsiveImage` covers, date/author/tags, excerpts | The route had no content to publish |
+| `src/pages/BlogPost.tsx` | **New.** Article page: hero cover, meta line, a small content renderer (paragraphs, h2/h3, lists, internal/external links, bold), `Article` JSON-LD (datePublished, author, publisher, mainEntityOfPage, image), canonical + OG/Twitter image metadata; unknown slugs render the real `NotFound` page | Each post needed a crawlable detail page with correct structured data |
+| `src/routeTable.ts`, `src/AppShell.tsx`, `src/entry-server.tsx` | `BlogPost` page key + `/blog/:id` route; lazy browser loader; eager SSR map entry | Client nav stays code-split while prerender/SSR render the article HTML eagerly |
+| `src/routes.ts` | `/blog` moved to the indexable route list; all five article routes added | Drives sitemap.xml, robots.txt, and the prerender table — articles are now crawled and server-rendered |
+| `src/components/Navbar.tsx`, `src/components/Footer.tsx` | Blog link added to desktop nav, mobile drawer, and footer Resources | The published section needed to be reachable |
+| `tests/e2e/site.spec.ts` | Hidden-blog assertions rewritten to published-blog assertions (index content, article routes, sitemap, robots); the mobile nav check opens the hamburger drawer before asserting the link | The old tests baked in the pre-publication state; the drawer only mounts when open |
+| `scripts/phase7-a11y.mjs` | `/blog` + one article route added to the axe sweep | New public routes need accessibility coverage |
+| `scripts/phase8-content-sheet.ts` | §A4 and §D updated — blog reported as published (5 posts) rather than empty/hidden | Generated audit must describe current state |
+
 ## 2. Commands run and exact results
 
 All run from `C:\projects\travision-tours-review` on Windows, against local and
@@ -110,6 +130,19 @@ per run).
 | `npm audit --audit-level=high` | PASS — **0 vulnerabilities** |
 | `wrangler deploy --dry-run` | PASS — 195.74 KiB / 22.51 KiB gzip, bindings resolve, nothing deployed |
 | `npm run content:sheet` | Regenerated — generic stops **78 → 65**, distinct generic titles **64 → 51** |
+
+### Third-pass re-verification (after the §1c blog changes)
+
+| Command | Result |
+|---|---|
+| `npm run typecheck` | PASS — `tsc --noEmit`, no errors |
+| `npm run lint` | PASS — no errors/warnings |
+| `npm run build` | PASS — **48 routes prerendered** (43 → 48: `/blog` + five articles) plus `404.html`; all six blog URLs in `sitemap.xml`; `robots.txt` has no `/blog` disallow |
+| `npx playwright test tests/e2e/site.spec.ts` | PASS — **24 passed** including the published-blog assertions and the mobile drawer fix (first run had failed only on the mobile nav link, which lives inside the closed hamburger menu — the test now opens it) |
+| `npm run test:a11y` | PASS — **75/75** (71 → 75: axe now sweeps `/blog` and one article route; zero violations) |
+| `npm run test:keyboard` | PASS — **33/33** |
+| `npm run content:sheet` | Regenerated — §A4/§D report the published blog |
+| Prerendered-HTML spot check | An article's `index.html` contains the full article text, `Article` JSON-LD, canonical URL, and `index, follow` — no client hydration required |
 
 ### Visual QA (second pass)
 
@@ -186,7 +219,9 @@ These remain open by design — no content was invented to close them. From
 - **Missing tour logistics**: pickup/drop-off, accessibility, availability,
   accommodation level, and child policy are absent for all tours — distilled
   into `CONTENT_GAPS.md` for the owner.
-- **Blog**: zero published posts; route stays hidden and noindex (verified).
+- **Blog content review**: five articles are now published (§1c). They are
+  grounded in catalog facts only — no prices, ratings, or invented logistics —
+  but the owner should read them for voice/accuracy before launch.
 - **Legal/business identity**: registered name, address, lawful basis, retention
   period, cross-border handling, and governing-law wording are incomplete.
 - **Ratings**: catalog `rating`/`reviewsCount` values have no backing review
@@ -202,10 +237,12 @@ These remain open by design — no content was invented to close them. From
   `database_id`; a real D1 must be created and bound at deploy time.
 - No remote migrations — `db:migrate:local` only.
 - No production email setup, no Search Console, no analytics.
-- **Local commits: yes — push: no.** The previously uncommitted worktree
-  (172 paths spanning every phase of prior work plus this pass) was organized
-  into seven thematic local commits on `agent/seo-booking-foundation`; nothing
-  was pushed and no git config was changed:
+- **Commits:** the previously uncommitted worktree (172 paths spanning every
+  phase of prior work plus this pass) was organized into seven thematic
+  commits on `agent/seo-booking-foundation`, pushed to
+  `origin/agent/seo-booking-foundation` after owner authorization
+  (`c813609`). The third-pass blog work was committed on top. No git config
+  was changed:
 
   1. `chore: add build tooling, configs, and release verification checks`
   2. `feat: booking worker API, D1 migrations, and operator tooling`
@@ -214,6 +251,7 @@ These remain open by design — no content was invented to close them. From
   5. `perf: optimized responsive images, self-hosted fonts, and static headers`
   6. `test: unit, worker, e2e, and accessibility suites`
   7. `docs: validation sheet, gap report, launch checklist, and handoff`
+  8. `feat: publish blog with five SEO articles` (third pass)
 - `.dev.vars` was never read or modified (gitignored); no secrets were written
   anywhere in the repo. Turnstile/Access dev bypasses live only in `.dev.vars`
   and are not declared in `wrangler.jsonc`, so they cannot be deployed.

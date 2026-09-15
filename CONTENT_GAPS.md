@@ -71,7 +71,9 @@ reviews or delete the fields. (§A5)
   currency itself is unconfirmed (§A6).
 - **Contact mailbox** — `info@travisiontours.com` stays unpublished until
   confirmed live (§A8).
-- **Blog** — no posts exist; publish real articles or hide the route (§A4).
+- **Blog** — five articles are now published and indexable (§A4). Owner
+  should read them for voice/accuracy before launch; they contain no prices,
+  ratings, or claims beyond the catalog.
 - **Policies** — legal items listed in §C (lawful basis, retention,
   deletion rights, governing law) need sign-off.
 - **Cancellation terms** — only the global policy version exists; per-tour

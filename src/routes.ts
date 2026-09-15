@@ -1,4 +1,5 @@
 import { getAllCatalogTourIds } from './catalog';
+import { BLOG_POSTS } from './blogPosts';
 
 /**
  * The single source of truth for every route the build must know about.
@@ -22,6 +23,7 @@ import { getAllCatalogTourIds } from './catalog';
 export const INDEXABLE_STATIC_ROUTES = [
   '/',
   '/tours',
+  '/blog',
   '/guidelines',
   '/policies',
   '/about',
@@ -30,27 +32,36 @@ export const INDEXABLE_STATIC_ROUTES = [
 
 /**
  * Real routes that must resolve and hydrate normally, but must never appear in
- * search results: the hidden blog, the client-side planner, and the
- * operator-only lead review.
+ * search results: the client-side planner and the operator-only lead review.
  *
  * They are prerendered anyway so that a direct visit — or a bookmark — still
  * returns a real document instead of a 404.
  */
-export const NOINDEX_STATIC_ROUTES = ['/blog', '/planner', '/admin'] as const;
+export const NOINDEX_STATIC_ROUTES = ['/planner', '/admin'] as const;
 
 /** Every published tour, one prerendered document each. */
 export function tourRoutes(): string[] {
   return [...new Set(getAllCatalogTourIds())].map(id => `/tours/${id}`);
 }
 
+/** Every published blog article, one prerendered document each. */
+export function blogPostRoutes(): string[] {
+  return BLOG_POSTS.map(post => `/blog/${post.id}`);
+}
+
 /** Every route the prerenderer must emit a document for. */
 export function prerenderRoutes(): string[] {
-  return [...INDEXABLE_STATIC_ROUTES, ...NOINDEX_STATIC_ROUTES, ...tourRoutes()];
+  return [
+    ...INDEXABLE_STATIC_ROUTES,
+    ...NOINDEX_STATIC_ROUTES,
+    ...tourRoutes(),
+    ...blogPostRoutes()
+  ];
 }
 
 /** Sitemap entries: canonical and indexable only. */
 export function sitemapRoutes(): string[] {
-  return [...INDEXABLE_STATIC_ROUTES, ...tourRoutes()];
+  return [...INDEXABLE_STATIC_ROUTES, ...tourRoutes(), ...blogPostRoutes()];
 }
 
 /**

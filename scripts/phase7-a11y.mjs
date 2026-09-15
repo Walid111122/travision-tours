@@ -450,6 +450,8 @@ const ROUTES = [
   // A multi-day tour, so the itinerary accordion is actually present: single-day
   // tours render one entry through the noAccordion branch and have no toggle.
   '/tours/6-days-cairo-luxor-aswan',
+  '/blog',
+  '/blog/visiting-pyramids-of-giza-first-time-guide',
   '/planner',
   '/about',
   '/contact',

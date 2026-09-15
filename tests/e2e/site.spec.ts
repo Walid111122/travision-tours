@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { EMAIL_PUBLISHED } from '../../src/config/business';
+import { BLOG_POSTS } from '../../src/blogPosts';
 import { open, openWithoutHydration } from './helpers';
 
 /**
@@ -10,44 +11,62 @@ import { open, openWithoutHydration } from './helpers';
  *  14. Policies, contact, WhatsApp, and email links.
  */
 
-test.describe('12. Blog stays hidden', () => {
+test.describe('12. Blog is published with real articles', () => {
   /**
-   * The blog is not public: `src/pages/Blog.tsx` states it is hidden while the
-   * first articles are written. So the flow this phase has to prove is the
-   * opposite of the one the plan assumed — that the URL resolves for anyone who
-   * has it bookmarked, while staying out of navigation, the sitemap, and search
-   * results. Publishing a route is easy; keeping an unfinished one invisible is
-   * the part that breaks silently.
+   * The blog went public once owner-approved articles existed: it is now
+   * indexable, linked in navigation and the footer, and listed in the sitemap.
+   * Every post renders its own prerendered document at /blog/:id.
    */
-  test('the route resolves without being published', async ({ page }) => {
+  test('the listing renders every published article', async ({ page }) => {
     const response = await open(page, '/blog');
 
     expect(response?.status()).toBe(200);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Cultural');
-    await expect(page.getByRole('heading', { name: 'Articles are being prepared' })).toBeVisible();
+    await expect(page.locator('article')).toHaveCount(BLOG_POSTS.length);
 
-    // No placeholder articles, and no newsletter form before a provider and
-    // privacy wording are approved.
-    await expect(page.locator('article')).toHaveCount(0);
+    // Still no newsletter form — no provider or privacy wording is approved.
     await expect(page.getByRole('textbox')).toHaveCount(0);
   });
 
-  test('the page is noindex and is not linked from anywhere', async ({ page }) => {
-    await open(page, '/blog');
+  test('an article page renders with an indexable canonical and Article JSON-LD', async ({ page }) => {
+    const post = BLOG_POSTS[0];
+    const response = await open(page, `/blog/${post.id}`);
 
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-      'content',
-      'noindex, nofollow'
+    expect(response?.status()).toBe(200);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(post.title);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      `https://travisiontours.com/blog/${post.id}`
     );
-    await expect(page.getByRole('link', { name: /blog/i })).toHaveCount(0);
+
+    const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
+    expect(jsonLd.some(s => s.includes('"@type":"Article"'))).toBe(true);
   });
 
-  test('the sitemap and robots.txt both exclude it', async ({ page }) => {
+  test('an unknown article answers with the not-found page', async ({ page }) => {
+    await open(page, '/blog/not-a-real-article');
+    await expect(page.getByText(/404/)).toBeVisible();
+  });
+
+  test('the page is indexable and linked from navigation', async ({ page }) => {
+    await open(page, '/blog');
+
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/);
+    // The header links to /blog via the desktop nav bar or the mobile drawer —
+    // the drawer mounts only while open, so open it when the button exists.
+    const menuButton = page.getByRole('button', { name: /navigation menu/i });
+    if (await menuButton.isVisible()) await menuButton.click();
+    await expect(page.getByRole('link', { name: 'Blog', exact: true }).first()).toBeVisible();
+  });
+
+  test('the sitemap lists it and robots.txt no longer disallows it', async ({ page }) => {
     const sitemap = await (await page.request.get('/sitemap.xml')).text();
-    expect(sitemap).not.toContain('/blog');
+    expect(sitemap).toContain('/blog');
+    expect(sitemap).toContain(`/blog/${BLOG_POSTS[0].id}`);
 
     const robots = await (await page.request.get('/robots.txt')).text();
-    expect(robots).toContain('Disallow: /blog');
+    expect(robots).not.toContain('Disallow: /blog');
   });
 });
 

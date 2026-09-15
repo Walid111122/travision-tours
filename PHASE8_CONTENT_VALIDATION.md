@@ -15,7 +15,7 @@ for business facts and forbids the implementer inventing them.
 | Package tours | 12 |
 | Day tours | 22 |
 | Planner stops | 38 |
-| Blog posts | 0 |
+| Blog posts | 5 |
 | Rendered itinerary stops | 338 |
 | Stops rendering generic copy | 65 (19.2%) |
 
@@ -153,9 +153,9 @@ White Desert sites, and the Red Sea resort activities:
 
 ### A4. Empty arrays
 
-- `SAMPLE_BLOG_POSTS` in `src/constants.ts` is `[]`. The Blog route renders from it, so the
-  page is empty rather than absent. This is the open decision "Blog — real articles or stay
-  hidden?".
+- `SAMPLE_BLOG_POSTS` now contains 5 published articles
+  (declared in `src/blogPosts.ts`, re-exported from `constants.ts`). The blog is public,
+  indexable, in the sitemap, and linked from navigation and the footer.
 - No tour has an empty `inclusions`, `exclusions`, `gallery`, `highlights` or `itinerary` array.
 
 ### A5. Ratings and review counts — NOT DISPLAYED
@@ -1872,7 +1872,7 @@ absent or need legal sign-off.
 | 2 | Supply copy for the 51 distinct attractions/activities with no approved text | 65 stops still render the generic sentence (§A3b). The 13 naming variants are already aliased (§A3a) |
 | 3 | Confirm the contact mailbox is live, then flip `EMAIL_PUBLISHED` to `true` | The address is suppressed site-wide until then (§A8) |
 | 4 | Substantiate or remove the rating and review-count values | Unsubstantiated data currently dead in source (§A5) |
-| 5 | Blog — publish real articles or hide the route | `SAMPLE_BLOG_POSTS` is empty (§A4) |
+| 5 | ~~Blog — publish real articles or hide the route~~ — RESOLVED | 5 articles published; route is public and in the sitemap (§A4) |
 | 6 | Approve the policy items in Section C | Acceptance criterion: owner signs off on policies |
 | 7 | Provide pickup/drop-off, accessibility, availability and accommodation level | Missing for all 34 tours (Section B) |
 | 8 | Supply a White Desert cover photo, and local replacements for the six Unsplash-hosted day-tour covers | `white-desert-day-tour` shows `/hero.jpg`; Sharm, Marsa Alam, El Gouna, Makadi, Soma Bay and Port Ghalib hot-link stock photos that may not depict the actual location (§B) |

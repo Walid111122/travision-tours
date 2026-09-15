@@ -1,4 +1,5 @@
 import { Tour, BlogPost } from './types';
+import { BLOG_POSTS } from './blogPosts';
 
 export const SAMPLE_TOURS: Tour[] = [
   {
@@ -2538,12 +2539,8 @@ export const SAMPLE_TOURS: Tour[] = [
 ];
 
 /**
- * Blog articles are pending owner-approved originals.
- *
- * The Blog route is hidden from navigation and search until real articles are
- * supplied, so this stays empty rather than shipping placeholder bodies with
- * placeholder authors. The export name is also the marker that
- * scripts/generate-seo.mjs uses to split package tours out of this file, so it
- * must remain declared even while empty.
+ * Published blog articles. The posts themselves live in `src/blogPosts.ts`;
+ * the `SAMPLE_BLOG_POSTS` export name is kept because
+ * `scripts/phase8-content-sheet.ts` reads this constant to audit the blog.
  */
-export const SAMPLE_BLOG_POSTS: BlogPost[] = [];
+export const SAMPLE_BLOG_POSTS: BlogPost[] = BLOG_POSTS;

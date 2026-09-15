@@ -16,7 +16,8 @@ from here to a public launch. Owner decisions are in
 - [ ] Supply per-tour logistics (pickup/drop-off, accessibility, availability,
       accommodation level, child policy) — see `CONTENT_GAPS.md`.
 - [ ] Substantiate or delete `rating`/`reviewsCount` data (never rendered).
-- [ ] Decide the blog: write real articles or keep the route hidden.
+- [ ] Review the five published blog articles (`/blog`) for voice and
+      factual accuracy before launch.
 - [ ] Sign off on the policy items in `PHASE8_CONTENT_VALIDATION.md` §C
       (lawful basis, retention, deletion rights, governing law).
 - [ ] Confirm per-tour or final cancellation/refund terms (currently deferred

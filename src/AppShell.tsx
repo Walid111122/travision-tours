@@ -31,6 +31,7 @@ export const PAGE_LOADERS: Record<PageKey, () => Promise<{ default: React.Compon
   Tours: () => import('./pages/Tours'),
   TourDetails: () => import('./pages/TourDetails'),
   Blog: () => import('./pages/Blog'),
+  BlogPost: () => import('./pages/BlogPost'),
   ItineraryBuilder: () => import('./pages/ItineraryBuilder'),
   Guidelines: () => import('./pages/Guidelines'),
   Policies: () => import('./pages/Policies'),

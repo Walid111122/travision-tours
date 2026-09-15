@@ -18,6 +18,7 @@ export type PageKey =
   | 'Tours'
   | 'TourDetails'
   | 'Blog'
+  | 'BlogPost'
   | 'ItineraryBuilder'
   | 'Guidelines'
   | 'Policies'
@@ -31,6 +32,7 @@ export const ROUTE_TABLE: { path: string; page: PageKey }[] = [
   { path: '/tours', page: 'Tours' },
   { path: '/tours/:id', page: 'TourDetails' },
   { path: '/blog', page: 'Blog' },
+  { path: '/blog/:id', page: 'BlogPost' },
   { path: '/planner', page: 'ItineraryBuilder' },
   { path: '/guidelines', page: 'Guidelines' },
   { path: '/policies', page: 'Policies' },
