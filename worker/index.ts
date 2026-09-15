@@ -1,243 +1,40 @@
-const MAX_BODY_BYTES = 16 * 1024;
-const INQUIRY_POLICY_VERSION = '2026-08-13';
-const PAYMENT_PARTNER_NAME = 'Egypt Online Tour';
+import { ApiError, describeError, json } from './http';
+import { readBoundedJson } from './body';
+import { validateBooking, type BookingInput } from './booking';
+import { enforceRateLimit, purgeExpiredRateLimitCounters } from './rateLimit';
+import { isTurnstileBypassed, verifyTurnstile } from './turnstile';
+import {
+  buildNotificationPayload,
+  deliverPendingNotifications,
+  enqueueNotificationStatement
+} from './notifications';
+import { handleAdminRequest } from './admin';
+import {
+  INQUIRY_POLICY_VERSION,
+  PAYMENT_PARTNER_NAME,
+  SITE_NAME
+} from '../src/config/business';
 
-type BookingInput = {
-  tourId: string;
-  tourTitle: string;
-  name: string;
-  email: string;
-  phone: string;
-  country?: string;
-  preferredDate: string;
-  departureDate?: string;
-  travelers: number;
-  adults: number;
-  children: number;
-  childAges?: string;
-  accommodationPreference?: string;
-  contactPreference?: string;
-  budgetRange?: string;
-  referralSource?: string;
-  requirements?: string;
-  partnerPaymentAcknowledged: boolean;
-};
+/** How long a rate-limit counter is kept before the scheduled handler purges it. */
+const RATE_LIMIT_RETENTION_SECONDS = 24 * 60 * 60;
 
-class ApiError extends Error {
-  constructor(
-    readonly status: number,
-    readonly code: string,
-    message: string
-  ) {
-    super(message);
-  }
-}
-
-function json(data: unknown, init: ResponseInit = {}) {
-  const headers = new Headers(init.headers);
-  headers.set('Content-Type', 'application/json; charset=utf-8');
-  headers.set('Cache-Control', 'no-store');
-  return new Response(JSON.stringify(data), { ...init, headers });
-}
-
-async function readBoundedJson(request: Request): Promise<unknown> {
-  const contentType = request.headers.get('Content-Type') || '';
-  if (!contentType.toLowerCase().includes('application/json')) {
-    throw new ApiError(415, 'unsupported_media_type', 'Content-Type must be application/json.');
-  }
-
-  const declaredLength = Number(request.headers.get('Content-Length') || 0);
-  if (declaredLength > MAX_BODY_BYTES) {
-    throw new ApiError(413, 'payload_too_large', 'Request body is too large.');
-  }
-
-  if (!request.body) {
-    throw new ApiError(400, 'invalid_request', 'A request body is required.');
-  }
-
-  const reader = request.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let received = 0;
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    received += value.byteLength;
-    if (received > MAX_BODY_BYTES) {
-      await reader.cancel();
-      throw new ApiError(413, 'payload_too_large', 'Request body is too large.');
-    }
-    chunks.push(value);
-  }
-
-  const bytes = new Uint8Array(received);
-  let offset = 0;
-  for (const chunk of chunks) {
-    bytes.set(chunk, offset);
-    offset += chunk.byteLength;
-  }
-
-  try {
-    return JSON.parse(new TextDecoder().decode(bytes));
-  } catch {
-    throw new ApiError(400, 'invalid_json', 'Request body must contain valid JSON.');
-  }
-}
-
-function requiredString(
-  value: unknown,
-  field: string,
-  maxLength: number
-): string {
-  if (typeof value !== 'string' || !value.trim()) {
-    throw new ApiError(422, 'validation_error', `${field} is required.`);
-  }
-  const normalized = value.trim();
-  if (normalized.length > maxLength) {
-    throw new ApiError(422, 'validation_error', `${field} is too long.`);
-  }
-  return normalized;
-}
-
-function optionalString(value: unknown, field: string, maxLength: number): string | undefined {
-  if (value === undefined || value === null || value === '') return undefined;
-  if (typeof value !== 'string') {
-    throw new ApiError(422, 'validation_error', `${field} must be text.`);
-  }
-  const normalized = value.trim();
-  if (normalized.length > maxLength) {
-    throw new ApiError(422, 'validation_error', `${field} is too long.`);
-  }
-  return normalized || undefined;
-}
-
-function optionalChoice(
-  value: unknown,
-  field: string,
-  choices: readonly string[]
-): string | undefined {
-  const normalized = optionalString(value, field, 80);
-  if (normalized && !choices.includes(normalized)) {
-    throw new ApiError(422, 'validation_error', `Select a valid ${field.toLowerCase()}.`);
-  }
-  return normalized;
-}
-
-function cairoDate(): string {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Africa/Cairo',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).formatToParts(new Date());
-  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
-  return `${values.year}-${values.month}-${values.day}`;
-}
-
-function validateBooking(value: unknown): BookingInput {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    throw new ApiError(422, 'validation_error', 'Booking details are required.');
-  }
-
-  const input = value as Record<string, unknown>;
-  if (optionalString(input.companyWebsite, 'Company website', 200)) {
-    throw new ApiError(422, 'validation_error', 'The request could not be submitted.');
-  }
-
-  const email = requiredString(input.email, 'Email', 254).toLowerCase();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    throw new ApiError(422, 'validation_error', 'Enter a valid email address.');
-  }
-
-  const preferredDate = requiredString(input.preferredDate, 'Preferred date', 10);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(preferredDate) || Number.isNaN(Date.parse(`${preferredDate}T00:00:00Z`))) {
-    throw new ApiError(422, 'validation_error', 'Preferred date must be a valid date.');
-  }
-  if (preferredDate < cairoDate()) {
-    throw new ApiError(422, 'validation_error', 'Preferred date cannot be in the past.');
-  }
-
-  const departureDate = optionalString(input.departureDate, 'Departure date', 10);
-  if (departureDate && (!/^\d{4}-\d{2}-\d{2}$/.test(departureDate) || Number.isNaN(Date.parse(`${departureDate}T00:00:00Z`)))) {
-    throw new ApiError(422, 'validation_error', 'Departure date must be a valid date.');
-  }
-  if (departureDate && departureDate < preferredDate) {
-    throw new ApiError(422, 'validation_error', 'Departure date cannot be before the arrival date.');
-  }
-
-  const adults = input.adults;
-  const children = input.children;
-  if (typeof adults !== 'number' || !Number.isInteger(adults) || adults < 1 || adults > 50) {
-    throw new ApiError(422, 'validation_error', 'Adults must be a whole number between 1 and 50.');
-  }
-  if (typeof children !== 'number' || !Number.isInteger(children) || children < 0 || children > 20) {
-    throw new ApiError(422, 'validation_error', 'Children must be a whole number between 0 and 20.');
-  }
-  if (input.travelers !== adults + children) {
-    throw new ApiError(422, 'validation_error', 'Traveler total does not match adults and children.');
-  }
-
-  const childAges = optionalString(input.childAges, 'Children ages', 120);
-  if (children > 0 && !childAges) {
-    throw new ApiError(422, 'validation_error', 'Enter the age of each child.');
-  }
-
-  if (
-    typeof input.travelers !== 'number' ||
-    !Number.isInteger(input.travelers) ||
-    input.travelers < 1 ||
-    input.travelers > 50
-  ) {
-    throw new ApiError(422, 'validation_error', 'Travelers must be a whole number between 1 and 50.');
-  }
-
-  if (input.partnerPaymentAcknowledged !== true) {
-    throw new ApiError(
-      422,
-      'partner_payment_acknowledgement_required',
-      'You must acknowledge that this is a request and that partner payment instructions are sent separately.'
-    );
-  }
-
-  return {
-    tourId: requiredString(input.tourId, 'Tour', 160),
-    tourTitle: requiredString(input.tourTitle, 'Tour title', 200),
-    name: requiredString(input.name, 'Name', 120),
-    email,
-    phone: requiredString(input.phone, 'Phone', 40),
-    country: optionalString(input.country, 'Country', 80),
-    preferredDate,
-    departureDate,
-    travelers: input.travelers,
-    adults,
-    children,
-    childAges,
-    accommodationPreference: optionalChoice(input.accommodationPreference, 'Accommodation preference', ['comfortable', 'premium', 'luxury']),
-    contactPreference: optionalChoice(input.contactPreference, 'Contact preference', ['whatsapp', 'email', 'phone']),
-    budgetRange: optionalChoice(input.budgetRange, 'Budget range', ['under-1000', '1000-2000', '2000-4000', '4000-plus']),
-    referralSource: optionalChoice(input.referralSource, 'Referral source', ['google', 'social', 'friend', 'other']),
-    requirements: optionalString(input.requirements, 'Special requirements', 2000),
-    partnerPaymentAcknowledged: true
-  };
-}
-
-async function createBooking(request: Request, env: Env): Promise<Response> {
-  const input = validateBooking(await readBoundedJson(request));
-
-  const id = crypto.randomUUID();
-  const now = new Date().toISOString();
-  const reference = `TV-${now.slice(0, 10).replaceAll('-', '')}-${id.slice(0, 8).toUpperCase()}`;
-
-  await env.DB.batch([
+function buildBookingStatements(
+  env: Env,
+  input: BookingInput,
+  id: string,
+  reference: string,
+  now: string
+): D1PreparedStatement[] {
+  const statements = [
     env.DB.prepare(`
       INSERT INTO bookings (
         id, reference, status, tour_id, tour_title, customer_name,
         customer_email, customer_phone, customer_country, preferred_date,
         travelers, requirements, departure_date, adults, children, child_ages,
         accommodation_preference, contact_preference, budget_range, referral_source,
-        inquiry_policy_version, inquiry_policy_accepted_at, payment_recipient,
-        created_at, updated_at
-      ) VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        inquiry_source, inquiry_policy_version, inquiry_policy_accepted_at, payment_recipient,
+        idempotency_key, request_fingerprint, created_at, updated_at
+      ) VALUES (?, ?, 'new', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       id,
       reference,
@@ -245,7 +42,7 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
       input.tourTitle,
       input.name,
       input.email,
-      input.phone ?? null,
+      input.phone,
       input.country ?? null,
       input.preferredDate,
       input.travelers,
@@ -258,38 +55,216 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
       input.contactPreference ?? null,
       input.budgetRange ?? null,
       input.referralSource ?? null,
+      input.source,
       INQUIRY_POLICY_VERSION,
       now,
       PAYMENT_PARTNER_NAME,
+      input.idempotencyKey ?? null,
+      input.requestFingerprint,
       now,
       now
     ),
     env.DB.prepare(`
-      INSERT INTO booking_status_history (booking_id, status, note, created_at)
-      VALUES (?, 'new', 'Booking request received.', ?)
-    `).bind(id, now)
-  ]);
+      INSERT INTO booking_status_history (booking_id, status, note, actor, created_at)
+      VALUES (?, 'new', 'Inquiry received.', 'customer', ?)
+    `).bind(id, now),
+    // The outbox row joins the same batch, so a stored inquiry can never exist
+    // without a matching notification obligation.
+    enqueueNotificationStatement(
+      env,
+      buildNotificationPayload({
+        bookingId: id,
+        reference,
+        tourTitle: input.tourTitle,
+        travelers: input.travelers,
+        preferredDate: input.preferredDate,
+        createdAt: now
+      }),
+      now
+    )
+  ];
 
-  console.log(JSON.stringify({
-    message: 'booking_created',
-    bookingId: id,
-    reference
-  }));
+  for (const [index, stop] of input.itineraryStops.entries()) {
+    statements.push(
+      env.DB.prepare(`
+        INSERT INTO booking_itinerary_items (
+          booking_id, position, stop_id, stop_title, stop_location, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?)
+      `).bind(id, index + 1, stop.id, stop.title, stop.location, now)
+    );
+  }
 
+  return statements;
+}
+
+function isUniqueConstraintError(error: unknown): boolean {
+  return describeError(error).toLowerCase().includes('unique');
+}
+
+type ExistingBooking = {
+  id: string;
+  reference: string;
+  status: string;
+  inquiry_source: string | null;
+  request_fingerprint: string | null;
+};
+
+async function findByIdempotencyKey(env: Env, key: string): Promise<ExistingBooking | null> {
+  return env.DB.prepare(
+    'SELECT id, reference, status, inquiry_source, request_fingerprint FROM bookings WHERE idempotency_key = ?'
+  )
+    .bind(key)
+    .first<ExistingBooking>();
+}
+
+async function fingerprintBooking(input: Omit<BookingInput, 'requestFingerprint'>): Promise<string> {
+  // Explicit keys make the digest stable and deliberately exclude the
+  // short-lived Turnstile token. Canonical tour/stop data has already been
+  // resolved server-side by validateBooking.
+  const normalized = JSON.stringify({
+    source: input.source,
+    tourId: input.tourId,
+    tourTitle: input.tourTitle,
+    name: input.name,
+    email: input.email,
+    phone: input.phone,
+    country: input.country ?? null,
+    preferredDate: input.preferredDate,
+    departureDate: input.departureDate ?? null,
+    travelers: input.travelers,
+    adults: input.adults,
+    children: input.children,
+    childAges: input.childAges ?? null,
+    accommodationPreference: input.accommodationPreference ?? null,
+    contactPreference: input.contactPreference ?? null,
+    budgetRange: input.budgetRange ?? null,
+    referralSource: input.referralSource ?? null,
+    requirements: input.requirements ?? null,
+    itineraryStops: input.itineraryStops,
+    partnerPaymentAcknowledged: input.partnerPaymentAcknowledged
+  });
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(normalized));
+  return [...new Uint8Array(digest)]
+    .map(byte => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function assertMatchingReplay(existing: ExistingBooking, fingerprint: string): void {
+  if (existing.request_fingerprint !== fingerprint) {
+    throw new ApiError(
+      409,
+      'idempotency_conflict',
+      'This submission identifier was already used for different inquiry details. Please start a new request.'
+    );
+  }
+}
+
+function bookingResponse(
+  booking: { reference: string; status: string; source: string; stopCount: number },
+  status: number,
+  replay = false
+): Response {
   return json(
     {
-      booking: {
-        reference,
-        status: 'new'
-      },
-      message: 'Your request was received. It is not confirmed until Travision Tours reviews it and sends written confirmation.',
+      booking,
+      replay,
+      message: `Your request was received. It is not a confirmed reservation — ${SITE_NAME} or ${PAYMENT_PARTNER_NAME} will follow up with a quotation.`,
       payment: {
         recipient: PAYMENT_PARTNER_NAME,
         methods: ['visa', 'mastercard', 'apple_pay', 'wire_transfer'],
-        instructions: 'The travel partner will send a secure checkout link or official wire-transfer instructions privately after your quotation is accepted. Travision Tours does not collect payment.'
+        instructions:
+          'The travel partner will send a secure checkout link or official wire-transfer instructions privately after your quotation is accepted. Travision Tours does not collect payment.'
       }
     },
-    { status: 201 }
+    { status }
+  );
+}
+
+async function createBooking(request: Request, env: Env): Promise<Response> {
+  const validated = validateBooking(await readBoundedJson(request));
+  const requestFingerprint = await fingerprintBooking(validated);
+  const input: BookingInput = { ...validated, requestFingerprint };
+
+  const replayed = (existing: ExistingBooking) =>
+    bookingResponse(
+      {
+        reference: existing.reference,
+        status: existing.status,
+        source: existing.inquiry_source ?? 'tour',
+        stopCount: input.itineraryStops.length
+      },
+      200,
+      true
+    );
+
+  // A replayed submission returns the original reference instead of inserting
+  // a duplicate — this is what makes double-clicks and browser retries safe.
+  if (input.idempotencyKey) {
+    const existing = await findByIdempotencyKey(env, input.idempotencyKey);
+    if (existing) {
+      assertMatchingReplay(existing, requestFingerprint);
+      return replayed(existing);
+    }
+  }
+
+
+  // Only new submissions consume an abuse-protection attempt. A response-lost
+  // retry is returned above without trying to redeem its single-use token again.
+  await enforceRateLimit(env, request);
+  await verifyTurnstile(
+    input.turnstileToken,
+    request.headers.get('CF-Connecting-IP') ?? undefined,
+    env,
+    input.idempotencyKey
+  );
+
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const reference = `TV-${now.slice(0, 10).replaceAll('-', '')}-${id.slice(0, 8).toUpperCase()}`;
+
+  try {
+    await env.DB.batch(buildBookingStatements(env, input, id, reference, now));
+  } catch (error) {
+    // Two identical requests can race past the lookup above. The unique index
+    // rejects the loser; return the winner's reference rather than an error.
+    if (input.idempotencyKey && isUniqueConstraintError(error)) {
+      const existing = await findByIdempotencyKey(env, input.idempotencyKey);
+      if (existing) {
+        assertMatchingReplay(existing, requestFingerprint);
+        return replayed(existing);
+      }
+    }
+    throw error;
+  }
+
+  console.log(
+    JSON.stringify({
+      message: 'booking_created',
+      bookingId: id,
+      reference,
+      source: input.source,
+      stopCount: input.itineraryStops.length
+    })
+  );
+
+  // Best-effort delivery. A provider failure is recorded in the outbox and
+  // retried by the scheduled handler, so it never loses the inquiry.
+  try {
+    await deliverPendingNotifications(env, 5);
+  } catch (error) {
+    console.error(
+      JSON.stringify({ message: 'notification_delivery_deferred', error: describeError(error) })
+    );
+  }
+
+  return bookingResponse(
+    {
+      reference,
+      status: 'new',
+      source: input.source,
+      stopCount: input.itineraryStops.length
+    },
+    201
   );
 }
 
@@ -297,11 +272,19 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
 
   if (url.pathname === '/api/health' && request.method === 'GET') {
-    return json({ status: 'ok', environment: env.ENVIRONMENT });
+    return json({
+      status: 'ok',
+      environment: env.ENVIRONMENT,
+      turnstileBypassed: isTurnstileBypassed(env)
+    });
   }
 
   if (url.pathname === '/api/bookings' && request.method === 'POST') {
     return createBooking(request, env);
+  }
+
+  if (url.pathname.startsWith('/api/admin/')) {
+    return handleAdminRequest(request, env, url);
   }
 
   if (url.pathname.startsWith('/api/')) {
@@ -319,19 +302,36 @@ export default {
       if (error instanceof ApiError) {
         return json(
           { error: { code: error.code, message: error.message } },
-          { status: error.status }
+          { status: error.status, headers: error.headers }
         );
       }
 
-      console.error(JSON.stringify({
-        message: 'unhandled_request_error',
-        path: new URL(request.url).pathname,
-        error: error instanceof Error ? error.message : String(error)
-      }));
+      console.error(
+        JSON.stringify({
+          message: 'unhandled_request_error',
+          path: new URL(request.url).pathname,
+          error: describeError(error)
+        })
+      );
       return json(
         { error: { code: 'internal_error', message: 'The request could not be processed.' } },
         { status: 500 }
       );
     }
+  },
+
+  async scheduled(_controller, env, ctx): Promise<void> {
+    ctx.waitUntil(
+      (async () => {
+        try {
+          await purgeExpiredRateLimitCounters(env, RATE_LIMIT_RETENTION_SECONDS);
+          await deliverPendingNotifications(env, 25);
+        } catch (error) {
+          console.error(
+            JSON.stringify({ message: 'scheduled_task_failed', error: describeError(error) })
+          );
+        }
+      })()
+    );
   }
 } satisfies ExportedHandler<Env>;
