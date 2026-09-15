@@ -1,8 +1,58 @@
+# Cloudflare Workers static assets headers.
+# https://developers.cloudflare.com/workers/static-assets/headers/
+#
+# NOTE: comments are only safe ABOVE a rule block. A `#` line inside a block
+# stops that block being parsed, which silently drops the remaining headers.
+
+# Vite emits content-hashed filenames under /assets, so they are safe to cache
+# immutably. Do not add this rule for anything with a stable filename.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Responsive image variants carry a content fingerprint in the filename
+# (see scripts/optimize-images.mjs), so they are safe to cache immutably too.
+# The JPEG fallbacks at the original paths keep stable filenames and are
+# deliberately NOT covered by this rule.
+/images/opt/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted fonts use stable filenames, so they get a long but revocable
+# TTL rather than `immutable`.
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
+# Content Security Policy — currently REPORT-ONLY while it is validated.
+#
+# Nothing is blocked yet: violations are reported to the browser console so the
+# policy can be checked against real usage first. Once a full pass of the site
+# (home, tours, a tour detail page containing a Google Map, the planner,
+# contact, and admin) produces no unexplained violations, rename the header to
+# `Content-Security-Policy` to enforce it.
+#
+# Every allowance below is deliberate:
+#   script-src  challenges.cloudflare.com  — the Turnstile widget
+#   style-src   'unsafe-inline'            — React and motion set inline style
+#                                            attributes for animation, which CSP
+#                                            governs via style-src-attr
+#   img-src     images.unsplash.com        — six Red Sea day-tour photos that
+#                                            await owner-supplied local assets
+#   frame-src   www.google.com             — the tour map embeds
+#   frame-src   challenges.cloudflare.com  — the Turnstile challenge frame
+#   connect-src challenges.cloudflare.com  — Turnstile token verification
+#
+# Fonts are self-hosted under /fonts (see scripts/self-host-fonts.mjs), so the
+# fonts.googleapis.com / fonts.gstatic.com allowances are gone. `font-src` is
+# now 'self' only.
+#
+# To enforce: change `Content-Security-Policy-Report-Only` to
+# `Content-Security-Policy` below. The directive list is identical.
+#
+# HSTS is intentionally not set yet. Enable it only after the domain is live on
+# HTTPS and every subdomain is confirmed HTTPS-only; omit `preload` until then.
+#   Strict-Transport-Security: max-age=31536000; includeSubDomains
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://images.unsplash.com; connect-src 'self' https://challenges.cloudflare.com; frame-src https://www.google.com https://challenges.cloudflare.com; manifest-src 'self'; upgrade-insecure-requests
