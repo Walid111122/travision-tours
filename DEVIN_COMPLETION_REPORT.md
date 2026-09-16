@@ -200,13 +200,6 @@ These remain open by design — no content was invented to close them. From
   site-wide** behind `EMAIL_PUBLISHED = false` (§1b) — the mailbox cannot work
   while the domain is unconfigured. Owner: stand the mailbox up, then flip the
   flag to restore all seven locations.
-- **White Desert Day Tour image**: no relevant local photo exists; the
-  intentional `/hero.jpg` fallback remains. Owner is supplying the photo.
-- **Six Red Sea day-tour covers are Unsplash hotlinks** (`sharm-el-sheikh`,
-  `marsa-alam`, `el-gouna`, `makadi-bay`, `soma-bay`, `port-ghalib`) — generic
-  stock photos, and the Sharm one visibly depicts a misty lake, not a Red Sea
-  resort. They also add a third-party runtime request. Owner should supply
-  local photos; nothing was substituted.
 - **Generic itinerary copy**: **65 of 338** rendered stops (down from 78 —
   the 13 safe aliases are applied; §A3a) still use fallback text; 51 distinct
   titles need owner copy (§A3b). `Luxor Temple by Night` deliberately has no
@@ -338,10 +331,10 @@ computed-style and source checks. Verified behaviors:
 5. **Rate limiting / Turnstile / Access are exercised in dev-bypass mode locally**
    — their production configuration can't be validated until real secrets and
    resources exist (correctly deferred).
-6. **Six tour covers depend on Unsplash availability and accuracy** — a
-   hotlinked photo going stale or being replaced changes what visitors see
-   with no deploy on our side; the Sharm photo already depicts the wrong kind
-   of location entirely. Owner-supplied local photos close this.
+6. **Seven generated destination covers require owner approval** — the White
+   Desert and six Red Sea images are now local, optimized, and geographically
+   differentiated, but the owner should approve their visual representation
+   before launch.
 7. **Email suppression is a flag, not a delete** — if `EMAIL_PUBLISHED` is
    flipped before the mailbox works, the site publishes a dead address again.
    The flag is documented in `business.ts` and gated by tests both ways.

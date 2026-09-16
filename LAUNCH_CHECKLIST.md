@@ -11,8 +11,8 @@ from here to a public launch. Owner decisions are in
       change if EGP or a per-tour field is wanted instead).
 - [ ] Supply copy for the 51 uncovered attractions/activities (§A3b) or accept
       the generic sentence on 65 stops.
-- [ ] Supply real photos: White Desert cover + six Red Sea day-tour covers
-      currently on Unsplash hotlinks.
+- [x] Replace the White Desert placeholder and six remote Red Sea covers with
+      original, locally hosted destination-specific images.
 - [ ] Supply per-tour logistics (pickup/drop-off, accessibility, availability,
       accommodation level, child policy) — see `CONTENT_GAPS.md`.
 - [ ] Substantiate or delete `rating`/`reviewsCount` data (never rendered).

@@ -34,8 +34,8 @@
 #   style-src   'unsafe-inline'            — React and motion set inline style
 #                                            attributes for animation, which CSP
 #                                            governs via style-src-attr
-#   img-src     images.unsplash.com        — six Red Sea day-tour photos that
-#                                            await owner-supplied local assets
+#   img-src     images.unsplash.com        — the profile portrait is still a
+#                                            remote editorial image
 #   frame-src   www.google.com             — the tour map embeds
 #   frame-src   challenges.cloudflare.com  — the Turnstile challenge frame
 #   connect-src challenges.cloudflare.com  — Turnstile token verification

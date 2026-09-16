@@ -26,9 +26,9 @@ const IMAGE_MANIFEST = manifest as Record<string, ImageManifestEntry>;
 /**
  * Look up the generated variants for a source path.
  *
- * Returns `undefined` for anything not in the manifest — remote URLs such as
- * the Red Sea stock photos, or a source that was never optimized. Callers fall
- * back to a plain `<img>` in that case.
+ * Returns `undefined` for anything not in the manifest — a remote URL or a
+ * source that was never optimized. Callers fall back to a plain `<img>` in
+ * that case.
  */
 export function getImageEntry(src: string): ImageManifestEntry | undefined {
   // Manifest keys are bare public paths, so a cache-busting query string such as

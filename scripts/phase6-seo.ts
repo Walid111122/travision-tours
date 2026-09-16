@@ -16,7 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as cheerio from 'cheerio';
 
-import { DISALLOWED_PATHS, INDEXABLE_STATIC_ROUTES, NOINDEX_STATIC_ROUTES, prerenderRoutes, tourRoutes } from '../src/routes';
+import { DISALLOWED_PATHS, NOINDEX_STATIC_ROUTES, prerenderRoutes, sitemapRoutes } from '../src/routes';
 import { pageKeyFor } from '../src/routeTable';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -92,7 +92,7 @@ check(
 /* ------------------------------------------------------------- head metadata */
 
 section('Metadata lives in <head>');
-const indexable = [...INDEXABLE_STATIC_ROUTES, ...tourRoutes()];
+const indexable = sitemapRoutes();
 
 const titlesInBody: string[] = [];
 const missingTitles: string[] = [];
@@ -230,8 +230,8 @@ check('the sitemap has no query parameters', !locations.some(url => url.includes
 check('the sitemap has no fragment identifiers', !locations.some(url => url.includes('#')));
 check(
   'the sitemap lists exactly the indexable routes',
-  locations.length === INDEXABLE_STATIC_ROUTES.length + tourRoutes().length,
-  `${locations.length} vs ${INDEXABLE_STATIC_ROUTES.length + tourRoutes().length}`
+  locations.length === indexable.length,
+  `${locations.length} vs ${indexable.length}`
 );
 check(
   'the sitemap excludes noindex routes',

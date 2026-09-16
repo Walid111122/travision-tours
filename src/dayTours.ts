@@ -8,12 +8,8 @@ import { Tour } from './types';
 /**
  * Day-tour card images.
  *
- * Every published day tour must have an explicit entry here. Entries are local
- * assets where a destination-matched photo has been supplied, and remote stock
- * URLs only for the Red Sea resorts that have no local asset yet.
- *
- * `white-desert-day-tour` deliberately has no entry: no White Desert photo
- * exists in the library, so it resolves to PLACEHOLDER_TOUR_IMAGE and logs a
+ * Every published day tour has an explicit destination-matched local asset.
+ * Missing mappings still resolve to PLACEHOLDER_TOUR_IMAGE and log a
  * development warning instead of silently showing an unrelated destination.
  */
 const PLACEHOLDER_TOUR_IMAGE = '/hero.jpg';
@@ -36,13 +32,13 @@ export const DAY_TOUR_IMAGES: Record<string, string> = {
   'karnak-temple-day-tour': '/images/day-tours/karnak-temple-day-tour.jpeg',
   'nile-cruise-day-tour': '/images/day-tours/nile-cruise-day-tour.jpeg',
 
-  // Red Sea resorts: awaiting owner-supplied local photos.
-  'sharm-el-sheikh-day-tour': 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=800',
-  'marsa-alam-day-tour': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
-  'el-gouna-day-tour': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800',
-  'makadi-bay-day-tour': 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&q=80&w=800',
-  'soma-bay-day-tour': 'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80&w=800',
-  'port-ghalib-day-tour': 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800'
+  'sharm-el-sheikh-day-tour': '/images/day-tours/sharm-el-sheikh-day-tour.jpeg',
+  'marsa-alam-day-tour': '/images/day-tours/marsa-alam-day-tour.jpeg',
+  'el-gouna-day-tour': '/images/day-tours/el-gouna-day-tour.jpeg',
+  'makadi-bay-day-tour': '/images/day-tours/makadi-bay-day-tour.jpeg',
+  'soma-bay-day-tour': '/images/day-tours/soma-bay-day-tour.jpeg',
+  'port-ghalib-day-tour': '/images/day-tours/port-ghalib-day-tour.jpeg',
+  'white-desert-day-tour': '/images/day-tours/white-desert-day-tour.jpeg'
 };
 
 /**

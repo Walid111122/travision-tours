@@ -445,7 +445,7 @@ p('| Retention period | **Absent.** No retention period is stated. |');
 p('| Data sharing with the partner and service providers | **Partial.** The travel partner is named; no service providers are. |');
 p('| Cross-border data handling | **Absent.** |');
 p('| Access / correction / deletion rights and process | **Partial.** "Ask about your submitted information" only; no deletion right or process. |');
-p('| Cookie and analytics disclosures | **Absent, and now known.** The site sets no first-party cookies and runs no analytics. Third parties that may set their own: Cloudflare Turnstile (form protection), Google Maps frames, and Unsplash for six Red Sea images. |');
+p('| Cookie and analytics disclosures | **Absent, and now known.** The site sets no first-party cookies and runs no analytics. Third parties that may set their own: Cloudflare Turnstile (form protection) and Google Maps frames. Tour images are locally hosted. |');
 p('| Governing law and dispute wording | **Absent.** |');
 p('| Final quotation and tour-specific cancellation/refund terms | Deferred to the written quotation; no per-tour terms exist. |');
 p();
@@ -460,7 +460,7 @@ p('| 4 | Substantiate or remove the rating and review-count values | Unsubstanti
 p(`| 5 | ~~Blog — publish real articles or hide the route~~ — RESOLVED | ${SAMPLE_BLOG_POSTS.length} articles published; route is public and in the sitemap (§A4) |`);
 p('| 6 | Approve the policy items in Section C | Acceptance criterion: owner signs off on policies |');
 p('| 7 | Provide pickup/drop-off, accessibility, availability and accommodation level | Missing for all 34 tours (Section B) |');
-p('| 8 | Supply a White Desert cover photo, and local replacements for the six Unsplash-hosted day-tour covers | `white-desert-day-tour` shows `/hero.jpg`; Sharm, Marsa Alam, El Gouna, Makadi, Soma Bay and Port Ghalib hot-link stock photos that may not depict the actual location (§B) |');
+p('| 8 | ~~Replace the White Desert placeholder and six remote Red Sea covers~~ — RESOLVED | Seven original destination-specific covers are now locally hosted and optimized (§B) |');
 p();
 
 const output = `${md.join('\n')}\n`;

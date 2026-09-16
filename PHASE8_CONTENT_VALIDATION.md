@@ -297,16 +297,16 @@ In the per-tour sections, `Days` counts itinerary days, `Stops` counts rendered 
 | 18 | Alexandria Day Tour | `alexandria-day-tour` | 1 | 1 Day | 3 | 3 | 120 | `/images/day-tours/alexandria-day-tour.jpeg` | 0 |
 | 19 | Old Cairo Day Tour | `old-cairo-day-tour` | 1 | 1 Day | 4 | 3 | 70 | `/images/day-tours/old-cairo-day-tour.jpeg` | 0 |
 | 20 | Hurghada Day Tour | `hurghada-day-tour` | 1 | 1 Day | 2 | 2 | 90 | `/images/day-tours/hurghada-day-tour.jpeg` | 0 |
-| 21 | Sharm El Sheikh Day Tour | `sharm-el-sheikh-day-tour` | 1 | 1 Day | 3 | 3 | 95 | `https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=800` | 0 |
-| 22 | Marsa Alam Day Tour | `marsa-alam-day-tour` | 1 | 1 Day | 2 | 2 | 100 | `https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800` | 0 |
-| 23 | El Gouna Day Tour | `el-gouna-day-tour` | 1 | 1 Day | 2 | 2 | 85 | `https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800` | 0 |
-| 24 | Makadi Bay Day Tour | `makadi-bay-day-tour` | 1 | 1 Day | 2 | 2 | 80 | `https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&q=80&w=800` | 0 |
-| 25 | Soma Bay Day Tour | `soma-bay-day-tour` | 1 | 1 Day | 2 | 2 | 90 | `https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80&w=800` | 0 |
-| 26 | Port Ghalib Day Tour | `port-ghalib-day-tour` | 1 | 1 Day | 2 | 2 | 95 | `https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800` | 0 |
+| 21 | Sharm El Sheikh Day Tour | `sharm-el-sheikh-day-tour` | 1 | 1 Day | 3 | 3 | 95 | `/images/day-tours/sharm-el-sheikh-day-tour.jpeg` | 0 |
+| 22 | Marsa Alam Day Tour | `marsa-alam-day-tour` | 1 | 1 Day | 2 | 2 | 100 | `/images/day-tours/marsa-alam-day-tour.jpeg` | 0 |
+| 23 | El Gouna Day Tour | `el-gouna-day-tour` | 1 | 1 Day | 2 | 2 | 85 | `/images/day-tours/el-gouna-day-tour.jpeg` | 0 |
+| 24 | Makadi Bay Day Tour | `makadi-bay-day-tour` | 1 | 1 Day | 2 | 2 | 80 | `/images/day-tours/makadi-bay-day-tour.jpeg` | 0 |
+| 25 | Soma Bay Day Tour | `soma-bay-day-tour` | 1 | 1 Day | 2 | 2 | 90 | `/images/day-tours/soma-bay-day-tour.jpeg` | 0 |
+| 26 | Port Ghalib Day Tour | `port-ghalib-day-tour` | 1 | 1 Day | 2 | 2 | 95 | `/images/day-tours/port-ghalib-day-tour.jpeg` | 0 |
 | 27 | Sakkara & Memphis Day Tour | `sakkara-day-tour` | 1 | 1 Day | 3 | 2 | 70 | `/images/day-tours/sakkara-day-tour.jpeg` | 0 |
 | 28 | Dahshur Pyramids Day Tour | `dahshur-day-tour` | 1 | 1 Day | 2 | 2 | 65 | `/images/day-tours/dahshur-day-tour.jpeg` | 0 |
 | 29 | Egyptian Museum Day Tour | `egyptian-museum-day-tour` | 1 | 1 Day | 2 | 2 | 55 | `/images/day-tours/egyptian-museum-day-tour.jpeg` | 0 |
-| 30 | White Desert Day Tour | `white-desert-day-tour` | 1 | 1 Day | 3 | 3 | 130 | `/hero.jpg` | 0 |
+| 30 | White Desert Day Tour | `white-desert-day-tour` | 1 | 1 Day | 3 | 3 | 130 | `/images/day-tours/white-desert-day-tour.jpeg` | 0 |
 | 31 | Philae Temple Day Tour | `philae-temple-day-tour` | 1 | 1 Day | 2 | 1 | 60 | `/images/day-tours/philae-temple-day-tour.jpeg` | 0 |
 | 32 | Valley of the Kings Day Tour | `valley-of-kings-day-tour` | 1 | 1 Day | 2 | 2 | 75 | `/images/day-tours/valley-of-kings-day-tour.jpeg` | 0 |
 | 33 | Karnak Temple Day Tour | `karnak-temple-day-tour` | 1 | 1 Day | 3 | 3 | 65 | `/images/day-tours/karnak-temple-day-tour.jpeg` | 0 |
@@ -1438,7 +1438,7 @@ _Summary line rendered on cards:_ Explore Hurghada on this 1 day adventure itine
 - **Category / location:** adventure · Sharm El Sheikh
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 95 — currency unconfirmed, see §A6
-- **Cover image:** `https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=800`
+- **Cover image:** `/images/day-tours/sharm-el-sheikh-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Ras Mohammed National Park; Desert safari; Red Sea beaches
@@ -1468,7 +1468,7 @@ _Summary line rendered on cards:_ Explore Sharm El Sheikh on this 1 day adventur
 - **Category / location:** adventure · Marsa Alam
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 100 — currency unconfirmed, see §A6
-- **Cover image:** `https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800`
+- **Cover image:** `/images/day-tours/marsa-alam-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Sataya Dolphin Reef; Samadai coral walls
@@ -1497,7 +1497,7 @@ _Summary line rendered on cards:_ Explore Marsa Alam on this 1 day adventure iti
 - **Category / location:** adventure · El Gouna
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 85 — currency unconfirmed, see §A6
-- **Cover image:** `https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800`
+- **Cover image:** `/images/day-tours/el-gouna-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Lagoon boat trip; Island snorkeling
@@ -1526,7 +1526,7 @@ _Summary line rendered on cards:_ Explore El Gouna on this 1 day adventure itine
 - **Category / location:** adventure · Makadi Bay
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 80 — currency unconfirmed, see §A6
-- **Cover image:** `https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&q=80&w=800`
+- **Cover image:** `/images/day-tours/makadi-bay-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** House-reef snorkeling; Semi-submarine coral tour
@@ -1555,7 +1555,7 @@ _Summary line rendered on cards:_ Explore Makadi Bay on this 1 day adventure iti
 - **Category / location:** adventure · Soma Bay
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 90 — currency unconfirmed, see §A6
-- **Cover image:** `https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80&w=800`
+- **Cover image:** `/images/day-tours/soma-bay-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Tobia Islands snorkeling; Kitesurfing
@@ -1584,7 +1584,7 @@ _Summary line rendered on cards:_ Explore Soma Bay on this 1 day adventure itine
 - **Category / location:** adventure · Port Ghalib
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 95 — currency unconfirmed, see §A6
-- **Cover image:** `https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800`
+- **Cover image:** `/images/day-tours/port-ghalib-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Marina coral safari; Snorkeling lagoons
@@ -1701,7 +1701,7 @@ _Summary line rendered on cards:_ Explore Cairo on this 1 day historical itinera
 - **Category / location:** adventure · Bahariya, Western Desert
 - **Duration:** 1 Day (1 itinerary day)
 - **Starting price:** 130 — currency unconfirmed, see §A6
-- **Cover image:** `/hero.jpg`
+- **Cover image:** `/images/day-tours/white-desert-day-tour.jpeg`
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** White Desert chalk formations; Crystal Mountain; Black Desert
@@ -1860,7 +1860,7 @@ absent or need legal sign-off.
 | Data sharing with the partner and service providers | **Partial.** The travel partner is named; no service providers are. |
 | Cross-border data handling | **Absent.** |
 | Access / correction / deletion rights and process | **Partial.** "Ask about your submitted information" only; no deletion right or process. |
-| Cookie and analytics disclosures | **Absent, and now known.** The site sets no first-party cookies and runs no analytics. Third parties that may set their own: Cloudflare Turnstile (form protection), Google Maps frames, and Unsplash for six Red Sea images. |
+| Cookie and analytics disclosures | **Absent, and now known.** The site sets no first-party cookies and runs no analytics. Third parties that may set their own: Cloudflare Turnstile (form protection) and Google Maps frames. Tour images are locally hosted. |
 | Governing law and dispute wording | **Absent.** |
 | Final quotation and tour-specific cancellation/refund terms | Deferred to the written quotation; no per-tour terms exist. |
 
@@ -1875,5 +1875,5 @@ absent or need legal sign-off.
 | 5 | ~~Blog — publish real articles or hide the route~~ — RESOLVED | 5 articles published; route is public and in the sitemap (§A4) |
 | 6 | Approve the policy items in Section C | Acceptance criterion: owner signs off on policies |
 | 7 | Provide pickup/drop-off, accessibility, availability and accommodation level | Missing for all 34 tours (Section B) |
-| 8 | Supply a White Desert cover photo, and local replacements for the six Unsplash-hosted day-tour covers | `white-desert-day-tour` shows `/hero.jpg`; Sharm, Marsa Alam, El Gouna, Makadi, Soma Bay and Port Ghalib hot-link stock photos that may not depict the actual location (§B) |
+| 8 | ~~Replace the White Desert placeholder and six remote Red Sea covers~~ — RESOLVED | Seven original destination-specific covers are now locally hosted and optimized (§B) |
 
