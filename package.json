@@ -36,7 +36,11 @@
     "test:acceptance": "node scripts/phase3-acceptance.mjs",
     "test:e2e": "playwright test",
     "verify:fast": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:images && npm run test:seo && npm run check:csp && npm run check:budget",
-    "verify": "npm run verify:fast && npm run test:e2e"
+    "verify": "npm run verify:fast && npm run test:e2e",
+    "cms:seed": "tsx scripts/cms-seed.ts",
+    "cms:validate": "tsx scripts/cms-validate.ts",
+    "cms:export": "tsx scripts/cms-export.ts",
+    "cms:diff": "tsx scripts/cms-diff.ts"
   },
   "dependencies": {
     "lucide-react": "^0.546.0",

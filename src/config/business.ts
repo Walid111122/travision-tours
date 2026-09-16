@@ -13,6 +13,13 @@ export const PAYMENT_PARTNER_NAME = 'Egypt Online Tour';
 export const INQUIRY_POLICY_VERSION = '2026-08-13';
 
 /**
+ * Display and quotation currency. The mother-company website publishes prices
+ * and policy fees in US dollars, so USD is the current value everywhere —
+ * centralized so a future decision changes one constant.
+ */
+export const DISPLAY_CURRENCY = 'USD';
+
+/**
  * The `info@travisiontours.com` mailbox cannot receive mail until the domain
  * is registered and DNS/MX are configured. Per the launch plan
  * (PHASE8_CONTENT_VALIDATION.md §A8) the address must not be published while
