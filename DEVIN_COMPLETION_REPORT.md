@@ -124,7 +124,37 @@ reusable PDF template.
 | `tests/unit/policy-content.test.tsx` | +33 tests (55 total): the required disclaimer renders ≥5×, the flow ends in post-payment confirmation, cancellation tiers are labelled standard/overridable, no FAQ 24–48h claim, no universal child/hotel/refund claims, no premature-confirmation wording on tour pages, and the template contains every required placeholder plus the payment-recipient and acceptance statements | Guards the new invariants |
 | `HEAD_COMPANY_SOURCE_MATRIX.md`, `CONTENT_GAPS.md`, `scripts/phase8-content-sheet.ts`, `PHASE8_CONTENT_VALIDATION.md`, `LAUNCH_CHECKLIST.md` | Document the reservation-specific model, the template location, and the remaining owner/legal sign-offs | Documentation sync |
 
-## 2. Commands run and exact results
+## 1f. Files changed in the sixth pass (secure administration dashboard + CMS)
+
+A private CMS/operations console behind Cloudflare Access, plus the local
+seed → export → diff publishing pipeline. Nothing deploys; everything runs
+against local D1 + emulated R2.
+
+| File | Change | Why |
+|---|---|---|
+| `migrations/0008_cms_schema.sql` | **New.** `cms_tours`, `cms_posts`, revision tables, `cms_redirects`, `quotations`, `quotation_revisions`, `quotation_status_history`, `inquiry_notes`, `media_assets`, `admin_audit_log`, `cms_release_jobs`; `bookings.assigned_to` added. Rollback note in-file | Structured CMS + workflow state |
+| `src/cms/model.ts` | **New.** Shared row↔domain mappers, validators, unsafe-markup detector, deterministic serializers, diff engine — imported by worker, scripts, and tests so the layers cannot drift | Single source of truth for CMS rules |
+| `src/config/quotation.ts` | **New.** `QuotationData`, `QUOTATION_FIELDS`, `QUOTATION_TRANSITIONS`, `IMMUTABLE_AFTER_SENT`, `PLACEHOLDER_MARKERS`, `unresolvedQuotationFields` | Status machine + required-field law shared by API, UI, renderer, tests |
+| `worker/access.ts` | Added `isAccessBypassed` export + bypass-active logging | Provable dev-only bypass |
+| `worker/requestGuard.ts`, `worker/audit.ts` | **New.** Same-origin mutation guard; append-only audit statement helper | CSRF defence + auditability |
+| `worker/cms.ts` | **New.** Tours/posts CRUD, optimistic concurrency (`expectedRevision`), revision snapshots, duplicate, archive/restore, publish with `slug_locked`, post slug redirects | Protected content API |
+| `worker/quotations.ts`, `worker/quotationDocument.ts` | **New.** Quotation lifecycle (create-from-inquiry, edit, transitions, revise-as-new-version, evidence capture) + escaped print-ready HTML renderer that cannot see internal notes | Quotation/policy PDF workflow |
+| `worker/media.ts` | **New.** Signature-sniffed image upload (JPEG/PNG/WebP only, no SVG), dimension + size limits, server-generated keys, usage scan, archive-only | Safe media library |
+| `worker/admin.ts` | Session now reports `devBypass`; added `/overview`, `/audit`, `/revisions`, inquiry notes/assign/export; routes CMS + quotation + media sub-routers; admin-scoped mutation rate limit | One guarded admin surface |
+| `worker/body.ts`, `worker/rateLimit.ts` | Parameterized body limit; scoped rate limiter (`worker/index.ts` already delegated `/api/admin/*` and needed no change) | Plumbing |
+| `src/components/Markdown.tsx` | **New.** Extracted the blog markdown renderer | Admin preview == public render |
+| `src/pages/BlogPost.tsx` | Uses the shared `MarkdownContent` | Same renderer both sides |
+| `src/AppShell.tsx` | Public navbar/footer/contact-actions hidden on `/admin` | Dashboard is a self-contained app; no public chrome on the hidden route |
+| `src/pages/Admin.tsx` | Rewritten as the auth gate → `AdminApp` | Loads nothing until `/api/admin/session` authorizes |
+| `src/pages/admin/**` | **New.** `AdminApp` shell + `api.ts` + shared components + 10 sections (dashboard, tours, blog, inquiries, quotations, media, revisions, audit, settings, sign-out); focus-trapped modals, status announcer, dev-bypass banner, narrow-viewport warning | The dashboard |
+| `scripts/cms-d1.ts`, `cms-seed.ts`, `cms-validate.ts`, `cms-export.ts`, `cms-diff.ts` | **New.** Local D1 runner + `npm run cms:seed/validate/export/diff` | Idempotent bootstrap + deterministic publishing proof |
+| `src/generated/{packages,day-tours,blog-posts}.ts` | **New.** Deterministic export of published CMS rows | Build input for releases |
+| `wrangler.jsonc` | `MEDIA` R2 binding declared (emulated locally; production bucket is a domain-phase task) | Media storage target |
+| `tests/unit/cms-model.test.ts`, `tests/unit/quotation.test.ts`, `tests/unit/worker-boundaries.test.ts` | **New/extended.** Round-trip parity, validators, status-machine invariants, document-render guarantees, bypass isolation, same-origin guard | Unit coverage |
+| `tests/worker/cms.test.ts` | **New.** 30 integration tests on a disposable D1 + emulated R2 | Worker coverage |
+| `tests/e2e/admin.spec.ts` | **New.** 30 browser tests (desktop + mobile projects) | Real-browser coverage |
+| `ADMIN_DASHBOARD_GUIDE.md`, `CMS_DATA_MODEL.md`, `CMS_PUBLISHING_WORKFLOW.md`, `ADMIN_SECURITY_MODEL.md`, `QUOTATION_OPERATIONS_GUIDE.md` | **New.** Operator documentation | Run/secure/publish the system |
+
 
 All run from `C:\projects\travision-tours-review` on Windows, against local and
 disposable resources only.
@@ -235,6 +265,30 @@ per run).
 | `npm audit --audit-level=high` | PASS — **0 vulnerabilities** |
 | `npx wrangler deploy --dry-run` | PASS — **194.28 KiB / 22.14 KiB gzip**, bindings resolve, nothing deployed |
 | `npm run content:sheet` | Regenerated — §C documents the PDF-before-payment model |
+
+### Sixth-pass re-verification (after the §1f dashboard/CMS changes)
+
+| Command | Result |
+|---|---|
+| `npm run typecheck` | PASS — `tsc --noEmit`, no errors |
+| `npm run lint` | PASS — 18 findings in the new code fixed, then clean |
+| `npm run test` (vitest) | PASS — **310 passed, 2 expected-fail, 312 total** (11 files; new `cms-model`, `quotation`, `worker-boundaries` suites) |
+| `npx vitest run tests/worker/api.test.ts` | PASS — **40/40** inquiry/notification API contract tests |
+| `npx vitest run tests/worker/cms.test.ts` | PASS — **30/30** on disposable D1 + emulated R2 (auth, CMS CRUD/revisions/concurrency, quotations, media, audit) |
+| `npm run build` | PASS — **48 routes prerendered**; `/admin` ships a data-free noindex shell |
+| `npm run test:images` | PASS — **34/34** |
+| `npm run test:seo` | PASS — **41/41** |
+| `npm run check:csp` | PASS — `egyptonlinetour.com` stays in `NOT_FETCHED` |
+| `npm run check:budget` | PASS — 112 images / 12 fonts within budget |
+| `npm run test:e2e` | PASS — **123 passed, 5 skipped, 0 failed** (new `admin.spec.ts`: 30 browser tests across desktop + mobile projects; requires a fresh `dist/` — `tests/e2e/serve.mjs` serves built assets) |
+| `npm run test:a11y` | PASS — **75/75** (landmark check scoped so the `/admin` gate only needs `main` — its nav/footer are post-auth chrome; `readdirSync` now skips directories) |
+| `npm run test:keyboard` | PASS — **33/33** |
+| `npm audit --audit-level=high` | PASS — **0 vulnerabilities** |
+| `npx wrangler deploy --dry-run` | PASS — bindings resolve (DB, MEDIA, ASSETS), nothing deployed |
+| `git diff --check` | PASS — only normal LF→CRLF autocrlf warnings |
+| `cms:seed` on a clean D1 | PASS — 34 tours + 5 posts, **full parity**; second run is a no-op (idempotent) |
+| `cms:validate` | PASS — **0 errors**, 34 warnings (pre-existing missing meta descriptions) |
+| `cms:export` + `cms:diff` | PASS — deterministic export → `src/generated/`, **0 differences** vs static sources |
 
 ### Visual QA (second pass)
 

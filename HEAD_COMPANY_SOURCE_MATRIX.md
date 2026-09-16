@@ -155,3 +155,10 @@ No match = field stays unresolved.
 | Marketing superlatives ("best", "ultimate", "unforgettable") | Unverifiable promotion |
 | Named hotels/cruises, Dahabiya product | Not guaranteed; different product structure |
 | Google Pay (EOT footer) | Not in owner's agreed payment-method set |
+
+## G. CMS note
+
+The admin dashboard does not add or change any sourced claim: it manages the
+same catalog rows through `/admin`. Reservation-specific terms are still only
+produced per-quotation (`QUOTATION_OPERATIONS_GUIDE.md`); nothing universal
+about children, hotels, or cancellation was published.

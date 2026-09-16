@@ -59,6 +59,25 @@ from here to a public launch. Owner decisions are in
 - [ ] `.dev.vars.example` documents every secret key — copy to `.dev.vars`
       for local work.
 
+## 3b. Administration CMS (built and tested locally — activate at domain phase)
+
+- [ ] Create the production D1 database (`wrangler d1 create travision-tours`),
+      set the real `database_id` in `wrangler.jsonc`, and apply
+      `wrangler d1 migrations apply travision-tours` (remote) — migrations
+      0001–0008 are ready.
+- [ ] Create the production R2 bucket (`wrangler r2 bucket create
+      travision-tours-media`) — the `MEDIA` binding already exists in
+      `wrangler.jsonc`.
+- [ ] Create the Cloudflare Access application covering `/admin*` and
+      `/api/admin/*` with a deny-by-default policy; then set
+      `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ACCESS_ALLOWED_EMAILS` as worker
+      secrets (never in `wrangler.jsonc`). `ACCESS_DEV_BYPASS` must **not**
+      exist in production.
+- [ ] After first remote migration, run `npm run cms:seed` against the remote
+      D1 to populate the CMS, then `npm run cms:diff` to prove parity.
+- [ ] Verify `/admin` demands an Access login on the production origin and
+      that anonymous `/api/admin/*` calls return 403.
+
 ## 4. Deploy and verify
 
 - [ ] `npm run build:production && npm run verify` — all gates green.

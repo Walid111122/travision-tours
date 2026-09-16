@@ -1919,3 +1919,13 @@ are either absent or still need owner/legal sign-off.
 | 7 | ~~Provide pickup/drop-off, accessibility, availability and accommodation level~~ — PARTIALLY RESOLVED | Sourced for 11 exact + 11 partial/category matches; 12 tours remain unmapped and need owner input or a partner data sheet (Section B) |
 | 8 | ~~Replace the White Desert placeholder and six remote Red Sea covers~~ — RESOLVED | Seven original destination-specific covers are now locally hosted and optimized (§B) |
 
+
+## Section E — CMS seed parity (admin dashboard pass)
+
+| Check | Result |
+|---|---|
+| Seed idempotency | `npm run cms:seed` twice → `ON CONFLICT DO NOTHING`, identical row counts (34 tours, 5 posts) |
+| Source → database reconciliation | `Source: 12 packages + 22 day tours + 5 posts` vs `Database: 34 tour rows, 5 post rows` — parity |
+| `npm run cms:validate` | 0 errors, 34 warnings (pre-existing missing `meta_description` values — operator quality queue, not defects) |
+| `npm run cms:export` → `npm run cms:diff` | `0 difference(s)` between published CMS rows and the static sources |
+| Existing IDs preserved | All ids — including the legacy double-dash id `pkg-7-5-days-cairo--luxor---abu-simbel-tour` — pass validation unchanged |

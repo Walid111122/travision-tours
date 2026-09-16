@@ -124,3 +124,19 @@ Still needed:
 - **Tour-specific terms** — final cancellation, refund, accommodation, and
   operational conditions stay in the written quotation by design; the site
   states this on every tour page.
+
+## 9. CMS notes (added with the admin dashboard)
+
+The CMS (`/admin`, migration `0008`) now carries every tour and post as a
+draftable row — content gaps are surfaced as **warnings** by
+`npm run cms:validate` instead of being invisible in source files.
+
+- 34 warnings at seed time, all pre-existing: tours without a
+  `meta_description` (SEO quality queue — fix in the Tours section, not by
+  editing source files).
+- 0 validation errors. The validator accepts legacy ids with consecutive
+  dashes (`pkg-7-5-days-cairo--luxor---abu-simbel-tour`) because existing ids
+  are immutable public URLs.
+- `npm run cms:diff` reports **0 differences** between published CMS rows and
+  the static sources — full parity; the TypeScript constants remain the
+  build's source of truth until a release deliberately swaps them.
