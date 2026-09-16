@@ -16,8 +16,11 @@ import {
   CHILD_POLICY,
   PACKAGE_ACCOMMODATION,
   PARTNER_TERMS,
+  RESERVATION_FLOW,
   TOUR_LOGISTICS
 } from '../../src/tourPolicies';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 /**
  * Policy-content tests for the head-company mapping work.
@@ -234,7 +237,7 @@ describe('tour page policy and logistics rendering', () => {
     const { html } = renderTour('hurghada-day-tour');
     expect(html).toContain('written quotation');
     const policies = renderPolicies();
-    expect(policies).toContain('standard terms applied by');
+    expect(policies).toContain('general terms applied by');
   });
 
   it('emits no prices, ratings, reviews, or offers in JSON-LD', () => {
@@ -250,7 +253,132 @@ describe('tour page policy and logistics rendering', () => {
   it('keeps the payment acknowledgement as an inquiry, not a confirmed booking', () => {
     const { html } = renderTour('cairo-day-tour');
     expect(html).toContain('booking request, not a confirmed reservation');
+    expect(html).toContain('policy PDF');
     expect(html).toContain(`payment will be made directly to ${PAYMENT_PARTNER_NAME}`);
     expect(html).toContain('/policies');
+    // No premature-confirmation claim: the inquiry itself is never confirmed.
+    expect(html).not.toMatch(/(inquiry|request|submission|form).{0,40}(is|has been|was) confirmed/i);
+    expect(html).not.toMatch(/instant confirmation|booking confirmed instantly/i);
+  });
+});
+
+describe('reservation-specific policy model (owner decision)', () => {
+  it('renders the required quotation-controls disclaimer on the policies page', () => {
+    const html = renderPolicies();
+    expect(html).toContain(
+      'Final prices, payment deadlines, accommodation details, child policies, cancellation terms, refund conditions, and supplier rules are provided in the personalized written quotation and policy PDF before payment'
+    );
+    // The disclaimer appears in the intro and inside the sections where a
+    // general term could read as a universal promise (payment, cancellation,
+    // children, accommodation).
+    const occurrences = html.split('policy PDF before payment').length - 1;
+    expect(occurrences).toBeGreaterThanOrEqual(5);
+  });
+
+  it('publishes the full reservation flow ending in post-payment confirmation', () => {
+    const html = renderPolicies();
+    expect(html).toContain('policy PDF is prepared and emailed to you before any payment');
+    expect(html).toContain(
+      'confirmed in writing only after the quotation is accepted, payment requirements are completed, and the partner verifies payment'
+    );
+    // Flow order: inquiry → partner check → PDF before payment → review/accept → pay partner → confirm.
+    expect(RESERVATION_FLOW.length).toBe(6);
+    expect(RESERVATION_FLOW[5]).toMatch(/confirmed in writing only after/i);
+  });
+
+  it('labels the cancellation schedule as standard terms the written policy overrides', () => {
+    const html = renderPolicies();
+    expect(html).toContain('standard');
+    expect(html).toContain(
+      'reservation-specific policy supplied with your quotation before payment controls your particular booking'
+    );
+    // The FAQ 24–48h cancellation claim must never appear as a promise.
+    expect(html).not.toMatch(/free cancellation/i);
+    expect(html).not.toMatch(/24.{0,3}48\s*hours/i);
+  });
+
+  it('states that accepted payment methods are confirmed in the quotation', () => {
+    const html = renderPolicies();
+    expect(html).toContain('Accepted payment methods are confirmed in that quotation');
+    expect(html).toContain('you receive the full price and the policies that apply to your reservation');
+  });
+
+  it('never states universal child, hotel, or refund conditions', () => {
+    const html = renderPolicies();
+    expect(html).not.toMatch(/\b50%\s*(discount|off|child)/i);
+    expect(html).toContain('no universal child discount or occupancy rule');
+    expect(html).toContain('personalized written quotation and policy PDF');
+  });
+
+  it('tour pages point to the PDF-before-payment flow', () => {
+    for (const id of ['abu-simbel-day-tour', 'hurghada-day-tour', '6-days-cairo-luxor-aswan']) {
+      const { html } = renderTour(id);
+      expect(html, `${id} should describe the policy-PDF step`).toContain('policy PDF');
+      expect(html, `${id} must not collect payment`).toContain('directly to');
+      // Post-payment confirmation wording is fine; premature claims are not.
+      expect(html, `${id} must not claim premature confirmation`).not.toMatch(
+        /(inquiry|request|submission|form).{0,40}(is|has been|was) confirmed/i
+      );
+      expect(html, `${id} must not promise instant confirmation`).not.toMatch(/instant confirmation/i);
+    }
+  });
+});
+
+describe('quotation & policy PDF template', () => {
+  const templatePath = fileURLToPath(new URL('../../templates/quotation-policy-template.html', import.meta.url));
+  const template = readFileSync(templatePath, 'utf8');
+
+  const requiredPlaceholders = [
+    'QUOTATION NUMBER',
+    'ISSUE DATE',
+    'OFFER EXPIRATION DATE',
+    'CUSTOMER NAME',
+    'TRAVEL DATES',
+    'NUMBER OF ADULTS',
+    'NUMBER AND AGES OF CHILDREN',
+    'FINAL ITINERARY',
+    'SELECTED HOTEL OR CRUISE',
+    'ROOM TYPE AND OCCUPANCY',
+    'MEAL BASIS',
+    'hotel child policy',
+    'CHILD AND INFANT PRICING',
+    'TOTAL PRICE AND CURRENCY',
+    'DEPOSIT AMOUNT',
+    'BALANCE AMOUNT AND PAYMENT DEADLINE',
+    'ACCEPTED PAYMENT METHODS',
+    'reservation-specific cancellation schedule',
+    'AMENDMENT CONDITIONS',
+    'NO-SHOW POLICY',
+    'UNUSED-SERVICES',
+    'SPECIAL-EVENT',
+    'POLICY VERSION'
+  ];
+
+  it('exists and is printable HTML', () => {
+    expect(template).toContain('<!DOCTYPE html>');
+    expect(template).toContain('@media print');
+  });
+
+  it.each(requiredPlaceholders)('contains a placeholder for "%s"', field => {
+    expect(template).toContain(field);
+  });
+
+  it('keeps variable fields as visible placeholders, not assumed values', () => {
+    expect(template).toContain('To be confirmed for this quotation.');
+    expect(template).toContain('Insert current hotel child policy.');
+    expect(template).toContain('Insert reservation-specific cancellation schedule.');
+    // No invented discount, refund percentage, or hotel name baked in.
+    expect(template).not.toMatch(/\b50%\s*(discount|refund)/i);
+    expect(template).not.toMatch(/Hilton|Marriott|Movenpick|Steigenberger|Four Seasons/i);
+  });
+
+  it('routes payment to Egypt Online Tour, not the website', () => {
+    expect(template).toContain('Egypt Online Tour');
+    expect(template).toMatch(/never to Travision Tours|not.*through the.*website/i);
+  });
+
+  it('carries a customer acceptance statement before payment', () => {
+    expect(template).toContain('before making any');
+    expect(template).toMatch(/confirmed only after/i);
   });
 });
