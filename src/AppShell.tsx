@@ -4,7 +4,7 @@
  */
 
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'motion/react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -61,6 +61,11 @@ export const lazyPages = Object.fromEntries(
  * to a crawler and the script is blocked by our own Content Security Policy.
  */
 export default function AppShell({ pages = lazyPages }: { pages?: PageComponents }) {
+  // The admin dashboard is a self-contained application — the public navbar,
+  // footer and floating contact actions would overlay its own header and give
+  // visitors chrome that advertises a hidden area. The StaticRouter prerender
+  // takes the same branch, so the noindex /admin shell ships no public chrome.
+  const isAdmin = useLocation().pathname.startsWith('/admin');
   return (
     /* `reducedMotion="user"` makes every `motion` animation in the tree honour
        the visitor's OS-level reduce-motion setting. The CSS media query in
@@ -75,7 +80,7 @@ export default function AppShell({ pages = lazyPages }: { pages?: PageComponents
         >
           Skip to main content
         </a>
-        <Navbar />
+        {!isAdmin && <Navbar />}
         <main id="main-content" tabIndex={-1} className="flex-grow">
           <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-egypt-gold">Loading journey…</div>}>
             <Routes>
@@ -95,8 +100,8 @@ export default function AppShell({ pages = lazyPages }: { pages?: PageComponents
             </Routes>
           </Suspense>
         </main>
-        <Footer />
-        <ContactActions />
+        {!isAdmin && <Footer />}
+        {!isAdmin && <ContactActions />}
       </div>
     </MotionConfig>
   );
