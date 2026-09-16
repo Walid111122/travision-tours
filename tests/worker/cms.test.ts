@@ -88,7 +88,7 @@ beforeAll(async () => {
 
   execFileSync(
     process.execPath,
-    [wranglerCli, 'd1', 'migrations', 'apply', 'travision-tours', '--local', '--persist-to', persistDir],
+    [wranglerCli, 'd1', 'migrations', 'apply', 'DB', '--local', '--persist-to', persistDir],
     { stdio: 'pipe' }
   );
 

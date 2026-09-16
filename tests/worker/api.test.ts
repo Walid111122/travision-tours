@@ -109,7 +109,7 @@ async function startWorker(options: {
         'd1',
         'migrations',
         'apply',
-        'travision-tours',
+        'DB',
         '--local',
         '--persist-to',
         persistDir

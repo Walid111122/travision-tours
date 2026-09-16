@@ -5,6 +5,7 @@
  *
  * Usage:
  *   npm run cms:seed                 # seeds .wrangler/state
+ *   npm run cms:seed -- --remote     # seeds the configured production D1
  *   npm run cms:seed -- --persist-to /tmp/dir   # seeds a throwaway local DB
  */
 import { writeFileSync } from 'node:fs';

@@ -11,21 +11,26 @@ import path from 'node:path';
  */
 
 const WRANGLER = path.resolve('node_modules/wrangler/bin/wrangler.js');
-const DB_NAME = 'travision-tours';
+const DB_BINDING = 'DB';
 
 export interface CliOptions {
   persistTo?: string;
+  remote?: boolean;
 }
 
 export function parseCliOptions(argv: string[]): CliOptions {
   const options: CliOptions = {};
+  options.remote = argv.includes('--remote');
   const flag = argv.indexOf('--persist-to');
   if (flag !== -1) options.persistTo = argv[flag + 1];
+  if (options.remote && options.persistTo) {
+    throw new Error('--remote and --persist-to cannot be used together');
+  }
   return options;
 }
 
 function wranglerArgs(options: CliOptions): string[] {
-  const args = [WRANGLER, 'd1', 'execute', DB_NAME, '--local'];
+  const args = [WRANGLER, 'd1', 'execute', DB_BINDING, options.remote ? '--remote' : '--local'];
   if (options.persistTo) args.push('--persist-to', options.persistTo);
   return args;
 }
@@ -59,7 +64,7 @@ export function query<T = Record<string, unknown>>(sql: string, options: CliOpti
 
 /** Apply migrations to a (possibly fresh) local database directory. */
 export function applyMigrations(options: CliOptions): void {
-  const args = [WRANGLER, 'd1', 'migrations', 'apply', DB_NAME, '--local'];
+  const args = [WRANGLER, 'd1', 'migrations', 'apply', DB_BINDING, options.remote ? '--remote' : '--local'];
   if (options.persistTo) args.push('--persist-to', options.persistTo);
   execFileSync(process.execPath, args, { stdio: 'inherit' });
 }

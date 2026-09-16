@@ -26,10 +26,22 @@ try {
   process.exit(1);
 }
 
-const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-const result = spawnSync(npmCommand, ['run', 'build'], {
+const npmCli = process.env.npm_execpath;
+if (!npmCli) {
+  console.error('\n  npm_execpath is unavailable; run this script through `npm run build:production`.\n');
+  process.exit(1);
+}
+
+// Invoking npm.cmd directly with spawnSync can fail without an actionable
+// error on locked-down Windows hosts. Running npm's JavaScript entry point
+// through the current Node executable is portable and preserves stdio.
+const result = spawnSync(process.execPath, [npmCli, 'run', 'build'], {
   stdio: 'inherit',
   env: { ...process.env, SITE_URL: siteUrl, PRODUCTION: '1' }
 });
+
+if (result.error) {
+  console.error(`\n  Production build could not start: ${result.error.message}\n`);
+}
 
 process.exit(result.status ?? 1);

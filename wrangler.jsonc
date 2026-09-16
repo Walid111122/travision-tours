@@ -12,6 +12,16 @@
     "RATE_LIMIT_WINDOW_SECONDS": "600",
     "RATE_LIMIT_MAX_REQUESTS": "5"
   },
+  "routes": [
+    {
+      "pattern": "travisiontours.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.travisiontours.com",
+      "custom_domain": true
+    }
+  ],
   // Media-library uploads. Under `wrangler dev` this binding is emulated
   // locally (no bucket is created); for production the bucket must be created
   // during the domain phase — see ADMIN_DASHBOARD_GUIDE.md. The binding alone
@@ -25,8 +35,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "travision-tours",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_name": "travision-tours-production",
+      "database_id": "27e014bf-6177-4e3b-8aae-136211376b49",
       "migrations_dir": "./migrations"
     }
   ],

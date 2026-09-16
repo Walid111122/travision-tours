@@ -17,6 +17,7 @@ import {
 
 /** How long a rate-limit counter is kept before the scheduled handler purges it. */
 const RATE_LIMIT_RETENTION_SECONDS = 24 * 60 * 60;
+const CANONICAL_HOST = 'travisiontours.com';
 
 function buildBookingStatements(
   env: Env,
@@ -270,6 +271,12 @@ async function createBooking(request: Request, env: Env): Promise<Response> {
 
 async function handleRequest(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
+
+  if (url.hostname === `www.${CANONICAL_HOST}`) {
+    url.hostname = CANONICAL_HOST;
+    url.protocol = 'https:';
+    return Response.redirect(url.toString(), 301);
+  }
 
   if (url.pathname === '/api/health' && request.method === 'GET') {
     return json({
