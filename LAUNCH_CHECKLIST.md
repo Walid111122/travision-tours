@@ -25,8 +25,13 @@ from here to a public launch. Owner decisions are in
       standard terms are paraphrased and attributed but not legally reviewed
       (Section C items: business identity, lawful basis, retention,
       governing law remain absent).
-- [ ] Confirm per-tour or final cancellation/refund terms (currently deferred
-      to the written quotation by design).
+- [ ] Owner/legal review of `templates/quotation-policy-template.html` — the
+      print-ready quotation & policy PDF sent to customers before payment;
+      every bracketed placeholder must be filled per reservation (never
+      assumed) before the template is used operationally.
+- [ ] Confirm per-tour or final cancellation/refund terms are handled
+      per-reservation in the quotation/policy PDF (by design — no universal
+      schedule is published as binding).
 
 ## 2. Domain and mail
 

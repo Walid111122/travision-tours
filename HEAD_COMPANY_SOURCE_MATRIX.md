@@ -14,6 +14,12 @@ company **Egypt Online Tour** (`https://egyptonlinetour.com/`).
   head/referral company, operator, and payment recipient. Travision Tours is the
   customer-facing inquiry website only; it does not collect payments, card
   details, or customer funds.
+- **Owner addendum (supersedes earlier assumptions):** there is no universal
+  child, accommodation, or cancellation policy. General terms below are
+  published as *defaults*; every reservation is governed by the personalized
+  written quotation and policy PDF emailed to the customer before payment
+  (`templates/quotation-policy-template.html`). Facts the partner does not
+  publish remain omitted — never replaced with substitutes.
 
 ## Domain disambiguation (important)
 

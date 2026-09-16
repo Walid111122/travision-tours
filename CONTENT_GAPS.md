@@ -40,15 +40,18 @@ supplies a data sheet.
 
 ## 3. Child and infant policy — structured, pricing unresolved
 
-Age bands are now modelled (`CHILD_POLICY` in `src/tourPolicies.ts`) from the
+Age bands are modelled (`CHILD_POLICY` in `src/tourPolicies.ts`) from the
 partner's booking forms: **Adults 12+, Children 1–11**. The inquiry form asks
 for each child's age.
 
-The partner publishes **no** child discount percentage, infant rule, or
-room-sharing rule on its current website, so none is claimed — pricing and
-occupancy conditions are confirmed per tour in the written quotation. A
-"50% child discount" line found on a legacy beta domain branded "Maestro
-Online Travel Egypt" was excluded as an unreliable source.
+**Owner decision:** there is no universal child, accommodation, or
+cancellation policy. Child prices depend on ages, hotel child policy, room
+type, and occupancy, and are itemized per reservation in the written
+quotation and policy PDF (`templates/quotation-policy-template.html`). The
+partner publishes **no** child discount percentage, infant rule, or
+room-sharing rule, so none is claimed — a "50% child discount" line found on
+a legacy beta domain branded "Maestro Online Travel Egypt" was excluded as
+an unreliable source.
 
 ## 4. Generic itinerary-stop copy — 65 stops remaining
 
@@ -84,18 +87,27 @@ Removed from the `Tour` interface and every tour record (along with the dead
 If genuine review evidence is gathered later, ratings can be reintroduced
 deliberately.
 
-## 7. Policies — published as partner standard terms; legal sign-off pending
+## 7. Policies — published as partner *default* terms; per-reservation terms live in the quotation PDF
 
-`/policies` now publishes the partner's standard terms attributed to Egypt
+`/policies` publishes the partner's standard terms attributed to Egypt
 Online Tour: deposit (40%) and balance (30 days), cancellation tiers
 (100/70/50/0%), no-show and unused-service rules, change fees (US$25 after
 deposit), operator substitution and cancellation-refund terms, complaints
 window (15 days), documents/visas, insurance recommendation, liability and
 force majeure, special requests, and privacy/data-sharing wording.
 
+Every section that could read as a universal promise carries the owner's
+required disclaimer: **final prices, payment deadlines, accommodation
+details, child policies, cancellation terms, refund conditions, and supplier
+rules are provided in the personalized written quotation and policy PDF
+before payment.** The reusable template is `templates/quotation-policy-template.html`
+— print-ready HTML with visible placeholders; no variable field is
+pre-filled with assumed values.
+
 Still needed:
 
-- **Owner/legal sign-off** on the paraphrased partner terms before launch.
+- **Owner/legal sign-off** on the paraphrased partner terms and on the
+  quotation/policy template before launch.
 - **Registered business identity, postal address, data-controller identity,
   lawful basis, retention period, cross-border handling, governing law** —
   the partner publishes none of these either, so they remain absent (§C).

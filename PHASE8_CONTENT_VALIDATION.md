@@ -1878,7 +1878,11 @@ our travel partner; Standard cancellation schedule; Changes to your booking; Chi
 families; Accommodation; Travel documents, visas, and insurance; Complaints and claims;
 Liability and third-party suppliers; Special requests, accessibility, and health; Privacy.
 Partner terms are attributed to Egypt Online Tour as its standard terms — Travision is the
-inquiry interface. The following items are either absent or still need owner/legal sign-off.
+inquiry interface. Per the owner decision, there is no universal child, accommodation, or
+cancellation policy: each section that could read as universal carries the required disclaimer
+that reservation-specific conditions arrive in the personalized written quotation and policy
+PDF before payment (template: `templates/quotation-policy-template.html`). The following items
+are either absent or still need owner/legal sign-off.
 
 | Item | Status |
 |---|---|

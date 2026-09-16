@@ -104,6 +104,26 @@ discount" line on the legacy `beta.egyptonlinetours.com` "Maestro Online
 Travel Egypt" page was excluded as a different/legacy brand), and any
 payment-processing language implying Travision handles funds.
 
+## 1e. Files changed in the fifth pass (reservation-specific policy model)
+
+Owner decision: there is **no universal child, accommodation, or cancellation
+policy**. General partner terms are published as defaults; every reservation
+is governed by the personalized written quotation and policy PDF emailed to
+the customer before payment. This pass encodes that model and ships the
+reusable PDF template.
+
+| File | Change | Why |
+|---|---|---|
+| `src/tourPolicies.ts` | Added `QUOTATION_CONTROLS_NOTE` (the owner's required disclaimer sentence), `RESERVATION_FLOW` (six-step inquiry→quotation-PDF→payment→confirmation model), `QUOTATION_PLACEHOLDER`; `CHILD_POLICY.pricingNote` now says per-reservation | One source of truth for the required wording so UI, worker, and tests cannot drift |
+| `src/pages/Policies.tsx` | Rewritten around the model: a shared `QuotationNote` disclaimer box renders in the intro and inside the payment, cancellation, children, and accommodation sections; "Inquiry and confirmation" now lists the full flow; cancellation section states the reservation-specific written policy controls the booking; payment section says methods are confirmed in the quotation and the customer receives full price + policies before payment | No general term may read as a universal promise |
+| `src/pages/TourDetails.tsx` | FAQ answers, the required acknowledgement checkbox, the success message, and the sidebar steps now describe the quotation-and-policy-PDF-before-payment flow | The acknowledgment must not imply a confirmed booking, and customers must see that final policies arrive before payment |
+| `src/pages/Contact.tsx` | Intro now mentions the personalized quotation and policy PDF before payment | Same model, every surface |
+| `worker/index.ts` | Booking API response message now promises "a personalized written quotation and policy PDF before any payment is due" | API wording matches the stated flow |
+| `worker/booking.ts` | Acknowledgement error message mentions the quotation and policy PDF | Same |
+| `templates/quotation-policy-template.html` | **New.** Print-ready quotation & policy document with ~30 bracketed placeholders (quotation no., dates, party, hotel/room/meal basis, hotel child policy, child pricing, price/deposit/balance, payment recipient & methods, reservation-specific cancellation/amendment/no-show/unused-services schedule, inclusions/exclusions, acceptance statement, policy version, partner contacts). Variable fields carry visible "To be confirmed for this quotation" placeholders — nothing assumed | The owner-specified customer artifact; fill per reservation, print to PDF, email before payment |
+| `tests/unit/policy-content.test.tsx` | +33 tests (55 total): the required disclaimer renders ≥5×, the flow ends in post-payment confirmation, cancellation tiers are labelled standard/overridable, no FAQ 24–48h claim, no universal child/hotel/refund claims, no premature-confirmation wording on tour pages, and the template contains every required placeholder plus the payment-recipient and acceptance statements | Guards the new invariants |
+| `HEAD_COMPANY_SOURCE_MATRIX.md`, `CONTENT_GAPS.md`, `scripts/phase8-content-sheet.ts`, `PHASE8_CONTENT_VALIDATION.md`, `LAUNCH_CHECKLIST.md` | Document the reservation-specific model, the template location, and the remaining owner/legal sign-offs | Documentation sync |
+
 ## 2. Commands run and exact results
 
 All run from `C:\projects\travision-tours-review` on Windows, against local and
@@ -195,6 +215,26 @@ per run).
 | `npm audit --audit-level=high` | PASS — **0 vulnerabilities** |
 | `npx wrangler deploy --dry-run` | PASS — **194.15 KiB / 22.10 KiB gzip**, 617 asset files, bindings resolve, nothing deployed |
 | `npm run content:sheet` | Regenerated — §B now reports match strength and sourced values per tour |
+
+### Fifth-pass re-verification (after the §1e reservation-model changes)
+
+| Command | Result |
+|---|---|
+| `npm run typecheck` | PASS — `tsc --noEmit`, no errors |
+| `npm run lint` | PASS — one unused-import in the new test fixed, then clean |
+| `npm run test` (vitest) | PASS — **191 passed, 2 expected-fail, 193 total** (`policy-content.test.tsx` now 55 tests incl. template-placeholder coverage) |
+| `npm run build` | PASS — **48 routes prerendered** |
+| `npm run test:images` | PASS — **34/34** |
+| `npm run test:seo` | PASS — **41/41** |
+| `npm run check:csp` | PASS — `egyptonlinetour.com` stays in `NOT_FETCHED` |
+| `npm run check:budget` | PASS — 112 images / 12 fonts within budget |
+| `npm run test:e2e` | PASS — **96 passed, 2 skipped, 0 failed**. Environment note: Windows Application Control began blocking `chrome-headless-shell.exe` mid-session (`spawn UNKNOWN`); `playwright.config.ts` now probes the headless binary at config time and falls back to the full bundled Chromium (`channel: 'chromium'`) — no test weakened, same engine |
+| `npm run test:a11y` | PASS — **75/75** (zero axe violations; the `<details open>` sections + disclaimer boxes resolve all ARIA references) |
+| `npm run test:keyboard` | PASS — **33/33** |
+| `git diff --check` | PASS — only normal LF→CRLF autocrlf warnings |
+| `npm audit --audit-level=high` | PASS — **0 vulnerabilities** |
+| `npx wrangler deploy --dry-run` | PASS — **194.28 KiB / 22.14 KiB gzip**, bindings resolve, nothing deployed |
+| `npm run content:sheet` | Regenerated — §C documents the PDF-before-payment model |
 
 ### Visual QA (second pass)
 
