@@ -31,7 +31,7 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    include: ['tests/unit/**/*.test.ts', 'tests/worker/**/*.test.ts'],
+    include: ['tests/unit/**/*.test.ts', 'tests/unit/**/*.test.tsx', 'tests/worker/**/*.test.ts'],
     // Worker integration tests boot a real `wrangler dev` and apply migrations to
     // a disposable D1 before the first assertion, so the per-test default is far
     // too short. The hook timeout covers that one-off setup.

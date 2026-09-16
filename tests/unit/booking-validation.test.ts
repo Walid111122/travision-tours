@@ -293,7 +293,7 @@ describe('enumeration fields', () => {
   });
 
   it.each([
-    ['accommodationPreference', 'luxury'],
+    ['accommodationPreference', 'luxury-5-star'],
     ['contactPreference', 'whatsapp'],
     ['budgetRange', '1000-2000'],
     ['referralSource', 'google']

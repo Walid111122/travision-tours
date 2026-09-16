@@ -145,11 +145,14 @@ test.describe('14. Contact, policy, and messaging links', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Privacy, Booking');
     await expect(page.getByRole('heading', { name: 'Inquiry and confirmation' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Payment through our travel partner' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Changes and cancellations' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Standard cancellation schedule' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Changes to your booking' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Children and families' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Privacy', exact: true })).toBeVisible();
 
     // The one business rule the site must never contradict.
     await expect(page.getByText(/does not collect payments or card details/i)).toBeVisible();
+    await expect(page.getByText(/Visa, Mastercard, Apple Pay, and bank wire transfer/i)).toBeVisible();
     await expect(page.getByText('Egypt Online Tour').first()).toBeVisible();
   });
 
