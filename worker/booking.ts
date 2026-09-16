@@ -190,7 +190,7 @@ export function validateBooking(value: unknown, now: Date = new Date()): Booking
     throw new ApiError(
       422,
       'partner_payment_acknowledgement_required',
-      'You must acknowledge that this is a request and that partner payment instructions are sent separately.'
+      'You must acknowledge that this is a request, not a confirmed reservation, and that partner payment instructions are sent separately after the written quotation and policy PDF.'
     );
   }
 

@@ -263,11 +263,11 @@ const TourDetails = () => {
   const tourFaqs = [
     {
       question: 'Is submitting this form a confirmed booking?',
-      answer: 'No. It is a request for availability and a quotation. Your reservation is confirmed only after Travision Tours sends written confirmation.'
+      answer: 'No. It is a request for availability and a quotation. You receive a personalized written quotation and policy PDF before any payment, and your reservation is confirmed only after you accept it, complete payment, and receive written confirmation.'
     },
     {
       question: 'How do I pay for this tour?',
-      answer: `After you accept the quotation, ${PAYMENT_PARTNER_NAME}, our travel and payment partner, will provide a secure Visa, Mastercard, or Apple Pay checkout link, or official wire-transfer instructions. Payment is made directly to the partner, not to Travision Tours.`
+      answer: `No payment is taken through this website. Your quotation confirms the accepted payment methods, then ${PAYMENT_PARTNER_NAME}, our travel and payment partner, provides a secure Visa, Mastercard, or Apple Pay checkout link, or official wire-transfer instructions. Payment is made directly to the partner, not to Travision Tours.`
     },
     {
       question: 'Can this itinerary be customized?',
@@ -569,7 +569,7 @@ const TourDetails = () => {
               <label className="flex items-start gap-3 text-[11px] leading-relaxed text-white/60">
                 <input id="inquiry-payment-acknowledgement" required name="partnerPaymentAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
                 <span>
-                  I understand this is a booking request, not a confirmed reservation. If I accept the quotation, payment will be made directly to {PAYMENT_PARTNER_NAME} by Visa, Mastercard, Apple Pay, or bank wire transfer using instructions sent privately. I have read the{' '}
+                  I understand this is a booking request, not a confirmed reservation. Before any payment, I will receive a personalized written quotation and policy PDF showing the total price, accommodation, child rules, and cancellation terms that apply to my reservation. If I accept them, payment will be made directly to {PAYMENT_PARTNER_NAME} by the method stated in the quotation. I have read the{' '}
                   {/* Underlined so the link is distinguishable without relying on colour alone. */}
                   <Link to="/policies" className="text-egypt-gold underline underline-offset-2 hover:text-white">privacy, booking, and payment policies</Link>.
                 </span>
@@ -598,12 +598,13 @@ const TourDetails = () => {
                     </p>
                   )}
                   <p>
-                    Travision Tours or {PAYMENT_PARTNER_NAME} will follow up with your quotation and
-                    written confirmation.
+                    Travision Tours or {PAYMENT_PARTNER_NAME} will follow up with a personalized
+                    written quotation and policy PDF before any payment is due.
                   </p>
                   <p>
                     If you accept the quotation, payment instructions arrive separately, and payment
-                    is made directly to {PAYMENT_PARTNER_NAME}.
+                    is made directly to {PAYMENT_PARTNER_NAME}. Written confirmation follows once the
+                    partner verifies payment.
                   </p>
                 </div>
               )}
@@ -704,7 +705,7 @@ const TourDetails = () => {
               )}
               <p className="text-[11px] leading-relaxed text-white/50">
                 Final tour-specific cancellation, refund, accommodation, and operational conditions
-                are included in the written quotation and booking confirmation.
+                are supplied in the personalized written quotation and policy PDF before payment.
               </p>
             </div>
 
@@ -834,7 +835,7 @@ const TourDetails = () => {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {[
                   ['01', 'Send your request', 'Share your dates, group size, and preferences.'],
-                  ['02', 'Review your quote', 'We confirm availability and send a written proposal.'],
+                  ['02', 'Review your quote', 'We send a personalized quotation and policy PDF before any payment.'],
                   ['03', 'Pay our travel partner', 'Use the secure card or Apple Pay link, or official wire instructions sent privately.'],
                   ['04', 'Receive confirmation', 'Your booking is confirmed in writing after the partner verifies payment.']
                 ].map(([number, title, description]) => (

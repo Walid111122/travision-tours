@@ -19,7 +19,8 @@ const Contact = () => (
       </h1>
       <p className="mt-7 max-w-2xl font-light leading-relaxed text-egypt-papyrus/70">
         Tell us your preferred dates, destinations, number of travelers, and accommodation style.
-        We will review the request before providing availability and a written quotation.
+        We will review the request before providing availability and a personalized written
+        quotation and policy PDF — sent to you before any payment is due.
       </p>
 
       <div className="mt-14 grid gap-6 md:grid-cols-2">

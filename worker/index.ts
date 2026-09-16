@@ -168,7 +168,7 @@ function bookingResponse(
     {
       booking,
       replay,
-      message: `Your request was received. It is not a confirmed reservation — ${SITE_NAME} or ${PAYMENT_PARTNER_NAME} will follow up with a quotation.`,
+      message: `Your request was received. It is not a confirmed reservation — ${SITE_NAME} or ${PAYMENT_PARTNER_NAME} will follow up with a personalized written quotation and policy PDF before any payment is due.`,
       payment: {
         recipient: PAYMENT_PARTNER_NAME,
         methods: ['visa', 'mastercard', 'apple_pay', 'wire_transfer'],

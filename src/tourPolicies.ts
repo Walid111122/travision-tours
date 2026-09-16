@@ -20,6 +20,37 @@
 import { PAYMENT_PARTNER_NAME } from './config/business';
 
 // ---------------------------------------------------------------------------
+// Reservation-specific policy model (owner decision — supersedes any universal
+// child/hotel/cancellation assumption)
+// ---------------------------------------------------------------------------
+
+/**
+ * The sentence the owner requires wherever general/default terms are shown.
+ * There is no universal child, accommodation, or cancellation policy — the
+ * personalized written quotation and policy PDF controls each booking.
+ */
+export const QUOTATION_CONTROLS_NOTE =
+  'Final prices, payment deadlines, accommodation details, child policies, cancellation terms, refund conditions, and supplier rules are provided in the personalized written quotation and policy PDF before payment. The customer can review these conditions before choosing whether to proceed.';
+
+/**
+ * The reservation flow the website describes: every submission is an inquiry,
+ * never a confirmed reservation. Confirmation happens only after the customer
+ * has reviewed the written quotation/policy PDF and completed payment with the
+ * operating partner.
+ */
+export const RESERVATION_FLOW = [
+  'You send an inquiry with your dates, party, ages, and preferences.',
+  `${PAYMENT_PARTNER_NAME} checks availability and current supplier conditions.`,
+  'A personalized quotation and policy PDF is prepared and emailed to you before any payment.',
+  'You review and accept the total price, hotels, child rules, cancellation terms, and other conditions.',
+  `Payment is made directly to ${PAYMENT_PARTNER_NAME} by the method stated in your quotation.`,
+  'Your reservation is confirmed in writing only after the quotation is accepted, payment requirements are completed, and the partner verifies payment.'
+] as const;
+
+/** Visible placeholders used in templates — never filled with assumptions. */
+export const QUOTATION_PLACEHOLDER = 'To be confirmed for this quotation.';
+
+// ---------------------------------------------------------------------------
 // Partner standard terms (Egypt Online Tour /terms, accessed 2026-09-16)
 // ---------------------------------------------------------------------------
 
@@ -56,10 +87,12 @@ export const CHILD_POLICY = {
   childBand: { label: 'Children', minAge: 1, maxAge: 11 },
   /**
    * The partner publishes no child discount percentage, infant rule, or
-   * room-sharing rule on its current website, so pricing is confirmed per tour.
+   * room-sharing rule on its current website, so pricing is confirmed per
+   * reservation — child prices depend on ages, hotel child policy, room type,
+   * and occupancy, and are stated in the written quotation and policy PDF.
    */
   pricingNote:
-    'Child pricing, discounts, room sharing, and occupancy rules are set per tour and stated in the written quotation before payment.',
+    'Child pricing, discounts, room sharing, and occupancy rules are set per reservation and stated in the personalized written quotation and policy PDF before payment.',
   /** Requests the partner's pages explicitly invite travellers to make. */
   requestable: [
     'Child meals and dietary requirements',
