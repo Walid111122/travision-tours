@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { ApiError } from '../../worker/http';
 import { isTurnstileBypassed, verifyTurnstile } from '../../worker/turnstile';
-import { requireAccessIdentity } from '../../worker/access';
+import { isAccessBypassed, requireAccessIdentity } from '../../worker/access';
+import { enforceSameOriginMutation } from '../../worker/requestGuard';
 
 /**
  * Security boundaries that the local dev server cannot exercise.
@@ -129,5 +130,80 @@ describe('Cloudflare Access fails closed', () => {
       ACCESS_DEV_BYPASS: 'true'
     });
     expect(identity.email).toBe('dev-bypass@localhost');
+  });
+});
+
+describe('Access development-bypass isolation', () => {
+  it('cannot activate in production', () => {
+    expect(isAccessBypassed({ ENVIRONMENT: 'production', ACCESS_DEV_BYPASS: 'true' })).toBe(false);
+  });
+
+  it('cannot activate from the flag alone', () => {
+    expect(isAccessBypassed({ ACCESS_DEV_BYPASS: 'true' })).toBe(false);
+  });
+
+  it('cannot activate from the environment alone', () => {
+    expect(isAccessBypassed({ ENVIRONMENT: 'development' })).toBe(false);
+  });
+
+  it('requires the exact string "true"', () => {
+    expect(isAccessBypassed({ ENVIRONMENT: 'development', ACCESS_DEV_BYPASS: '1' })).toBe(false);
+    expect(isAccessBypassed({ ENVIRONMENT: 'development', ACCESS_DEV_BYPASS: 'TRUE' })).toBe(false);
+  });
+
+  it('ignores request-supplied bypass attempts entirely', async () => {
+    // No query param, header or cookie can ever satisfy the check — it reads
+    // environment config only.
+    const sneaky = new Request('https://example.com/api/admin/bookings?dev_bypass=true', {
+      headers: { 'X-Dev-Bypass': 'true', Cookie: 'ACCESS_DEV_BYPASS=true' }
+    });
+    const outcome = await errorOf(() =>
+      requireAccessIdentity(sneaky, {
+        ENVIRONMENT: 'production',
+        ACCESS_TEAM_DOMAIN: 'team.cloudflareaccess.com',
+        ACCESS_AUD: 'aud'
+      })
+    );
+    expect(outcome).toEqual({ status: 403, code: 'access_denied' });
+  });
+});
+
+describe('same-origin mutation guard', () => {
+  const url = 'https://example.com/api/admin/tours/x/status';
+
+  it('allows GET/HEAD through untouched', () => {
+    expect(() => enforceSameOriginMutation(new Request(url))).not.toThrow();
+  });
+
+  it('allows a same-origin POST', () => {
+    const request = new Request(url, {
+      method: 'POST',
+      headers: { Origin: 'https://example.com', 'Sec-Fetch-Site': 'same-origin' }
+    });
+    expect(() => enforceSameOriginMutation(request)).not.toThrow();
+  });
+
+  it('rejects a cross-origin POST', () => {
+    const request = new Request(url, {
+      method: 'POST',
+      headers: { Origin: 'https://evil.example', 'Sec-Fetch-Site': 'cross-site' }
+    });
+    expect(() => enforceSameOriginMutation(request)).toThrowError(ApiError);
+  });
+
+  it('rejects a foreign Sec-Fetch-Site even without Origin', () => {
+    const request = new Request(url, {
+      method: 'POST',
+      headers: { 'Sec-Fetch-Site': 'cross-site' }
+    });
+    expect(() => enforceSameOriginMutation(request)).toThrowError(ApiError);
+  });
+
+  it('rejects a mismatched Origin on a DELETE', () => {
+    const request = new Request(url, {
+      method: 'DELETE',
+      headers: { Origin: 'https://evil.example' }
+    });
+    expect(() => enforceSameOriginMutation(request)).toThrowError(ApiError);
   });
 });

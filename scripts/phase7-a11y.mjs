@@ -186,7 +186,14 @@ function runDocumentChecks() {
     const h1Count = $('h1').length;
     if (h1Count !== 1) problems.headingCount.push(`${relative} (${h1Count})`);
 
-    if ($('main').length === 0 || $('footer').length === 0 || $('nav').length === 0) {
+    // The prerendered /admin shell is an authenticated gate: it ships no
+    // public nav/footer on purpose (the dashboard renders its own chrome
+    // post-auth), so it only has to keep the main landmark.
+    const isAdminShell = relative === 'admin/index.html';
+    if (
+      $('main').length === 0 ||
+      (!isAdminShell && ($('footer').length === 0 || $('nav').length === 0))
+    ) {
       problems.noLandmark.push(relative);
     }
 
@@ -417,8 +424,9 @@ function runSourceChecks() {
   // Smooth scrolling that bypasses the helper would ignore reduced motion.
   const offenders = [];
   for (const dir of ['src/pages', 'src/components']) {
-    for (const entry of readdirSync(path.join(ROOT, dir))) {
-      const source = readSource(path.join(dir, entry));
+    for (const entry of readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+      if (!entry.isFile()) continue;
+      const source = readSource(path.join(dir, entry.name));
       if (/behavior: 'smooth'|scrollIntoView\(/.test(source)) offenders.push(`${dir}/${entry}`);
     }
   }
