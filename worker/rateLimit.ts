@@ -72,6 +72,53 @@ export async function enforceRateLimit(env: RateLimitEnv, request: Request): Pro
   }
 }
 
+/**
+ * Scoped throttle keyed to an actor rather than a connection — used for the
+ * admin API, where the public 5-per-window limit would break legitimate
+ * editing sessions but an unbounded endpoint would invite abuse of the
+ * (already authenticated) surface. The scope prefix keeps admin counters
+ * distinct from public-inquiry counters in the same table.
+ */
+export async function enforceScopedRateLimit(
+  env: RateLimitEnv,
+  scope: string,
+  actorKey: string,
+  windowSeconds: number,
+  maxRequests: number
+): Promise<void> {
+  const keyHash = await hashIdentifier(`${env.RATE_LIMIT_SALT ?? 'travision-tours'}:${scope}:${actorKey}`);
+  const windowStart = Math.floor(Date.now() / 1000 / windowSeconds) * windowSeconds;
+  const now = new Date().toISOString();
+
+  await env.DB.prepare(`
+    INSERT INTO rate_limit_counters (key_hash, window_start, count, updated_at)
+    VALUES (?, ?, 1, ?)
+    ON CONFLICT (key_hash, window_start)
+    DO UPDATE SET count = count + 1, updated_at = excluded.updated_at
+  `)
+    .bind(keyHash, windowStart, now)
+    .run();
+
+  const row = await env.DB.prepare(
+    'SELECT count FROM rate_limit_counters WHERE key_hash = ? AND window_start = ?'
+  )
+    .bind(keyHash, windowStart)
+    .first<{ count: number }>();
+
+  if ((row?.count ?? 0) > maxRequests) {
+    const retryAfterSeconds = Math.max(
+      windowStart + windowSeconds - Math.floor(Date.now() / 1000),
+      1
+    );
+    throw new ApiError(
+      429,
+      'rate_limited',
+      'Too many administrative actions. Please wait a moment and try again.',
+      { 'Retry-After': String(retryAfterSeconds) }
+    );
+  }
+}
+
 /** Drop counters whose window has expired. Called from the scheduled handler. */
 export async function purgeExpiredRateLimitCounters(
   env: RateLimitEnv,

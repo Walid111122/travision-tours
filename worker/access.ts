@@ -65,11 +65,21 @@ function deny(): never {
  * exactly `development` AND `ACCESS_DEV_BYPASS` to be exactly `true`, so it
  * cannot activate accidentally in production.
  */
+/**
+ * True only when the development bypass is active — both conditions, exact
+ * strings. The admin session endpoint reports this so the dashboard can show
+ * its "LOCAL DEVELOPMENT AUTH BYPASS" banner, and tests assert it cannot be
+ * true in production.
+ */
+export function isAccessBypassed(env: AccessEnv): boolean {
+  return env.ENVIRONMENT === 'development' && env.ACCESS_DEV_BYPASS === 'true';
+}
+
 export async function requireAccessIdentity(
   request: Request,
   env: AccessEnv
 ): Promise<AccessIdentity> {
-  if (env.ENVIRONMENT === 'development' && env.ACCESS_DEV_BYPASS === 'true') {
+  if (isAccessBypassed(env)) {
     console.warn(
       JSON.stringify({ message: 'access_bypassed', environment: env.ENVIRONMENT })
     );
