@@ -68,8 +68,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Cairo',
     category: 'cultural',
     image: img('cairo-day-tour'),
-    rating: 4.9,
-    reviewsCount: 412,
     featured: true,
     highlights: ['Giza Pyramids', 'Great Sphinx', 'Egyptian Museum'],
   },
@@ -83,8 +81,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Cairo, Giza',
     category: 'historical',
     image: img('giza-pyramids-day-tour'),
-    rating: 4.9,
-    reviewsCount: 388,
     featured: true,
     highlights: ['Great Pyramid of Khufu', 'Sphinx', 'Valley Temple', 'Optional camel ride'],
   },
@@ -98,8 +94,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Luxor',
     category: 'historical',
     image: img('luxor-day-tour'),
-    rating: 4.9,
-    reviewsCount: 305,
     featured: true,
     highlights: ['Valley of the Kings', 'Hatshepsut Temple', 'Karnak Temple'],
   },
@@ -113,8 +107,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Aswan',
     category: 'historical',
     image: img('aswan-day-tour'),
-    rating: 4.8,
-    reviewsCount: 214,
     highlights: ['High Dam', 'Unfinished Obelisk', 'Philae Temple'],
   },
   {
@@ -127,8 +119,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Aswan, Abu Simbel',
     category: 'historical',
     image: img('abu-simbel-day-tour'),
-    rating: 4.9,
-    reviewsCount: 268,
     featured: true,
     highlights: ['Great Temple of Ramses II', 'Temple of Nefertari', 'UNESCO rescue site'],
   },
@@ -142,8 +132,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Alexandria',
     category: 'historical',
     image: img('alexandria-day-tour'),
-    rating: 4.7,
-    reviewsCount: 176,
     highlights: ['Bibliotheca Alexandrina', 'Qaitbay Citadel', 'Catacombs of Kom El Shoqafa'],
   },
   {
@@ -156,8 +144,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Cairo',
     category: 'cultural',
     image: img('old-cairo-day-tour'),
-    rating: 4.7,
-    reviewsCount: 142,
     highlights: ['Hanging Church', 'Coptic Museum', 'Ben Ezra Synagogue', 'Khan El Khalili'],
   },
   {
@@ -170,8 +156,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Hurghada',
     category: 'adventure',
     image: img('hurghada-day-tour'),
-    rating: 4.6,
-    reviewsCount: 198,
     highlights: ['Giftun Island snorkeling', 'Red Sea coral reefs'],
   },
   {
@@ -184,8 +168,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Sharm El Sheikh',
     category: 'adventure',
     image: img('sharm-el-sheikh-day-tour'),
-    rating: 4.6,
-    reviewsCount: 154,
     highlights: ['Ras Mohammed National Park', 'Desert safari', 'Red Sea beaches'],
   },
   {
@@ -198,8 +180,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Marsa Alam',
     category: 'adventure',
     image: img('marsa-alam-day-tour'),
-    rating: 4.7,
-    reviewsCount: 121,
     highlights: ['Sataya Dolphin Reef', 'Samadai coral walls'],
   },
   {
@@ -212,8 +192,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'El Gouna',
     category: 'adventure',
     image: img('el-gouna-day-tour'),
-    rating: 4.5,
-    reviewsCount: 88,
     highlights: ['Lagoon boat trip', 'Island snorkeling'],
   },
   {
@@ -226,8 +204,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Makadi Bay',
     category: 'adventure',
     image: img('makadi-bay-day-tour'),
-    rating: 4.5,
-    reviewsCount: 76,
     highlights: ['House-reef snorkeling', 'Semi-submarine coral tour'],
   },
   {
@@ -240,8 +216,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Soma Bay',
     category: 'adventure',
     image: img('soma-bay-day-tour'),
-    rating: 4.6,
-    reviewsCount: 64,
     highlights: ['Tobia Islands snorkeling', 'Kitesurfing'],
   },
   {
@@ -254,8 +228,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Port Ghalib',
     category: 'adventure',
     image: img('port-ghalib-day-tour'),
-    rating: 4.6,
-    reviewsCount: 57,
     highlights: ['Marina coral safari', 'Snorkeling lagoons'],
   },
   {
@@ -268,8 +240,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Cairo, Sakkara',
     category: 'historical',
     image: img('sakkara-day-tour'),
-    rating: 4.8,
-    reviewsCount: 133,
     highlights: ['Step Pyramid of Djoser', 'Memphis', 'Dahshur Pyramids'],
   },
   {
@@ -282,8 +252,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Cairo, Dahshur',
     category: 'historical',
     image: img('dahshur-day-tour'),
-    rating: 4.7,
-    reviewsCount: 98,
     highlights: ['Bent Pyramid', 'Red Pyramid'],
   },
   {
@@ -296,8 +264,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Cairo',
     category: 'historical',
     image: img('egyptian-museum-day-tour'),
-    rating: 4.8,
-    reviewsCount: 187,
     highlights: ['Tutankhamun treasures', 'Royal Mummies Hall'],
   },
   {
@@ -310,8 +276,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Bahariya, Western Desert',
     category: 'adventure',
     image: img('white-desert-day-tour'),
-    rating: 4.9,
-    reviewsCount: 144,
     highlights: ['White Desert chalk formations', 'Crystal Mountain', 'Black Desert'],
   },
   {
@@ -324,8 +288,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Aswan',
     category: 'historical',
     image: img('philae-temple-day-tour'),
-    rating: 4.8,
-    reviewsCount: 112,
     highlights: ['Philae Temple', 'Kiosk of Trajan'],
   },
   {
@@ -338,8 +300,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Luxor',
     category: 'historical',
     image: img('valley-of-kings-day-tour'),
-    rating: 4.9,
-    reviewsCount: 231,
     highlights: ['Royal tombs', 'Tomb of Tutankhamun'],
   },
   {
@@ -352,8 +312,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Luxor',
     category: 'historical',
     image: img('karnak-temple-day-tour'),
-    rating: 4.8,
-    reviewsCount: 178,
     highlights: ['Great Hypostyle Hall', 'Avenue of Sphinxes', 'Sacred Lake'],
   },
   {
@@ -366,8 +324,6 @@ export const DAY_TOURS: Tour[] = [
     location: 'Luxor, Aswan',
     category: 'cultural',
     image: img('nile-cruise-day-tour'),
-    rating: 4.7,
-    reviewsCount: 156,
     highlights: ['Traditional felucca sail', 'Nile sunset'],
   },
 ];

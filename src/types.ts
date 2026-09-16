@@ -13,15 +13,12 @@ export interface Tour {
   category: 'historical' | 'cultural' | 'adventure' | 'spiritual';
   image: string;
   itinerary?: ItineraryItem[];
-  rating: number;
-  reviewsCount: number;
   featured?: boolean;
   highlights?: string[];
   inclusions?: string[];
   exclusions?: string[];
   mapUrl?: string;
   gallery?: string[];
-  reviewsList?: { author: string; text: string; rating: number; date: string }[];
 }
 
 export interface ItineraryActivity {
@@ -41,17 +38,6 @@ export interface ItineraryItem {
   activities?: ItineraryActivity[];
   meals?: string;
   overnight?: string;
-}
-
-export interface Review {
-  id: string;
-  tourId: string;
-  userId: string;
-  userName: string;
-  rating: number;
-  comment: string;
-  date: string;
-  avatar?: string;
 }
 
 export interface BlogPost {

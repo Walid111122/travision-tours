@@ -11,8 +11,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo",
     "category": "cultural",
     "image": "/images/tours/pyramids-tour-from-cairo-airport/gallery-1.jpeg",
-    "rating": 4.7,
-    "reviewsCount": 204,
     "itinerary": [
       {
         "day": 1,
@@ -79,8 +77,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Giza",
     "category": "cultural",
     "image": "/images/tours/day-trip-to-giza-pyramids-from-cairo/gallery-1.jpeg",
-    "rating": 4.9,
-    "reviewsCount": 104,
     "itinerary": [
       {
         "day": 1,
@@ -149,8 +145,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Giza",
     "category": "historical",
     "image": "/images/tours/tour-to-giza-pyramids-old-cairo/gallery-1.jpeg",
-    "rating": 4.8,
-    "reviewsCount": 146,
     "itinerary": [
       {
         "day": 1,
@@ -229,8 +223,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Giza",
     "category": "cultural",
     "image": "/images/tours/4-days-cairo-giza-pyramids-tour/gallery-3.jpeg",
-    "rating": 4.5,
-    "reviewsCount": 93,
     "itinerary": [
       {
         "day": 1,
@@ -386,8 +378,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Luxor, Abu Simbel",
     "category": "historical",
     "image": "/images/tours/pkg-7-5-days-cairo--luxor---abu-simbel-tour/gallery-1.jpeg",
-    "rating": 4.8,
-    "reviewsCount": 205,
     "itinerary": [
       {
         "day": 1,
@@ -559,8 +549,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Luxor, Aswan",
     "category": "historical",
     "image": "/images/tours/6-days-cairo-luxor-aswan/gallery-1.jpeg",
-    "rating": 4.8,
-    "reviewsCount": 185,
     "itinerary": [
       {
         "day": 1,
@@ -761,8 +749,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Luxor, Aswan, Abu Simbel",
     "category": "historical",
     "image": "/images/tours/7-days-cairo-luxor-aswan-abu-simbel-edfu-kom-ombo/gallery-3.jpeg",
-    "rating": 4.7,
-    "reviewsCount": 170,
     "itinerary": [
       {
         "day": 1,
@@ -997,8 +983,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Luxor, Aswan",
     "category": "adventure",
     "image": "/images/tours/8-days-budget-egypt-complete-tour/gallery-1.jpeg",
-    "rating": 4.8,
-    "reviewsCount": 214,
     "itinerary": [
       {
         "day": 1,
@@ -1224,8 +1208,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Alexandria, Luxor, Aswan",
     "category": "historical",
     "image": "/images/tours/9-days-cairo-alexandria-luxor-aswan-trip/gallery-1.jpeg",
-    "rating": 4.6,
-    "reviewsCount": 146,
     "itinerary": [
       {
         "day": 1,
@@ -1533,8 +1515,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Luxor, Aswan, Hurghada",
     "category": "adventure",
     "image": "/images/tours/12-days-family-egypt-red-sea-holiday/gallery-1.jpeg",
-    "rating": 4.5,
-    "reviewsCount": 286,
     "itinerary": [
       {
         "day": 1,
@@ -1818,8 +1798,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Nile River",
     "category": "cultural",
     "image": "/images/tours/14-days-trip-to-the-best-of-egypt/gallery-1.jpeg",
-    "rating": 4.8,
-    "reviewsCount": 48,
     "itinerary": [
       {
         "day": 1,
@@ -2185,8 +2163,6 @@ export const SAMPLE_TOURS: Tour[] = [
     "location": "Cairo, Giza, Luxor, Western Desert",
     "category": "cultural",
     "image": "/images/tours/15-days-marvelous-egypt-tour-package/gallery-1.jpeg",
-    "rating": 4.5,
-    "reviewsCount": 210,
     "itinerary": [
       {
         "day": 1,
