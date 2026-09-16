@@ -1,7 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED, INQUIRY_POLICY_VERSION, PAYMENT_PARTNER_NAME } from '../config/site';
+import { ACCOMMODATION_TIERS, CHILD_POLICY, PARTNER_TERMS } from '../tourPolicies';
+
+/**
+ * Policy content sourced from Egypt Online Tour's published Terms & Conditions
+ * and Privacy Policy (see HEAD_COMPANY_SOURCE_MATRIX.md). The partner's terms
+ * are presented as *its* standard terms — Travision Tours is the inquiry
+ * interface, not the operating or payment-receiving entity.
+ *
+ * Sections render as <details open>: readable by default, collapsible on small
+ * screens so mobile visitors can scan headings without losing content.
+ */
+
+type PolicySectionProps = {
+  title: string;
+  children: React.ReactNode;
+};
+
+const PolicySection = ({ title, children }: PolicySectionProps) => (
+  <details open className="group glass rounded-3xl border border-white/10 p-7">
+    <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+      <h2 className="font-serif text-2xl text-egypt-gold">{title}</h2>
+      <ChevronRight
+        size={18}
+        aria-hidden="true"
+        className="shrink-0 text-egypt-gold transition-transform group-open:rotate-90"
+      />
+    </summary>
+    <div className="mt-3 space-y-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
+      {children}
+    </div>
+  </details>
+);
 
 const Policies = () => (
   <div className="min-h-screen bg-egypt-night px-6 pb-24 pt-40 text-egypt-papyrus">
@@ -17,8 +50,10 @@ const Policies = () => (
         Privacy, Booking <span className="italic text-egypt-gold">& Payment</span>
       </h1>
       <p className="mt-6 max-w-3xl font-light leading-relaxed text-egypt-papyrus/70">
-        These policies explain how website inquiries work. Your final written quotation may contain
-        additional itinerary-specific terms that you should review before confirming.
+        These policies explain how website inquiries work and the standard terms applied by{' '}
+        {PAYMENT_PARTNER_NAME}, the travel and payment partner that operates confirmed bookings and
+        receives all customer payments. Your final written quotation may contain additional
+        itinerary-specific terms that you should review before confirming.
       </p>
       <p className="mt-3 text-xs uppercase tracking-widest text-egypt-papyrus/60">
         Last updated: {new Date(`${INQUIRY_POLICY_VERSION}T00:00:00Z`).toLocaleDateString('en-GB', {
@@ -30,53 +65,181 @@ const Policies = () => (
       </p>
 
       <div className="mt-14 space-y-8">
-        <section className="glass rounded-3xl border border-white/10 p-7">
-          <h2 className="font-serif text-2xl text-egypt-gold">Inquiry and confirmation</h2>
-          <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
+        <PolicySection title="Inquiry and confirmation">
+          <p>
             Sending a form does not create a reservation. We first review your requested dates,
             group size, itinerary, and supplier availability. A booking is confirmed only after you
             accept the written quotation, complete the agreed payment with our travel partner, and
             receive written confirmation after the partner verifies that payment.
           </p>
-        </section>
+          <p>
+            If you have not received a reply within {PARTNER_TERMS.responseHours} hours of sending a
+            booking, modification, or cancellation request, contact us again through the form or by
+            phone so nothing is missed.
+          </p>
+        </PolicySection>
 
-        <section className="glass rounded-3xl border border-white/10 p-7">
-          <h2 className="font-serif text-2xl text-egypt-gold">Payment through our travel partner</h2>
-          <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
+        <PolicySection title="Payment through our travel partner">
+          <p>
             This website does not collect payments or card details. After you accept your written
             quotation, {PAYMENT_PARTNER_NAME}, our travel and payment partner, will provide a secure
             payment link or official wire-transfer instructions. Accepted methods are Visa,
             Mastercard, Apple Pay, and bank wire transfer. All payments are made directly to
             {` ${PAYMENT_PARTNER_NAME}`}; Travision Tours does not receive customer funds.
           </p>
-          <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
+          <p>
+            {PAYMENT_PARTNER_NAME}&apos;s standard terms require a deposit of{' '}
+            {PARTNER_TERMS.depositPercent}% of the total tour cost at the time of booking, with the
+            balance due {PARTNER_TERMS.balanceDueDaysBeforeDeparture} days before departure. Tours
+            booked within {PARTNER_TERMS.balanceDueDaysBeforeDeparture} days of departure require
+            full payment at booking. Your written quotation states the amounts and deadlines that
+            apply to your itinerary.
+          </p>
+          <p>
             For a wire transfer, verify that the beneficiary account belongs to
             {` ${PAYMENT_PARTNER_NAME}`} before sending money. For a card or Apple Pay payment, use
-            only the partner's secure checkout link. Contact us through the details published on
+            only the partner&apos;s secure checkout link. Contact us through the details published on
             this website if instructions arrive unexpectedly or from an unverified account.
           </p>
-        </section>
+        </PolicySection>
 
-        <section className="glass rounded-3xl border border-white/10 p-7">
-          <h2 className="font-serif text-2xl text-egypt-gold">Changes and cancellations</h2>
-          <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
-            Cancellation deadlines, change fees, refund eligibility, and supplier charges depend on
-            the services included in your quotation. These terms will be stated in writing before
-            payment. Do not make a payment until you understand and accept those terms.
+        <PolicySection title="Standard cancellation schedule">
+          <p>
+            {PAYMENT_PARTNER_NAME} publishes the following standard refund schedule for confirmed
+            bookings. A travel advisor may state different terms for a specific product — the terms
+            written into your quotation and booking confirmation are the ones that apply to you, so
+            review them before paying.
           </p>
-        </section>
+          <ul className="space-y-2">
+            {PARTNER_TERMS.cancellationTiers.map(tier => (
+              <li key={tier.daysBeforeDeparture} className="flex gap-3">
+                <span className="min-w-40 font-normal text-egypt-papyrus/90">
+                  {tier.daysBeforeDeparture} before departure:
+                </span>
+                <span>{tier.refund}</span>
+              </li>
+            ))}
+          </ul>
+          <p>
+            Travellers who do not show up are charged the full amount. After a trip has started, no
+            refund is given for unused services, early departure, late arrival, or missed days. For
+            special events and peak periods, hotels and Nile cruises may make deposits
+            non-refundable. Cancellation terms for groups of more than ten people are handled case
+            by case — ask your travel advisor.
+          </p>
+        </PolicySection>
 
-        <section className="glass rounded-3xl border border-white/10 p-7">
-          <h2 className="font-serif text-2xl text-egypt-gold">Privacy</h2>
-          <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
+        <PolicySection title="Changes to your booking">
+          <p>
+            Itinerary changes requested before booking are handled free of charge. Under{' '}
+            {PAYMENT_PARTNER_NAME}&apos;s standard terms, changes made after the deposit is paid
+            carry a fee of US${PARTNER_TERMS.alterationFeeUsd} per request, plus any charges imposed
+            by third parties such as airlines, cruise operators, or hotels.
+          </p>
+          <p>
+            {PAYMENT_PARTNER_NAME} may substitute hotels, flights, trains, or cruise vessels of a
+            comparable standard and may adjust itineraries when operations require it. If the
+            partner cancels a tour before it begins, payments made for that tour are refunded in
+            full.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="Children and families">
+          <p>
+            The partner&apos;s booking forms define travellers as {CHILD_POLICY.adultBand.label}{' '}
+            aged {CHILD_POLICY.adultBand.minAge}+ and {CHILD_POLICY.childBand.label} aged{' '}
+            {CHILD_POLICY.childBand.minAge}–{CHILD_POLICY.childBand.maxAge}. {CHILD_POLICY.note}
+          </p>
+          <p>
+            {CHILD_POLICY.pricingNote} You can request the following when you inquire:
+          </p>
+          <ul className="list-disc space-y-1 pl-5">
+            {CHILD_POLICY.requestable.map(item => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </PolicySection>
+
+        <PolicySection title="Accommodation">
+          <p>
+            Multi-day packages are offered in {ACCOMMODATION_TIERS.length} tiers —{' '}
+            {ACCOMMODATION_TIERS.join(', ')} — which provide the same experiences at different
+            accommodation levels. Named hotels and cruise vessels are not guaranteed in advance;
+            your written quotation states the category and the confirmed properties, and a
+            comparable property may be substituted where operations require it.
+          </p>
+          <p>
+            Hotel check-in is typically after 2:00 PM and check-out before 12:00 noon; early
+            check-in or late check-out can incur a half-day or full-day charge. Single-occupancy
+            supplements, room-sharing rules, and child accommodation conditions are confirmed per
+            package in the written quotation.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="Travel documents, visas, and insurance">
+          <p>
+            A valid passport and any required visas or permits are your responsibility. Our team or
+            the partner&apos;s travel advisor can assist with documentation questions on request,
+            but neither Travision Tours nor {PAYMENT_PARTNER_NAME} is responsible for entry documents
+            that cannot be obtained. Many nationalities can obtain an Egypt visa on arrival or an
+            e-visa in advance — check the latest official requirements for your nationality before
+            booking.
+          </p>
+          <p>
+            Comprehensive travel insurance covering medical care, cancellation, luggage, and planned
+            activities is strongly recommended. It is not included unless your quotation lists it.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="Complaints and claims">
+          <p>
+            If something is wrong during your trip, tell your travel advisor or the partner&apos;s
+            customer-care team immediately so it can be fixed while you travel. Under{' '}
+            {PAYMENT_PARTNER_NAME}&apos;s standard terms, a formal claim for compensation must be
+            made in writing within {PARTNER_TERMS.complaintWindowDays} days of the end of the tour,
+            with receipts and supporting evidence attached; later claims cannot be accepted.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="Liability and third-party suppliers">
+          <p>
+            Confirmed services are delivered by {PAYMENT_PARTNER_NAME} together with hotels,
+            airlines, cruise operators, transport providers, and guides. The partner is not liable
+            for errors in third-party information, and neither company is liable for loss, injury,
+            delay, or changes caused by events outside reasonable control — including weather,
+            government action, strikes, epidemics, or security incidents (force majeure).
+          </p>
+          <p>
+            Activities such as boarding boats, climbing, and entering tombs or caves are undertaken
+            at your own risk; staff will advise you, but you are responsible for your own
+            participation decisions and for keeping your valuables secure. The partner may decline
+            service to travellers whose behaviour is illegal or abusive toward staff or suppliers.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="Special requests, accessibility, and health">
+          <p>
+            Tell us about dietary requirements, mobility considerations, medical conditions, or
+            other special requests when you inquire — the partner&apos;s custom-tour process is built
+            around them. Some sites involve stairs, uneven ground, heat, or enclosed spaces; where a
+            tour page lists physical notes they apply to that itinerary, and your quotation confirms
+            what is feasible for your party.
+          </p>
+        </PolicySection>
+
+        <PolicySection title="Privacy">
+          <p>
             We use the information submitted through an inquiry to respond, prepare a quotation,
             coordinate requested travel services, and maintain necessary business records. The
-            details needed to quote, arrange, and confirm your trip may be shared with our travel
-            partner. Do not submit passport copies, bank credentials, card details, or other highly
-            sensitive information through the public inquiry form.
+            details needed to quote, arrange, and confirm your trip are shared with{' '}
+            {PAYMENT_PARTNER_NAME} and with the suppliers needed to deliver your booking (such as
+            hotels, airlines, and guides), and as required by law. Do not submit passport copies,
+            bank credentials, card details, or other highly sensitive information through the public
+            inquiry form.
           </p>
-          <p className="mt-3 text-sm font-light leading-relaxed text-egypt-papyrus/70">
-            To ask about your submitted information,{' '}
+          <p>
+            You may ask to access, correct, or delete the personal information connected to your
+            inquiry. To ask about your submitted information,{' '}
             {EMAIL_PUBLISHED ? (
               <>
                 contact{' '}
@@ -93,9 +256,10 @@ const Policies = () => (
                 </a>
               </>
             )}
-            .
+            . For data held by {PAYMENT_PARTNER_NAME} after a booking is confirmed, the
+            partner&apos;s privacy contact is published on its website.
           </p>
-        </section>
+        </PolicySection>
       </div>
 
       <div className="mt-10">

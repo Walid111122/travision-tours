@@ -37,7 +37,8 @@ const NOT_FETCHED = new Map([
   ['localhost', 'React Router internal base URL for relative-path parsing'],
   ['react.dev', 'React error-message link template, never requested'],
   ['reactrouter.com', 'React Router error-message link, never requested'],
-  ['tailwindcss.com', 'licence banner comment in the compiled Tailwind CSS']
+  ['tailwindcss.com', 'licence banner comment in the compiled Tailwind CSS'],
+  ['egyptonlinetour.com', 'source-attribution strings in tourPolicies.ts — metadata for traceability, never rendered or requested']
 ]);
 
 /** Extensions worth scanning for external references. */

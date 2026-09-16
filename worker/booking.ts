@@ -213,9 +213,11 @@ export function validateBooking(value: unknown, now: Date = new Date()): Booking
     children,
     childAges,
     accommodationPreference: optionalChoice(input.accommodationPreference, 'Accommodation preference', [
-      'comfortable',
-      'premium',
-      'luxury'
+      'budget-3-star',
+      'standard-4-star',
+      'luxury-5-star',
+      'mixed',
+      'flexible'
     ]),
     contactPreference: optionalChoice(input.contactPreference, 'Contact preference', [
       'whatsapp',

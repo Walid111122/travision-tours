@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS } from '../dayTours';
+import type { Tour } from '../types';
 import ItineraryAccordion from '../components/ItineraryAccordion';
 import ResponsiveImage from '../components/ResponsiveImage';
 import SEO from '../components/SEO';
@@ -15,16 +16,68 @@ import NotFound from './NotFound';
 import TurnstileWidget, { isTurnstileEnabled } from '../components/TurnstileWidget';
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED, PAYMENT_PARTNER_NAME, SITE_URL, absoluteUrl } from '../config/site';
 import { getActivitySummary, getDaySummary, getTourSummary } from '../utils/tourContent';
+import { ACCOMMODATION_PREFERENCES, CHILD_POLICY, getPackageAccommodation, getTourLogistics } from '../tourPolicies';
 import { formatUsd } from '../utils/money';
 import { createSubmissionKey, submitInquiry } from '../utils/inquiry';
 import { scrollToElement, scrollToTop } from '../utils/motion';
 
 // Combined catalog: packages + day tours. Day tours take precedence on id clash.
 const ALL_TOURS = [...SAMPLE_TOURS, ...DAY_TOURS];
+
+/**
+ * JSON-LD for a tour page. Kept as a pure exported function so tests can assert
+ * it never emits prices, ratings, reviews, or offers — Travision has no
+ * substantiated review data and collects no payment, so none of those claims
+ * may appear in structured data.
+ */
+export function tourStructuredData(tour: Tour, tourSummary: string, images: string[]): Record<string, unknown>[] {
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'TouristTrip',
+      '@id': `${SITE_URL}/tours/${tour.id}#tour`,
+      name: tour.title,
+      description: tourSummary,
+      image: images.map(absoluteUrl),
+      touristType: 'Private and tailor-made travel',
+      provider: {
+        '@type': 'TravelAgency',
+        name: 'Travision Tours'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: SITE_URL
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Egypt Tours',
+          item: `${SITE_URL}/tours`
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: tour.title,
+          item: `${SITE_URL}/tours/${tour.id}`
+        }
+      ]
+    }
+  ];
+}
+
 const TourDetails = () => {
   const { id } = useParams();
   const tour = ALL_TOURS.find(t => t.id === id);
   const tourSummary = tour ? getTourSummary(tour) : '';
+  const logistics = tour ? getTourLogistics(tour.id) : undefined;
+  const accommodation = tour ? getPackageAccommodation(tour.id) : undefined;
   const safeGallery = tour?.gallery ?? [];
   const displayImages = tour
     ? [tour.image, ...safeGallery.filter(image => image !== tour.image)]
@@ -251,43 +304,7 @@ const TourDetails = () => {
         image={tour.image}
         imageAlt={`${tour.title} in ${tour.location}, Egypt`}
         structuredData={[
-          {
-            '@context': 'https://schema.org',
-            '@type': 'TouristTrip',
-            '@id': `${SITE_URL}/tours/${tour.id}#tour`,
-            name: tour.title,
-            description: tourSummary,
-            image: displayImages.map(absoluteUrl),
-            touristType: 'Private and tailor-made travel',
-            provider: {
-              '@type': 'TravelAgency',
-              name: 'Travision Tours'
-            }
-          },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Home',
-                item: SITE_URL
-              },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Egypt Tours',
-                item: `${SITE_URL}/tours`
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
-                name: tour.title,
-                item: `${SITE_URL}/tours/${tour.id}`
-              }
-            ]
-          },
+          ...tourStructuredData(tour, tourSummary, displayImages),
           {
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
@@ -343,7 +360,7 @@ const TourDetails = () => {
                 { label: 'Duration', value: tour.duration },
                 { label: 'Destination', value: tour.location },
                 { label: 'Tour style', value: tour.category },
-                { label: 'Availability', value: 'On request' }
+                { label: 'Availability', value: logistics?.availability ?? 'On request' }
               ].map(fact => (
                 <div key={fact.label}>
                   <p className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.22em] text-egypt-gold md:text-[10px]">{fact.label}</p>
@@ -367,6 +384,7 @@ const TourDetails = () => {
             <nav aria-label="Tour sections">
             {[
               { id: 'overview', label: 'Tour Details', icon: <FileText size={18} /> },
+              { id: 'logistics', label: 'Pickup & Logistics', icon: <MapPin size={18} /> },
               { id: 'inclusions', label: 'Inclusions/Exclusions', icon: <CheckCircle2 size={18} /> },
               { id: 'highlights', label: 'Tour Highlights', icon: <Star size={18} /> },
               { id: 'itinerary', label: 'Itinerary', icon: <MapPin size={18} /> },
@@ -499,7 +517,8 @@ const TourDetails = () => {
                 <label htmlFor="inquiry-child-ages" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children’s Ages (if applicable)</label>
                 <input id="inquiry-child-ages" name="childAges" required={Number(childrenCount) > 0} aria-describedby="child-ages-help" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Example: 6, 10" />
                 <p id="child-ages-help" className="mt-1 text-[10px] leading-relaxed text-white/60">
-                  {Number(childrenCount) > 0 ? 'Required for each child in this inquiry.' : 'Leave blank when no children are traveling.'}
+                  {Number(childrenCount) > 0 ? 'Required for each child in this inquiry.' : 'Leave blank when no children are traveling.'}{' '}
+                  {CHILD_POLICY.pricingNote}
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -507,9 +526,9 @@ const TourDetails = () => {
                   <label htmlFor="inquiry-accommodation" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Accommodation</label>
                   <select id="inquiry-accommodation" name="accommodationPreference" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
                     <option value="">No preference</option>
-                    <option value="comfortable">Comfortable</option>
-                    <option value="premium">Premium</option>
-                    <option value="luxury">Luxury</option>
+                    {ACCOMMODATION_PREFERENCES.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -638,12 +657,93 @@ const TourDetails = () => {
               </p>
             </div>
 
+            {/* Pickup & Logistics Section */}
+            <div id="logistics" className="space-y-6 scroll-mt-32 pt-8 border-t border-white/10">
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Pickup & Logistics</h3>
+              {logistics ? (
+                <div className="space-y-6">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                      logistics.pickup && { label: 'Pickup & drop-off', value: logistics.pickup },
+                      logistics.availability && { label: 'Availability', value: logistics.availability },
+                      logistics.durationNote && { label: 'Timing', value: logistics.durationNote },
+                      logistics.basis && { label: 'Tour basis', value: logistics.basis === 'private' ? 'Private' : 'Shared' },
+                      logistics.transport && { label: 'Transport', value: logistics.transport },
+                      logistics.guide && { label: 'Guide', value: logistics.guide }
+                    ].filter((fact): fact is { label: string; value: string } => Boolean(fact)).map(fact => (
+                      <li key={fact.label} className="bg-white/5 p-4 rounded-2xl border border-white/5">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-egypt-gold">{fact.label}</p>
+                        <p className="mt-2 text-sm font-light leading-relaxed text-egypt-papyrus/80">{fact.value}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  {(logistics.notes?.length || logistics.childNote) && (
+                    <ul className="space-y-2">
+                      {[...(logistics.notes ?? []), ...(logistics.childNote ? [logistics.childNote] : [])].map(note => (
+                        <li key={note} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/70">
+                          <Info size={15} className="text-egypt-gold mt-0.5 shrink-0" />
+                          <span>{note}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {logistics.match !== 'exact' && (
+                    <p className="text-[11px] leading-relaxed text-white/50">
+                      These details reflect the operating partner&apos;s standard arrangements for
+                      comparable tours. The confirmed pickup point, timing, and inclusions for this
+                      exact itinerary are stated in your written quotation.
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-sm font-light leading-relaxed text-egypt-papyrus/70">
+                  Pickup point, timing, operating days, transport, and guide arrangements for this
+                  itinerary are confirmed in your written quotation. Tell us your hotel or cruise
+                  and any mobility, dietary, or accessibility needs when you inquire.
+                </p>
+              )}
+              <p className="text-[11px] leading-relaxed text-white/50">
+                Final tour-specific cancellation, refund, accommodation, and operational conditions
+                are included in the written quotation and booking confirmation.
+              </p>
+            </div>
+
+            {/* Accommodation Section (packages with sourced details) */}
+            {accommodation && (
+              <div id="accommodation" className="space-y-6 scroll-mt-32 pt-8 border-t border-white/10">
+                <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Accommodation</h3>
+                <p className="text-sm font-light leading-relaxed text-egypt-papyrus/70">
+                  {accommodation.summary}
+                </p>
+                <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {accommodation.nights.map(stay => (
+                    <li key={stay.place} className="bg-white/5 p-4 rounded-2xl border border-white/5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-egypt-gold">
+                        {stay.nights} {stay.nights === 1 ? 'night' : 'nights'} — {stay.place}
+                      </p>
+                      <p className="mt-2 text-sm font-light leading-relaxed text-egypt-papyrus/80">{stay.style}</p>
+                    </li>
+                  ))}
+                </ul>
+                {accommodation.notes?.length ? (
+                  <ul className="space-y-2">
+                    {accommodation.notes.map(note => (
+                      <li key={note} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/70">
+                        <Info size={15} className="text-egypt-gold mt-0.5 shrink-0" />
+                        <span>{note}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            )}
+
             {/* Inclusions Section */}
             <div id="inclusions" className="grid grid-cols-1 md:grid-cols-2 gap-10 scroll-mt-32 pt-8 border-t border-white/10">
               <div className="space-y-6">
                 <h3 className="text-2xl font-serif text-white uppercase tracking-widest pl-4 border-l-2 border-emerald-500">Inclusions</h3>
                 <ul className="space-y-3">
-                  {(tour.inclusions || [
+                  {(logistics?.inclusions ?? tour.inclusions ?? [
                     'Services itemized as included in your written quotation.',
                     'Transport, meals, guides, and admission tickets only when specifically listed.',
                     'Applicable taxes or service charges only when stated in the accepted quotation.'
@@ -658,7 +758,7 @@ const TourDetails = () => {
               <div className="space-y-6">
                 <h3 className="text-2xl font-serif text-white uppercase tracking-widest pl-4 border-l-2 border-egypt-red">Exclusions</h3>
                 <ul className="space-y-3">
-                  {(tour.exclusions || [
+                  {(logistics?.exclusions ?? tour.exclusions ?? [
                     'International flights, visas, travel insurance, and personal expenses unless specifically listed.',
                     'Optional activities, gratuities, and services not identified as included.',
                     'Payment-provider, bank, or currency-conversion charges unless specifically included.'
