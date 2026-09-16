@@ -14,6 +14,7 @@ import { SAMPLE_TOURS, SAMPLE_BLOG_POSTS } from '../src/constants.ts';
 import { DAY_TOURS } from '../src/dayTours.ts';
 import { PLANNER_STOPS } from '../src/plannerStops.ts';
 import { getActivitySummary, getDaySummary, getTourSummary } from '../src/utils/tourContent.ts';
+import { getTourLogistics, getPackageAccommodation } from '../src/tourPolicies.ts';
 import { resolveSiteUrl } from './site-url.mjs';
 
 /**
@@ -244,19 +245,19 @@ p('  indexable, in the sitemap, and linked from navigation and the footer.');
 p('- No tour has an empty `inclusions`, `exclusions`, `gallery`, `highlights` or `itinerary` array.');
 p();
 
-p('### A5. Ratings and review counts — NOT DISPLAYED');
+p('### A5. Ratings and review counts — REMOVED');
 p();
-p('Every tour carries `rating` (4.5–4.9) and `reviewsCount` (48–412). These are unsubstantiated');
-p('and must not be shown. Verified that they are **not** published:');
+p('Every tour previously carried `rating` (4.5–4.9) and `reviewsCount` (48–412), which were');
+p('unsubstantiated and never rendered. The fields are now removed from the `Tour` interface and');
+p('every tour record, along with the dead `Review` interface and `reviewsList` field — no');
+p('component can surface them again without a schema change.');
 p();
-p('- No component reads `tour.rating` or `tour.reviewsCount`; the fields appear only in `types.ts`.');
-p('- The two `<Star>` icons that render are decorative labels for "Tour Type: Private" and a');
-p('  highlights section — neither is a rating.');
-p('- `scripts/phase6-seo.ts` forbids `AggregateRating`, `Review`, `Offer`, `Product` and');
+p('- `scripts/phase6-seo.ts` still forbids `AggregateRating`, `Review`, `Offer`, `Product` and');
 p('  `IndividualProduct` schema types, and no rating markup exists in the built output.');
+p('- The JSON-LD test suite asserts no prices, ratings, reviews, or offers appear in the');
+p('  `TouristTrip`/`BreadcrumbList` markup for any tour.');
 p();
-p('The values remain as dead data in the source. Recommend the owner either substantiate them or');
-p('have them removed so a future component cannot surface them.');
+p('If the owner later gathers genuine review evidence, ratings can be reintroduced deliberately.');
 p();
 
 p('### A6. Currency — FORMAT UNIFIED; THE CURRENCY ITSELF IS AN OWNER DECISION');
@@ -309,18 +310,25 @@ p('holds. Since both sides share one constant, they can only disagree if a stale
 p('bundle is served after a release, which is a caching concern rather than a drift vector.');
 p();
 
-p('### A10. Cross-tour repeated boilerplate');
+p('### A10. Cross-tour repeated boilerplate — PARTIALLY SUPERSEDED');
 p();
-p('The following values are byte-identical across every tour that has them, because a one-off');
+p('The following values are byte-identical in the raw tour records, because a one-off');
 p('cleanup script (`scripts/sanitize-tour-data.mjs`, not part of the build) overwrote the scraped');
 p('copy. They are legally safe but carry no tour-specific information:');
 p();
-p(`- **Inclusions** — ${inclusionVariants.length} distinct value across ${allTours.length} tours.`);
-p(`- **Exclusions** — ${exclusionVariants.length} distinct value across ${allTours.length} tours.`);
+p(`- **Inclusions** — ${inclusionVariants.length} distinct value across ${allTours.length} tour records.`);
+p(`- **Exclusions** — ${exclusionVariants.length} distinct value across ${allTours.length} tour records.`);
 p(`- **Meals** — ${mealsVariants.length} distinct value across all itinerary days.`);
 p(`- **Accommodation** — ${overnightVariants.length} distinct value across all itinerary days.`);
 p();
-p('Inclusions (identical for every tour):');
+const sourcedIncl = allTours.filter((t) => getTourLogistics(t.id)?.inclusions).length;
+const sourcedExcl = allTours.filter((t) => getTourLogistics(t.id)?.exclusions).length;
+p('Since the head-company pass, the tour page renders sourced inclusion/exclusion lists from');
+p(`\`src/tourPolicies.ts\` where a verified source page exists — currently ${sourcedIncl} tours with`);
+p(`sourced inclusions and ${sourcedExcl} with sourced exclusions (see Section B). Tours without a`);
+p('source mapping keep the generic lists, which read as placeholders rather than claims.');
+p();
+p('Raw-record inclusions (identical for every tour record):');
 p();
 for (const line of JSON.parse(inclusionVariants[0] ?? '[]')) p(`- ${line}`);
 p();
@@ -356,16 +364,30 @@ p('---');
 p();
 p('## Section B — Per-tour validation sheet');
 p();
-p('Fields the plan asks for that do **not** exist anywhere in the schema, and therefore need owner');
-p('input for every tour:');
+const exactCount = allTours.filter((t) => getTourLogistics(t.id)?.match === 'exact').length;
+const partialCount = allTours.filter((t) => {
+  const m = getTourLogistics(t.id)?.match;
+  return m === 'partial' || m === 'category';
+}).length;
+const unmappedCount = allTours.length - exactCount - partialCount;
+const pkgAccomCount = allTours.filter((t) => getPackageAccommodation(t.id)).length;
+p('Since the head-company pass, per-tour logistics are modelled in `src/tourPolicies.ts`');
+p('(`TOUR_LOGISTICS`, `PACKAGE_ACCOMMODATION`), sourced from Egypt Online Tour pages and traced in');
+p('`HEAD_COMPANY_SOURCE_MATRIX.md`. Coverage by match strength:');
+p();
+p('| Match | Tours | What is shown |');
+p('|---|---|---|');
+p(`| \`exact\` — same route/duration/type on a source page | ${exactCount} | Sourced pickup, availability, basis, guide, transport, inclusions/exclusions |`);
+p(`| \`partial\`/\`category\` — overlapping scope or category pattern only | ${partialCount} | Shared facts only, labelled as the partner's standard arrangements |`);
+p(`| unmapped — no reliable source page | ${unmappedCount} | Fallback wording; confirmed in the written quotation |`);
 p();
 p('| Field | Status |');
 p('|---|---|');
-p('| Pickup / drop-off | Not modelled. No field, and no string containing "pickup" or "drop-off" exists. |');
-p('| Accessibility / physical requirements | Not modelled per tour. Only general guidance on the Guidelines page. |');
-p('| Availability | Not modelled. No seasonal or departure-availability data exists. |');
-p('| Hotel / accommodation level | Only the placeholder text below; no hotel names or star ratings. |');
-p('| Cancellation terms | Deferred to the written quotation; no per-tour version. |');
+p('| Pickup / drop-off | Sourced where a matching source page states it; otherwise "confirmed in your written quotation" |');
+p('| Accessibility / physical requirements | Sourced notes on mapped tours (pyramid interiors, desert terrain, tomb stairs); otherwise general guidance only |');
+p('| Availability | "Daily" on mapped day tours where the source page states it; otherwise on request |');
+p(`| Hotel / accommodation level | Sourced night-by-night detail on ${pkgAccomCount} packages; category-level tier wording elsewhere; named properties never promised |`);
+p('| Cancellation terms | Partner standard schedule published on /policies; final tour-specific terms stay in the written quotation |');
 p();
 p('In the per-tour sections, `Days` counts itinerary days, `Stops` counts rendered stops, and');
 p('`generic` counts stops falling back to placeholder copy (see §A3).');
@@ -394,20 +416,42 @@ rows.forEach((r, i) => {
   p(`- **Cover image:** \`${t.image}\``);
   p(`- **Gallery:** ${(t.gallery ?? []).length} image(s)${(t.gallery ?? []).length ? '' : ' — ' + NONE}`);
   p(`- **Map:** ${t.mapUrl ? `\`${t.mapUrl.slice(0, 60)}…\`` : NONE}`);
+  const logistics = getTourLogistics(t.id);
+  const pkgAccom = getPackageAccommodation(t.id);
   p(`- **Highlights:** ${(t.highlights ?? []).length ? (t.highlights ?? []).join('; ') : NONE}`);
-  p(`- **Inclusions:** identical boilerplate across all tours — see §A10`);
-  p(`- **Exclusions:** identical boilerplate across all tours — see §A10`);
-  p(`- **Pickup / drop-off:** ${NEEDS}`);
-  p(`- **Accessibility / physical requirements:** ${NEEDS}`);
-  p(`- **Availability:** ${NEEDS}`);
-  const overnightValues = [...new Set(r.days.map((d) => d.overnight).filter(Boolean))];
+  if (logistics?.inclusions) {
+    p(`- **Inclusions:** sourced from the matched partner page — ${logistics.inclusions.join('; ')}`);
+  } else {
+    p(`- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation`);
+  }
+  if (logistics?.exclusions) {
+    p(`- **Exclusions:** sourced from the matched partner page — ${logistics.exclusions.join('; ')}`);
+  } else {
+    p(`- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation`);
+  }
   p(
-    `- **Accommodation level:** ${NEEDS} — ` +
-      (overnightValues.length
-        ? `renders ${overnightValues.map((v) => `"${v}"`).join(' / ')}`
-        : 'no overnight stay on this itinerary')
+    `- **Source match:** ${
+      logistics
+        ? `\`${logistics.match}\` — ${logistics.sourceUrl}`
+        : 'unmapped — no reliable source page; fallback wording shown'
+    }`
   );
-  p(`- **Cancellation / policy version:** global \`${INQUIRY_POLICY_VERSION}\`; no tour-specific version exists`);
+  p(`- **Pickup / drop-off:** ${logistics?.pickup ?? NEEDS + ' — confirmed in the written quotation'}`);
+  p(`- **Availability:** ${logistics?.availability ?? 'on request — confirmed in the written quotation'}`);
+  if (logistics?.notes?.length) p(`- **Sourced notes:** ${logistics.notes.join(' · ')}`);
+  const overnightValues = [...new Set(r.days.map((d) => d.overnight).filter(Boolean))];
+  if (pkgAccom) {
+    p(`- **Accommodation level:** sourced — ${pkgAccom.summary} (${pkgAccom.sourceUrl})`);
+  } else {
+    p(
+      `- **Accommodation level:** ${
+        overnightValues.length
+          ? `renders ${overnightValues.map((v) => `"${v}"`).join(' / ')} — tier and properties confirmed in the written quotation`
+          : 'no overnight stay on this itinerary'
+      }`
+    );
+  }
+  p(`- **Cancellation / policy version:** global \`${INQUIRY_POLICY_VERSION}\`; partner standard schedule on /policies; tour-specific terms in the written quotation`);
   p();
   p('**Destinations and stops as rendered:**');
   p();
@@ -431,23 +475,35 @@ p('---');
 p();
 p('## Section C — Policy and privacy approval checklist');
 p();
-p('The Policies page currently carries four sections: Inquiry and confirmation; Payment through our');
-p('travel partner; Changes and cancellations; Privacy. The following items from the plan are either');
-p('absent or need legal sign-off.');
+p('The Policies page now carries eleven sections sourced from the partner\'s published Terms and');
+p('Privacy Policy (see `HEAD_COMPANY_SOURCE_MATRIX.md`): Inquiry and confirmation; Payment through');
+p('our travel partner; Standard cancellation schedule; Changes to your booking; Children and');
+p('families; Accommodation; Travel documents, visas, and insurance; Complaints and claims;');
+p('Liability and third-party suppliers; Special requests, accessibility, and health; Privacy.');
+p('Partner terms are attributed to Egypt Online Tour as its standard terms — Travision is the');
+p('inquiry interface. The following items are either absent or still need owner/legal sign-off.');
 p();
 p('| Item | Status |');
 p('|---|---|');
 p('| Business identity and contact/address details | **Absent.** No registered entity name or postal address appears anywhere. |');
-p('| Data-controller / contact information | **Partial.** Only a contact email; no controller identity. |');
+p('| Data-controller / contact information | **Partial.** Contact routes exist (form + phone); no controller identity or address. |');
 p('| Purposes for collected data | Present — responding, quoting, coordinating services, records. |');
 p('| Lawful basis | **Absent.** No lawful basis is stated. |');
 p('| Retention period | **Absent.** No retention period is stated. |');
-p('| Data sharing with the partner and service providers | **Partial.** The travel partner is named; no service providers are. |');
+p('| Data sharing with the partner and service providers | Present — partner named; suppliers (hotels, airlines, guides) described as needed to deliver the booking. |');
 p('| Cross-border data handling | **Absent.** |');
-p('| Access / correction / deletion rights and process | **Partial.** "Ask about your submitted information" only; no deletion right or process. |');
+p('| Access / correction / deletion rights and process | Present — visitors may ask to access, correct, or delete inquiry data via form or phone; partner-held data referred to the partner\'s privacy contact. |');
 p('| Cookie and analytics disclosures | **Absent, and now known.** The site sets no first-party cookies and runs no analytics. Third parties that may set their own: Cloudflare Turnstile (form protection) and Google Maps frames. Tour images are locally hosted. |');
-p('| Governing law and dispute wording | **Absent.** |');
-p('| Final quotation and tour-specific cancellation/refund terms | Deferred to the written quotation; no per-tour terms exist. |');
+p('| Governing law and dispute wording | **Absent.** The partner\'s terms do not publish a governing-law clause, so none was imported. |');
+p('| Payment methods and recipient | Present — no payments or card details on this site; Visa, Mastercard, Apple Pay, and wire transfer are paid directly to the partner after the written quotation. |');
+p('| Deposit and balance | Present — partner standard terms: 40% deposit, balance 30 days before departure, full payment inside 30 days. |');
+p('| Cancellation / refund schedule | Present — partner standard tiers published with the explicit caveat that the written quotation governs per product. |');
+p('| Changes by customer / operator | Present — free before booking; US$25 + third-party charges after deposit; operator substitution and cancellation-refund terms stated. |');
+p('| No-show and unused services | Present — full charge on no-show; no refund for unused services after the trip starts. |');
+p('| Complaints window | Present — raise during travel; written claims within 15 days of tour end. |');
+p('| Force majeure and liability | Present — summarised, attributed to the partner\'s terms. |');
+p('| Final quotation and tour-specific terms | Deferred to the written quotation by design; stated on /policies and on every tour page. |');
+p('| Owner/legal sign-off on the published partner-terms wording | **Required before launch** — the paraphrased terms preserve meaning but have not been legally reviewed. |');
 p();
 p('## Section D — Decisions required from the owner');
 p();
@@ -456,10 +512,10 @@ p('|---|---|---|');
 p('| 1 | Confirm the display currency (USD assumed) or choose another | The format is now unified via `formatUsd()` (§A6); the currency itself is still unconfirmed |');
 p(`| 2 | Supply copy for the ${genericTitleCount.size} distinct attractions/activities with no approved text | ${totalGeneric} stops still render the generic sentence (§A3b). The 13 naming variants are already aliased (§A3a) |`);
 p('| 3 | Confirm the contact mailbox is live, then flip `EMAIL_PUBLISHED` to `true` | The address is suppressed site-wide until then (§A8) |');
-p('| 4 | Substantiate or remove the rating and review-count values | Unsubstantiated data currently dead in source (§A5) |');
+p('| 4 | ~~Substantiate or remove the rating and review-count values~~ — RESOLVED | Removed from the data model; no component can surface them (§A5) |');
 p(`| 5 | ~~Blog — publish real articles or hide the route~~ — RESOLVED | ${SAMPLE_BLOG_POSTS.length} articles published; route is public and in the sitemap (§A4) |`);
 p('| 6 | Approve the policy items in Section C | Acceptance criterion: owner signs off on policies |');
-p('| 7 | Provide pickup/drop-off, accessibility, availability and accommodation level | Missing for all 34 tours (Section B) |');
+p(`| 7 | ~~Provide pickup/drop-off, accessibility, availability and accommodation level~~ — PARTIALLY RESOLVED | Sourced for ${exactCount} exact + ${partialCount} partial/category matches; ${unmappedCount} tours remain unmapped and need owner input or a partner data sheet (Section B) |`);
 p('| 8 | ~~Replace the White Desert placeholder and six remote Red Sea covers~~ — RESOLVED | Seven original destination-specific covers are now locally hosted and optimized (§B) |');
 p();
 

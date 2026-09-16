@@ -72,6 +72,38 @@ indexable section.
 | `scripts/phase7-a11y.mjs` | `/blog` + one article route added to the axe sweep | New public routes need accessibility coverage |
 | `scripts/phase8-content-sheet.ts` | §A4 and §D updated — blog reported as published (5 posts) rather than empty/hidden | Generated audit must describe current state |
 
+## 1d. Files changed in the fourth pass (head-company policy/content mapping)
+
+The owner designated Egypt Online Tour (egyptonlinetour.com) as the
+head/referral company that operates confirmed bookings and receives all
+customer payments. This pass studied its published Terms, Privacy Policy,
+FAQs, and tour pages, recorded every adopted fact in
+`HEAD_COMPANY_SOURCE_MATRIX.md`, and applied only facts that explicitly
+cover the same tour, destination, or booking category.
+
+| File | Change | Why |
+|---|---|---|
+| `HEAD_COMPANY_SOURCE_MATRIX.md` | **New.** Source-evidence table: every adopted fact → source URL, page title, date accessed, scope (general vs tour-specific), and ambiguity notes | The assignment requires evidence before content changes; separates sourced facts from Travision business facts |
+| `src/tourPolicies.ts` | **New.** `PARTNER_TERMS` (deposit 40%, balance 30 days, cancellation tiers, US$25 alteration fee, 15-day claims window, 48 h response), `CHILD_POLICY` (Adults 12+, Children 1–11 from the partner's booking forms; no discount percentage invented), `ACCOMMODATION_PREFERENCES`/`ACCOMMODATION_TIERS`, `PACKAGE_ACCOMMODATION` (night-by-night for 2 packages), `TOUR_LOGISTICS` (19 mapped tours with `exact`/`partial`/`category` match strength + `sourceUrl`) | Structured model instead of scattered paragraphs; every entry carries its source URL for traceability |
+| `src/pages/Policies.tsx` | Rewritten into 11 collapsible sections sourced from the partner's Terms/Privacy: inquiry→confirmation flow, partner payment (no card details collected; Visa/Mastercard/Apple Pay/wire paid to the partner), standard cancellation schedule, changes, children, accommodation, documents/visas/insurance, complaints, liability/force majeure, special requests, privacy | Publish the verified general policy while keeping partner terms attributed to the partner |
+| `src/pages/TourDetails.tsx` | New "Pickup & Logistics" section (sourced pickup/availability/basis/guide/transport/notes with match-strength wording, fallback text for unmapped tours), sourced inclusions/exclusions preferred over boilerplate where mapped, accommodation section for the 2 sourced packages, `tourStructuredData` extracted as a pure exported function | Display reliable pre-inquiry information while deferring final conditions to the written quotation |
+| `src/types.ts` | `rating`, `reviewsCount`, `reviewsList` removed from `Tour`; dead `Review` interface deleted | Unsubstantiated data — removed per owner instruction rather than left as dead fields |
+| `src/constants.ts`, `src/dayTours.ts` | Rating/review fields stripped from all 34 tour records | Same |
+| `worker/booking.ts` | `accommodationPreference` whitelist now matches the partner's vocabulary (`budget-3-star`, `standard-4-star`, `luxury-5-star`, `mixed`, `flexible`) | The form options and the worker whitelist must agree |
+| `tests/unit/policy-content.test.tsx` | **New.** 22 tests: payment-recipient/method wording, inquiry-not-booking wording, child bands + no-invented-discount, accommodation fallback, match-strength completeness (exact entries must carry sourced inclusions), JSON-LD free of prices/ratings/offers for all 34 tours, policy-section rendering | Guards every new content guarantee |
+| `tests/unit/booking-validation.test.ts` | Accommodation enum updated to the new values | Matches the worker whitelist |
+| `tests/e2e/site.spec.ts` | Policies test asserts the new section headings and the payment-method sentence | Page structure changed |
+| `vitest.config.ts` | Include `tests/unit/**/*.test.tsx` | React-render tests were not discovered |
+| `scripts/check-csp.mjs` | `egyptonlinetour.com` added to `NOT_FETCHED` (source-attribution strings, never requested) | The checker itself directs never-requested origins here |
+| `scripts/phase8-content-sheet.ts` | §A5 (ratings removed), §A10 (sourced inclusions supersede boilerplate where mapped), §B (match coverage + per-tour sourced fields), §C (all 11 policy sections + remaining legal gaps), §D (decisions 4, 7 updated) | Generated audit must describe current state |
+| `PHASE8_CONTENT_VALIDATION.md`, `CONTENT_GAPS.md`, `LAUNCH_CHECKLIST.md` | Regenerated/rewritten to reflect resolved and remaining items | Documentation sync |
+
+**Not imported:** partner ratings/review counts, named hotels, child discount
+percentages (none published on the current partner site — a "50% child
+discount" line on the legacy `beta.egyptonlinetours.com` "Maestro Online
+Travel Egypt" page was excluded as a different/legacy brand), and any
+payment-processing language implying Travision handles funds.
+
 ## 2. Commands run and exact results
 
 All run from `C:\projects\travision-tours-review` on Windows, against local and
@@ -144,6 +176,26 @@ per run).
 | `npm run content:sheet` | Regenerated — §A4/§D report the published blog |
 | Prerendered-HTML spot check | An article's `index.html` contains the full article text, `Article` JSON-LD, canonical URL, and `index, follow` — no client hydration required |
 
+### Fourth-pass re-verification (after the §1d head-company changes)
+
+| Command | Result |
+|---|---|
+| `npm run typecheck` | PASS — `tsc --noEmit`, no errors |
+| `npm run lint` | PASS — one `no-useless-escape` in the sheet generator fixed, then clean |
+| `npm run test` (vitest) | PASS — **158 passed, 2 expected-fail, 160 total** (5 files incl. the new `policy-content.test.tsx` with 22 tests) |
+| `npm run build` | PASS — **48 routes prerendered**; logistics/accommodation sections verified in built HTML (`Pickup & drop-off`, `Tour basis`, payment-partner wording, clean JSON-LD) |
+| `npm run test:images` | PASS — **34/34** |
+| `npm run test:seo` | PASS — **41/41** |
+| `npm run check:csp` | PASS after adding `egyptonlinetour.com` to `NOT_FETCHED` — the source-attribution URLs in `tourPolicies.ts` are never rendered or requested |
+| `npm run check:budget` | PASS — **112 images and 12 fonts within budget**; largest 228 KB |
+| `npm run test:e2e` | PASS — **96 passed, 2 skipped, 0 failed** (includes the updated policies-page assertions) |
+| `npm run test:a11y` | PASS — **75/75** (zero axe violations; the `<details open>` policy sections resolve all ARIA references) |
+| `npm run test:keyboard` | PASS — **33/33** |
+| `git diff --check` | PASS — only normal LF→CRLF autocrlf warnings |
+| `npm audit --audit-level=high` | PASS — **0 vulnerabilities** |
+| `npx wrangler deploy --dry-run` | PASS — **194.15 KiB / 22.10 KiB gzip**, 617 asset files, bindings resolve, nothing deployed |
+| `npm run content:sheet` | Regenerated — §B now reports match strength and sourced values per tour |
+
 ### Visual QA (second pass)
 
 Screenshot sweep over the live local Worker (Chromium): 9 routes
@@ -204,21 +256,30 @@ These remain open by design — no content was invented to close them. From
   the 13 safe aliases are applied; §A3a) still use fallback text; 51 distinct
   titles need owner copy (§A3b). `Luxor Temple by Night` deliberately has no
   alias.
-- **Tour-specific booking/cancellation policy**: schema fields and UI exist;
-  final wording not supplied.
+- **Tour-specific booking/cancellation policy**: the partner's *standard*
+  schedule is published on `/policies`; final tour-specific terms stay in the
+  written quotation by design. Owner/legal sign-off on the published wording
+  is still required.
 - **Currency presentation**: format is unified (`US$1,070` via `formatUsd()`);
   the currency itself (USD vs EGP vs per-tour) is unconfirmed — now a
   one-function change.
-- **Missing tour logistics**: pickup/drop-off, accessibility, availability,
-  accommodation level, and child policy are absent for all tours — distilled
-  into `CONTENT_GAPS.md` for the owner.
+- **Tour logistics**: sourced and published for 19 of 34 tours (11 exact,
+  8 partial/category — `src/tourPolicies.ts`, traced in
+  `HEAD_COMPANY_SOURCE_MATRIX.md`). The 15 unmapped tours still need owner
+  input or a partner data sheet — see `CONTENT_GAPS.md` §1.
+- **Child pricing/occupancy rules**: age bands are published (Adults 12+,
+  Children 1–11); the partner publishes no discount percentage, so pricing
+  and room-sharing stay in the written quotation — `CONTENT_GAPS.md` §3.
+- **Package accommodation**: sourced night-by-night for 2 packages;
+  category-level tier wording elsewhere. Per-night detail, single
+  supplements, and child accommodation for the remaining packages are
+  unresolved — `CONTENT_GAPS.md` §2.
 - **Blog content review**: five articles are now published (§1c). They are
   grounded in catalog facts only — no prices, ratings, or invented logistics —
   but the owner should read them for voice/accuracy before launch.
 - **Legal/business identity**: registered name, address, lawful basis, retention
   period, cross-border handling, and governing-law wording are incomplete.
-- **Ratings**: catalog `rating`/`reviewsCount` values have no backing review
-  system — substantiate or remove (owner decision).
+- **Ratings**: resolved — removed from the data model entirely (§A5).
 - **Mobile header gap** (documented by a skipped test): on phones there is no
   direct header route to `/tours`; reachable via footer/home cards only.
 
@@ -245,6 +306,9 @@ These remain open by design — no content was invented to close them. From
   6. `test: unit, worker, e2e, and accessibility suites`
   7. `docs: validation sheet, gap report, launch checklist, and handoff`
   8. `feat: publish blog with five SEO articles` (third pass)
+  9. `feat: local generated covers for all day tours and sitemap-aware SEO checks` (`5bb4bb8`, Codex image/SEO work preserved and committed separately)
+ 10. `docs: head-company source-evidence matrix for policy work` (`8d0ba6d`)
+ 11. Fourth-pass policy/content work: structured partner terms + logistics data, policy UI, tests, doc updates (this pass)
 - `.dev.vars` was never read or modified (gitignored); no secrets were written
   anywhere in the repo. Turnstile/Access dev bypasses live only in `.dev.vars`
   and are not declared in `wrangler.jsonc`, so they cannot be deployed.
@@ -341,11 +405,19 @@ computed-style and source checks. Verified behaviors:
 8. **Subject-level image relevance still needs a human eyeball pass** — the
    audit verified existence, dimensions, and duplication mechanically; it
    cannot judge whether each local photo shows the right site.
+9. **Published partner terms are paraphrased, not legally reviewed** — meaning
+   was preserved from the source Terms, but the owner/legal must approve the
+   wording before launch; tour-specific conditions remain in the written
+   quotation by design.
+10. **15 tours remain unmapped** — their logistics sections show the fallback
+    wording until the owner or partner supplies data; nothing was inferred
+    from similar-sounding products.
 
 ## 10. Rollback notes
 
-- All changes are in git history now (seven local commits, nothing pushed).
-  Per-pass or per-file revert is a normal `git revert`/`checkout` away.
+- All changes are in git history on `agent/seo-booking-foundation` and pushed
+  to origin. Per-pass or per-file revert is a normal `git revert`/`checkout`
+  away.
 - To restore the published email: set `EMAIL_PUBLISHED = true` in
   `src/config/business.ts` — one flag restores all seven sites.
 - To revert the constants centralization: delete `src/config/business.ts`,
@@ -353,13 +425,19 @@ computed-style and source checks. Verified behaviors:
   local `const` declarations in `worker/index.ts`.
 - To revert currency formatting: `formatUsd` call sites are the only consumers;
   replacing them with the old literals restores the prior display.
+- To revert the policy/logistics pass: delete `src/tourPolicies.ts`, restore
+  `Policies.tsx`/`TourDetails.tsx` from git history, and restore the removed
+  rating fields in `types.ts`/`constants.ts`/`dayTours.ts`. The old worker
+  accommodation enum is in `worker/booking.ts` history.
 - No database migrations were added or altered; no remote state exists to roll
   back.
 - Test edits are confined to `tests/`; deleting them restores prior behavior
   but is not recommended — they fix real selector/race bugs and now also guard
   the email-suppression invariant both directions.
 
-*Report generated after completing DEVIN_HANDOFF.md tasks 1–6 and a second pass
-of owner-independent improvements (content aliases, currency, email-suppression
-hold, image audit, gap report, visual QA, launch checklist, local commits). No
-deployment, domain, DNS, production resource, or push was performed.*
+*Report generated after completing DEVIN_HANDOFF.md tasks 1–6 and four
+follow-up passes: owner-independent improvements (content aliases, currency,
+email-suppression hold, image audit, gap report, visual QA, launch checklist),
+blog publication, and the head-company policy/content mapping sourced from
+egyptonlinetour.com. No deployment, domain, DNS, or production Cloudflare
+resource was created or changed.*

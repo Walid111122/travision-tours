@@ -158,19 +158,19 @@ White Desert sites, and the Red Sea resort activities:
   indexable, in the sitemap, and linked from navigation and the footer.
 - No tour has an empty `inclusions`, `exclusions`, `gallery`, `highlights` or `itinerary` array.
 
-### A5. Ratings and review counts — NOT DISPLAYED
+### A5. Ratings and review counts — REMOVED
 
-Every tour carries `rating` (4.5–4.9) and `reviewsCount` (48–412). These are unsubstantiated
-and must not be shown. Verified that they are **not** published:
+Every tour previously carried `rating` (4.5–4.9) and `reviewsCount` (48–412), which were
+unsubstantiated and never rendered. The fields are now removed from the `Tour` interface and
+every tour record, along with the dead `Review` interface and `reviewsList` field — no
+component can surface them again without a schema change.
 
-- No component reads `tour.rating` or `tour.reviewsCount`; the fields appear only in `types.ts`.
-- The two `<Star>` icons that render are decorative labels for "Tour Type: Private" and a
-  highlights section — neither is a rating.
-- `scripts/phase6-seo.ts` forbids `AggregateRating`, `Review`, `Offer`, `Product` and
+- `scripts/phase6-seo.ts` still forbids `AggregateRating`, `Review`, `Offer`, `Product` and
   `IndividualProduct` schema types, and no rating markup exists in the built output.
+- The JSON-LD test suite asserts no prices, ratings, reviews, or offers appear in the
+  `TouristTrip`/`BreadcrumbList` markup for any tour.
 
-The values remain as dead data in the source. Recommend the owner either substantiate them or
-have them removed so a future component cannot surface them.
+If the owner later gathers genuine review evidence, ratings can be reintroduced deliberately.
 
 ### A6. Currency — FORMAT UNIFIED; THE CURRENCY ITSELF IS AN OWNER DECISION
 
@@ -218,18 +218,23 @@ The client still does not send the version it displayed — the Worker stamps th
 holds. Since both sides share one constant, they can only disagree if a stale pre-deploy
 bundle is served after a release, which is a caching concern rather than a drift vector.
 
-### A10. Cross-tour repeated boilerplate
+### A10. Cross-tour repeated boilerplate — PARTIALLY SUPERSEDED
 
-The following values are byte-identical across every tour that has them, because a one-off
+The following values are byte-identical in the raw tour records, because a one-off
 cleanup script (`scripts/sanitize-tour-data.mjs`, not part of the build) overwrote the scraped
 copy. They are legally safe but carry no tour-specific information:
 
-- **Inclusions** — 2 distinct value across 34 tours.
-- **Exclusions** — 2 distinct value across 34 tours.
+- **Inclusions** — 2 distinct value across 34 tour records.
+- **Exclusions** — 2 distinct value across 34 tour records.
 - **Meals** — 1 distinct value across all itinerary days.
 - **Accommodation** — 3 distinct value across all itinerary days.
 
-Inclusions (identical for every tour):
+Since the head-company pass, the tour page renders sourced inclusion/exclusion lists from
+`src/tourPolicies.ts` where a verified source page exists — currently 13 tours with
+sourced inclusions and 12 with sourced exclusions (see Section B). Tours without a
+source mapping keep the generic lists, which read as placeholders rather than claims.
+
+Raw-record inclusions (identical for every tour record):
 
 - Services itemized as included in your written quotation.
 - Transport, accommodation, meals, guides, and admission tickets only when specifically listed.
@@ -261,16 +266,23 @@ decision, not a defect the implementer should resolve unilaterally.
 
 ## Section B — Per-tour validation sheet
 
-Fields the plan asks for that do **not** exist anywhere in the schema, and therefore need owner
-input for every tour:
+Since the head-company pass, per-tour logistics are modelled in `src/tourPolicies.ts`
+(`TOUR_LOGISTICS`, `PACKAGE_ACCOMMODATION`), sourced from Egypt Online Tour pages and traced in
+`HEAD_COMPANY_SOURCE_MATRIX.md`. Coverage by match strength:
+
+| Match | Tours | What is shown |
+|---|---|---|
+| `exact` — same route/duration/type on a source page | 11 | Sourced pickup, availability, basis, guide, transport, inclusions/exclusions |
+| `partial`/`category` — overlapping scope or category pattern only | 11 | Shared facts only, labelled as the partner's standard arrangements |
+| unmapped — no reliable source page | 12 | Fallback wording; confirmed in the written quotation |
 
 | Field | Status |
 |---|---|
-| Pickup / drop-off | Not modelled. No field, and no string containing "pickup" or "drop-off" exists. |
-| Accessibility / physical requirements | Not modelled per tour. Only general guidance on the Guidelines page. |
-| Availability | Not modelled. No seasonal or departure-availability data exists. |
-| Hotel / accommodation level | Only the placeholder text below; no hotel names or star ratings. |
-| Cancellation terms | Deferred to the written quotation; no per-tour version. |
+| Pickup / drop-off | Sourced where a matching source page states it; otherwise "confirmed in your written quotation" |
+| Accessibility / physical requirements | Sourced notes on mapped tours (pyramid interiors, desert terrain, tomb stairs); otherwise general guidance only |
+| Availability | "Daily" on mapped day tours where the source page states it; otherwise on request |
+| Hotel / accommodation level | Sourced night-by-night detail on 2 packages; category-level tier wording elsewhere; named properties never promised |
+| Cancellation terms | Partner standard schedule published on /policies; final tour-specific terms stay in the written quotation |
 
 In the per-tour sections, `Days` counts itinerary days, `Stops` counts rendered stops, and
 `generic` counts stops falling back to placeholder copy (see §A3).
@@ -324,13 +336,13 @@ In the per-tour sections, `Days` counts itinerary days, `Stops` counts rendered 
 - **Gallery:** 2 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m40!1m12!1m3!1d221185…`
 - **Highlights:** Giza Pyramids; Sphinx — no hotel stay required.
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — no overnight stay on this itinerary
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Airport pickup and return transfers in a private air-conditioned vehicle; English-speaking Egyptologist guide; Admission tickets to the listed attractions; Applicable taxes and service charges
+- **Exclusions:** sourced from the matched partner page — Egypt entry visa; Personal expenses and gratuities; Anything not listed as included
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/cairo-layover-tour
+- **Pickup / drop-off:** Pickup and drop-off at Cairo International Airport
+- **Availability:** Daily — arranged around your flight schedule
+- **Accommodation level:** no overnight stay on this itinerary
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -356,13 +368,13 @@ _Summary line rendered on cards:_ Explore Cairo on this 1 day cultural itinerary
 - **Gallery:** 2 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d55274.…`
 - **Highlights:** Great Pyramid; Sphinx; Valley Temple; optional camel ride.
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — no overnight stay on this itinerary
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off; Private air-conditioned transport; Professional Egyptology guide; Admission fees for the itinerary attractions; Applicable taxes and service charges
+- **Exclusions:** sourced from the matched partner page — Egypt entry visa; Personal expenses and optional purchases; Tips and gratuities
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/pyramids-and-saqqara-day-tour-in-cairo
+- **Pickup / drop-off:** Hotel pickup and drop-off in Cairo
+- **Availability:** Daily
+- **Accommodation level:** no overnight stay on this itinerary
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -388,13 +400,13 @@ _Summary line rendered on cards:_ Explore Cairo, Giza on this 1 day cultural iti
 - **Gallery:** 6 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d55273.…`
 - **Highlights:** Pyramids; Sphinx; Hanging Church; Khan El Khalili.
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — no overnight stay on this itinerary
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `category` — https://egyptonlinetour.com/tours/exciting-private-day-trip-of-giza
+- **Pickup / drop-off:** Hotel pickup and drop-off in Cairo or Giza
+- **Availability:** Daily
+- **Accommodation level:** no overnight stay on this itinerary
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -422,13 +434,13 @@ _Summary line rendered on cards:_ Explore Cairo, Giza on this 1 day historical i
 - **Gallery:** 6 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m48!1m8!1m3!1d442323.…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -478,13 +490,14 @@ _Summary line rendered on cards:_ Explore Cairo, Giza on this 4 days / 3 nights 
 - **Gallery:** 8 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m36!1m8!1m3!1d1466441…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Airport meet-and-assist and private transfers; Domestic flights (Cairo–Aswan and Luxor–Cairo); First-class train between Aswan and Luxor; Private Egyptologist-guided sightseeing; Entry fees for the listed sites; Breakfast box for the early Abu Simbel departure when needed
+- **Exclusions:** sourced from the matched partner page — International flights; Egypt entry visa; Travel insurance; Tips and personal expenses; Entry inside the Great Pyramid and special tomb tickets; Early hotel check-in or late check-out
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/5-days-cairo-luxor-abu-simbel-tour
+- **Pickup / drop-off:** Airport meet-and-assist on arrival, with private transfers throughout
+- **Availability:** on request — confirmed in the written quotation
+- **Sourced notes:** The Abu Simbel day starts before sunrise — the temples are several hours by road each way from Aswan. · Pyramid interiors have narrow, steep, warm passages — flag mobility, breathing, or claustrophobia concerns before requesting interior tickets.
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -539,13 +552,14 @@ _Summary line rendered on cards:_ Explore Cairo, Luxor, Abu Simbel on this 5 day
 - **Gallery:** 8 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m42!1m8!1m3!1d1466441…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Meet-and-assist service at Cairo International Airport; Private airport arrival and departure transfers; Domestic flights (Cairo–Luxor and Aswan–Cairo); First-class train ticket between Luxor and Aswan; Private tours with licensed Egyptologists; Standard entrance fees for the listed sites; Private round-trip transportation between Aswan and Abu Simbel; Motorboat crossing in Luxor and motorboat transfer to Philae Temple; Nile dinner cruise in Cairo; Daily hotel breakfast and lunch on the listed sightseeing days; Breakfast box for early departures when needed; Service charges, applicable taxes, and local support during the tour
+- **Exclusions:** sourced from the matched partner page — International flights; Egypt entry visa; Travel insurance; Drinks during meals; Optional tours; Personal expenses; Entry inside the Great Pyramid and special tomb tickets in the Valley of the Kings; Early hotel check-in and late check-out; Tips and gratuities
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/6-days-cairo-luxor-aswan-abu-simbel-package
+- **Pickup / drop-off:** Meet-and-assist at Cairo International Airport; private airport transfers throughout
+- **Availability:** on request — confirmed in the written quotation
+- **Sourced notes:** Share any food allergy, vegetarian request, or child meal need before booking. · The Valley of the Kings standard ticket covers selected open tombs; special tombs require separate tickets.
+- **Accommodation level:** sourced — Five-star hotel accommodation throughout: two nights in Cairo, two nights in Luxor, and one night in Aswan, with daily hotel breakfast. (https://egyptonlinetour.com/tours/6-days-cairo-luxor-aswan-abu-simbel-package)
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -608,13 +622,13 @@ _Summary line rendered on cards:_ Explore Cairo, Luxor, Aswan on this 6 days / 5
 - **Gallery:** 8 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m36!1m8!1m3!1d7278264…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -686,13 +700,14 @@ _Summary line rendered on cards:_ Explore Cairo, Luxor, Aswan, Abu Simbel on thi
 - **Gallery:** 8 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m54!1m8!1m3!1d1466007…`
 - **Highlights:** Pyramids; Nile Valley temples; Abu Simbel; Aswan; Hurghada option.
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Airport meet-and-greet and all transfers in private air-conditioned vehicles; EgyptAir domestic flight tickets between Cairo, Luxor, and Aswan; Admission costs for the sites in the itinerary; Private sightseeing in Cairo and the scheduled cruise excursions; An English-speaking guide while travelling; Meals as specified in the schedule; One bottle of water per person each day; Portage when necessary, plus all taxes and service fees
+- **Exclusions:** sourced from the matched partner page — International airfare; Optional tours; Entrance fees for personal extras not listed; Tipping
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/8-days-pyramids-the-nile-by-air
+- **Pickup / drop-off:** Airport meet-and-greet on arrival; private transfers between airports, hotels, and the cruise
+- **Availability:** on request — confirmed in the written quotation
+- **Sourced notes:** The Egypt entry visa is listed as included on this particular partner product — your written quotation confirms whether it applies to yours. · The cruise section typically covers Luxor, Edfu, Kom Ombo, and Aswan sightseeing between sailing days.
+- **Accommodation level:** sourced — Three nights in a Cairo hotel with daily breakfast, plus four nights full-board on a five-star Superior Nile cruise. (https://egyptonlinetour.com/tours/8-days-pyramids-the-nile-by-air)
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -763,13 +778,13 @@ _Summary line rendered on cards:_ Explore Cairo, Luxor, Aswan on this 8 days / 7
 - **Gallery:** 8 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m48!1m8!1m3!1d1459090…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -860,13 +875,14 @@ _Summary line rendered on cards:_ Explore Cairo, Alexandria, Luxor, Aswan on thi
 - **Gallery:** 8 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d366649…`
 - **Highlights:** Pyramids; temples; Red Sea snorkeling; beach resort; water sports; family entertainment.
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/12-days-luxury-cairo-the-nile-red-sea
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Sourced notes:** The comparable partner package combines Cairo hotel nights, a full-board five-star Nile cruise, and Hurghada resort nights with domestic flights. · Its Hurghada segment includes guided diving/snorkelling days with equipment, lunch, and soft drinks; your package’s Red Sea arrangements are confirmed in the written quotation.
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -958,13 +974,13 @@ _Summary line rendered on cards:_ Explore Cairo, Luxor, Aswan, Hurghada on this 
 - **Gallery:** 10 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m64!1m12!1m3!1d729936…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1080,13 +1096,14 @@ _Summary line rendered on cards:_ Explore Cairo, Nile River on this 14 days / 13
 - **Gallery:** 10 image(s)
 - **Map:** `https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d362064…`
 - **Highlights:** _not present in the data model_
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Accommodation to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/15-days-marvelous-tour-package-in-egypt
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Sourced notes:** The partner sells packages in four accommodation tiers — Standard, Premium, Luxury, and High End — with the same experiences at different hotel levels. Your quotation states the tier and properties. · The partner version of this itinerary is a group trip using a Dahabiya cruise and a Fayoum desert day; Travision’s version is private and includes Hurghada — the two are not interchangeable.
+- **Accommodation level:** renders "Accommodation to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1201,13 +1218,13 @@ _Summary line rendered on cards:_ Explore Cairo, Giza, Luxor, Western Desert on 
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Giza Pyramids; Great Sphinx; Egyptian Museum
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `category` — https://egyptonlinetour.com/tours/exciting-private-day-trip-of-giza
+- **Pickup / drop-off:** Hotel pickup and drop-off in Cairo or Giza
+- **Availability:** Daily
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1231,13 +1248,14 @@ _Summary line rendered on cards:_ Explore Cairo on this 1 day cultural itinerary
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Great Pyramid of Khufu; Sphinx; Valley Temple; Optional camel ride
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off; Private air-conditioned vehicle; Professional English-speaking Egyptologist guide; Entrance fees to the mentioned sites; Bottled water during the tour
+- **Exclusions:** sourced from the matched partner page — Personal expenses; Tipping (optional); Entry inside the pyramids — an optional extra ticket; Travel insurance
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/exciting-private-day-trip-of-giza
+- **Pickup / drop-off:** Pickup and drop-off at your hotel in Cairo or Giza
+- **Availability:** Daily
+- **Sourced notes:** Entry inside the Great Pyramid uses a separate ticket when available; passages are narrow, steep, warm, and enclosed — mention mobility, breathing, or claustrophobia concerns before requesting it. · Guides do not accompany visitors inside the pyramids. · A camel ride across the Giza Plateau can be arranged as an optional extra.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1262,13 +1280,14 @@ _Summary line rendered on cards:_ Explore Cairo, Giza on this 1 day historical i
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Valley of the Kings; Hatshepsut Temple; Karnak Temple
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `category` — https://egyptonlinetour.com/tours/luxor-west-bank-tour-private-day-trip
+- **Pickup / drop-off:** Pickup and drop-off at your Luxor hotel or Nile cruise
+- **Availability:** Daily
+- **Sourced notes:** West Bank sightseeing typically starts early — around 5:00 AM in the source itinerary — to beat the heat.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1292,13 +1311,13 @@ _Summary line rendered on cards:_ Explore Luxor on this 1 day historical itinera
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** High Dam; Unfinished Obelisk; Philae Temple
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off in Aswan; Private air-conditioned transport; Private guided visit; Entry fees for the listed sites; Applicable taxes and service charges
+- **Exclusions:** sourced from the matched partner page — Tips and personal expenses; Lunch — available as an optional addition
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/philae-temple-high-dam-and-obelisk-private-tour
+- **Pickup / drop-off:** Pickup and drop-off at your Aswan hotel
+- **Availability:** Daily
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1322,13 +1341,13 @@ _Summary line rendered on cards:_ Explore Aswan on this 1 day historical itinera
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Great Temple of Ramses II; Temple of Nefertari; UNESCO rescue site
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off in Aswan; Private air-conditioned transport; Private guide; Entry tickets; Applicable taxes and service fees
+- **Exclusions:** sourced from the matched partner page — Personal expenses; Additional services not listed as included
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/private-tour-to-abu-simbel-from-aswan-by-car
+- **Pickup / drop-off:** Pickup from your Aswan hotel; drop-off at your hotel or Nile cruise
+- **Availability:** Daily
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1352,13 +1371,14 @@ _Summary line rendered on cards:_ Explore Aswan, Abu Simbel on this 1 day histor
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Bibliotheca Alexandrina; Qaitbay Citadel; Catacombs of Kom El Shoqafa
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off; Private air-conditioned transport; Expert guide
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/alexandria-archeological-day-tour-top-sites
+- **Pickup / drop-off:** Hotel pickup and drop-off
+- **Availability:** Daily
+- **Sourced notes:** The partner itinerary covers the Catacombs, Roman Amphitheatre, Pompey’s Pillar, Bibliotheca Alexandrina, Qaitbay Citadel, Montazah Gardens, and Stanley Bridge.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1382,13 +1402,13 @@ _Summary line rendered on cards:_ Explore Alexandria on this 1 day historical it
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Hanging Church; Coptic Museum; Ben Ezra Synagogue; Khan El Khalili
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off; Modern air-conditioned vehicle for the entire trip; Expert English-speaking tour guide; Entrance fees to the listed attractions; Mineral water during the excursion; All applicable taxes and service charges
+- **Exclusions:** sourced from the matched partner page — Personal expenses such as souvenirs; Optional gratuities for guide and driver; Travel insurance; Any extras not specified in the itinerary
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/old-cairo-tour
+- **Pickup / drop-off:** Pickup and drop-off at your Cairo hotel
+- **Availability:** Daily
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1413,13 +1433,13 @@ _Summary line rendered on cards:_ Explore Cairo on this 1 day cultural itinerary
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Giftun Island snorkeling; Red Sea coral reefs
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1442,13 +1462,14 @@ _Summary line rendered on cards:_ Explore Hurghada on this 1 day adventure itine
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Ras Mohammed National Park; Desert safari; Red Sea beaches
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off in Sharm El Sheikh; Air-conditioned transfers to and from the marina; Professional English-speaking tour guide; Ras Mohamed National Park entrance tickets; Snorkelling essentials — mask, fins, and life jacket; Lunch served on board; Water and soft drinks during the trip; All taxes and service charges
+- **Exclusions:** sourced from the matched partner page — Optional activities or services not mentioned in the program; Personal expenses and tipping; Visa fees; International or domestic flight tickets
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/ras-mohamed-boat-trip-white-island
+- **Pickup / drop-off:** Pickup and drop-off at your Sharm El Sheikh hotel
+- **Availability:** Daily
+- **Sourced notes:** These logistics describe the partner’s Ras Mohamed boat trip; a desert-safari component is not covered by that source.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1472,13 +1493,13 @@ _Summary line rendered on cards:_ Explore Sharm El Sheikh on this 1 day adventur
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Sataya Dolphin Reef; Samadai coral walls
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1501,13 +1522,13 @@ _Summary line rendered on cards:_ Explore Marsa Alam on this 1 day adventure iti
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Lagoon boat trip; Island snorkeling
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1530,13 +1551,13 @@ _Summary line rendered on cards:_ Explore El Gouna on this 1 day adventure itine
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** House-reef snorkeling; Semi-submarine coral tour
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1559,13 +1580,13 @@ _Summary line rendered on cards:_ Explore Makadi Bay on this 1 day adventure iti
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Tobia Islands snorkeling; Kitesurfing
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1588,13 +1609,13 @@ _Summary line rendered on cards:_ Explore Soma Bay on this 1 day adventure itine
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Marina coral safari; Snorkeling lagoons
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1617,13 +1638,14 @@ _Summary line rendered on cards:_ Explore Port Ghalib on this 1 day adventure it
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Step Pyramid of Djoser; Memphis; Dahshur Pyramids
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `category` — https://egyptonlinetour.com/tours/giza-pyramids-and-sakkara-tour
+- **Pickup / drop-off:** Hotel pickup and return in Cairo
+- **Availability:** Daily
+- **Sourced notes:** Optional experiences such as camel rides or pyramid-interior entry carry separate fees.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1647,13 +1669,13 @@ _Summary line rendered on cards:_ Explore Cairo, Sakkara on this 1 day historica
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Bent Pyramid; Red Pyramid
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1676,13 +1698,13 @@ _Summary line rendered on cards:_ Explore Cairo, Dahshur on this 1 day historica
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Tutankhamun treasures; Royal Mummies Hall
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Modern air-conditioned vehicle; Entrance fees to the sites in the program; Expert tour guide; All service charges and taxes
+- **Exclusions:** sourced from the matched partner page — Tipping
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/egyptian-museum-citadel
+- **Pickup / drop-off:** Hotel pickup and return
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1705,13 +1727,14 @@ _Summary line rendered on cards:_ Explore Cairo on this 1 day historical itinera
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** White Desert chalk formations; Crystal Mountain; Black Desert
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** sourced from the matched partner page — Hotel pickup and drop-off; Private air-conditioned vehicle and 4×4 desert jeep; National park entrance fees; Lunch during the tour; Cold water during the day and dinner on the return drive
+- **Exclusions:** sourced from the matched partner page — Personal expenses; Travel insurance
+- **Source match:** `exact` — https://egyptonlinetour.com/tours/day-trip-to-white-desert
+- **Pickup / drop-off:** Pickup from and drop-off at your hotel
+- **Availability:** on request — confirmed in the written quotation
+- **Sourced notes:** The route takes in the Black Desert, Cold Spring, Crystal Mountain, Agabat Valley, and the New White Desert, ending with the desert sunset. · Desert terrain means long off-road driving — tell us about back, mobility, or motion-sickness concerns before booking.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1735,13 +1758,14 @@ _Summary line rendered on cards:_ Explore Bahariya, Western Desert on this 1 day
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Philae Temple; Kiosk of Trajan
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/philae-temple-high-dam-and-obelisk-private-tour
+- **Pickup / drop-off:** Pickup and drop-off at your Aswan hotel
+- **Availability:** Daily
+- **Sourced notes:** Philae Temple sits on an island and is reached by motorboat — the crossing is part of the visit.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1764,13 +1788,14 @@ _Summary line rendered on cards:_ Explore Aswan on this 1 day historical itinera
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Royal tombs; Tomb of Tutankhamun
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/luxor-west-bank-tour-private-day-trip
+- **Pickup / drop-off:** Pickup and drop-off at your Luxor hotel or Nile cruise
+- **Availability:** Daily
+- **Sourced notes:** The standard Valley of the Kings ticket covers selected open tombs; famous tombs such as Tutankhamun, Seti I, and Ramesses V/VI require separate tickets. · Early-morning departures (around 5:00 AM) are typical for the West Bank. · Some tombs have steep stairs, narrow passages, and warm interiors — mention mobility, breathing, or claustrophobia concerns when inquiring.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1793,13 +1818,14 @@ _Summary line rendered on cards:_ Explore Luxor on this 1 day historical itinera
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Great Hypostyle Hall; Avenue of Sphinxes; Sacred Lake
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** `partial` — https://egyptonlinetour.com/tours/tour-of-the-east-bank-in-luxor-private-trip
+- **Pickup / drop-off:** Pickup and drop-off at your Luxor hotel or Nile cruise
+- **Availability:** Daily
+- **Sourced notes:** Meals and drinks are not included on the partner’s East Bank trip; optional upgrades can be arranged.
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1823,13 +1849,13 @@ _Summary line rendered on cards:_ Explore Luxor on this 1 day historical itinera
 - **Gallery:** 0 image(s) — _not present in the data model_
 - **Map:** _not present in the data model_
 - **Highlights:** Traditional felucca sail; Nile sunset
-- **Inclusions:** identical boilerplate across all tours — see §A10
-- **Exclusions:** identical boilerplate across all tours — see §A10
-- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accessibility / physical requirements:** ⚠️ **OWNER INPUT REQUIRED**
-- **Availability:** ⚠️ **OWNER INPUT REQUIRED**
-- **Accommodation level:** ⚠️ **OWNER INPUT REQUIRED** — renders "Return arrangements to be confirmed"
-- **Cancellation / policy version:** global `2026-08-13`; no tour-specific version exists
+- **Inclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Exclusions:** generic boilerplate — see §A10; confirmed in the written quotation
+- **Source match:** unmapped — no reliable source page; fallback wording shown
+- **Pickup / drop-off:** ⚠️ **OWNER INPUT REQUIRED** — confirmed in the written quotation
+- **Availability:** on request — confirmed in the written quotation
+- **Accommodation level:** renders "Return arrangements to be confirmed" — tier and properties confirmed in the written quotation
+- **Cancellation / policy version:** global `2026-08-13`; partner standard schedule on /policies; tour-specific terms in the written quotation
 
 **Destinations and stops as rendered:**
 
@@ -1846,23 +1872,35 @@ _Summary line rendered on cards:_ Explore Luxor, Aswan on this 1 day cultural it
 
 ## Section C — Policy and privacy approval checklist
 
-The Policies page currently carries four sections: Inquiry and confirmation; Payment through our
-travel partner; Changes and cancellations; Privacy. The following items from the plan are either
-absent or need legal sign-off.
+The Policies page now carries eleven sections sourced from the partner's published Terms and
+Privacy Policy (see `HEAD_COMPANY_SOURCE_MATRIX.md`): Inquiry and confirmation; Payment through
+our travel partner; Standard cancellation schedule; Changes to your booking; Children and
+families; Accommodation; Travel documents, visas, and insurance; Complaints and claims;
+Liability and third-party suppliers; Special requests, accessibility, and health; Privacy.
+Partner terms are attributed to Egypt Online Tour as its standard terms — Travision is the
+inquiry interface. The following items are either absent or still need owner/legal sign-off.
 
 | Item | Status |
 |---|---|
 | Business identity and contact/address details | **Absent.** No registered entity name or postal address appears anywhere. |
-| Data-controller / contact information | **Partial.** Only a contact email; no controller identity. |
+| Data-controller / contact information | **Partial.** Contact routes exist (form + phone); no controller identity or address. |
 | Purposes for collected data | Present — responding, quoting, coordinating services, records. |
 | Lawful basis | **Absent.** No lawful basis is stated. |
 | Retention period | **Absent.** No retention period is stated. |
-| Data sharing with the partner and service providers | **Partial.** The travel partner is named; no service providers are. |
+| Data sharing with the partner and service providers | Present — partner named; suppliers (hotels, airlines, guides) described as needed to deliver the booking. |
 | Cross-border data handling | **Absent.** |
-| Access / correction / deletion rights and process | **Partial.** "Ask about your submitted information" only; no deletion right or process. |
+| Access / correction / deletion rights and process | Present — visitors may ask to access, correct, or delete inquiry data via form or phone; partner-held data referred to the partner's privacy contact. |
 | Cookie and analytics disclosures | **Absent, and now known.** The site sets no first-party cookies and runs no analytics. Third parties that may set their own: Cloudflare Turnstile (form protection) and Google Maps frames. Tour images are locally hosted. |
-| Governing law and dispute wording | **Absent.** |
-| Final quotation and tour-specific cancellation/refund terms | Deferred to the written quotation; no per-tour terms exist. |
+| Governing law and dispute wording | **Absent.** The partner's terms do not publish a governing-law clause, so none was imported. |
+| Payment methods and recipient | Present — no payments or card details on this site; Visa, Mastercard, Apple Pay, and wire transfer are paid directly to the partner after the written quotation. |
+| Deposit and balance | Present — partner standard terms: 40% deposit, balance 30 days before departure, full payment inside 30 days. |
+| Cancellation / refund schedule | Present — partner standard tiers published with the explicit caveat that the written quotation governs per product. |
+| Changes by customer / operator | Present — free before booking; US$25 + third-party charges after deposit; operator substitution and cancellation-refund terms stated. |
+| No-show and unused services | Present — full charge on no-show; no refund for unused services after the trip starts. |
+| Complaints window | Present — raise during travel; written claims within 15 days of tour end. |
+| Force majeure and liability | Present — summarised, attributed to the partner's terms. |
+| Final quotation and tour-specific terms | Deferred to the written quotation by design; stated on /policies and on every tour page. |
+| Owner/legal sign-off on the published partner-terms wording | **Required before launch** — the paraphrased terms preserve meaning but have not been legally reviewed. |
 
 ## Section D — Decisions required from the owner
 
@@ -1871,9 +1909,9 @@ absent or need legal sign-off.
 | 1 | Confirm the display currency (USD assumed) or choose another | The format is now unified via `formatUsd()` (§A6); the currency itself is still unconfirmed |
 | 2 | Supply copy for the 51 distinct attractions/activities with no approved text | 65 stops still render the generic sentence (§A3b). The 13 naming variants are already aliased (§A3a) |
 | 3 | Confirm the contact mailbox is live, then flip `EMAIL_PUBLISHED` to `true` | The address is suppressed site-wide until then (§A8) |
-| 4 | Substantiate or remove the rating and review-count values | Unsubstantiated data currently dead in source (§A5) |
+| 4 | ~~Substantiate or remove the rating and review-count values~~ — RESOLVED | Removed from the data model; no component can surface them (§A5) |
 | 5 | ~~Blog — publish real articles or hide the route~~ — RESOLVED | 5 articles published; route is public and in the sitemap (§A4) |
 | 6 | Approve the policy items in Section C | Acceptance criterion: owner signs off on policies |
-| 7 | Provide pickup/drop-off, accessibility, availability and accommodation level | Missing for all 34 tours (Section B) |
+| 7 | ~~Provide pickup/drop-off, accessibility, availability and accommodation level~~ — PARTIALLY RESOLVED | Sourced for 11 exact + 11 partial/category matches; 12 tours remain unmapped and need owner input or a partner data sheet (Section B) |
 | 8 | ~~Replace the White Desert placeholder and six remote Red Sea covers~~ — RESOLVED | Seven original destination-specific covers are now locally hosted and optimized (§B) |
 

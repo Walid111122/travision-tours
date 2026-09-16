@@ -13,15 +13,20 @@ from here to a public launch. Owner decisions are in
       the generic sentence on 65 stops.
 - [x] Replace the White Desert placeholder and six remote Red Sea covers with
       original, locally hosted destination-specific images.
-- [ ] Supply per-tour logistics (pickup/drop-off, accessibility, availability,
-      accommodation level, child policy) — see `CONTENT_GAPS.md`.
-- [ ] Substantiate or delete `rating`/`reviewsCount` data (never rendered).
+- [x] Supply per-tour logistics — sourced from Egypt Online Tour where a
+      reliable page exists (11 exact, 8 partial/category matches in
+      `src/tourPolicies.ts`); the 15 unmapped tours still need owner input
+      or a partner data sheet — see `CONTENT_GAPS.md`.
+- [x] Remove unsubstantiated `rating`/`reviewsCount` data — fields deleted
+      from the data model.
 - [ ] Review the five published blog articles (`/blog`) for voice and
       factual accuracy before launch.
-- [ ] Sign off on the policy items in `PHASE8_CONTENT_VALIDATION.md` §C
-      (lawful basis, retention, deletion rights, governing law).
+- [ ] Owner/legal sign-off on the `/policies` wording — the partner's
+      standard terms are paraphrased and attributed but not legally reviewed
+      (Section C items: business identity, lawful basis, retention,
+      governing law remain absent).
 - [ ] Confirm per-tour or final cancellation/refund terms (currently deferred
-      to the written quotation).
+      to the written quotation by design).
 
 ## 2. Domain and mail
 
