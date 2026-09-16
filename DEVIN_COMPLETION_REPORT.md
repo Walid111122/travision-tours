@@ -403,6 +403,11 @@ These remain open by design — no content was invented to close them. From
   9. `feat: local generated covers for all day tours and sitemap-aware SEO checks` (`5bb4bb8`, Codex image/SEO work preserved and committed separately)
  10. `docs: head-company source-evidence matrix for policy work` (`8d0ba6d`)
  11. Fourth-pass policy/content work: structured partner terms + logistics data, policy UI, tests, doc updates (this pass)
+ 12. `feat: add CMS schema, migrations, and content bootstrap` (`9295424`)
+ 13. `feat: add protected admin API and Access authorization` (`8af678c`)
+ 14. `feat: add tours and blog administration dashboard` (`d93e77f`)
+ 15. `test: secure admin and CMS publishing workflows` (`1f3166e`)
+ 16. `docs: admin operations, security, and publishing guides` (`bcb5c3d`)
 - `.dev.vars` was never read or modified (gitignored); no secrets were written
   anywhere in the repo. Turnstile/Access dev bypasses live only in `.dev.vars`
   and are not declared in `wrangler.jsonc`, so they cannot be deployed.
