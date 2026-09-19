@@ -27,4 +27,4 @@ export const DISPLAY_CURRENCY = 'USD';
  * once the owner confirms the mailbox is live; all seven sites restore at
  * once.
  */
-export const EMAIL_PUBLISHED = false;
+export const EMAIL_PUBLISHED = true;
