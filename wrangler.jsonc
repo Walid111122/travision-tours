@@ -5,10 +5,10 @@
   "compatibility_date": "2026-07-29",
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    // Production must override this with "production" (see the deployment
-    // notes). The Turnstile and Access development bypasses are NOT declared
+    // Production setting. The Turnstile and Access development bypasses are NOT
+    // declared
     // here — they live in the gitignored .dev.vars, so they cannot be deployed.
-    "ENVIRONMENT": "development",
+    "ENVIRONMENT": "production",
     "RATE_LIMIT_WINDOW_SECONDS": "600",
     "RATE_LIMIT_MAX_REQUESTS": "5"
   },
