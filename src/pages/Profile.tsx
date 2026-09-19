@@ -1,7 +1,6 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { 
-  User, Settings, Heart, Map, Trophy, 
+  User, Settings, Map, Trophy,
   Award, Shield, Bell, LogOut, ChevronRight,
   Sparkles, Zap
 } from 'lucide-react';
@@ -13,6 +12,7 @@ const Profile = () => {
       <SEO 
         title="Explorer Profile" 
         description="Manage your Egyptian journeys, saved itineraries, and historical achievements."
+        noIndex
       />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Sidebar / User Info */}

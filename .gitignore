@@ -2,7 +2,31 @@ node_modules/
 build/
 dist/
 coverage/
+test-results/
+playwright-report/
 .DS_Store
 *.log
+.wrangler/
 .env*
 !.env.example
+
+# Wrangler local secrets — never commit these.
+.dev.vars
+.dev.vars.*
+# …except the documented template (keys and comments only, no values).
+!.dev.vars.example
+
+# Full-resolution source photographs. These live outside the deployed asset
+# directory on purpose: only the optimized variants in public/ are shipped.
+# Regenerate them with `npm run optimize:images`.
+image-originals/
+
+# Scratch space used by local scripts.
+.tmp/
+
+# Intermediate bundle produced by the SSR build and consumed by the
+# prerenderer. Never deployed — Cloudflare serves ./dist.
+dist-ssr/
+
+# Per-run reconciliation artifact written by `npm run cms:seed`.
+CMS_SEED_REPORT.md

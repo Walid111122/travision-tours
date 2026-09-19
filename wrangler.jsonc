@@ -1,0 +1,71 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "travision-tours",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-07-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    // Production setting. The Turnstile and Access development bypasses are NOT
+    // declared
+    // here — they live in the gitignored .dev.vars, so they cannot be deployed.
+    "ENVIRONMENT": "production",
+    "RATE_LIMIT_WINDOW_SECONDS": "600",
+    "RATE_LIMIT_MAX_REQUESTS": "5"
+  },
+  "routes": [
+    {
+      "pattern": "travisiontours.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.travisiontours.com",
+      "custom_domain": true
+    }
+  ],
+  // Media-library uploads. Under `wrangler dev` this binding is emulated
+  // locally (no bucket is created); for production the bucket must be created
+  // during the domain phase — see ADMIN_DASHBOARD_GUIDE.md. The binding alone
+  // does not provision anything.
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "travision-tours-media"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "travision-tours-production",
+      "database_id": "27e014bf-6177-4e3b-8aae-136211376b49",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Every real route is prerendered to its own document, so an unknown path
+    // is genuinely missing rather than "the app shell, which will figure it
+    // out". Serving dist/404.html with a real 404 status is what removes the
+    // soft-404 problem. `single-page-application` returned index.html with
+    // status 200 for every typo, which search engines treat as a duplicate.
+    "not_found_handling": "404-page",
+    // Every route is prerendered as `<route>/index.html`, which Cloudflare's
+    // default `auto-trailing-slash` would redirect to `<route>/`. That would
+    // leave every canonical URL (which has no trailing slash) pointing at a
+    // redirect. `drop-trailing-slash` serves `/tours` from `tours/index.html`
+    // directly and redirects the slash form to it instead.
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  // Retries queued operator notifications and purges expired rate-limit rows.
+  "triggers": {
+    "crons": ["*/10 * * * *"]
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1
+    }
+  }
+}

@@ -1,53 +1,324 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
 import {
-  Calendar, MapPin, Clock, Users, Star,
-  ArrowLeft, Share2, Heart, Shield,
-  Info, ChevronRight, Play, CheckCircle2,
+  MapPin, Star,
+  ArrowLeft, Share2, Shield,
+  Info, ChevronRight, CheckCircle2,
   FileText, DollarSign, Image as ImageIcon, MessageCircle
 } from 'lucide-react';
 import { SAMPLE_TOURS } from '../constants';
 import { DAY_TOURS } from '../dayTours';
+import type { Tour } from '../types';
 import ItineraryAccordion from '../components/ItineraryAccordion';
+import ResponsiveImage from '../components/ResponsiveImage';
+import SEO from '../components/SEO';
+import NotFound from './NotFound';
+import TurnstileWidget, { isTurnstileEnabled } from '../components/TurnstileWidget';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EMAIL_PUBLISHED, PAYMENT_PARTNER_NAME, SITE_URL, absoluteUrl } from '../config/site';
+import { getActivitySummary, getDaySummary, getTourSummary } from '../utils/tourContent';
+import { ACCOMMODATION_PREFERENCES, CHILD_POLICY, getPackageAccommodation, getTourLogistics } from '../tourPolicies';
+import { formatUsd } from '../utils/money';
+import { createSubmissionKey, submitInquiry } from '../utils/inquiry';
+import { scrollToElement, scrollToTop } from '../utils/motion';
 
 // Combined catalog: packages + day tours. Day tours take precedence on id clash.
 const ALL_TOURS = [...SAMPLE_TOURS, ...DAY_TOURS];
+
+/**
+ * JSON-LD for a tour page. Kept as a pure exported function so tests can assert
+ * it never emits prices, ratings, reviews, or offers — Travision has no
+ * substantiated review data and collects no payment, so none of those claims
+ * may appear in structured data.
+ */
+export function tourStructuredData(tour: Tour, tourSummary: string, images: string[]): Record<string, unknown>[] {
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'TouristTrip',
+      '@id': `${SITE_URL}/tours/${tour.id}#tour`,
+      name: tour.title,
+      description: tourSummary,
+      image: images.map(absoluteUrl),
+      touristType: 'Private and tailor-made travel',
+      provider: {
+        '@type': 'TravelAgency',
+        name: 'Travision Tours'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: SITE_URL
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Egypt Tours',
+          item: `${SITE_URL}/tours`
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: tour.title,
+          item: `${SITE_URL}/tours/${tour.id}`
+        }
+      ]
+    }
+  ];
+}
+
 const TourDetails = () => {
   const { id } = useParams();
   const tour = ALL_TOURS.find(t => t.id === id);
+  const tourSummary = tour ? getTourSummary(tour) : '';
+  const logistics = tour ? getTourLogistics(tour.id) : undefined;
+  const accommodation = tour ? getPackageAccommodation(tour.id) : undefined;
+  const safeGallery = tour?.gallery ?? [];
+  const displayImages = tour
+    ? [tour.image, ...safeGallery.filter(image => image !== tour.image)]
+    : [];
   const [activeTab, setActiveTab] = useState<string>('itinerary');
+  const [requestState, setRequestState] = useState<{
+    status: 'idle' | 'submitting' | 'success' | 'error';
+    message?: string;
+    reference?: string;
+    /** `notice` renders a plain message instead of the inquiry confirmation. */
+    kind?: 'inquiry' | 'notice';
+  }>({ status: 'idle' });
+  const [arrivalDate, setArrivalDate] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [childrenCount, setChildrenCount] = useState('0');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileReset, setTurnstileReset] = useState(0);
+
+  /**
+   * One submission key per intentional inquiry. It is kept across failures so a
+   * retry replays the original booking, and only replaced after a success.
+   */
+  const submissionKeyRef = useRef(createSubmissionKey());
+
+  /** The form-level error summary, focused when the server rejects a request. */
+  const bookingErrorRef = useRef<HTMLParagraphElement>(null);
+
+  /**
+   * A rejection is reported as one message rather than per field, so it is
+   * presented as an error summary and focused. `role="alert"` announces it; the
+   * focus move also guarantees the visitor lands on it rather than being left to
+   * hunt for what changed.
+   */
+  useEffect(() => {
+    if (requestState.status === 'error') bookingErrorRef.current?.focus();
+  }, [requestState.status]);
+
+  const today = React.useMemo(() => {
+    const localDate = new Date();
+    localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
+    return localDate.toISOString().slice(0, 10);
+  }, []);
 
   const relatedTours = React.useMemo(() => {
-    return ALL_TOURS
-      .filter(t => t.id !== tour?.id)
-      .slice(0, 3);
-  }, [tour?.id]);
+    if (!tour) return [];
+
+    const locations = tour.location
+      .toLowerCase()
+      .split(',')
+      .map(location => location.trim())
+      .filter(Boolean);
+
+    const rankedTours = ALL_TOURS
+      .filter(candidate => candidate.id !== tour.id)
+      .map((candidate, index) => {
+        const candidateLocation = candidate.location.toLowerCase();
+        const sharedLocations = locations.filter(location => candidateLocation.includes(location)).length;
+        const score = sharedLocations * 4
+          + (candidate.category === tour.category ? 2 : 0)
+          + (candidate.duration === tour.duration ? 1 : 0);
+
+        return { candidate, index, score };
+      })
+      .sort((a, b) => b.score - a.score || a.index - b.index);
+
+    const uniqueImages = new Set<string>();
+    const selected = rankedTours.filter(({ candidate }) => {
+      if (uniqueImages.has(candidate.image)) return false;
+      uniqueImages.add(candidate.image);
+      return true;
+    });
+
+    return selected.slice(0, 3).map(({ candidate }) => candidate);
+  }, [tour]);
 
   const tourItinerary = React.useMemo(() => {
-    if (tour?.itinerary && tour.itinerary.length > 0) return tour.itinerary;
+    if (tour?.itinerary && tour.itinerary.length > 0) {
+      return tour.itinerary.map(day => ({
+        ...day,
+        description: getDaySummary(day.title || `Day ${day.day}`, tour.title),
+        activities: (day.activities ?? []).map(activity => ({
+          ...activity,
+          description: getActivitySummary(activity.title)
+        }))
+      }));
+    }
     if (!tour) return [];
     
     return [
       {
         day: 1,
         title: `Full Day Experience: ${tour.title}`,
-        description: tour.description,
+        description: tourSummary,
         activities: (tour.highlights || []).map((highlight) => ({
           title: highlight,
-          description: `Guided exploration and detailed sightseeing of the iconic ${highlight} with your private Egyptologist.`,
+          description: getActivitySummary(highlight),
           icon: 'tour' as const
         })),
-        meals: 'Bottled Water',
-        overnight: 'Return to Hotel'
+        meals: 'As stated in the final quotation',
+        overnight: 'Return arrangements to be confirmed'
       }
     ];
-  }, [tour]);
+  }, [tour, tourSummary]);
 
-  if (!tour) return <div className="pt-40 text-center text-white">Journey not found.</div>;
+  const handleBookingRequest = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!tour) return;
+    // Guards against a double submit that slipped past the disabled button.
+    if (requestState.status === 'submitting') return;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const adults = Number(data.get('adults'));
+    const children = Number(data.get('children'));
+    setRequestState({ status: 'submitting' });
+
+    const outcome = await submitInquiry(
+      {
+        tourId: tour.id,
+        name: data.get('name'),
+        email: data.get('email'),
+        phone: data.get('phone'),
+        country: data.get('country'),
+        preferredDate: data.get('date'),
+        departureDate: data.get('departureDate'),
+        travelers: adults + children,
+        adults,
+        children,
+        childAges: data.get('childAges'),
+        accommodationPreference: data.get('accommodationPreference'),
+        contactPreference: data.get('contactPreference'),
+        budgetRange: data.get('budgetRange'),
+        referralSource: data.get('referralSource'),
+        requirements: data.get('requirements'),
+        companyWebsite: data.get('companyWebsite'),
+        turnstileToken: turnstileToken || undefined,
+        partnerPaymentAcknowledged: data.get('partnerPaymentAcknowledged') === 'on'
+      },
+      submissionKeyRef.current
+    );
+
+    if (!outcome.ok) {
+      // The submission key is intentionally kept so a retry is idempotent.
+      setRequestState({ status: 'error', message: outcome.message });
+      return;
+    }
+
+    form.reset();
+    setArrivalDate('');
+    setDepartureDate('');
+    setChildrenCount('0');
+    // Only now is a fresh key issued: the next inquiry is a new submission.
+    submissionKeyRef.current = createSubmissionKey();
+    if (isTurnstileEnabled) setTurnstileReset(value => value + 1);
+    setTurnstileToken('');
+    setRequestState({
+      status: 'success',
+      message: outcome.message,
+      reference: outcome.reference
+    });
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: tour?.title || 'Travision Tours',
+      text: tour ? `Take a look at ${tour.title} from Travision Tours.` : 'Explore Travision Tours.',
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    await navigator.clipboard.writeText(window.location.href);
+    setRequestState({
+      status: 'success',
+      message: 'Tour link copied to your clipboard.',
+      kind: 'notice'
+    });
+  };
+
+  const tourFaqs = [
+    {
+      question: 'Is submitting this form a confirmed booking?',
+      answer: 'No. It is a request for availability and a quotation. You receive a personalized written quotation and policy PDF before any payment, and your reservation is confirmed only after you accept it, complete payment, and receive written confirmation.'
+    },
+    {
+      question: 'How do I pay for this tour?',
+      answer: `No payment is taken through this website. Your quotation confirms the accepted payment methods, then ${PAYMENT_PARTNER_NAME}, our travel and payment partner, provides a secure Visa, Mastercard, or Apple Pay checkout link, or official wire-transfer instructions. Payment is made directly to the partner, not to Travision Tours.`
+    },
+    {
+      question: 'Can this itinerary be customized?',
+      answer: 'Yes. Tell us your preferred pace, interests, accommodation needs, and any places you would like to add or remove when submitting your request.'
+    },
+    {
+      question: 'What should I check before traveling to Egypt?',
+      answer: 'Check current passport, visa, health, insurance, and entry requirements with official authorities before departure because requirements depend on nationality and can change.'
+    }
+  ];
+
+  /**
+   * An unknown tour must render the same not-found page the host serves for it.
+   *
+   * `/tours/<anything>` matches the `/tours/:id` route, so the client resolves
+   * *this* component for a typo while Cloudflare answers with `404.html` — which
+   * the prerenderer produced from the `NotFound` component. Returning a bare
+   * paragraph here made the two disagree: React reported a hydration failure
+   * (minified error #418), discarded the server markup, and client-rendered a
+   * single unstyled line with no heading and no way back to the catalogue.
+   *
+   * Rendering `NotFound` keeps the client output identical to the served
+   * document, so hydration succeeds and the visitor gets the real 404 page.
+   */
+  if (!tour) return <NotFound />;
 
   return (
     <div className="bg-egypt-night min-h-screen">
+      <SEO
+        title={`${tour.title} – Request a Quote`}
+        description={tourSummary.slice(0, 155)}
+        canonical={`/tours/${tour.id}`}
+        type="website"
+        image={tour.image}
+        imageAlt={`${tour.title} in ${tour.location}, Egypt`}
+        structuredData={[
+          ...tourStructuredData(tour, tourSummary, displayImages),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: tourFaqs.map(item => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer
+              }
+            }))
+          }
+        ]}
+      />
       <div className="pt-32 pb-8 px-6 max-w-[1400px] mx-auto">
         <Link to="/tours" className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-xs uppercase tracking-[2px] font-bold mb-6">
           <ArrowLeft size={16} />
@@ -61,38 +332,41 @@ const TourDetails = () => {
 
           <div className="flex flex-wrap gap-3">
             <div className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold">
-              From: {tour.price} $
+              Estimate from: {formatUsd(tour.price)}
             </div>
-            <button className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-[#1f4a6b] transition-colors">
+            <button type="button" onClick={handleShare} className="bg-[#24587c] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-[#1f4a6b] transition-colors">
               Send To a Friend
             </button>
-            <button className="bg-[#1f4a6b] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-blue-900 transition-colors">
+            <button type="button" onClick={() => scrollToElement(document.getElementById('booking-form'))} className="bg-[#1f4a6b] text-white px-5 py-3 rounded text-[13px] font-bold hover:bg-blue-900 transition-colors">
               Send an Inquiry
             </button>
           </div>
         </div>
 
         {/* Hero Photo Banner */}
-        <div className="w-full h-[200px] md:h-[120px] lg:h-[150px] relative rounded-lg overflow-hidden border border-[#c63d2e]/40 shadow-[0_0_15px_rgba(198,61,46,0.2)]">
-          <img
+        <div className="group relative min-h-[380px] overflow-hidden rounded-2xl border border-[#c63d2e]/40 bg-black shadow-[0_18px_55px_rgba(0,0,0,0.35)] md:min-h-[420px]">
+          <ResponsiveImage
             src={tour.image}
-            alt={tour.title}
-            className="w-full h-full object-cover"
+            alt={`${tour.title} in ${tour.location}`}
+            sizes="100vw"
+            priority
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1600ms] ease-out group-hover:scale-[1.025]"
           />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-between px-8">
-            <div className="text-center font-serif">
-              <p className="text-white text-lg lg:text-3xl italic">Awards &</p>
-              <p className="text-white text-lg lg:text-3xl italic font-bold">Recognitions</p>
-            </div>
-            <div className="flex items-center gap-6">
-              {/* Simulated badges */}
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-egypt-gold/80 rounded-full border-2 border-white flex items-center justify-center transform -rotate-12 shadow-xl">
-                <Star size={24} className="text-white" />
-              </div>
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-[#c63d2e]/90 rounded-full border-2 border-white flex flex-col items-center justify-center shadow-xl">
-                <span className="text-[10px] font-bold uppercase text-white leading-tight">ISO</span>
-                <span className="text-[10px] text-white">Certified</span>
-              </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-black/10" />
+          <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-black/35 px-6 py-6 backdrop-blur-[3px] md:px-8 md:py-7">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-5 md:grid-cols-4 md:gap-8">
+              {[
+                { label: 'Duration', value: tour.duration },
+                { label: 'Destination', value: tour.location },
+                { label: 'Tour style', value: tour.category },
+                { label: 'Availability', value: logistics?.availability ?? 'On request' }
+              ].map(fact => (
+                <div key={fact.label}>
+                  <p className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.22em] text-egypt-gold md:text-[10px]">{fact.label}</p>
+                  <p className="font-serif text-sm capitalize text-white drop-shadow-md md:text-lg">{fact.value}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -104,14 +378,20 @@ const TourDetails = () => {
         {/* Left Navigation Sidebar */}
         <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-32 h-fit z-20">
           <div className="bg-[#1f4a6b] rounded-md overflow-hidden flex flex-col shadow-lg shadow-black/20">
+            {/* In-page section navigation. `aria-current` tells a screen-reader
+                user which section the page is showing, which the colour change
+                conveys visually. */}
+            <nav aria-label="Tour sections">
             {[
               { id: 'overview', label: 'Tour Details', icon: <FileText size={18} /> },
+              { id: 'logistics', label: 'Pickup & Logistics', icon: <MapPin size={18} /> },
               { id: 'inclusions', label: 'Inclusions/Exclusions', icon: <CheckCircle2 size={18} /> },
               { id: 'highlights', label: 'Tour Highlights', icon: <Star size={18} /> },
               { id: 'itinerary', label: 'Itinerary', icon: <MapPin size={18} /> },
-              { id: 'prices', label: 'Tour Prices', icon: <DollarSign size={18} /> },
+              { id: 'prices', label: 'Price & Quote', icon: <DollarSign size={18} /> },
               { id: 'virtual', label: 'Gallery', icon: <ImageIcon size={18} /> },
-              { id: 'reviews', label: 'Tour Reviews', icon: <Star size={18} /> },
+              { id: 'booking', label: 'How Booking Works', icon: <Shield size={18} /> },
+              { id: 'faq', label: 'Good to Know', icon: <Info size={18} /> },
               { id: 'map', label: 'Tour Map', icon: <MapPin size={18} /> },
               { id: 'info', label: 'Essential Trip Information', icon: <FileText size={18} /> },
               { id: 'related', label: 'Related Tours', icon: <Share2 size={18} /> },
@@ -119,49 +399,53 @@ const TourDetails = () => {
             ].map((tab) => (
               <button
                 key={tab.id}
+                type="button"
+                aria-current={activeTab === tab.id ? 'true' : undefined}
                 onClick={() => {
-                  const el = document.getElementById(tab.id);
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 100;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                  setActiveTab(tab.id as any);
+                  scrollToElement(document.getElementById(tab.id), 100);
+                  setActiveTab(tab.id);
                 }}
                 className={`w-full flex items-center gap-3 px-5 py-4 text-[13px] font-bold transition-all border-b border-white/10 last:border-0 ${activeTab === tab.id ? 'bg-[#c63d2e] text-white' : 'text-white hover:bg-white/10'
                   }`}
               >
-                <div className="text-white/80">{tab.icon}</div>
+                <div className="text-white/80" aria-hidden="true">{tab.icon}</div>
                 <span className="tracking-wide">{tab.label}</span>
               </button>
             ))}
+            </nav>
 
             <div className="p-4 space-y-3 mt-4">
               <button
+                type="button"
                 className="w-full bg-[#c63d2e] text-white py-3 rounded text-[13px] font-bold tracking-wide hover:bg-red-800 transition-colors"
-                onClick={() => {
-                  const el = document.getElementById('booking-form');
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 100;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }}
+                onClick={() => scrollToElement(document.getElementById('booking-form'), 100)}
               >
                 Send A Request For This Tour
               </button>
 
               <div className="flex gap-2">
-                <button className="flex-shrink-0 bg-[#166ba1] text-white px-4 py-3 rounded flex items-center justify-center gap-2 font-bold text-[13px] hover:bg-blue-800 transition-colors">
+                <Link
+                  to="/contact"
+                  className="flex-shrink-0 bg-[#166ba1] text-white px-4 py-3 rounded flex items-center justify-center gap-2 font-bold text-[13px] hover:bg-blue-800 transition-colors"
+                >
                   <div className="border border-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</div>
                   Help
-                </button>
-                <button className="flex-grow bg-[#c63d2e] text-white py-3 rounded font-bold text-[13px] tracking-wide hover:bg-red-800 transition-colors">
+                </Link>
+                <a
+                  href={`https://wa.me/${CONTACT_PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello, I am interested in ${tour.title}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-grow bg-[#c63d2e] text-white py-3 rounded font-bold text-[13px] tracking-wide hover:bg-red-800 transition-colors text-center"
+                >
                   Click to Whatsapp
-                </button>
+                </a>
               </div>
 
-              <p className="text-center text-[11px] font-bold text-white pt-2">
-                Or email: info@travisiontours.com
-              </p>
+              {EMAIL_PUBLISHED && (
+                <p className="text-center text-[11px] font-bold text-white pt-2">
+                  Or email: {CONTACT_EMAIL}
+                </p>
+              )}
             </div>
           </div>
         </aside>
@@ -172,48 +456,174 @@ const TourDetails = () => {
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-egypt-gold via-white to-egypt-gold"></div>
 
             <div className="mb-6">
-              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">Starting from</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-1">Indicative estimate from</p>
               <div className="flex items-end gap-2">
-                <span className="text-[40px] font-serif leading-none text-egypt-gold">${tour.price}</span>
-                <span className="text-xs text-white/40 uppercase tracking-widest pb-1 mb-1 border-b border-white/10">Per Person</span>
+                <span className="text-[40px] font-serif leading-none text-egypt-gold">{formatUsd(tour.price)}</span>
+                <span className="text-xs text-white/60 uppercase tracking-widest pb-1 mb-1 border-b border-white/10">Per person</span>
               </div>
             </div>
+            <p className="mb-5 text-[11px] leading-relaxed text-white/50">
+              This amount is for early planning only. Dates, group size, accommodation, transport, admissions, and supplier availability determine the written quotation.
+            </p>
 
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Full Name</label>
-                <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="John Doe" />
+            <form className="space-y-4" onSubmit={handleBookingRequest}>
+              <div hidden aria-hidden="true">
+                <label htmlFor="companyWebsite">Company website</label>
+                <input id="companyWebsite" name="companyWebsite" type="text" tabIndex={-1} autoComplete="off" />
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Email Address</label>
-                <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="john@example.com" />
+                <label htmlFor="inquiry-name" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Full Name</label>
+                <input id="inquiry-name" required name="name" autoComplete="name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="John Doe" />
+              </div>
+              <div>
+                <label htmlFor="inquiry-email" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Email Address</label>
+                <input id="inquiry-email" required name="email" autoComplete="email" type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="john@example.com" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Date</label>
-                  <input type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                  <label htmlFor="inquiry-phone" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Phone</label>
+                  <input id="inquiry-phone" required name="phone" autoComplete="tel" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Phone / WhatsApp" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Travelers</label>
-                  <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white appearance-none">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map(n => <option key={n} value={n} className="bg-egypt-night text-white">{n} {n === 1 ? 'Person' : 'People'}</option>)}
+                  <label htmlFor="inquiry-country" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Country</label>
+                  <input id="inquiry-country" name="country" autoComplete="country-name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Country" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="inquiry-arrival" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Arrival Date</label>
+                  <input id="inquiry-arrival" required name="date" min={today} value={arrivalDate} onInput={(event) => {
+                    const nextArrival = event.currentTarget.value;
+                    setArrivalDate(nextArrival);
+                    if (departureDate && departureDate < nextArrival) setDepartureDate('');
+                  }} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+                <div>
+                  <label htmlFor="inquiry-departure" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Departure Date</label>
+                  <input id="inquiry-departure" name="departureDate" min={arrivalDate || today} value={departureDate} onInput={(event) => setDepartureDate(event.currentTarget.value)} type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="inquiry-adults" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Adults (12+)</label>
+                  <input id="inquiry-adults" required name="adults" min="1" max="50" defaultValue="1" type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+                <div>
+                  <label htmlFor="inquiry-children" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children (1–11)</label>
+                  <input id="inquiry-children" required name="children" min="0" max="20" value={childrenCount} onChange={(event) => setChildrenCount(event.target.value)} type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="inquiry-child-ages" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Children’s Ages (if applicable)</label>
+                <input id="inquiry-child-ages" name="childAges" required={Number(childrenCount) > 0} aria-describedby="child-ages-help" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white" placeholder="Example: 6, 10" />
+                <p id="child-ages-help" className="mt-1 text-[10px] leading-relaxed text-white/60">
+                  {Number(childrenCount) > 0 ? 'Required for each child in this inquiry.' : 'Leave blank when no children are traveling.'}{' '}
+                  {CHILD_POLICY.pricingNote}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="inquiry-accommodation" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Accommodation</label>
+                  <select id="inquiry-accommodation" name="accommodationPreference" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="">No preference</option>
+                    {ACCOMMODATION_PREFERENCES.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="inquiry-contact" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Preferred Contact</label>
+                  <select id="inquiry-contact" name="contactPreference" defaultValue="whatsapp" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone call</option>
+                  </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="inquiry-budget" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Budget Range</label>
+                  <select id="inquiry-budget" name="budgetRange" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="">Not decided</option>
+                    <option value="under-1000">Under US$1,000 / person</option>
+                    <option value="1000-2000">US$1,000–2,000 / person</option>
+                    <option value="2000-4000">US$2,000–4,000 / person</option>
+                    <option value="4000-plus">US$4,000+ / person</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="inquiry-referral" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">How You Found Us</label>
+                  <select id="inquiry-referral" name="referralSource" defaultValue="" className="w-full bg-egypt-night border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold text-white">
+                    <option value="">Prefer not to say</option>
+                    <option value="google">Google</option>
+                    <option value="social">Social media</option>
+                    <option value="friend">Friend or family</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Special Requirements</label>
-                <textarea className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white h-24 resize-none" placeholder="Any special requests?"></textarea>
+                <label htmlFor="inquiry-requirements" className="block text-[10px] uppercase tracking-widest text-white/60 mb-2">Special Requirements</label>
+                <textarea id="inquiry-requirements" name="requirements" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-egypt-gold transition-colors text-white h-24 resize-none" placeholder="Any special requests?"></textarea>
               </div>
+              <label className="flex items-start gap-3 text-[11px] leading-relaxed text-white/60">
+                <input id="inquiry-payment-acknowledgement" required name="partnerPaymentAcknowledged" type="checkbox" className="mt-1 accent-egypt-gold" />
+                <span>
+                  I understand this is a booking request, not a confirmed reservation. Before any payment, I will receive a personalized written quotation and policy PDF showing the total price, accommodation, child rules, and cancellation terms that apply to my reservation. If I accept them, payment will be made directly to {PAYMENT_PARTNER_NAME} by the method stated in the quotation. I have read the{' '}
+                  {/* Underlined so the link is distinguishable without relying on colour alone. */}
+                  <Link to="/policies" className="text-egypt-gold underline underline-offset-2 hover:text-white">privacy, booking, and payment policies</Link>.
+                </span>
+              </label>
 
-              <button type="submit" className="w-full bg-egypt-gold text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
-                <span>Send Request</span>
+              <TurnstileWidget onToken={setTurnstileToken} resetSignal={turnstileReset} className="flex justify-center" />
+
+              <button disabled={requestState.status === 'submitting'} aria-busy={requestState.status === 'submitting'} type="submit" className="w-full bg-egypt-gold disabled:opacity-50 disabled:cursor-wait text-egypt-night mt-4 py-4 rounded-xl font-black uppercase tracking-[2px] text-xs hover:bg-white transition-all shadow-xl shadow-egypt-gold/20 flex items-center justify-center gap-2">
+                <span>{requestState.status === 'submitting' ? 'Sending…' : 'Send Request'}</span>
                 <ChevronRight size={16} />
               </button>
+              {requestState.status === 'success' && requestState.kind === 'notice' && (
+                <p role="status" className="text-xs text-emerald-400 text-center leading-relaxed">
+                  {requestState.message}
+                </p>
+              )}
+              {requestState.status === 'success' && requestState.kind !== 'notice' && (
+                <div role="status" className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-[11px] leading-relaxed text-emerald-100 space-y-2">
+                  <p className="font-bold text-emerald-300">
+                    This is a request, not a confirmed reservation.
+                  </p>
+                  {requestState.reference && (
+                    <p>
+                      Your booking reference:{' '}
+                      <span className="font-mono font-bold text-white">{requestState.reference}</span>
+                    </p>
+                  )}
+                  <p>
+                    Travision Tours or {PAYMENT_PARTNER_NAME} will follow up with a personalized
+                    written quotation and policy PDF before any payment is due.
+                  </p>
+                  <p>
+                    If you accept the quotation, payment instructions arrive separately, and payment
+                    is made directly to {PAYMENT_PARTNER_NAME}. Written confirmation follows once the
+                    partner verifies payment.
+                  </p>
+                </div>
+              )}
+              {requestState.status === 'error' && (
+                <p
+                  ref={bookingErrorRef}
+                  id="booking-request-error"
+                  role="alert"
+                  tabIndex={-1}
+                  className="text-xs text-red-400 text-center leading-relaxed"
+                >
+                  {requestState.message}
+                </p>
+              )}
             </form>
 
-            <p className="text-center text-[10px] text-white/40 mt-6 flex items-center justify-center gap-2">
+            <p className="text-center text-[10px] text-white/60 mt-6 flex items-center justify-center gap-2">
               <Shield size={12} className="text-emerald-500" />
-              No hidden costs. Secure payment.
+              This website does not collect payment or card details.
             </p>
           </div>
 
@@ -221,13 +631,15 @@ const TourDetails = () => {
             <h4 className="text-xs uppercase tracking-[2px] font-black mb-6 text-egypt-gold/70">Need Help?</h4>
             <div className="space-y-4 text-sm font-light text-egypt-papyrus/70">
               <p>Speak to our specialists to customize this tour to your exact needs.</p>
-              <div className="pt-4 border-t border-white/5">
-                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Email Us</p>
-                <a href="mailto:info@travisiontours.com" className="text-egypt-gold hover:text-white transition-colors">info@travisiontours.com</a>
-              </div>
+              {EMAIL_PUBLISHED && (
+                <div className="pt-4 border-t border-white/5">
+                  <p className="text-[10px] uppercase tracking-widest text-white/60 mb-1">Email Us</p>
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="text-egypt-gold hover:text-white transition-colors">{CONTACT_EMAIL}</a>
+                </div>
+              )}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Call Us</p>
-                <a href="tel:+20123456789" className="text-egypt-gold hover:text-white transition-colors">+20 12 345 6789</a>
+                <p className="text-[10px] uppercase tracking-widest text-white/60 mb-1">Call Us</p>
+                <a href={`tel:${CONTACT_PHONE}`} className="text-egypt-gold hover:text-white transition-colors">{CONTACT_PHONE_DISPLAY}</a>
               </div>
             </div>
           </div>
@@ -242,22 +654,100 @@ const TourDetails = () => {
             <div id="overview" className="space-y-6 scroll-mt-32">
               <h2 className="text-3xl font-serif mb-8 uppercase tracking-tight">The <span className="text-egypt-gold italic">Essence</span> of the Journey</h2>
               <p className="text-xl text-egypt-papyrus/70 leading-relaxed font-light first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:leading-none">
-                {tour.description}
+                {tourSummary}
               </p>
             </div>
+
+            {/* Pickup & Logistics Section */}
+            <div id="logistics" className="space-y-6 scroll-mt-32 pt-8 border-t border-white/10">
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Pickup & Logistics</h3>
+              {logistics ? (
+                <div className="space-y-6">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                      logistics.pickup && { label: 'Pickup & drop-off', value: logistics.pickup },
+                      logistics.availability && { label: 'Availability', value: logistics.availability },
+                      logistics.durationNote && { label: 'Timing', value: logistics.durationNote },
+                      logistics.basis && { label: 'Tour basis', value: logistics.basis === 'private' ? 'Private' : 'Shared' },
+                      logistics.transport && { label: 'Transport', value: logistics.transport },
+                      logistics.guide && { label: 'Guide', value: logistics.guide }
+                    ].filter((fact): fact is { label: string; value: string } => Boolean(fact)).map(fact => (
+                      <li key={fact.label} className="bg-white/5 p-4 rounded-2xl border border-white/5">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-egypt-gold">{fact.label}</p>
+                        <p className="mt-2 text-sm font-light leading-relaxed text-egypt-papyrus/80">{fact.value}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  {(logistics.notes?.length || logistics.childNote) && (
+                    <ul className="space-y-2">
+                      {[...(logistics.notes ?? []), ...(logistics.childNote ? [logistics.childNote] : [])].map(note => (
+                        <li key={note} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/70">
+                          <Info size={15} className="text-egypt-gold mt-0.5 shrink-0" />
+                          <span>{note}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {logistics.match !== 'exact' && (
+                    <p className="text-[11px] leading-relaxed text-white/50">
+                      These details reflect the operating partner&apos;s standard arrangements for
+                      comparable tours. The confirmed pickup point, timing, and inclusions for this
+                      exact itinerary are stated in your written quotation.
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-sm font-light leading-relaxed text-egypt-papyrus/70">
+                  Pickup point, timing, operating days, transport, and guide arrangements for this
+                  itinerary are confirmed in your written quotation. Tell us your hotel or cruise
+                  and any mobility, dietary, or accessibility needs when you inquire.
+                </p>
+              )}
+              <p className="text-[11px] leading-relaxed text-white/50">
+                Final tour-specific cancellation, refund, accommodation, and operational conditions
+                are supplied in the personalized written quotation and policy PDF before payment.
+              </p>
+            </div>
+
+            {/* Accommodation Section (packages with sourced details) */}
+            {accommodation && (
+              <div id="accommodation" className="space-y-6 scroll-mt-32 pt-8 border-t border-white/10">
+                <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Accommodation</h3>
+                <p className="text-sm font-light leading-relaxed text-egypt-papyrus/70">
+                  {accommodation.summary}
+                </p>
+                <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {accommodation.nights.map(stay => (
+                    <li key={stay.place} className="bg-white/5 p-4 rounded-2xl border border-white/5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-egypt-gold">
+                        {stay.nights} {stay.nights === 1 ? 'night' : 'nights'} — {stay.place}
+                      </p>
+                      <p className="mt-2 text-sm font-light leading-relaxed text-egypt-papyrus/80">{stay.style}</p>
+                    </li>
+                  ))}
+                </ul>
+                {accommodation.notes?.length ? (
+                  <ul className="space-y-2">
+                    {accommodation.notes.map(note => (
+                      <li key={note} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/70">
+                        <Info size={15} className="text-egypt-gold mt-0.5 shrink-0" />
+                        <span>{note}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            )}
 
             {/* Inclusions Section */}
             <div id="inclusions" className="grid grid-cols-1 md:grid-cols-2 gap-10 scroll-mt-32 pt-8 border-t border-white/10">
               <div className="space-y-6">
                 <h3 className="text-2xl font-serif text-white uppercase tracking-widest pl-4 border-l-2 border-emerald-500">Inclusions</h3>
                 <ul className="space-y-3">
-                  {(tour.inclusions || [
-                    'Pick up services from your hotel & return',
-                    'All transfers by a private air-conditioned vehicle',
-                    'Private English-speaking Egyptologist guide',
-                    'Entrance fees to all the mentioned sites',
-                    'Bottled water on board the vehicle during the tour',
-                    'All taxes & service charge'
+                  {(logistics?.inclusions ?? tour.inclusions ?? [
+                    'Services itemized as included in your written quotation.',
+                    'Transport, meals, guides, and admission tickets only when specifically listed.',
+                    'Applicable taxes or service charges only when stated in the accepted quotation.'
                   ]).map((inc, idx) => (
                     <li key={idx} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/70">
                       <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
@@ -269,11 +759,10 @@ const TourDetails = () => {
               <div className="space-y-6">
                 <h3 className="text-2xl font-serif text-white uppercase tracking-widest pl-4 border-l-2 border-egypt-red">Exclusions</h3>
                 <ul className="space-y-3">
-                  {(tour.exclusions || [
-                    'Any extras not mentioned in the itinerary',
-                    'Tipping (recommended but not mandatory)',
-                    'Entrance inside the Pyramids (optional)',
-                    'Personal expenses'
+                  {(logistics?.exclusions ?? tour.exclusions ?? [
+                    'International flights, visas, travel insurance, and personal expenses unless specifically listed.',
+                    'Optional activities, gratuities, and services not identified as included.',
+                    'Payment-provider, bank, or currency-conversion charges unless specifically included.'
                   ]).map((exc, idx) => (
                     <li key={idx} className="flex gap-3 items-start text-sm font-light text-egypt-papyrus/60">
                       <Shield size={16} className="text-egypt-red mt-0.5 shrink-0" />
@@ -289,12 +778,9 @@ const TourDetails = () => {
               <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Tour Highlights</h3>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {(tour.highlights || [
-                  'Private guided tour for a personalized experience',
-                  'Visit the iconic Pyramids of Giza and the Sphinx',
-                  'Explore the ancient artifacts at the Egyptian Museum',
-                  'Comfortable transportation in an air-conditioned vehicle',
-                  'Entrance fees to the main historical sites included',
-                  'Free bottled water during the tour'
+                  `Planned sightseeing in ${tour.location}`,
+                  'Itinerary timing adapted to current site access',
+                  'Options confirmed in the written quotation'
                 ]).map((highlight, idx) => (
                   <li key={idx} className="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/5">
                     <Star size={16} className="text-egypt-gold mt-1 shrink-0" />
@@ -326,86 +812,60 @@ const TourDetails = () => {
 
             {/* Prices Section */}
             <div id="prices" className="space-y-12 scroll-mt-32 pt-8 border-t border-white/10">
-              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Tour Prices</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-white/20">
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Season</th>
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Price Per Person (1)</th>
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Price Per Person (2-3)</th>
-                      <th className="py-4 px-6 text-xs uppercase tracking-widest text-egypt-gold">Price Per Person (4-6)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-white/5 bg-white/5">
-                      <td className="py-4 px-6 text-sm text-egypt-papyrus">Summer (May - Sep)</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price + 50}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${Math.round(tour.price * 0.85)}</td>
-                    </tr>
-                    <tr className="border-b border-white/5">
-                      <td className="py-4 px-6 text-sm text-egypt-papyrus">Winter (Oct - Apr)</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price + 80}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${tour.price + 20}</td>
-                      <td className="py-4 px-6 text-sm font-bold">${Math.round(tour.price * 0.9)}</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Price & Quotation</h3>
+              <div className="glass rounded-[30px] border border-egypt-gold/20 p-8 md:p-10 grid md:grid-cols-[0.8fr_1.2fr] gap-8 items-center">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/60 mb-2">Indicative starting price</p>
+                  <p className="text-5xl font-serif text-egypt-gold">{formatUsd(tour.price)}</p>
+                  <p className="text-xs text-white/60 mt-2">per person, subject to your final quotation</p>
+                </div>
+                <div className="space-y-4 text-sm text-egypt-papyrus/70 leading-relaxed">
+                  <p>Your final price depends on travel dates, group size, accommodation, requested changes, and supplier availability.</p>
+                  <p>Submit an inquiry for a written itinerary and itemized quotation. No payment is requested through this website.</p>
+                  <button type="button" onClick={() => scrollToElement(document.getElementById('booking-form'))} className="bg-egypt-gold text-egypt-night px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest font-black">
+                    Request your quotation
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Reviews Section */}
-            <div id="reviews" className="space-y-10 scroll-mt-32 pt-8 border-t border-white/10">
-              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Tour Reviews</h3>
-              <div className="flex flex-col md:flex-row gap-10 items-start">
-                <div className="text-center p-8 glass rounded-[30px] border border-white/10 shrink-0 w-full md:w-48">
-                  <div className="text-5xl font-serif mb-2">{tour.rating}</div>
-                  <div className="flex justify-center gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-egypt-gold fill-egypt-gold" />)}
+            {/* Booking Process */}
+            <div id="booking" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">How Booking Works</h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {[
+                  ['01', 'Send your request', 'Share your dates, group size, and preferences.'],
+                  ['02', 'Review your quote', 'We send a personalized quotation and policy PDF before any payment.'],
+                  ['03', 'Pay our travel partner', 'Use the secure card or Apple Pay link, or official wire instructions sent privately.'],
+                  ['04', 'Receive confirmation', 'Your booking is confirmed in writing after the partner verifies payment.']
+                ].map(([number, title, description]) => (
+                  <div key={number} className="glass rounded-2xl border border-white/5 p-6">
+                    <span className="text-3xl font-serif text-egypt-gold/75">{number}</span>
+                    <h4 className="text-base uppercase mt-5 mb-3">{title}</h4>
+                    <p className="text-xs leading-relaxed text-egypt-papyrus/60">{description}</p>
                   </div>
-                  <p className="text-[9px] uppercase tracking-widest text-white/40">Global Rating</p>
-                </div>
-                <div className="flex-grow space-y-8">
-                  {(tour.reviewsList && tour.reviewsList.length > 0 ? tour.reviewsList : [
-                    { author: "Rebecca Miller", text: "Our family booking with Travision Tours was absolutely spectacular. Everything from our private transfers to our Egyptologist guide at the Giza Pyramids and Egyptian Museum was handled flawlessly. Highly recommended!", rating: 5, date: "12 May, 2026" },
-                    { author: "Thomas Vance", text: "The Nile Cruise and the tour of Karnak Temple were highlights of our lifetime. Travision Tours made sure every detail was perfect. The itinerary was well balanced and we felt incredibly safe and cared for.", rating: 5, date: "28 April, 2026" }
-                  ]).map((rev, idx) => (
-                    <div key={idx} className="border-b border-white/5 pb-8 last:border-0">
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-egypt-gold/20 flex items-center justify-center text-egypt-gold font-serif">
-                            {rev.author.charAt(0)}
-                          </div>
-                          <div>
-                            <h5 className="font-serif text-sm uppercase tracking-wider text-egypt-gold">{rev.author}</h5>
-                            <p className="text-[10px] text-white/30 uppercase tracking-widest">{rev.date}</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-0.5">
-                          {[...Array(rev.rating)].map((_, i) => <Star key={i} size={12} className="text-egypt-gold fill-egypt-gold" />)}
-                        </div>
-                      </div>
-                      <p className="text-sm italic font-light text-egypt-papyrus/70 leading-relaxed">
-                        "{rev.text}"
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
-              <button className="w-full py-5 rounded-2xl border border-egypt-gold/30 hover:border-egypt-gold transition-colors text-[10px] uppercase tracking-widest font-bold">
-                Join the Dialogue — Leave a Review
-              </button>
+              <div className="bg-egypt-red/10 border border-egypt-red/30 rounded-2xl p-6 text-sm text-egypt-papyrus/70">
+                Payment is made directly to {PAYMENT_PARTNER_NAME}, not Travision Tours. Never enter card details in this inquiry form or send funds using instructions from an unverified account. Confirm unexpected payment instructions through the official Travision Tours contact details on this website.
+              </div>
             </div>
 
             {/* Gallery Section */}
             <div id="virtual" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
               <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Gallery</h3>
-              {tour.gallery && tour.gallery.length > 0 ? (
+              {safeGallery.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {tour.gallery.map((imgSrc, idx) => (
+                  {safeGallery.map((imgSrc, idx) => (
                     <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-pointer border border-white/10 shadow-lg">
-                      <img src={imgSrc} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={`${tour.title} Gallery ${idx + 1}`} />
+                      <ResponsiveImage
+                        src={imgSrc}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        alt={`${tour.title} Gallery ${idx + 1}`}
+                        sizes="(min-width: 768px) 260px, 45vw"
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <span className="text-xs text-white tracking-wider font-light uppercase">View Sights</span>
                       </div>
@@ -413,16 +873,11 @@ const TourDetails = () => {
                   ))}
                 </div>
               ) : (
-                <div className="relative aspect-video rounded-[40px] overflow-hidden group cursor-pointer">
-                  <img src="https://images.unsplash.com/photo-1549495094-152cc98398e0?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700" alt="Virtual Preview" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-egypt-gold flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                      <Play size={32} className="text-egypt-night ml-2" />
-                    </div>
-                  </div>
+                <div className="relative aspect-video rounded-[40px] overflow-hidden">
+                  <ResponsiveImage src={tour.image} sizes="(min-width: 768px) 800px, 92vw" className="w-full h-full object-cover opacity-70" alt={`${tour.title} preview`} />
                   <div className="absolute bottom-10 left-10 text-white">
-                    <h4 className="text-2xl font-serif uppercase mb-2">360° Portal</h4>
-                    <p className="text-sm text-white/70 font-light">Experience the sights before you arrive.</p>
+                    <h4 className="text-2xl font-serif uppercase mb-2">Tour Preview</h4>
+                    <p className="text-sm text-white/70 font-light">Representative image for this itinerary.</p>
                   </div>
                 </div>
               )}
@@ -455,7 +910,7 @@ const TourDetails = () => {
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
                   <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Passport & Entry Visas</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Passports must be valid for at least 6 months beyond travel dates. Most tourists can obtain a 30-day single-entry Visa on Arrival for $25 USD at Cairo International Airport bank kiosks (cash only) or pre-arrange an official eVisa online prior to departure.
+                    Entry requirements depend on nationality and can change. Check passport-validity and visa rules with Egypt's official authorities or the nearest Egyptian consulate before booking travel.
                   </p>
                 </div>
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
@@ -467,15 +922,33 @@ const TourDetails = () => {
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
                   <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Tipping Guide & Currency</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Tipping (called baksheesh) is a customary part of Egyptian tourism culture. Small amounts are given to hotel staff, drivers, and restaurant servers. Typical recommendations are $10–$15 per day for your private guide and $5–$8 for drivers. Local currency is the Egyptian Pound (EGP).
+                    Tipping, often called baksheesh, is customary but discretionary. Your travel specialist can provide current guidance before departure. The local currency is the Egyptian Pound (EGP).
                   </p>
                 </div>
                 <div className="bg-egypt-basalt/20 p-6 rounded-2xl border border-white/5 space-y-3">
-                  <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Emergency Support & Health</h4>
+                  <h4 className="font-serif text-egypt-gold text-[15px] uppercase tracking-wider">Health & On-Trip Support</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Our team provides 24/7 client coordination and emergency hotlines. Bottled water is provided during sightseeing. Avoid tap water, and apply sun protection for temple visits.
+                    Support arrangements and emergency contacts are provided with your confirmed travel documents. Bring required medication, use sun protection, and follow current professional health advice.
                   </p>
                 </div>
+              </div>
+            </div>
+
+            {/* Frequently Asked Questions */}
+            <div id="faq" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold">Good to Know</h3>
+              <div className="space-y-4">
+                {tourFaqs.map(item => (
+                  <details key={item.question} className="glass rounded-2xl border border-white/5 p-6 group">
+                    <summary className="cursor-pointer list-none flex justify-between gap-6 font-serif text-base text-white">
+                      {item.question}
+                      <ChevronRight size={18} className="text-egypt-gold shrink-0 transition-transform group-open:rotate-90" />
+                    </summary>
+                    <p className="pt-4 mt-4 border-t border-white/5 text-sm leading-relaxed text-egypt-papyrus/65">
+                      {item.answer}
+                    </p>
+                  </details>
+                ))}
               </div>
             </div>
 
@@ -487,11 +960,11 @@ const TourDetails = () => {
                   <Link 
                     key={relTour.id} 
                     to={`/tours/${relTour.id}`}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    onClick={() => scrollToTop()}
                     className="glass border border-white/5 rounded-[24px] overflow-hidden group hover:border-egypt-gold/30 transition-all flex flex-col h-full shadow-lg hover:shadow-2xl"
                   >
                     <div className="h-40 overflow-hidden relative">
-                      <img src={relTour.image} alt={relTour.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <ResponsiveImage src={relTour.image} alt={relTour.title} sizes="(min-width: 768px) 260px, 92vw" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                       <div className="absolute top-3 left-3 bg-[#c63d2e] text-white text-[9px] uppercase tracking-widest font-black px-3 py-1.5 rounded-full">
                         {relTour.duration}
                       </div>
@@ -499,14 +972,11 @@ const TourDetails = () => {
                     <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
                       <div>
                         <h4 className="font-serif text-[15px] uppercase text-white tracking-wide leading-snug line-clamp-2 group-hover:text-egypt-gold transition-colors">{relTour.title}</h4>
-                        <p className="text-[11px] text-white/40 uppercase tracking-widest mt-1">{relTour.location}</p>
+                        <p className="text-[11px] text-white/60 uppercase tracking-widest mt-1">{relTour.location}</p>
                       </div>
                       <div className="flex justify-between items-center pt-3 border-t border-white/5">
-                        <span className="text-[16px] font-serif text-egypt-gold">${relTour.price}</span>
-                        <div className="flex items-center gap-1 text-[11px] font-bold text-egypt-gold">
-                          <Star size={12} className="fill-egypt-gold" />
-                          <span>{relTour.rating}</span>
-                        </div>
+                        <span className="text-[16px] font-serif text-egypt-gold">{formatUsd(relTour.price)}</span>
+                        <span className="text-[10px] uppercase tracking-widest text-white/60">{relTour.duration}</span>
                       </div>
                     </div>
                   </Link>
@@ -516,7 +986,7 @@ const TourDetails = () => {
 
             {/* Read Before You Go Section */}
             <div id="read" className="space-y-8 scroll-mt-32 pt-8 border-t border-white/10">
-              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Read Before You Go</h3>
+              <h3 className="text-2xl font-serif text-egypt-gold uppercase tracking-widest pl-4 border-l-2 border-egypt-gold mb-10">Packing & Practical Notes</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="glass border border-white/5 p-6 rounded-2xl space-y-3">
                   <h4 className="font-serif text-white text-[15px] uppercase tracking-wider">What to Wear</h4>
@@ -527,7 +997,7 @@ const TourDetails = () => {
                 <div className="glass border border-white/5 p-6 rounded-2xl space-y-3">
                   <h4 className="font-serif text-white text-[15px] uppercase tracking-wider">Safety & Scams</h4>
                   <p className="text-xs font-light text-egypt-papyrus/70 leading-relaxed">
-                    Egypt is generally a very safe destination for international travelers. Stay with your licensed guide, use official transport, and politely decline aggressive street vendors by saying "La, Shukran" (No, thank you).
+                    Follow current government travel advice and the guidance provided with your confirmed itinerary. Use arranged transport, keep valuables secure, and politely decline unwanted offers.
                   </p>
                 </div>
                 <div className="glass border border-white/5 p-6 rounded-2xl space-y-3">

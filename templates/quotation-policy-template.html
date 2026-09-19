@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+  Travision Tours × Egypt Online Tour — Quotation & Policy Document template.
+
+  Print-ready HTML: open in a browser, fill the bracketed [PLACEHOLDER] fields
+  with the reservation-specific values, then Print → Save as PDF and email it
+  to the customer BEFORE any payment is requested.
+
+  Rules (owner decision):
+  - No universal child, hotel, or cancellation policy exists. Every bracketed
+    field must be filled with the values confirmed for THIS reservation.
+  - Never leave an assumed value. If a field is not yet confirmed by the
+    supplier, keep the visible placeholder text ("To be confirmed for this
+    quotation.") rather than guessing.
+  - Payment is always made directly to Egypt Online Tour — never to Travision
+    Tours and never through the travisiontours.com website.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quotation &amp; Policy — [QUOTATION NUMBER]</title>
+<style>
+  :root {
+    --ink: #1c1917;
+    --muted: #57534e;
+    --accent: #8a6d2f;
+    --line: #d6d3cd;
+    --placeholder: #fef3c7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 40px 32px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  h1 { font-size: 22px; letter-spacing: 2px; margin: 0; text-transform: uppercase; }
+  h2 {
+    font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent); border-bottom: 1px solid var(--line);
+    padding-bottom: 4px; margin: 28px 0 10px;
+  }
+  p { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); width: 34%; }
+  .placeholder { background: var(--placeholder); padding: 0 4px; border-radius: 3px; font-style: italic; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--accent); padding-bottom: 16px; }
+  .head .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  ul { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  .note { background: #f5f5f4; border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; }
+  .accept { border: 1px solid var(--ink); padding: 14px; margin-top: 28px; }
+  .sig { display: flex; gap: 40px; margin-top: 24px; }
+  .sig div { flex: 1; border-top: 1px solid var(--ink); padding-top: 6px; font-size: 11px; color: var(--muted); }
+  @media print {
+    body { padding: 0; max-width: none; }
+    h2 { page-break-after: avoid; }
+    .accept { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div>
+    <p class="brand">Travision Tours — customer-facing inquiries</p>
+    <h1>Quotation &amp; Reservation Policy</h1>
+  </div>
+  <div style="text-align:right">
+    <p><strong>Quotation No.:</strong> <span class="placeholder">[QUOTATION NUMBER]</span></p>
+    <p><strong>Issue date:</strong> <span class="placeholder">[ISSUE DATE]</span></p>
+    <p><strong>Offer valid until:</strong> <span class="placeholder">[OFFER EXPIRATION DATE]</span></p>
+  </div>
+</header>
+
+<p class="note">
+  This document contains the personalized price and the reservation-specific
+  policies that apply to this booking only. Please review every section before
+  deciding whether to proceed. Payment is made directly to
+  <strong>Egypt Online Tour</strong>, the operating and payment-receiving
+  partner — never to Travision Tours and never through the website.
+</p>
+
+<h2>Customer</h2>
+<table>
+  <tr><th>Name</th><td><span class="placeholder">[CUSTOMER NAME]</span></td></tr>
+  <tr><th>Email</th><td><span class="placeholder">[CUSTOMER EMAIL]</span></td></tr>
+  <tr><th>Phone / WhatsApp</th><td><span class="placeholder">[CUSTOMER PHONE]</span></td></tr>
+  <tr><th>Inquiry reference</th><td><span class="placeholder">[INQUIRY REFERENCE]</span></td></tr>
+</table>
+
+<h2>Travel arrangements</h2>
+<table>
+  <tr><th>Travel dates</th><td><span class="placeholder">[TRAVEL DATES]</span></td></tr>
+  <tr><th>Adults (12+)</th><td><span class="placeholder">[NUMBER OF ADULTS]</span></td></tr>
+  <tr><th>Children (ages)</th><td><span class="placeholder">[NUMBER AND AGES OF CHILDREN — e.g. "2 children, ages 4 and 9"]</span></td></tr>
+  <tr><th>Pickup / meeting point</th><td><span class="placeholder">To be confirmed for this quotation.</span></td></tr>
+</table>
+
+<h2>Itinerary</h2>
+<p><span class="placeholder">[FINAL ITINERARY — day-by-day program as confirmed for this reservation]</span></p>
+
+<h2>Accommodation</h2>
+<table>
+  <tr><th>Selected hotel(s) / cruise</th><td><span class="placeholder">[SELECTED HOTEL OR CRUISE — names confirmed for this reservation, or "To be confirmed for this quotation."]</span></td></tr>
+  <tr><th>Room type &amp; occupancy</th><td><span class="placeholder">[ROOM TYPE AND OCCUPANCY]</span></td></tr>
+  <tr><th>Meal basis</th><td><span class="placeholder">[MEAL BASIS — e.g. breakfast only / half board / full board]</span></td></tr>
+  <tr><th>Hotel child policy</th><td><span class="placeholder">Insert current hotel child policy.</span></td></tr>
+  <tr><th>Child &amp; infant pricing</th><td><span class="placeholder">[CHILD AND INFANT PRICING FOR THIS RESERVATION]</span></td></tr>
+</table>
+
+<h2>Price</h2>
+<table>
+  <tr><th>Total price</th><td><span class="placeholder">[TOTAL PRICE AND CURRENCY]</span></td></tr>
+  <tr><th>Price breakdown</th><td><span class="placeholder">[PRICE BREAKDOWN WHEN APPLICABLE — per person / per room / child rates]</span></td></tr>
+  <tr><th>Deposit</th><td><span class="placeholder">[DEPOSIT AMOUNT]</span></td></tr>
+  <tr><th>Balance &amp; deadline</th><td><span class="placeholder">[BALANCE AMOUNT AND PAYMENT DEADLINE]</span></td></tr>
+</table>
+
+<h2>Payment</h2>
+<table>
+  <tr><th>Payment recipient</th><td>Egypt Online Tour</td></tr>
+  <tr><th>Accepted methods for this quotation</th><td><span class="placeholder">[ACCEPTED PAYMENT METHODS — e.g. Visa, Mastercard, Apple Pay, wire transfer]</span></td></tr>
+  <tr><th>Payment instructions</th><td><span class="placeholder">[SECURE CHECKOUT LINK OR WIRE-TRANSFER DETAILS — issued privately; verify the beneficiary is Egypt Online Tour]</span></td></tr>
+</table>
+
+<h2>Cancellation &amp; refund policy — this reservation</h2>
+<table>
+  <tr><th>Cancellation schedule</th><td><span class="placeholder">Insert reservation-specific cancellation schedule.</span></td></tr>
+  <tr><th>Amendment conditions</th><td><span class="placeholder">[AMENDMENT CONDITIONS AND FEES FOR THIS RESERVATION]</span></td></tr>
+  <tr><th>No-show policy</th><td><span class="placeholder">[NO-SHOW POLICY FOR THIS RESERVATION]</span></td></tr>
+  <tr><th>Unused services</th><td><span class="placeholder">[UNUSED-SERVICES / EARLY-DEPARTURE POLICY FOR THIS RESERVATION]</span></td></tr>
+  <tr><th>Special-event / supplier conditions</th><td><span class="placeholder">[SPECIAL-EVENT, PEAK-PERIOD, OR SUPPLIER-SPECIFIC CONDITIONS — or "None apply"]</span></td></tr>
+</table>
+
+<h2>Inclusions</h2>
+<p><span class="placeholder">[SERVICES INCLUDED IN THIS PRICE — transport, guiding, admissions, meals, taxes]</span></p>
+
+<h2>Exclusions</h2>
+<p><span class="placeholder">[SERVICES NOT INCLUDED — visas, insurance, optional activities, personal expenses]</span></p>
+
+<h2>Optional services</h2>
+<p><span class="placeholder">[OPTIONAL SERVICES AND THEIR PRICES — or "None offered"]</span></p>
+
+<h2>Special requests noted</h2>
+<p><span class="placeholder">[DIETARY, MOBILITY, MEDICAL, OR OTHER REQUESTS RECORDED FOR THIS RESERVATION]</span></p>
+
+<h2>Customer acceptance</h2>
+<div class="accept">
+  <p>
+    I confirm that I have received and reviewed this quotation and the
+    reservation-specific policies above — including the total price, selected
+    accommodation, applicable child policy and child prices, and the
+    cancellation and refund schedule for this booking — before making any
+    payment. I understand that payment is made directly to Egypt Online Tour
+    and that my reservation is confirmed only after these conditions are
+    accepted, payment requirements are completed, and written confirmation is
+    issued.
+  </p>
+  <div class="sig">
+    <div>Customer signature / date</div>
+    <div>For Egypt Online Tour / date</div>
+  </div>
+</div>
+
+<h2>Document</h2>
+<table>
+  <tr><th>Policy / quotation version</th><td><span class="placeholder">[POLICY VERSION — e.g. 2026-09]</span></td></tr>
+  <tr><th>Operating &amp; payment partner</th><td>Egypt Online Tour — <span class="placeholder">[EOT CONTACT DETAILS]</span></td></tr>
+  <tr><th>Prepared by</th><td>Travision Tours on behalf of Egypt Online Tour — <span class="placeholder">[AGENT NAME / CONTACT]</span></td></tr>
+</table>
+
+</body>
+</html>

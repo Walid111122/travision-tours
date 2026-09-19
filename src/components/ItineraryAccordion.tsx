@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronDown, Utensils, Bed, Plane, Car, MapPin, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, Utensils, Bed, Plane, Car, MapPin } from 'lucide-react';
 import { ItineraryItem } from '../types';
+import ResponsiveImage from './ResponsiveImage';
 
 interface Props {
   item: ItineraryItem;
@@ -22,6 +23,25 @@ const getActivityIcon = (iconName?: string) => {
 const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false, noAccordion = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
+  /**
+   * Ids are derived from the item's own data rather than from useId().
+   *
+   * useId() is only stable while the tree shape is unchanged, and the panel
+   * here is mounted conditionally. A panel that mounts *after* hydration was
+   * reproducibly observed to receive a different id from the one its own button
+   * had already rendered with — the button kept aria-controls="_R_a9tm_-panel"
+   * while the panel mounted as id="_R_kjr_-panel", an id that existed nowhere in
+   * the document. The result was a dangling aria-controls and a region with no
+   * accessible name, which is invisible to source-level checks because the
+   * markup is correct; only the hydrated DOM shows the split.
+   *
+   * The day number is stable data and identical in both passes, so the button
+   * and its panel always agree. The suite asserts no duplicate ids across every
+   * prerendered document, so a collision here would be caught.
+   */
+  const headerId = `itinerary-day-${item.day}`;
+  const panelId = `${headerId}-panel`;
+
   const words = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty', 'Twenty-One'];
   const dayStr = item.day <= words.length ? words[item.day - 1] : item.day.toString();
   const headerTitle = item.title || `Day ${dayStr}: ${item.activity}`;
@@ -30,31 +50,42 @@ const ItineraryAccordion: React.FC<Props> = ({ item, defaultOpen = false, noAcco
     <div className="mb-4 bg-egypt-basalt/40 backdrop-blur-sm border border-egypt-gold/20 shadow-xl overflow-hidden group rounded-[20px]">
       {noAccordion ? (
         <div className="w-full p-5 bg-egypt-gold/10 border-b border-egypt-gold/10 flex justify-between items-center">
-          <span className="text-[17px] font-serif tracking-wide text-egypt-gold uppercase">{headerTitle}</span>
+          <span id={headerId} className="text-[17px] font-serif tracking-wide text-egypt-gold uppercase">{headerTitle}</span>
         </div>
       ) : (
-        <button 
+        <button
+          type="button"
+          id={headerId}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
           onClick={() => setIsOpen(!isOpen)}
           className={`w-full flex justify-between items-center p-5 transition-all duration-300 ${
             isOpen ? 'bg-egypt-gold/10' : 'hover:bg-egypt-gold/5'
           }`}
         >
           <span className="text-[17px] font-serif tracking-wide text-egypt-gold uppercase">{headerTitle}</span>
-          <ChevronDown 
-            size={20} 
-            className={`text-egypt-gold transform transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} 
+          <ChevronDown
+            aria-hidden="true"
+            size={20}
+            className={`text-egypt-gold transform transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}
           />
         </button>
       )}
-      
+
       {(noAccordion || isOpen) && (
-        <div className="mt-0 p-0 overflow-hidden border-t border-egypt-gold/10">
+        <div
+          id={panelId}
+          role="region"
+          aria-labelledby={headerId}
+          className="mt-0 p-0 overflow-hidden border-t border-egypt-gold/10"
+        >
           {item.image && (
             <div className="w-full h-[300px] relative overflow-hidden">
-              <img 
-                src={item.image} 
-                alt={headerTitle} 
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+              <ResponsiveImage
+                src={item.image}
+                alt={headerTitle}
+                sizes="(min-width: 768px) 800px, 92vw"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-egypt-night via-transparent to-transparent opacity-60"></div>
             </div>

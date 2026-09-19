@@ -30,7 +30,7 @@ async function scrapeTours() {
          if(!dayMatch || !dayMatch.includes('Day')) return;
          
          const body = $(el).find('.card-body');
-         let description = body.children('p').first().text().replace(/\s+/g, ' ').trim() || '';
+         const description = body.children('p').first().text().replace(/\s+/g, ' ').trim() || '';
          
          let image = body.find('.itinerary-image img').attr('data-src');
          if (!image) image = body.find('img').attr('src');

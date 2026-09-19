@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap');
+@import "./fonts.css";
 @import "tailwindcss";
 
 @theme {
@@ -56,5 +56,64 @@
 /* Typography styles */
 .text-label {
   @apply text-[10px] uppercase tracking-[0.2em] font-medium text-egypt-gold/70;
+}
+
+/* Responsive images.
+   <picture> must not generate a layout box, otherwise wrapping an existing
+   <img> in one would change how it fills its parent. `display: contents` lets
+   the inner <img> participate in the parent's layout exactly as before. */
+picture {
+  display: contents;
+}
+
+/* Decorative carved-panel texture for the Home call-to-action.
+   Self-contained CSS pattern; replaces a third-party texture image URL. */
+.texture-hieroglyph {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(10, 10, 11, 0.85) 0 1.5px, transparent 1.5px 28px),
+    repeating-linear-gradient(0deg, rgba(10, 10, 11, 0.85) 0 1.5px, transparent 1.5px 28px);
+}
+
+/* ---------------------------------------------------------------------------
+   Keyboard focus indicator.
+
+   Nearly every control in the app carries `focus:outline-none
+   focus:border-egypt-gold`. Against this dark palette that is a subtle border
+   tint and nothing more, which is not a usable focus indicator.
+
+   This rule is deliberately written *outside* any `@layer`, so it beats the
+   Tailwind utility layer regardless of specificity — a layered
+   `.focus\:outline-none:focus` would otherwise win and leave the outline
+   transparent. Because it targets `:focus-visible`, pointer users see no
+   change at all and only keyboard navigation draws the ring.
+
+   `outline` is used rather than `box-shadow` because it follows `border-radius`
+   in modern browsers and is never clipped by an ancestor's `overflow: hidden`
+   (several panels here set that).
+   --------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--color-egypt-gold);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion.
+
+   Honours the OS-level "reduce motion" setting: transitions and CSS animations
+   collapse to effectively instant, and smooth scrolling is turned off. The
+   `!important` is required to override the per-element Tailwind transition
+   utilities. JS-driven animation is handled separately — see
+   `<MotionConfig reducedMotion="user">` in AppShell and `scrollToTarget()` in
+   src/utils/motion.ts, since neither reads CSS.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 

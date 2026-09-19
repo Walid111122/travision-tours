@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /planner
+Disallow: /admin
+
+Sitemap: https://travisiontours.com/sitemap.xml
